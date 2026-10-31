@@ -36,6 +36,22 @@ Branch `claude/kota-bharu`, disusun di atas `claude/penerbangan-3d` (PR #55).
   - **Kedai:** kira-kira 430 kedai dua dan tiga tingkat di sepanjang jalan, dibina selepas jaringan jalan raya supaya tidak menindih jalan persekutuan.
   - **Gerbang:** "Selamat Datang" di Jln. Hamzah.
 - **Item sedia ada dipindahkan ikut peta:** Terminal Bas Kota Bharu ke Jln. Padang Garong, dan gerai Nasi Kerabu ke Pasar Malam.
+- **Tarikan seluruh Kelantan** ikut peta pelancong "Jom Terokai Kelantan" (TIC Kelantan): 19 tempat ziarah baharu. Koordinatnya ANGGARAN (pengetahuan umum lokasi), belum diukur.
+  - **Tumpat:** Wat Phothivihan; Pantai Sri Tujuh dan Pengkalan Kubor.
+  - **Pasir Mas:** Masjid Beijing di Rantau Panjang; Danau Tok Uban.
+  - **Bachok:** Pantai Irama dan Pantai Senok; Pantai Melawi.
+  - **Pasir Puteh:** Tok Bali dan Pantai Bisikan Bayu; Jeram Pasu.
+  - **Machang:** Jeram Linang; Bukit Bakar.
+  - **Kuala Krai:** Zoo Kuala Krai.
+  - **Jeli:** Tasik Pergau; Gunung Reng.
+  - **Tanah Merah:** Bukit Bunga.
+  - **Dabong:** Gua Ikan.
+  - **Gua Musang:** Gua Cha; Tokong Gua Musang; Taman Negara Kuala Koh; Rafflesia Lojing.
+- **Model khas:**
+  - air terjun bertingkat;
+  - Masjid Beijing (bumbung pagoda);
+  - Wat Siam dengan patung Buddha berbaring;
+  - tokong Cina.
 - **Zon larangan:** sistem penempatan lain (sekolah, menara, stesen, gerai dan lain-lain) kini mengelak zon pusat bandar.
 
 **Diuji** (Playwright, desktop):

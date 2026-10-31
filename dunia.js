@@ -89,6 +89,26 @@ const PLACES = [
   ["kb-stadium", "kelantan", "Stadium Sultan Muhammad IV", "menara", 6.1222, 102.2485, "Stadium Sultan Muhammad IV ialah gelanggang pasukan bola sepak Kelantan, The Red Warriors."],
   ["kb-ktc", "kelantan", "Kelantan Trade Centre", "menara", 6.1194, 102.2472, "Kelantan Trade Centre ialah bangunan pejabat dan pusat perdagangan tertinggi di pusat bandar Kota Bharu."],
   ["kn-cahaya", "kelantan", "Pantai Cahaya Bulan", "pantai", 6.195, 102.285, "Pantai Cahaya Bulan ialah pantai popular di Kota Bharu, terkenal dengan wakaf dan layang-layang."],
+  /* v18.48: tarikan daripada peta pelancong "Jom Terokai Kelantan" (TIC Kelantan). Koordinat ANGGARAN (pengetahuan umum lokasi); belum diukur */
+  ["kn-wat", "kelantan", "Wat Phothivihan (Buddha Berbaring), Tumpat", "candi", 6.091, 102.089, "Wat Phothivihan di Kampung Jubakar, Tumpat menempatkan patung Buddha berbaring sepanjang kira-kira 40 meter, antara yang terbesar di Asia Tenggara, mencerminkan masyarakat Siam Kelantan."],
+  ["kn-sritujuh", "kelantan", "Pantai Sri Tujuh dan Pengkalan Kubor", "pantai", 6.236, 102.112, "Pantai Sri Tujuh di Tumpat terkenal dengan lagun dan Pesta Layang-Layang Antarabangsa. Pengkalan Kubor berdekatan ialah zon beli-belah bebas cukai di sempadan Malaysia-Thailand."],
+  ["kn-beijing", "kelantan", "Masjid Beijing (Masjid Jubli Perak Sultan Ismail Petra), Rantau Panjang", "masjid", 6.010, 101.978, "Masjid Jubli Perak Sultan Ismail Petra di Rantau Panjang dibina dengan seni bina gaya Cina, menyerupai masjid di Beijing, dan menjadi tarikan pelancong di sempadan Malaysia-Thailand."],
+  ["kn-tokuban", "kelantan", "Danau Tok Uban, Pasir Mas", "tasik", 5.968, 102.114, "Danau Tok Uban di Pasir Mas ialah tasik rekreasi untuk berkayak dan berkelah."],
+  ["kn-senok", "kelantan", "Pantai Irama dan Pantai Senok, Bachok", "pantai", 6.048, 102.410, "Pantai Irama di Bachok terkenal dengan pokok rhu yang teduh. Pantai Senok berdekatan menjadi lokasi berkelah keluarga."],
+  ["kn-melawi", "kelantan", "Pantai Melawi, Bachok", "pantai", 5.968, 102.465, "Pantai Melawi di Bachok ialah pantai berpasir landai yang tenang, popular untuk mandi-manda dan menaiki kuda."],
+  ["kn-tokbali", "kelantan", "Tok Bali dan Pantai Bisikan Bayu, Pasir Puteh", "pantai", 5.870, 102.495, "Tok Bali ialah pelabuhan nelayan utama Pasir Puteh. Pantai Bisikan Bayu di Semerak berdekatan terkenal dengan bunyi angin melalui pokok rhu."],
+  ["kn-jerampasu", "kelantan", "Air Terjun Jeram Pasu, Pasir Puteh", "gunung", 5.789, 102.375, "Jeram Pasu di Pasir Puteh ialah air terjun bertingkat di dalam hutan, tempat berkelah dan mandi yang popular."],
+  ["kn-jeramlinang", "kelantan", "Air Terjun Jeram Linang, Machang", "gunung", 5.700, 102.390, "Jeram Linang ialah air terjun di sempadan Machang dan Pasir Puteh dengan kolam semula jadi yang jernih."],
+  ["kn-bukitbakar", "kelantan", "Hutan Rekreasi Bukit Bakar, Machang", "hutan", 5.790, 102.205, "Hutan Rekreasi Bukit Bakar di Machang mempunyai air terjun lata bertingkat dan denai hutan."],
+  ["kn-zookrai", "kelantan", "Zoo Kuala Krai", "hutan", 5.531, 102.205, "Zoo Mini Kuala Krai menempatkan haiwan tempatan seperti rusa, buaya dan pelbagai jenis burung."],
+  ["kn-pergau", "kelantan", "Tasik Pergau, Jeli", "tasik", 5.625, 101.700, "Tasik Pergau di Jeli ialah tasik empangan hidroelektrik yang dikelilingi hutan, sesuai untuk berkayak dan memancing."],
+  ["kn-reng", "kelantan", "Gunung Reng, Jeli", "gua", 5.735, 101.780, "Gunung Reng di Jeli ialah bukit batu kapur dengan gua yang menjadi lokasi aktiviti alam semula jadi."],
+  ["kn-bukitbunga", "kelantan", "Zon Bebas Cukai Bukit Bunga, Tanah Merah", "pasar", 5.875, 101.853, "Bukit Bunga ialah pekan sempadan di Tanah Merah dengan jambatan ke Thailand dan kompleks beli-belah bebas cukai."],
+  ["kn-guaikan", "kelantan", "Gua Ikan, Dabong", "gua", 5.348, 102.026, "Gua Ikan di Dabong ialah gua batu kapur yang dilalui anak sungai, mudah diterokai oleh pelancong."],
+  ["kn-guacha", "kelantan", "Gua Cha, Ulu Nenggiri", "gua", 4.995, 101.765, "Gua Cha di Ulu Nenggiri ialah tapak arkeologi penting: rangka manusia dan artifak berusia ribuan tahun pernah ditemui di sini."],
+  ["kn-tokong", "kelantan", "Tokong Sweet Nyet Kong, Gua Musang", "candi", 4.881, 101.966, "Tokong Cina di pekan Gua Musang, berhampiran bukit batu kapur yang memberi nama kepada bandar ini."],
+  ["kn-kualakoh", "kelantan", "Taman Negara Kuala Koh, Gua Musang", "hutan", 4.870, 102.430, "Taman Negara Kuala Koh ialah pintu masuk Taman Negara dari Kelantan, dengan jambatan kanopi, denai hutan hujan dan perkampungan Orang Asli Batek berdekatan."],
+  ["kn-lojing", "kelantan", "Bunga Rafflesia, Lojing", "hutan", 4.600, 101.450, "Tanah tinggi Lojing di Gua Musang ialah habitat bunga Rafflesia, bunga terbesar di dunia yang hanya mekar beberapa hari."],
   ["tr-kristal", "terengganu", "Masjid Kristal", "masjid", 5.321, 103.123, "Masjid Kristal di Taman Tamadun Islam dibina daripada keluli, kaca dan kristal, siap pada tahun 2008."],
   ["tr-kenyir", "terengganu", "Tasik Kenyir", "tasik", 5.0, 102.7, "Tasik Kenyir ialah tasik buatan manusia terbesar di Asia Tenggara dengan lebih 340 pulau kecil."],
   ["tr-payang", "terengganu", "Pasar Payang", "pasar", 5.337, 103.139, "Pasar Payang terkenal dengan kain batik, songket dan keropok lekor Terengganu."],
@@ -1078,7 +1098,53 @@ function kbPasarSiti() {
   return { g: g, r: 10 };
 }
 const KB_RESERVE = [[1250, 772, 10], [1185, 1130, 14]]; /* gerai Pasar Malam, Terminal Bas: kedai tidak dibina di sini */
-const KB_MODEL = { "kb-balaibesar": kbIstanaBalaiBesar, "kb-merdeka": kbPadangMerdeka, "kb-jeti": kbJeti, "kb-jam": kbMenaraJam, "kb-stadium": kbStadium, "kb-ktc": kbKTC, "kn-siti": kbPasarSiti };
+/* air terjun bertingkat dengan kolam (Jeram Pasu, Jeram Linang) */
+function kbAirTerjun() {
+  const g = new T.Group(), air = new T.MeshBasicMaterial({ color: 0xdff4ff, transparent: true, opacity: 0.88, side: T.DoubleSide });
+  /* tebing batu bertingkat (tiga anak tangga) */
+  [[0, 0, -2, 18, 4, 8, "#7d7b70"], [0, 4, -6, 15, 4, 6, "#8a887c"], [0, 8, -9.5, 12, 4.5, 5, "#77756a"]].forEach(([x, y, z, w, h, d, c]) => { g.add(lmMesh(lmBox(w, h, d), c, x, y + h / 2, z)); for (const sx of [-1, 1]) { const b = lmMesh(new T.DodecahedronGeometry(1.6, 0), c, x + sx * (w / 2 - 0.6), y + h, z + d / 2 - 1); b.scale.set(1.3, 0.9, 1.1); g.add(b); } });
+  for (const [y0, h, z] of [[8, 4.5, -7.05], [4, 4, -3.05], [0, 4, 2.05]]) { const f = new T.Mesh(new T.PlaneGeometry(3.2, h + 0.4), air); f.position.set(0, y0 + h / 2, z); g.add(f); } /* tirai air */
+  const kolam = lmMesh(lmCyl(6, 6, 0.25, 28), "#3f9fbf", 0, 0.14, 6, { ns: 1 }); kolam.scale.z = 0.6; g.add(kolam);
+  for (let i = 0; i < 10; i++) { const b = lmMesh(new T.DodecahedronGeometry(0.7 + (i % 3) * 0.3, 0), "#8a887c", Math.cos(i * 0.63) * 6.4, 0.4, 6 + Math.sin(i * 0.63) * 3.8); g.add(b); } /* batu tepi kolam */
+  for (const [x, z] of [[-10, -2], [10, -3], [-9, 6], [10, 6], [-6, -11], [6, -11], [-11, -8], [11, -8]]) { g.add(lmMesh(lmBox(0.5, 5, 0.5), "#6e4a2c", x, 2.5, z)); const d = new T.Mesh(new T.IcosahedronGeometry(2.2, 0), lmMat("#2f7a36")); d.position.set(x, 6, z); g.add(d); }
+  return { g: g, r: 11 };
+}
+/* Wat Siam: dewan putih, bumbung bertingkat merah-jingga dengan hiasan emas, patung Buddha berbaring keemasan di bawah bumbung terbuka */
+function kbWat() {
+  const g = new T.Group(), emas = lmPbr("emasWat", { color: 0xe0b23a, roughness: 0.35, metalness: 0.6 }), merah = "#c4452c", putih = "#f4f1ea";
+  g.add(lmMesh(lmBox(26, 0.6, 16), "#e8e2d4", 0, 0.3, 0));
+  /* dewan (ubosot) */
+  g.add(lmMesh(lmBox(8, 4, 12), putih, -8, 2.6, -1)); for (const [y, w, d, h] of [[4.6, 9.4, 13.4, 2.4], [6.6, 7, 10, 1.8]]) { g.add(kbAtap(d, w, h, merah).translateY(y).translateX(-8).translateZ(-1).rotateY(Math.PI / 2)); }
+  for (const z of [-7.6, 5.6]) g.add(lmMesh(new T.ConeGeometry(0.3, 2, 6), emas, -8, 8.6, z)); /* chofa */
+  /* patung Buddha berbaring (stilisasi) di bawah bumbung terbuka */
+  for (const [x, z] of [[1, -5], [11, -5], [1, 5], [11, 5]]) g.add(lmMesh(lmBox(0.5, 5, 0.5), merah, x, 2.8, z));
+  g.add(kbAtap(11, 11, 2.2, merah).translateY(5.3).translateX(6));
+  g.add(lmMesh(lmBox(10.5, 0.8, 3), "#d8cfbc", 6, 1, 0));
+  const badan = new T.Mesh(new T.CylinderGeometry(1.1, 1.2, 8, 14), emas); badan.rotation.z = Math.PI / 2; badan.position.set(6.6, 2.3, 0); g.add(badan); { const kaki = new T.Mesh(new T.SphereGeometry(1.2, 14, 10), emas); kaki.position.set(10.6, 2.3, 0); g.add(kaki); }
+  const kepala = new T.Mesh(new T.SphereGeometry(1, 16, 12), emas); kepala.position.set(1.8, 3, 0); g.add(kepala); const mahkota = new T.Mesh(new T.ConeGeometry(0.35, 1, 10), emas); mahkota.rotation.z = Math.PI / 2; mahkota.position.set(0.6, 3.1, 0); g.add(mahkota);
+  g.add(lmMesh(lmBox(1.6, 0.9, 1.6), "#c4452c", 1.8, 1.85, 0)); /* bantal */
+  return { g: g, r: 13 };
+}
+/* tokong Cina: tiang merah, bumbung hijau melengkung berhias emas, tanglung */
+function kbTokong() {
+  const g = new T.Group(), merah = "#b8322a", hijau = "#2f8a5a";
+  g.add(lmMesh(lmBox(14, 0.5, 10), "#d8cfbc", 0, 0.25, 0)); g.add(lmMesh(lmBox(10, 4, 6), merah, 0, 2.5, -1));
+  for (const x of [-4, -1.4, 1.4, 4]) g.add(lmMesh(lmCyl(0.25, 0.25, 4, 10), "#d1362a", x, 2.5, 2.4));
+  g.add(kbAtap(11.5, 8, 2.2, hijau).translateY(4.5)); g.add(lmMesh(lmBox(12, 0.3, 0.3), "#e9c443", 0, 6.8, 0));
+  for (const sx of [-1, 1]) { const u = lmMesh(new T.ConeGeometry(0.35, 1.4, 6), "#e9c443", sx * 5.6, 5.2, 0); u.rotation.z = -sx * 0.6; g.add(u); }
+  for (const x of [-3, 3]) { g.add(lmMesh(lmBox(0.05, 0.6, 0.05), "#3a2a20", x, 3.9, 2.6)); g.add(lmMesh(lmSph(0.45, 10, 8), lmGlow("#ff3a2a", 0.7), x, 3.4, 2.6)); }
+  return { g: g, r: 9 };
+}
+/* Masjid Beijing: dewan solat bata merah-hijau, bumbung pagoda bertingkat hijau, menara gaya pagoda */
+function kbMasjidBeijing() {
+  const g = new T.Group(), dinding = "#c9473a", hijau = "#2f8a5a", kuning = "#e9c443";
+  g.add(lmMesh(lmBox(14, 0.6, 12), "#e8e2d4", 0, 0.3, 0)); g.add(lmMesh(lmBox(11, 4, 9), dinding, 0, 2.6, 0));
+  for (const [y, w, d, h] of [[4.6, 13, 11, 2.2], [7.2, 8.5, 7.5, 1.8], [9.4, 5, 4.5, 1.6]]) { g.add(kbAtap(w, d, h, hijau).translateY(y)); g.add(lmMesh(lmBox(w * 0.62, 0.9, d * 0.62), dinding, 0, y + h + 0.1, 0)); }
+  g.add(lmMesh(new T.ConeGeometry(0.5, 1.6, 8), kuning, 0, 12.3, 0));
+  for (const x of [-8.5, 8.5]) { for (let i = 0; i < 4; i++) { g.add(lmMesh(lmBox(2 - i * 0.3, 2.4, 2 - i * 0.3), i % 2 ? "#f2efe6" : dinding, x, 1.2 + i * 2.6, 4)); g.add(lmMesh(new T.ConeGeometry((2.4 - i * 0.3) * 0.75, 0.8, 4), hijau, x, 2.7 + i * 2.6, 4)); } g.add(lmMesh(new T.ConeGeometry(0.3, 1.4, 8), kuning, x, 12.4, 4)); }
+  return { g: g, r: 11 };
+}
+const KB_MODEL = { "kb-balaibesar": kbIstanaBalaiBesar, "kb-merdeka": kbPadangMerdeka, "kb-jeti": kbJeti, "kb-jam": kbMenaraJam, "kb-stadium": kbStadium, "kb-ktc": kbKTC, "kn-siti": kbPasarSiti, "kn-jerampasu": kbAirTerjun, "kn-jeramlinang": kbAirTerjun, "kn-beijing": kbMasjidBeijing, "kn-wat": kbWat, "kn-tokong": kbTokong };
 /* jalan utama (piksel peta) dan nama */
 const KB_JALAN = [
   ["Jln. Wakaf Mek Zainab", [[480, 520], [1100, 505], [1740, 500]], 2.4],
@@ -4577,7 +4643,7 @@ async function lmBuildWorld(g) {
     const [id, k, nama, type, la, lo, fakta] = p; if (!DATA.negeri[k]) return;
     let w = KB_POS[id] ? lmKBPos(KB_POS[id][0], KB_POS[id][1]) : ll(la, lo);
     if (id === "pg-jambatan" && RAST.bridge) { const b = RAST.bridge; w = { x: (b[0] + b[2]) / 2, z: (b[1] + b[3]) / 2 }; }
-    const R = lmRand(id), md = type === "masjid" ? lmMosque(id) : (lmLandmarkKhas(id) || lmModel(type, R)), rot = KB_POS[id] ? 0 : R() * 6.28; /* susun atur Kota Bharu ikut peta (utara di atas) */
+    const R = lmRand(id), md = type === "masjid" && !KB_MODEL[id] ? lmMosque(id) : (lmLandmarkKhas(id) || lmModel(type, R)), rot = KB_POS[id] ? 0 : R() * 6.28; /* susun atur Kota Bharu ikut peta (utara di atas) */
     /* cari ruang lapang: jauh daripada Menara Ilmu (kedudukan ikut subjek) dan mercu tanda lain.
        W.P. terletak di tengah Selangor, jadi mercu tanda KL boleh melimpah ke Selangor. */
     if (id !== "pg-jambatan" && !KB_POS[id]) {
