@@ -11,6 +11,63 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-10-31 · v18.48 · Pusat bandar Kota Bharu ikut peta pelancong
+Branch `claude/kota-bharu`, disusun di atas `claude/penerbangan-3d` (PR #55).
+
+**Siap** (`dunia.js`)
+- **Kanta berbilang:** kanta Lembah Klang dijadikan senarai `LENSES`, dan kanta kedua `KBL` ditambah untuk Kota Bharu (kira-kira 17x di tengah, radius 80 km). Fungsi yang dikemas kini: `lmWarp`, `lmUnwarp`, sempadan negeri, DEM dan lat/lon. Kawasan di luar 80 km tidak berubah. KL tidak berubah (disemak dengan tangkapan Istana Budaya).
+- **Susun atur bandar:** jalan, Sungai Kelantan dan bangunan diambil daripada peta pelancong Kota Bharu (piksel ke unit, utara di atas).
+  - **Kedudukan dalam bandar ialah ANGGARAN ikut peta, bukan ukuran.** Ia dilabel begitu di dalam permainan.
+  - **Jalan:** 24 jalan dengan garisan tengah, dan label nama untuk jalan utama.
+  - **Sungai Kelantan:** di barat, dengan pokok di tebing dan halangan supaya avatar tidak berjalan di atas air.
+  - **Mercu tanda interaktif (Ziarah):**
+    - Istana Balai Besar;
+    - Padang Merdeka dan Muzium Perang (Bank Kerapu, dengan Jalur Gemilang);
+    - Jeti Kampung Laut dan menara peninjau;
+    - Pasar Siti Khadijah (id `kn-siti` dikekalkan, jadi cop lama kekal);
+    - Menara Jam;
+    - Stadium Sultan Muhammad IV;
+    - Kelantan Trade Centre.
+  - **14 bangunan bernama:**
+    - Istana Jahar, Masjid Muhammadi, Muzium Diraja, Kampung Kraftangan, Istana Kota Lama;
+    - Bazar Buluh Kubu, Parkson/Mydin, KB Mall;
+    - Muzium Negeri, Dewan Jubli Perak, Gelanggang Seni, Perpustakaan;
+    - Masjid Pakistan, gerbang Kampung Cina.
+  - **Kedai:** kira-kira 430 kedai dua dan tiga tingkat di sepanjang jalan, dibina selepas jaringan jalan raya supaya tidak menindih jalan persekutuan.
+  - **Gerbang:** "Selamat Datang" di Jln. Hamzah.
+- **Item sedia ada dipindahkan ikut peta:** Terminal Bas Kota Bharu ke Jln. Padang Garong, dan gerai Nasi Kerabu ke Pasar Malam.
+- **Tarikan seluruh Kelantan** ikut peta pelancong "Jom Terokai Kelantan" (TIC Kelantan): 19 tempat ziarah baharu. Koordinatnya ANGGARAN (pengetahuan umum lokasi), belum diukur.
+  - **Tumpat:** Wat Phothivihan; Pantai Sri Tujuh dan Pengkalan Kubor.
+  - **Pasir Mas:** Masjid Beijing di Rantau Panjang; Danau Tok Uban.
+  - **Bachok:** Pantai Irama dan Pantai Senok; Pantai Melawi.
+  - **Pasir Puteh:** Tok Bali dan Pantai Bisikan Bayu; Jeram Pasu.
+  - **Machang:** Jeram Linang; Bukit Bakar.
+  - **Kuala Krai:** Zoo Kuala Krai.
+  - **Jeli:** Tasik Pergau; Gunung Reng.
+  - **Tanah Merah:** Bukit Bunga.
+  - **Dabong:** Gua Ikan.
+  - **Gua Musang:** Gua Cha; Tokong Gua Musang; Taman Negara Kuala Koh; Rafflesia Lojing.
+- **Model khas:**
+  - air terjun bertingkat;
+  - Masjid Beijing (bumbung pagoda);
+  - Wat Siam dengan patung Buddha berbaring;
+  - tokong Cina.
+- **Zon larangan:** sistem penempatan lain (sekolah, menara, stesen, gerai dan lain-lain) kini mengelak zon pusat bandar.
+
+**Diuji** (Playwright, desktop):
+- 7 mercu tanda di kedudukan peta;
+- tiada item lain bertindih dalam zon;
+- jalan persekutuan tidak ditindih kedai;
+- tiada ralat halaman;
+- Node 59/59.
+
+**Had**
+- Peta pelancong ialah peta skematik, jadi kedudukan ialah anggaran.
+- Jalan bandar ialah hiasan dan belum masuk graf navigasi atau teksi.
+- Fail PDF peta tidak disimpan dalam repo (hak cipta pihak penerbit peta).
+
+---
+
 ## 2026-10-31 · v18.47 · Penerbangan KLIA ⇄ Tanah Suci dalam 3D
 Branch `claude/penerbangan-3d`, disusun di atas `claude/grafik-tanahsuci` (PR #54).
 
