@@ -7237,7 +7237,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.48";
+const APP_VER = "18.50";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -7314,7 +7314,7 @@ function mdGo() {
   try { if (window.AV3 == null) av3Load(() => {}); } catch (e) { /* abaikan */ }
   /* v18.39: terus masuk permainan (subjek ditukar melalui ☰ Menu dalam Meta Didik) */
   /* skrin penuh mesti diminta dalam klik pengguna (sebelum animasi dan memuat dunia) */
-  try { let fs = 1; try { fs = (JSON.parse(localStorage.getItem("gt-lm-" + SUBJ) || "{}") || {}).fs; } catch (e) { fs = 1; } const d = document.documentElement, f = d.requestFullscreen || d.webkitRequestFullscreen; window.MD_FS = false; if (TOUCH && fs !== 0 && f && !document.fullscreenElement) { const pr = f.call(d); window.MD_FS = true; if (pr && pr.catch) pr.catch(() => { window.MD_FS = false; }); } } catch (e) { window.MD_FS = false; }
+  try { let fs = 1; try { fs = (JSON.parse(localStorage.getItem("gt-lm-" + SUBJ) || "{}") || {}).fs; } catch (e) { fs = 1; } const d = document.documentElement, f = d.requestFullscreen || d.webkitRequestFullscreen; window.MD_FS = false; const iPad = /iPad/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); if (TOUCH && !iPad && fs !== 0 && f && !document.fullscreenElement) { /* v18.50: tiada skrin penuh automatik di iPad */ const pr = f.call(d); window.MD_FS = true; if (pr && pr.catch) pr.catch(() => { window.MD_FS = false; }); } } catch (e) { window.MD_FS = false; }
   mdWarp(() => lmOpen(""));
 }
 function lmBtnInit() {
@@ -20045,3 +20045,30 @@ const RL_CSS = `
 /* v18.27: Gudang hanya di sekolah sendiri dalam Meta Didik: dompet membuka Meta Didik */
 document.addEventListener("click", (ev) => { const b = ev.target && ev.target.closest && ev.target.closest("#walletBtn"); if (b && !(typeof S !== "undefined" && S && S.running)) { toast("Belanja MD di Gudang sekolah anda dalam Meta Didik.", "ok"); if (!(window.LMX && window.LMX.on)) lmOpen(""); } });
 
+
+/* v18.49: diagnostik sentuhan untuk peranti sebenar (iPad/iPhone). Hidupkan dengan ?dbg=sentuh pada URL.
+   Panel kecil (tidak menghalang sentuhan) memaparkan peristiwa yang diterima pelayar, elemen sasaran, pembatalan,
+   skrin penuh dan keadaan kayu bedik dunia Meta Didik / simulasi haji / Tanah Suci. Tiada data dihantar ke mana-mana. */
+(function () {
+  let on = false; try { const nav = (performance.getEntriesByType && performance.getEntriesByType("navigation")[0]) || {}; on = /[?&]dbg=sentuh/.test(location.search + " " + (nav.name || "")) || sessionStorage.getItem("gt-dbg-sentuh") === "1"; if (on) sessionStorage.setItem("gt-dbg-sentuh", "1"); } catch (e) { /* abaikan */ }
+  if (!on) return;
+  const K = {}, last = {}, P = document.createElement("pre");
+  P.style.cssText = "position:fixed;left:50%;top:4px;transform:translateX(-50%);z-index:99999;pointer-events:none;margin:0;max-width:96vw;background:rgba(0,0,0,.78);color:#7CFF9A;font:11px/1.35 monospace;padding:6px 8px;border-radius:8px;white-space:pre-wrap";
+  const nm = (t) => !t ? "-" : (t.tagName || "?") + (t.id ? "#" + t.id : "") + (t.className && typeof t.className === "string" ? "." + t.className.split(" ")[0] : "");
+  ["touchstart", "touchmove", "touchend", "touchcancel", "pointerdown", "pointermove", "pointerup", "pointercancel", "gesturestart"].forEach((k) => window.addEventListener(k, (e) => {
+    K[k] = (K[k] || 0) + 1;
+    if (k !== "touchmove" && k !== "pointermove") last[k] = nm(e.target) + (e.pointerType ? " [" + e.pointerType + "]" : "") + (e.touches ? " n=" + e.touches.length : "") + (e.defaultPrevented ? " pd" : "");
+  }, { capture: true, passive: true }));
+  const js = () => { const r = []; try { if (window.LMX && LMX.js) r.push("dunia js=" + LMX.js.id + " (" + (+LMX.js.x).toFixed(2) + "," + (+LMX.js.y).toFixed(2) + ") ui=" + !!(LMX.g && LMX.g.ui)); } catch (e) { /* abaikan */ }
+    try { if (typeof HJ !== "undefined" && HJ.open) r.push("haji js=" + HJ.js.id + " on=" + HJ.js.on + " (" + (+HJ.js.x).toFixed(2) + "," + (+HJ.js.y).toFixed(2) + ") modal=" + !!(HJ.g && HJ.g.modal)); } catch (e) { /* abaikan */ }
+    try { if (window.TSX && TSX.on) r.push("tanahsuci js=" + TSX.js.id + " (" + (+TSX.js.x).toFixed(2) + "," + (+TSX.js.y).toFixed(2) + ") ui=" + !!(TSX.g && TSX.g.ui)); } catch (e) { /* abaikan */ }
+    return r.join("\n") || "(tiada permainan aktif)"; };
+  const tulis = () => {
+    const fs = document.fullscreenElement || document.webkitFullscreenElement;
+    P.textContent = "DIAGNOSTIK SENTUHAN · v" + (typeof APP_VER !== "undefined" ? APP_VER : "?") + "\n" + navigator.userAgent.replace(/^Mozilla\/5.0 /, "").slice(0, 90) + "\n" +
+      "ontouchstart=" + ("ontouchstart" in window) + " maxTouch=" + navigator.maxTouchPoints + " coarse=" + (matchMedia && matchMedia("(pointer: coarse)").matches) + " TOUCH=" + (typeof TOUCH !== "undefined" && TOUCH) + " skrin=" + innerWidth + "x" + innerHeight + " dpr=" + devicePixelRatio + " penuh=" + (fs ? nm(fs) : "tidak") + "\n" +
+      Object.keys(K).map((k) => k + ":" + K[k]).join(" ") + "\n" + Object.keys(last).map((k) => k + " → " + last[k]).join("\n") + "\n" + js();
+  };
+  const mula = () => { document.body.appendChild(P); setInterval(tulis, 250); };
+  if (document.body) mula(); else document.addEventListener("DOMContentLoaded", mula);
+})();

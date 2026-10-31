@@ -11,6 +11,33 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.49–v18.50 · iPad: avatar tidak berjalan di dunia Meta Didik
+Branch `claude/ipad-gerak` (termasuk diagnostik v18.49 daripada PR #57).
+
+**Bukti daripada pemilik** (tangkapan iPad mini sebenar):
+- gelang kayu bedik muncul di tempat jari, jadi `touchstart` sampai;
+- bulatan tengah tidak bergerak, jadi `touchmove` tidak sampai ke kanvas;
+- Safari dalam mod skrin penuh (butang ✕).
+
+Emulasi Chromium tidak dapat meniru masalah ini.
+
+**Pembaikan**
+- **Diagnostik `?dbg=sentuh`:** panel peristiwa sentuhan, untuk peranti sebenar.
+- **Pendengar di peringkat tetingkap:** `touchmove`, `touchend`, `touchcancel` serta `pointermove`, `pointerup`, `pointercancel` didengar pada `window` (fasa capture) untuk sentuhan kayu bedik dan kamera yang aktif. Ia tidak lagi bergantung pada sasaran kanvas.
+- **Tiada skrin penuh automatik di iPad**, sama ada semasa masuk Meta Didik atau dalam dunia. Butang "Skrin penuh" masih ada.
+- **Butang arah (D-pad) di iPad:** sandaran yang hanya memerlukan sentuhan mula dan tamat.
+
+**Diuji** (emulasi iPad Mini landskap dan potret):
+- kayu bedik: avatar bergerak 9.6–14.4 unit;
+- butang arah: 3.8–10.7 unit;
+- tiada skrin penuh;
+- iPhone tidak berubah;
+- Node 59/59.
+
+**Belum disahkan pada iPad sebenar.**
+
+---
+
 ## 2026-10-31 · v18.48 · Pusat bandar Kota Bharu ikut peta pelancong
 Branch `claude/kota-bharu`, disusun di atas `claude/penerbangan-3d` (PR #55).
 
