@@ -321,6 +321,7 @@ const CSS = "#tsOv{position:fixed;inset:0;z-index:300;background:#0b1a24;color:#
   + "#tsOv .ts-card{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.45);padding:16px}#tsOv .ts-box{width:min(560px,100%);max-height:88vh;overflow:auto;background:#0f2a3d;border:2px solid #ffd45a;border-radius:16px;padding:16px 18px}#tsOv .ts-box h2{margin:4px 0 8px;font-size:21px}#tsOv .ts-box p{margin:6px 0;line-height:1.5;font-size:14px}#tsOv .ts-k{color:#ffd45a;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}#tsOv .ts-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}#tsOv .ts-card button.pri{background:linear-gradient(180deg,#ffd96a,#f0a43a);color:#2a1a02;border:0}"
   + "#tsOv .ts-map{position:absolute;top:10px;right:10px;width:180px;height:180px;border-radius:12px;border:2px solid rgba(255,255,255,.35);background:#2a7ea8}#tsOv .ts-js{position:absolute;left:24px;bottom:24px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);pointer-events:none}"
   + "#tsOv .ts-fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .4s}#tsOv .ts-fl{position:absolute;inset:0;background:linear-gradient(180deg,#0a2540,#13446e)}#tsOv .ts-fl canvas{width:100%;height:100%}#tsOv .ts-fl .ts-cap{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);width:min(620px,92vw);background:rgba(8,20,32,.85);border:2px solid #ffd45a;border-radius:14px;padding:12px 16px;text-align:center;font-size:15px;line-height:1.5}"
+  + "#tsOv .ts-flh{position:absolute;left:12px;top:12px;background:rgba(8,20,32,.78);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 14px;font:800 13px Nunito,sans-serif;z-index:2}#tsOv .ts-fla{position:absolute;right:12px;bottom:8px;font-size:10px;opacity:.6;z-index:2}"
   + "@media (pointer:fine){#tsOv .ts-js{display:none}}";
 function ui() {
   if (!document.getElementById("tsCss")) { const s = document.createElement("style"); s.id = "tsCss"; s.textContent = CSS; document.head.appendChild(s); }
@@ -333,7 +334,7 @@ function fade(fn) { const f = TS.ui.fade; if (!f) { fn(); return; } f.style.opac
 
 /* ---------- penerbangan sinematik KLIA <-> Tanah Suci ---------- */
 const CITIES = [["Kuala Lumpur", 101.7, 2.75], ["Colombo", 79.9, 6.9], ["Mumbai", 72.9, 19.1], ["Muscat", 58.4, 23.6], ["Riyadh", 46.7, 24.7], ["Jeddah", 39.17, 21.69], ["Madinah", 39.61, 24.47]];
-function flight(dir, done) {
+function flight2D(dir, done) { /* sandaran 2D jika WebGL atau data daratan tiada */
   const box = el("div", { class: "ts-fl" }), cv = el("canvas"), cap = el("div", { class: "ts-cap" }); box.append(cv, cap); TS.root.appendChild(box);
   const toJed = dir === "go", dest = TS.opt.dest || "jed", [lo1, la1] = dest === "med" ? [39.705, 24.553] : [39.17, 21.69];
   const A = toJed ? [101.7, 2.75] : [lo1, la1], B = toJed ? [lo1, la1] : [101.7, 2.75];
@@ -361,6 +362,76 @@ function flight(dir, done) {
     raf = requestAnimationFrame(loop);
   };
   const sk = btn("Langkau ⏩", "", () => { t = Math.max(t, asked ? 1.02 : 0.8); }); sk.style.cssText = "position:absolute;top:12px;right:12px;background:#16324a;color:#fff;border:1px solid #fff4;border-radius:10px;padding:8px 12px;font:800 13px Nunito"; box.appendChild(sk);
+  raf = requestAnimationFrame(loop);
+}
+/* ---------- v18.47: penerbangan 3D: glob bumi (garis pantai Natural Earth), pesawat Didik Air mengikut lengkung bumi ----------
+   Laluan ialah bulatan besar sebenar antara KLIA dan Jeddah/Madinah; ketinggian pesawat dan saiz dibesarkan supaya jelas. */
+let DARAT = null;
+function ll3(lat, lon, r) { const ph = (lon + 180) / 180 * Math.PI, th = (90 - lat) / 180 * Math.PI; return new T.Vector3(-Math.cos(ph) * Math.sin(th) * r, Math.cos(th) * r, Math.sin(ph) * Math.sin(th) * r); }
+function globTex(W) {
+  const H = W / 2, c = document.createElement("canvas"), sp = document.createElement("canvas"); c.width = sp.width = W; c.height = sp.height = H;
+  const x = c.getContext("2d"), y = sp.getContext("2d"), P = (lo, la) => [(lo + 180) / 360 * W, (90 - la) / 180 * H];
+  const lg = x.createLinearGradient(0, 0, 0, H); lg.addColorStop(0, "#0b2a52"); lg.addColorStop(0.5, "#0f4a7c"); lg.addColorStop(1, "#0b2a52"); x.fillStyle = lg; x.fillRect(0, 0, W, H);
+  y.fillStyle = "#ffffff"; y.fillRect(0, 0, W, H);
+  const jalan = (ctx, r) => { ctx.beginPath(); r.forEach(([lo, la], i) => { const [px, py] = P(lo, la); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.closePath(); };
+  const semua = DARAT.dunia.concat(DARAT.rantau);
+  x.lineJoin = "round"; x.strokeStyle = "rgba(70,150,190,.55)"; x.lineWidth = W / 700; semua.forEach((r) => { jalan(x, r); x.stroke(); }); /* air cetek di pesisir */
+  /* warna daratan ikut zon iklim (anggaran visual): tropika hijau, gurun pasir, sederhana coklat kehijauan */
+  const zon = x.createLinearGradient(0, 0, 0, H); [[0, "#e8eef2"], [0.18, "#8a9a6a"], [0.3, "#a59a6c"], [0.36, "#d2b981"], [0.42, "#cdb27a"], [0.46, "#7f9a52"], [0.54, "#5f8c45"], [0.6, "#86955c"], [0.68, "#c7ad78"], [0.8, "#8a9a6a"], [1, "#e8eef2"]].forEach(([o, c2]) => zon.addColorStop(o, c2));
+  x.fillStyle = zon; semua.forEach((r) => { jalan(x, r); x.fill(); });
+  y.fillStyle = "#000000"; semua.forEach((r) => { jalan(y, r); y.fill(); });
+  for (let i = 0; i < W * 6; i++) { const px = Math.random() * W, py = Math.random() * H; x.fillStyle = "rgba(0,0,0," + (Math.random() * 0.05) + ")"; x.fillRect(px, py, 2, 2); } /* tekstur halus */
+  x.strokeStyle = "rgba(255,255,255,.35)"; x.lineWidth = W / 3000; semua.forEach((r) => { jalan(x, r); x.stroke(); });
+  const t = new T.CanvasTexture(c), ts = new T.CanvasTexture(sp); t.anisotropy = 8; return [t, ts];
+}
+function awanTex() { const c = document.createElement("canvas"); c.width = 1024; c.height = 512; const x = c.getContext("2d"); for (let i = 0; i < 110; i++) { const cx = Math.random() * 1024, cy = 60 + Math.random() * 392, n = 4 + Math.random() * 8 | 0; for (let k = 0; k < n; k++) { const r = 6 + Math.random() * 22, px = cx + (Math.random() - 0.5) * 60, py = cy + (Math.random() - 0.5) * 18, g = x.createRadialGradient(px, py, 0, px, py, r); g.addColorStop(0, "rgba(255,255,255,.32)"); g.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = g; x.fillRect(px - r, py - r, r * 2, r * 2); } } return new T.CanvasTexture(c); }
+function labelGlob(text) { const c = document.createElement("canvas"), x = c.getContext("2d"); x.font = "800 40px Nunito, sans-serif"; const w = Math.ceil(x.measureText(text).width) + 30; c.width = w; c.height = 58; x.font = "800 40px Nunito, sans-serif"; x.fillStyle = "rgba(8,20,32,.72)"; if (x.roundRect) { x.beginPath(); x.roundRect(0, 0, w, 58, 14); x.fill(); } else x.fillRect(0, 0, w, 58); x.fillStyle = "#fff"; x.textBaseline = "middle"; x.fillText(text, 15, 30); const sp = new T.Sprite(new T.SpriteMaterial({ map: new T.CanvasTexture(c), depthWrite: false, sizeAttenuation: false })); sp.scale.set(0.042 * w / 58, 0.042, 1); sp.center.set(-0.08, 0.5); return sp; }
+async function flight(dir, done) {
+  try { if (!DARAT) { const r = await fetch("tanahsuci-darat.json?v=" + (typeof APP_VER !== "undefined" ? APP_VER : "1")); if (!r.ok) throw new Error("darat"); DARAT = await r.json(); } } catch (e) { flight2D(dir, done); return; }
+  const box = el("div", { class: "ts-fl" }), cv = el("canvas"), cap = el("div", { class: "ts-cap" }), hudF = el("div", { class: "ts-flh" }); box.append(cv, cap, hudF); TS.root.appendChild(box);
+  let ren; try { ren = new T.WebGLRenderer({ canvas: cv, antialias: true }); } catch (e) { box.remove(); flight2D(dir, done); return; }
+  ren.setPixelRatio(Math.min(2, window.devicePixelRatio || 1)); const fit = () => { ren.setSize(window.innerWidth, window.innerHeight, false); cam.aspect = window.innerWidth / window.innerHeight; cam.updateProjectionMatrix(); };
+  ren.toneMapping = T.ACESFilmicToneMapping; ren.toneMappingExposure = 1.1;
+  const sc = new T.Scene(), cam = new T.PerspectiveCamera(50, 1, 0.1, 5000); fit(); window.addEventListener("resize", fit);
+  const R = 100, maxT = ren.capabilities.maxTextureSize >= 4096 ? 4096 : 2048, [tx, tspec] = globTex(maxT);
+  const bumi = new T.Mesh(new T.SphereGeometry(R, 192, 128), new T.MeshPhongMaterial({ map: tx, specularMap: tspec, specular: 0x26384a, shininess: 45 })); sc.add(bumi);
+  const awan = new T.Mesh(new T.SphereGeometry(R * 1.006, 160, 96), new T.MeshLambertMaterial({ map: awanTex(), transparent: true, opacity: 0.75, depthWrite: false })); sc.add(awan);
+  const atm = new T.Mesh(new T.SphereGeometry(R * 1.06, 64, 48), new T.ShaderMaterial({ transparent: true, depthWrite: false, blending: T.AdditiveBlending, side: T.BackSide,
+    vertexShader: "varying vec3 vN; varying vec3 vP; void main(){ vN = normalize(normalMatrix * normal); vec4 p = modelViewMatrix * vec4(position,1.0); vP = p.xyz; gl_Position = projectionMatrix * p; }",
+    fragmentShader: "varying vec3 vN; varying vec3 vP; void main(){ float f = pow(max(0.0, 0.72 - dot(normalize(-vP), -vN)), 3.0); gl_FragColor = vec4(0.18,0.42,0.95,1.0) * min(f * 1.6, 0.55); }" })); sc.add(atm);
+  { const g = new T.BufferGeometry(), v = []; for (let i = 0; i < 2500; i++) { const q = new T.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiplyScalar(2500); v.push(q.x, q.y, q.z); } g.setAttribute("position", new T.Float32BufferAttribute(v, 3)); sc.add(new T.Points(g, new T.PointsMaterial({ color: 0xffffff, size: 1.6, sizeAttenuation: false }))); }
+  sc.add(new T.HemisphereLight(0xbfd8ff, 0x1a2a3a, 0.55)); const mt = new T.DirectionalLight(0xfff3dc, 1.25); sc.add(mt);
+  /* laluan bulatan besar */
+  const toJed = dir === "go", dest = TS.opt.dest || "jed", [lo1, la1] = dest === "med" ? [39.705, 24.553] : [39.17, 21.69];
+  const A = toJed ? [2.75, 101.7] : [la1, lo1], B = toJed ? [la1, lo1] : [2.75, 101.7], uA = ll3(A[0], A[1], 1), uB = ll3(B[0], B[1], 1), om = Math.acos(Math.max(-1, Math.min(1, uA.dot(uB)))), km = om * 6371;
+  const titik = (u) => { const a = Math.sin((1 - u) * om) / Math.sin(om), b = Math.sin(u * om) / Math.sin(om), n = uA.clone().multiplyScalar(a).add(uB.clone().multiplyScalar(b)).normalize(); return n.multiplyScalar(R + 0.3 + 1.3 * Math.min(1, Math.sin(Math.PI * Math.min(1, Math.max(0, u))) * 5)); }; /* naik, terbang mendatar, turun */
+  { const pts = []; for (let k = 0; k <= 200; k++) pts.push(titik(k / 200)); sc.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 400, 0.07, 6, false), new T.MeshBasicMaterial({ color: 0xffd45a, transparent: true, opacity: 0.85 }))); }
+  CITIES.forEach(([n, lo, la]) => { const p = ll3(la, lo, R + 0.15), d = new T.Mesh(new T.SphereGeometry(0.35, 12, 8), new T.MeshBasicMaterial({ color: n === "Kuala Lumpur" || n === "Jeddah" || n === "Madinah" ? 0xffd45a : 0xffffff })); d.position.copy(p); sc.add(d); const l = labelGlob(n); l.position.copy(ll3(la, lo, R + 1.2)); sc.add(l); });
+  const pl = pesawat(0.32); sc.add(pl); const ekor = []; const ekorG = new T.BufferGeometry(), ekorL = new T.Line(ekorG, new T.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.55 })); sc.add(ekorL);
+  const steps = toJed ? [[0, "Didik Air MH-HAJI berlepas dari KLIA. Perjalanan kira-kira " + Math.round(km / 100) * 100 + " km, lebih kurang 9 jam."], [0.22, "Melintasi Selat Melaka dan Lautan Hindi."], [0.4, "Berhampiran Sri Lanka."], [0.62, "Terbang di atas Laut Arab menghampiri Semenanjung Arab."], [0.78, "Juruterbang: kita akan melintasi garisan miqat (Yalamlam / Qarnul Manazil) tidak lama lagi."], [0.94, "Menghampiri " + (dest === "med" ? "Madinah" : "Jeddah") + ". Sila pakai tali pinggang keledar."]]
+    : [[0, "Didik Air berlepas dari Tanah Suci. Selamat pulang, semoga ibadah diterima Allah SWT."], [0.35, "Melintasi Laut Arab dan Lautan Hindi."], [0.9, "Menghampiri KLIA, Sepang."]];
+  let t = 0, paused = false, asked = !(toJed && TS.pr && TS.pr.i === 0), last = performance.now(), raf = 0; const cpos = new T.Vector3(), clook = new T.Vector3(), M = new T.Matrix4();
+  const tengah = titik(0.5).normalize(), luas = tengah.clone().multiplyScalar(R * 2.7); cam.position.copy(luas); cam.lookAt(0, 0, 0); cpos.copy(luas); clook.set(0, 0, 0);
+  const tamat = () => { cancelAnimationFrame(raf); window.removeEventListener("resize", fit); sc.traverse((o) => { if (o.geometry) o.geometry.dispose(); if (o.material) { if (o.material.map) o.material.map.dispose(); o.material.dispose(); } }); tx.dispose(); tspec.dispose(); ren.dispose(); if (ren.forceContextLoss) ren.forceContextLoss(); box.remove(); done(); };
+  const loop = (ts) => {
+    const dt = Math.min(0.1, (ts - last) / 1000); last = ts;
+    if (!paused) t += dt / 18;
+    const s = steps.filter((q) => q[0] <= t).pop(); if (s && cap._t !== s[1]) { cap._t = s[1]; cap.textContent = s[1]; }
+    if (!asked && t >= 0.8) { asked = true; paused = true; miqatAsk(() => { paused = false; }); }
+    const u = Math.min(1, Math.max(0, t)), p = titik(u), q = titik(Math.min(1, u + 0.004)), up = p.clone().normalize(), fw = q.clone().sub(p); if (fw.lengthSq() < 1e-8) fw.copy(titik(u).sub(titik(Math.max(0, u - 0.004)))); fw.normalize();
+    const sd = fw.clone().cross(up).normalize(), up2 = sd.clone().cross(fw).normalize(); M.makeBasis(fw, up2, sd); pl.position.copy(p); pl.quaternion.setFromRotationMatrix(M);
+    ekor.push(p.clone().sub(fw.clone().multiplyScalar(1.8))); if (ekor.length > 90) ekor.shift(); ekorG.setFromPoints(ekor);
+    /* kamera: pandangan luas di permulaan -> mengekori pesawat -> menurun ke destinasi */
+    const ikut = p.clone().sub(fw.clone().multiplyScalar(7.5)).add(up.clone().multiplyScalar(4.8)).add(sd.clone().multiplyScalar(3)), lihat = p.clone().add(fw.clone().multiplyScalar(6)), k = Math.min(1, Math.max(0, (t - 0.02) / 0.1)), e = k * k * (3 - 2 * k);
+    const tgtP = luas.clone().lerp(ikut, e), tgtL = new T.Vector3(0, 0, 0).lerp(lihat, e), kf = Math.min(1, dt * 3.5); cpos.lerp(tgtP, kf); clook.lerp(tgtL, kf); cam.position.copy(cpos); cam.up.copy(up.clone().lerp(new T.Vector3(0, 1, 0), 1 - e)); cam.lookAt(clook);
+    mt.position.copy(cam.position.clone().normalize().multiplyScalar(400).add(new T.Vector3(120, 160, 60))); awan.rotation.y += dt * 0.004;
+    hudF.textContent = "✈ Didik Air · baki " + Math.max(0, Math.round(km * (1 - u))).toLocaleString("ms-MY") + " km · ketinggian " + (Math.round(Math.min(1, Math.sin(Math.PI * u) / Math.sin(Math.PI * 0.06)) * 350) * 100).toLocaleString("ms-MY") + " kaki";
+    ren.render(sc, cam);
+    if (t >= 1.02) { tamat(); return; }
+    raf = requestAnimationFrame(loop);
+  };
+  const sk = btn("Langkau ⏩", "", () => { t = Math.max(t, asked ? 1.02 : 0.8); }); sk.style.cssText = "position:absolute;top:12px;right:12px;background:#16324a;color:#fff;border:1px solid #fff4;border-radius:10px;padding:8px 12px;font:800 13px Nunito;z-index:2"; box.appendChild(sk);
+  box.appendChild(el("div", { class: "ts-fla" }, "Peta: Natural Earth (domain awam) · laluan bulatan besar sebenar · saiz pesawat dan ketinggian dibesarkan"));
   raf = requestAnimationFrame(loop);
 }
 /* miqat di udara: berniat ihram sebelum melintasi miqat */

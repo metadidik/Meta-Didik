@@ -11,6 +11,40 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-10-31 · v18.47 · Penerbangan KLIA ⇄ Tanah Suci dalam 3D
+Branch `claude/penerbangan-3d`, disusun di atas `claude/grafik-tanahsuci` (PR #54).
+
+**Siap**
+
+Peta 2D (poligon kasar) diganti dengan adegan Three.js:
+- **Glob bumi:**
+  - garis pantai sebenar Natural Earth (domain awam): 1:110m untuk seluruh dunia, 1:50m untuk rantau laluan;
+  - warna daratan ikut zon iklim (anggaran visual);
+  - air cetek di pesisir;
+  - kilauan laut (peta spekular);
+  - awan, atmosfera bercahaya dan bintang.
+- **Laluan:** bulatan besar sebenar KLIA ke Jeddah atau Madinah (kira-kira 7,100 km), ditanda tiub emas. Pesawat naik, terbang mendatar, kemudian turun.
+- **Pesawat Didik Air 3D:** model yang sama seperti di Jeddah, berorientasi ikut arah dan permukaan bumi, dengan jejak putih.
+- **Kamera:** pandangan luas di permulaan, kemudian mengekori pesawat.
+- **Paparan:**
+  - HUD: baki km dan ketinggian;
+  - label bandar bersaiz tetap di skrin;
+  - kapsyen, butang Langkau dan pertanyaan miqat dikekalkan.
+- **Sandaran:** peta 2D lama (`flight2D`) digunakan jika WebGL atau fail daratan gagal dimuat.
+
+**Data dan alat**
+- Data: `tanahsuci-darat.json` (233 KB, ~74 KB gzip).
+- Skrip penjanaan: `tools/geo/darat_penerbangan.py`.
+- Atribusi dipaparkan: "Peta: Natural Earth (domain awam) · saiz pesawat dan ketinggian dibesarkan".
+
+**Diuji** (Playwright, emulasi iPad Mini):
+- tangkapan pada 1.5 s, 5 s, 9 s dan 14 s;
+- HUD dikemas kini;
+- tiada ralat halaman.
+- **Belum diuji pada iPad sebenar** (prestasi tekstur 4096 px).
+
+---
+
 ## 2026-10-31 · v18.46 · Grafik Tanah Suci (Jeddah, Makkah, Madinah) dipertingkat
 Branch `claude/grafik-tanahsuci`.
 
