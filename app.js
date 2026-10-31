@@ -7237,7 +7237,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.49";
+const APP_VER = "18.50";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -7314,7 +7314,7 @@ function mdGo() {
   try { if (window.AV3 == null) av3Load(() => {}); } catch (e) { /* abaikan */ }
   /* v18.39: terus masuk permainan (subjek ditukar melalui ☰ Menu dalam Meta Didik) */
   /* skrin penuh mesti diminta dalam klik pengguna (sebelum animasi dan memuat dunia) */
-  try { let fs = 1; try { fs = (JSON.parse(localStorage.getItem("gt-lm-" + SUBJ) || "{}") || {}).fs; } catch (e) { fs = 1; } const d = document.documentElement, f = d.requestFullscreen || d.webkitRequestFullscreen; window.MD_FS = false; if (TOUCH && fs !== 0 && f && !document.fullscreenElement) { const pr = f.call(d); window.MD_FS = true; if (pr && pr.catch) pr.catch(() => { window.MD_FS = false; }); } } catch (e) { window.MD_FS = false; }
+  try { let fs = 1; try { fs = (JSON.parse(localStorage.getItem("gt-lm-" + SUBJ) || "{}") || {}).fs; } catch (e) { fs = 1; } const d = document.documentElement, f = d.requestFullscreen || d.webkitRequestFullscreen; window.MD_FS = false; const iPad = /iPad/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); if (TOUCH && !iPad && fs !== 0 && f && !document.fullscreenElement) { /* v18.50: tiada skrin penuh automatik di iPad */ const pr = f.call(d); window.MD_FS = true; if (pr && pr.catch) pr.catch(() => { window.MD_FS = false; }); } } catch (e) { window.MD_FS = false; }
   mdWarp(() => lmOpen(""));
 }
 function lmBtnInit() {

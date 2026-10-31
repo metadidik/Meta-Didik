@@ -4785,6 +4785,7 @@ function lmUpdatePlayer(g, dt) {
   if (!g.ui && !g.rai) {
     if (k.w || k.arrowup) iz -= 1; if (k.s || k.arrowdown) iz += 1; if (k.a || k.arrowleft) ix -= 1; if (k.d || k.arrowright) ix += 1;
     if (LM.js.id >= 0) { ix += LM.js.x; iz -= LM.js.y; }
+    if (LM.dpad) { ix += LM.dpad.x; iz -= LM.dpad.y; } /* v18.50: butang arah iPad */
   }
   /* v18.35: ketik untuk bergerak: avatar berjalan sendiri ke destinasi peta; input manual membatalkannya */
   if (LM.auto) {
@@ -5247,6 +5248,10 @@ const LM_CSS = `
 #lmOv .lm-stnform{display:grid;gap:8px;text-align:left;max-height:62vh;overflow:auto}#lmOv .lm-stnform .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:10px;display:grid;gap:8px}#lmOv .lm-stnform .field{display:grid;gap:4px}#lmOv .lm-stnform label{font-weight:700;font-size:13px}#lmOv .lm-stnform input:not([type=checkbox]),#lmOv .lm-stnform select,#lmOv .lm-stnform textarea{width:100%;box-sizing:border-box;padding:9px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.3);background:#0b1e33;color:#fff;font:inherit;user-select:text;-webkit-user-select:text}#lmOv .lm-stnform summary{font-weight:800;cursor:pointer}#lmOv .lm-stnform .notice{background:rgba(255,212,90,.1);border:1px solid rgba(255,212,90,.4);border-radius:10px;padding:8px 10px;font-size:13px}
 #lmOv .lm-js{position:absolute;left:calc(26px + env(safe-area-inset-left));bottom:calc(26px + env(safe-area-inset-bottom));width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);display:none;pointer-events:none}
 #lmOv.touch .lm-js{display:block}
+#lmOv .lm-dpad{position:absolute;left:calc(170px + env(safe-area-inset-left));bottom:calc(22px + env(safe-area-inset-bottom));width:150px;height:150px;z-index:6;touch-action:none}
+#lmOv .lm-dp{position:absolute;width:50px;height:50px;border-radius:12px;border:2px solid rgba(255,255,255,.55);background:rgba(10,30,50,.55);color:#fff;font-size:20px;font-weight:900;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+#lmOv .lm-dp.on{background:rgba(255,212,90,.85);color:#2a1a02}
+#lmOv .lm-dp-u{left:50px;top:0}#lmOv .lm-dp-d{left:50px;bottom:0}#lmOv .lm-dp-l{left:0;top:50px}#lmOv .lm-dp-r{right:0;top:50px}
 #lmOv .lm-js i{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.55)}
 #lmOv .lm-card{position:absolute;inset:0;display:flex;background:rgba(3,12,22,.62);padding:14px;overflow-y:auto;touch-action:pan-y;z-index:3}
 #lmOv .lm-box{margin:auto;width:min(620px,100%);background:linear-gradient(#123552,#0c2438);border:2px solid rgba(255,255,255,.18);border-radius:20px;padding:18px 18px 16px;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:lmIn .22s ease-out}
@@ -6392,6 +6397,7 @@ function lmProg(pct, txt) {
   return new Promise((r) => (document.hidden ? setTimeout(r, 0) : requestAnimationFrame(() => setTimeout(r, 0))));
 }
 function lmLandskap() { try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock("landscape").catch(() => {}); } catch (e) { /* abaikan */ } }
+function lmIPad() { return /iPad/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); } /* v18.50 */
 function lmFsMasuk() {
   const d = document.documentElement, f = d.requestFullscreen || d.webkitRequestFullscreen;
   if (!f || document.fullscreenElement || document.webkitFullscreenElement) return;
@@ -6491,6 +6497,17 @@ function lmHud() {
   emo.appendChild(lmBtn("5 🎉 Raikan", "", lmRai));
   r.appendChild(emo);
   ui.js = el("div", { class: "lm-js" }, el("i")); r.appendChild(ui.js);
+  if (TOUCH && lmIPad()) { /* v18.50: butang arah sandaran di iPad (hanya perlukan sentuhan mula/tamat) */
+    const dp = el("div", { class: "lm-dpad", "aria-label": "Butang arah" }), tekan = new Set(), kemas = () => { let x = 0, y = 0; tekan.forEach((d) => { x += d[0]; y += d[1]; }); LM.dpad = tekan.size ? { x: Math.max(-1, Math.min(1, x)), y: Math.max(-1, Math.min(1, y)) } : null; if (LM.dpad) LM.auto = null; };
+    [["▲", 0, 1, "u"], ["◀", -1, 0, "l"], ["▶", 1, 0, "r"], ["▼", 0, -1, "d"]].forEach(([t, x, y, c]) => {
+      const b = el("button", { type: "button", class: "lm-dp lm-dp-" + c, "aria-label": "Gerak " + t }, t), d = [x, y];
+      const on = (e) => { if (e.cancelable) e.preventDefault(); if (!LAUD.unl && !LM.mute) lmAudUnlock(); tekan.add(d); kemas(); b.classList.add("on"); }, off = () => { tekan.delete(d); kemas(); b.classList.remove("on"); };
+      b.addEventListener("touchstart", on, { passive: false }); b.addEventListener("touchend", off); b.addEventListener("touchcancel", off);
+      b.addEventListener("pointerdown", (e) => { if (e.pointerType !== "touch") on(e); }); b.addEventListener("pointerup", off); b.addEventListener("pointerleave", off);
+      dp.appendChild(b);
+    });
+    r.appendChild(dp); LM.ui.dpad = dp;
+  }
   const tc = el("div", { class: "lm-tc" });
   ui.run = lmBtn("Lari", "", () => { LM.run = !LM.run; ui.run.classList.toggle("ok", LM.run); });
   ui.chatB = lmBtn("💬", "lm-cb", () => { r.classList.add("chat"); ui.chatIn.focus(); }); ui.chatB.title = "Chat";
@@ -6593,7 +6610,7 @@ function lmKey(e) {
   else if (k === "5") lmRai();
 }
 function lmJsReset() {
-  LM.js.id = -1; LM.js.x = LM.js.y = 0; LM.drag.id = -1;
+  LM.js.id = -1; LM.js.x = LM.js.y = 0; LM.drag.id = -1; LM.dpad = null;
   const j = LM.ui.js; if (j) { j.style.left = ""; j.style.top = ""; j.style.bottom = ""; if (j.firstChild) j.firstChild.style.transform = ""; }
 }
 function lmPointers(cv) {
@@ -6641,18 +6658,30 @@ function lmPointers(cv) {
   if (TE) {
     const each = (e, fn) => { for (let i = 0; i < e.changedTouches.length; i++) { const t = e.changedTouches[i]; fn(100000 + t.identifier, t.clientX, t.clientY); } };
     cv.addEventListener("touchstart", (e) => each(e, (id, x, y) => down(id, x, y, true)), { passive: false });
-    cv.addEventListener("touchmove", (e) => each(e, (id, x, y) => move(id, x, y, true)), { passive: false });
-    cv.addEventListener("touchend", (e) => { stop(e); each(e, end); }, { passive: false });
-    cv.addEventListener("touchcancel", (e) => each(e, end), { passive: false });
+    /* v18.50: gerak/lepas didengar di peringkat TETINGKAP (fasa capture), bukan kanvas sahaja: di iPad Safari (terutama
+       mod skrin penuh) touchmove boleh tidak sampai ke kanvas walaupun touchstart sampai; kayu bedik kekal tetapi avatar tidak bergerak */
+    LM.tMove = move; LM.tEnd = end;
+    if (!LM.tWin) {
+      LM.tWin = true;
+      const aktif = (id) => id === LM.js.id || id === LM.drag.id;
+      window.addEventListener("touchmove", (e) => { let k = false; for (let i = 0; i < e.changedTouches.length; i++) { const t = e.changedTouches[i], id = 100000 + t.identifier; if (aktif(id)) { k = true; LM.tMove(id, t.clientX, t.clientY, true); } } if (k && e.cancelable) e.preventDefault(); }, { capture: true, passive: false });
+      const lepas = (e) => { for (let i = 0; i < e.changedTouches.length; i++) { const id = 100000 + e.changedTouches[i].identifier; if (aktif(id)) LM.tEnd(id); } };
+      window.addEventListener("touchend", lepas, { capture: true, passive: true }); window.addEventListener("touchcancel", lepas, { capture: true, passive: true });
+    }
+    cv.addEventListener("touchend", stop, { passive: false });
   }
   cv.addEventListener("pointerdown", (e) => {
     if (TE && e.pointerType === "touch") return;
     down(e.pointerId, e.clientX, e.clientY, e.pointerType === "touch");
     try { cv.setPointerCapture(e.pointerId); } catch (x) { /* abaikan */ }
   });
-  cv.addEventListener("pointermove", (e) => { if (!(TE && e.pointerType === "touch")) move(e.pointerId, e.clientX, e.clientY); });
-  const up = (e) => { if (!(TE && e.pointerType === "touch")) end(e.pointerId); };
-  cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+  LM.pMove = move; LM.pEnd = end;
+  if (!LM.pWin) { /* v18.50: penunjuk juga di peringkat tetingkap */
+    LM.pWin = true; const T2 = "ontouchstart" in window, aktif = (id) => id === LM.js.id || id === LM.drag.id;
+    window.addEventListener("pointermove", (e) => { if (!(T2 && e.pointerType === "touch") && aktif(e.pointerId)) LM.pMove(e.pointerId, e.clientX, e.clientY); }, true);
+    const up = (e) => { if (!(T2 && e.pointerType === "touch") && aktif(e.pointerId)) LM.pEnd(e.pointerId); };
+    window.addEventListener("pointerup", up, true); window.addEventListener("pointercancel", up, true);
+  }
   cv.addEventListener("contextmenu", (e) => e.preventDefault());
   cv.addEventListener("wheel", (e) => { if (LM.g) { LM.g.cam.dist = clamp(LM.g.cam.dist + Math.sign(e.deltaY) * 2, 8, 46); e.preventDefault(); } }, { passive: false });
 }
@@ -6797,7 +6826,7 @@ function lmPjMuatLogo() {
   const row = el("div", { style: "display:flex;gap:10px;flex-wrap:wrap;justify-content:center" }); L.forEach((d) => row.appendChild(el("div", { style: "background:#fff;border-radius:10px;width:130px;height:62px;display:grid;place-items:center;padding:6px" }, el("img", { src: d.logo, alt: d.n, style: "max-width:100%;max-height:100%" })))); r.appendChild(row); return r;
 }
 function lmStart(code, kind) {
-  if (TOUCH && LM.st && LM.st.fs !== 0) { if ((document.fullscreenElement || document.webkitFullscreenElement) && window.MD_FS) { LM.fsAuto = true; lmLandskap(); } else lmFsMasuk(); } /* v18.35/18.39: skrin penuh + landskap (diminta semasa klik Masuk Meta Didik) */
+  if (TOUCH && !lmIPad() && LM.st && LM.st.fs !== 0) { if ((document.fullscreenElement || document.webkitFullscreenElement) && window.MD_FS) { LM.fsAuto = true; lmLandskap(); } else lmFsMasuk(); } /* v18.35/18.39: skrin penuh + landskap (diminta semasa klik Masuk Meta Didik) */
   lmAudUnlock(); AZ.last = null; lmAzanLoad(); /* v18.33: azan */ /* dalam klik pengguna: buka kunci audio telefon */
   const r = lmRoot(); /* kembali dari permainan lain (LM.resume): lapisan mungkin masih tersembunyi */ LM.ptsLast = null; LM.roomKind = kind || ""; LM.sh = lmMySh(); LM.zoneN = null; LM.zoneAt = 0; LM.roomCode = ""; LM.openFull = false; LM.openRetry = 0; LM.zone = "";
   lmCardClose(); r.textContent = "";
@@ -6834,7 +6863,7 @@ function lmClose() {
     try { g.renderer.dispose(); if (g.renderer.forceContextLoss) g.renderer.forceContextLoss(); } catch (e) { /* abaikan */ }
   }
   if (LM.st) lmSave();
-  LM.g = null; LM.ui = {}; LM.keys = {}; LM.js.id = -1; LM.drag.id = -1; LM.run = false;
+  LM.g = null; LM.ui = {}; LM.keys = {}; LM.js.id = -1; LM.drag.id = -1; LM.run = false; LM.dpad = null;
   if (LM.root) { LM.root.textContent = ""; LM.root.hidden = true; }
   document.body.classList.remove("ar-lock");
   if (window.__swPend) setTimeout(() => location.reload(), 300); /* versi baharu tiba semasa bermain */
