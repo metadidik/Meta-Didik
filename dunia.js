@@ -23,31 +23,43 @@ const ll = (lat, lon) => lmWarp((lon - GEOD.lon0) * GEOD.kx * GEOD.U, (GEOD.lat0
    pemampatan B.w(r) diagihkan sekata dalam gelang luar (2s hingga R) supaya D(R) = R dan peta di luar R tidak berubah.
    Sempadan, pantai dan DEM ikut sama (lmUnwarp ialah songsangan melalui jadual). */
 const KV = { la: 3.135, lo: 101.675, R: 180 * 3 * WS, A: 3.5, s: 13 * 3 * WS, c: null, t: null };
-function lmKvC() { if (!KV.c) KV.c = { x: (KV.lo - GEOD.lon0) * GEOD.kx * GEOD.U, z: (GEOD.lat0 - KV.la) * GEOD.kz * GEOD.U }; return KV.c; }
-function lmKvT() {
-  if (KV.t) return KV.t;
-  const N = 4096, R = KV.R, dr = R / N, r1 = 2 * KV.s, sp = R - r1;
-  const gs = (r) => KV.A * Math.exp(-(r / KV.s) * (r / KV.s));
+/* v18.48: kanta kedua untuk pusat bandar Kota Bharu (kira-kira 17 kali ganda di tengah), supaya susun atur peta
+   pelancong Kota Bharu (jalan, Sungai Kelantan, Padang Merdeka, mercu tanda) muat; peta di luar 80 km tidak berubah */
+const KBL = { la: 6.1280, lo: 102.2420, R: 80 * 3 * WS, A: 16, s: 2.5 * 3 * WS, c: null, t: null };
+const LENSES = [KV, KBL];
+function lmLC(L) { if (!L.c) L.c = { x: (L.lo - GEOD.lon0) * GEOD.kx * GEOD.U, z: (GEOD.lat0 - L.la) * GEOD.kz * GEOD.U }; return L.c; }
+function lmKvC() { return lmLC(KV); }
+function lmLT(L) {
+  if (L.t) return L.t;
+  const N = 4096, R = L.R, dr = R / N, r1 = 2 * L.s, sp = R - r1;
+  const gs = (r) => L.A * Math.exp(-(r / L.s) * (r / L.s));
   const w = (r) => { if (r <= r1) return 0; const u = (r - r1) / sp, e = 0.2, sm = (t) => t * t * (3 - 2 * t); return u < e ? sm(u / e) : u > 1 - e ? sm((1 - u) / e) : 1; };
   let ex = 0, W = 0; for (let i = 0; i < N; i++) { const r = (i + 0.5) * dr; ex += gs(r) * dr; W += w(r) * dr; }
   const B = ex / W, D = new Float64Array(N + 1); /* D[i] = jarak selepas zum bagi jarak asal i.dr */
   for (let i = 0; i < N; i++) { const r = (i + 0.5) * dr; D[i + 1] = D[i] + (1 + gs(r) - B * w(r)) * dr; }
   const k = R / D[N]; for (let i = 0; i <= N; i++) D[i] *= k; /* betulkan ralat kamiran supaya D(R) = R tepat */
-  return (KV.t = { D: D, dr: dr, N: N, B: B });
+  return (L.t = { D: D, dr: dr, N: N, B: B });
 }
+function lmKvT() { return lmLT(KV); }
 function lmWarp(x, z) {
-  const c = lmKvC(), dx = x - c.x, dz = z - c.z, d = Math.hypot(dx, dz);
-  if (d >= KV.R || d < 1e-6) return { x: x, z: z };
-  const T0 = lmKvT(), f = d / T0.dr, i = Math.min(T0.N - 1, f | 0), u = f - i, D = T0.D[i] + (T0.D[i + 1] - T0.D[i]) * u, k = D / d;
-  return { x: c.x + dx * k, z: c.z + dz * k };
+  for (const L of LENSES) {
+    const c = lmLC(L), dx = x - c.x, dz = z - c.z, d = Math.hypot(dx, dz);
+    if (d >= L.R) continue; if (d < 1e-6) return { x: x, z: z };
+    const T0 = lmLT(L), f = d / T0.dr, i = Math.min(T0.N - 1, f | 0), u = f - i, D = T0.D[i] + (T0.D[i + 1] - T0.D[i]) * u, k = D / d;
+    return { x: c.x + dx * k, z: c.z + dz * k };
+  }
+  return { x: x, z: z };
 }
 function lmUnwarp(x, z) {
-  const c = lmKvC(), dx = x - c.x, dz = z - c.z, Dd = Math.hypot(dx, dz);
-  if (Dd >= KV.R || Dd < 1e-6) return { x: x, z: z };
-  const T0 = lmKvT(), A = T0.D; let lo = 0, hi = T0.N;
-  while (hi - lo > 1) { const m = (lo + hi) >> 1; if (A[m] <= Dd) lo = m; else hi = m; }
-  const d = (lo + (Dd - A[lo]) / Math.max(1e-9, A[hi] - A[lo])) * T0.dr, k = d / Dd;
-  return { x: c.x + dx * k, z: c.z + dz * k };
+  for (const L of LENSES) {
+    const c = lmLC(L), dx = x - c.x, dz = z - c.z, Dd = Math.hypot(dx, dz);
+    if (Dd >= L.R) continue; if (Dd < 1e-6) return { x: x, z: z };
+    const T0 = lmLT(L), A = T0.D; let lo = 0, hi = T0.N;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (A[m] <= Dd) lo = m; else hi = m; }
+    const d = (lo + (Dd - A[lo]) / Math.max(1e-9, A[hi] - A[lo])) * T0.dr, k = d / Dd;
+    return { x: c.x + dx * k, z: c.z + dz * k };
+  }
+  return { x: x, z: z };
 }
 const XP_CAP = 80, XP_KEY = "gt-lm-xp";
 const EMOTE = { salam: "Assalamualaikum!", hebat: "Hebat!", jom: "Jom ikut saya!", tahniah: "Tahniah!" };
@@ -68,8 +80,35 @@ const PLACES = [
   ["pk-condong", "perak", "Menara Condong Teluk Intan", "menara", 4.024, 101.02, "Menara Condong Teluk Intan dibina pada tahun 1885 sebagai menara jam dan tangki air."],
   ["pk-belum", "perak", "Hutan Belum-Temenggor", "hutan", 5.55, 101.4, "Hutan Belum-Temenggor dianggarkan berusia lebih 130 juta tahun dan menjadi habitat burung enggang."],
   ["kn-kglaut", "kelantan", "Masjid Kampung Laut", "masjid", 6.0623, 102.2489, "Masjid Kampung Laut antara masjid tertua di Malaysia, dibina tanpa paku menggunakan kayu cengal."],
-  ["kn-siti", "kelantan", "Pasar Siti Khadijah", "pasar", 6.129, 102.239, "Pasar Siti Khadijah di Kota Bharu terkenal kerana kebanyakan peniaganya ialah wanita."],
+  ["kn-siti", "kelantan", "Pasar Siti Khadijah", "pasar", 6.1300, 102.2430, "Pasar Siti Khadijah di Kota Bharu terkenal kerana kebanyakan peniaganya ialah wanita."],
+  /* v18.48: pusat bandar Kota Bharu ikut peta pelancong (kedudukan dalam bandar daripada susun atur peta, KB_POS) */
+  ["kb-balaibesar", "kelantan", "Istana Balai Besar", "istana", 6.1325, 102.2410, "Istana Balai Besar dibina pada tahun 1840 oleh Sultan Muhammad II. Istana kayu tradisional ini masih digunakan untuk istiadat rasmi Kesultanan Kelantan."],
+  ["kb-merdeka", "kelantan", "Padang Merdeka dan Muzium Perang", "menara", 6.1335, 102.2375, "Padang Merdeka ialah dataran bersejarah Kota Bharu. Bangunan Bank Kerapu di sebelahnya, bekas bank yang menjadi ibu pejabat tentera Jepun, kini Muzium Perang Dunia Kedua."],
+  ["kb-jeti", "kelantan", "Jeti Kampung Laut, Sungai Kelantan", "jeti", 6.1337, 102.2352, "Dari jeti di tebing Sungai Kelantan, bot menyeberang ke Kampung Laut. Masjid Kampung Laut dipercayai antara masjid kayu tertua di Malaysia."],
+  ["kb-jam", "kelantan", "Menara Jam Kota Bharu", "menara", 6.1246, 102.2405, "Menara jam di bulatan pusat bandar Kota Bharu, berhampiran Muzium Negeri Kelantan dan Pusat Penerangan Pelancong."],
+  ["kb-stadium", "kelantan", "Stadium Sultan Muhammad IV", "menara", 6.1222, 102.2485, "Stadium Sultan Muhammad IV ialah gelanggang pasukan bola sepak Kelantan, The Red Warriors."],
+  ["kb-ktc", "kelantan", "Kelantan Trade Centre", "menara", 6.1194, 102.2472, "Kelantan Trade Centre ialah bangunan pejabat dan pusat perdagangan tertinggi di pusat bandar Kota Bharu."],
   ["kn-cahaya", "kelantan", "Pantai Cahaya Bulan", "pantai", 6.195, 102.285, "Pantai Cahaya Bulan ialah pantai popular di Kota Bharu, terkenal dengan wakaf dan layang-layang."],
+  /* v18.48: tarikan daripada peta pelancong "Jom Terokai Kelantan" (TIC Kelantan). Koordinat ANGGARAN (pengetahuan umum lokasi); belum diukur */
+  ["kn-wat", "kelantan", "Wat Phothivihan (Buddha Berbaring), Tumpat", "candi", 6.091, 102.089, "Wat Phothivihan di Kampung Jubakar, Tumpat menempatkan patung Buddha berbaring sepanjang kira-kira 40 meter, antara yang terbesar di Asia Tenggara, mencerminkan masyarakat Siam Kelantan."],
+  ["kn-sritujuh", "kelantan", "Pantai Sri Tujuh dan Pengkalan Kubor", "pantai", 6.236, 102.112, "Pantai Sri Tujuh di Tumpat terkenal dengan lagun dan Pesta Layang-Layang Antarabangsa. Pengkalan Kubor berdekatan ialah zon beli-belah bebas cukai di sempadan Malaysia-Thailand."],
+  ["kn-beijing", "kelantan", "Masjid Beijing (Masjid Jubli Perak Sultan Ismail Petra), Rantau Panjang", "masjid", 6.010, 101.978, "Masjid Jubli Perak Sultan Ismail Petra di Rantau Panjang dibina dengan seni bina gaya Cina, menyerupai masjid di Beijing, dan menjadi tarikan pelancong di sempadan Malaysia-Thailand."],
+  ["kn-tokuban", "kelantan", "Danau Tok Uban, Pasir Mas", "tasik", 5.968, 102.114, "Danau Tok Uban di Pasir Mas ialah tasik rekreasi untuk berkayak dan berkelah."],
+  ["kn-senok", "kelantan", "Pantai Irama dan Pantai Senok, Bachok", "pantai", 6.048, 102.410, "Pantai Irama di Bachok terkenal dengan pokok rhu yang teduh. Pantai Senok berdekatan menjadi lokasi berkelah keluarga."],
+  ["kn-melawi", "kelantan", "Pantai Melawi, Bachok", "pantai", 5.968, 102.465, "Pantai Melawi di Bachok ialah pantai berpasir landai yang tenang, popular untuk mandi-manda dan menaiki kuda."],
+  ["kn-tokbali", "kelantan", "Tok Bali dan Pantai Bisikan Bayu, Pasir Puteh", "pantai", 5.870, 102.495, "Tok Bali ialah pelabuhan nelayan utama Pasir Puteh. Pantai Bisikan Bayu di Semerak berdekatan terkenal dengan bunyi angin melalui pokok rhu."],
+  ["kn-jerampasu", "kelantan", "Air Terjun Jeram Pasu, Pasir Puteh", "gunung", 5.789, 102.375, "Jeram Pasu di Pasir Puteh ialah air terjun bertingkat di dalam hutan, tempat berkelah dan mandi yang popular."],
+  ["kn-jeramlinang", "kelantan", "Air Terjun Jeram Linang, Machang", "gunung", 5.700, 102.390, "Jeram Linang ialah air terjun di sempadan Machang dan Pasir Puteh dengan kolam semula jadi yang jernih."],
+  ["kn-bukitbakar", "kelantan", "Hutan Rekreasi Bukit Bakar, Machang", "hutan", 5.790, 102.205, "Hutan Rekreasi Bukit Bakar di Machang mempunyai air terjun lata bertingkat dan denai hutan."],
+  ["kn-zookrai", "kelantan", "Zoo Kuala Krai", "hutan", 5.531, 102.205, "Zoo Mini Kuala Krai menempatkan haiwan tempatan seperti rusa, buaya dan pelbagai jenis burung."],
+  ["kn-pergau", "kelantan", "Tasik Pergau, Jeli", "tasik", 5.625, 101.700, "Tasik Pergau di Jeli ialah tasik empangan hidroelektrik yang dikelilingi hutan, sesuai untuk berkayak dan memancing."],
+  ["kn-reng", "kelantan", "Gunung Reng, Jeli", "gua", 5.735, 101.780, "Gunung Reng di Jeli ialah bukit batu kapur dengan gua yang menjadi lokasi aktiviti alam semula jadi."],
+  ["kn-bukitbunga", "kelantan", "Zon Bebas Cukai Bukit Bunga, Tanah Merah", "pasar", 5.875, 101.853, "Bukit Bunga ialah pekan sempadan di Tanah Merah dengan jambatan ke Thailand dan kompleks beli-belah bebas cukai."],
+  ["kn-guaikan", "kelantan", "Gua Ikan, Dabong", "gua", 5.348, 102.026, "Gua Ikan di Dabong ialah gua batu kapur yang dilalui anak sungai, mudah diterokai oleh pelancong."],
+  ["kn-guacha", "kelantan", "Gua Cha, Ulu Nenggiri", "gua", 4.995, 101.765, "Gua Cha di Ulu Nenggiri ialah tapak arkeologi penting: rangka manusia dan artifak berusia ribuan tahun pernah ditemui di sini."],
+  ["kn-tokong", "kelantan", "Tokong Sweet Nyet Kong, Gua Musang", "candi", 4.881, 101.966, "Tokong Cina di pekan Gua Musang, berhampiran bukit batu kapur yang memberi nama kepada bandar ini."],
+  ["kn-kualakoh", "kelantan", "Taman Negara Kuala Koh, Gua Musang", "hutan", 4.870, 102.430, "Taman Negara Kuala Koh ialah pintu masuk Taman Negara dari Kelantan, dengan jambatan kanopi, denai hutan hujan dan perkampungan Orang Asli Batek berdekatan."],
+  ["kn-lojing", "kelantan", "Bunga Rafflesia, Lojing", "hutan", 4.600, 101.450, "Tanah tinggi Lojing di Gua Musang ialah habitat bunga Rafflesia, bunga terbesar di dunia yang hanya mekar beberapa hari."],
   ["tr-kristal", "terengganu", "Masjid Kristal", "masjid", 5.321, 103.123, "Masjid Kristal di Taman Tamadun Islam dibina daripada keluli, kaca dan kristal, siap pada tahun 2008."],
   ["tr-kenyir", "terengganu", "Tasik Kenyir", "tasik", 5.0, 102.7, "Tasik Kenyir ialah tasik buatan manusia terbesar di Asia Tenggara dengan lebih 340 pulau kecil."],
   ["tr-payang", "terengganu", "Pasar Payang", "pasar", 5.337, 103.139, "Pasar Payang terkenal dengan kain batik, songket dan keropok lekor Terengganu."],
@@ -194,8 +233,8 @@ function lmSnap(k, w, maxR, strict) {
   const in1 = (x, z) => { const q = lmAt(x, z); return q === k || (!strict && k === "wp" && q === "selangor"); };
   /* strict: seluruh tapak (termasuk pintu pagar di +z) mesti dalam negeri yang sama, bukan di garis sempadan */
   const ok = strict ? (x, z) => in1(x, z) && in1(x, z + 28) && in1(x - 22, z) && in1(x + 22, z) && in1(x, z - 18) && in1(x - 16, z + 14) && in1(x + 16, z + 14) : in1;
-  if (ok(w.x, w.z)) return w;
-  for (let d = 3; d <= (maxR || 240); d += 3) for (let i = 0; i < 24; i++) { const a = i / 24 * 6.2832, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (ok(x, z)) return { x: x, z: z }; }
+  if (ok(w.x, w.z) && !lmZonKB(w.x, w.z)) return w;
+  for (let d = 3; d <= (maxR || 240); d += 3) for (let i = 0; i < 24; i++) { const a = i / 24 * 6.2832, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (ok(x, z) && !lmZonKB(x, z)) return { x: x, z: z }; }
   return w;
 }
 /* muat data geografi (sekali) */
@@ -211,9 +250,9 @@ function lmGeoLoad() {
         (gj.isl || []).forEach((o) => { o.c = [o.c[0] * WS, o.c[1] * WS]; });
         gj.dem.forEach((r) => { r.x0 *= WS; r.z0 *= WS; }); gj.cs *= WS; gj.U *= WS;
       }
-      GEOD = gj; KV.c = null; lmJalanLoad();
+      GEOD = gj; LENSES.forEach((L) => { L.c = null; }); lmJalanLoad();
       /* zum Lembah Klang pada sempadan negeri (dipadatkan dahulu supaya lengkung pantai kekal licin) */
-      const dense = (r) => { const o = []; for (let i = 0; i < r.length; i++) { const p = r[i], q = r[(i + 1) % r.length], n = Math.max(1, Math.ceil(Math.hypot(q[0] - p[0], q[1] - p[1]) / 8)), c = lmKvC(); if (Math.hypot(p[0] - c.x, p[1] - c.z) > KV.R + 400 && Math.hypot(q[0] - c.x, q[1] - c.z) > KV.R + 400) { o.push(p); continue; } for (let j = 0; j < n; j++) o.push([p[0] + (q[0] - p[0]) * j / n, p[1] + (q[1] - p[1]) * j / n]); } return o; };
+      const dense = (r) => { const o = []; for (let i = 0; i < r.length; i++) { const p = r[i], q = r[(i + 1) % r.length], n = Math.max(1, Math.ceil(Math.hypot(q[0] - p[0], q[1] - p[1]) / 8)), jauh = LENSES.every((L) => { const c = lmLC(L); return Math.hypot(p[0] - c.x, p[1] - c.z) > L.R + 400 && Math.hypot(q[0] - c.x, q[1] - c.z) > L.R + 400; }); if (jauh) { o.push(p); continue; } for (let j = 0; j < n; j++) o.push([p[0] + (q[0] - p[0]) * j / n, p[1] + (q[1] - p[1]) * j / n]); } return o; };
       for (const k in gj.states) gj.states[k] = gj.states[k].map((r) => dense(r).map((q) => { const w = lmWarp(q[0], q[1]); return [w.x, w.z]; }));
       (gj.isl || []).forEach((o) => { const w = lmWarp(o.c[0], o.c[1]); o.c = [w.x, w.z]; });
       return gj;
@@ -222,7 +261,7 @@ function lmGeoLoad() {
 }
 /* ketinggian sebenar (meter) daripada grid DEM; -1 = di luar kawasan data */
 function lmDem(wx, wz) {
-  if (Math.abs(wx - lmKvC().x) < KV.R && Math.abs(wz - lmKvC().z) < KV.R) { const q = lmUnwarp(wx, wz); wx = q.x; wz = q.z; }
+  { const q = lmUnwarp(wx, wz); wx = q.x; wz = q.z; }
   for (const r of GEOD.dem) {
     const fx = (wx - r.x0) / GEOD.cs, fz = (wz - r.z0) / GEOD.cs;
     if (fx < 0 || fz < 0 || fx >= r.nx - 1 || fz >= r.nz - 1) continue;
@@ -993,7 +1032,211 @@ function lmBukitBintang() {
   const lb = lmLabel("★ BUKIT BINTANG ★", { fs: 30, k: 0.03, bg: "rgba(20,10,40,.9)", bd: "#ff4fa3", fg: "#ffd45a" }); lb.position.set(0, 9, -17); g.add(lb);
   return { g: g, r: 14 };
 }
-function lmLandmarkKhas(id) { return id === "wp-klcc" ? lmPetronas() : id === "wp-menarakl" ? lmMenaraKL() : id === "wp-trx" ? lmExchange106() : id === "wp-sas" ? lmSultanAbdulSamad() : id === "wp-kgbaru" ? lmKampungBaru() : id === "wp-bbintang" ? lmBukitBintang() : null; }
+function lmLandmarkKhas(id) { if (KB_MODEL[id]) return KB_MODEL[id](); return id === "wp-klcc" ? lmPetronas() : id === "wp-menarakl" ? lmMenaraKL() : id === "wp-trx" ? lmExchange106() : id === "wp-sas" ? lmSultanAbdulSamad() : id === "wp-kgbaru" ? lmKampungBaru() : id === "wp-bbintang" ? lmBukitBintang() : null; }
+/* ===================== v18.48: PUSAT BANDAR KOTA BHARU (ikut peta pelancong Kota Bharu) =====================
+   Susun atur diambil daripada peta pelancong (piksel x, y pada peta 1800 x 2000, utara di atas). Skala peta ~1.53 m/piksel;
+   dalam dunia Meta Didik 0.16 unit/piksel di bawah kanta KBL. Kedudukan dalam bandar ialah ANGGARAN ikut peta (bukan ukur). */
+const KB_MAP = { cx: 1110, cy: 1200, S: 0.16, x0: 470, x1: 1745, y0: 470, y1: 1935 };
+const KB_POS = { "kn-siti": [1150, 905], "kb-balaibesar": [1040, 828], "kb-merdeka": [790, 800], "kb-jeti": [628, 790], "kb-jam": [988, 1395], "kb-stadium": [1598, 1570], "kb-ktc": [1515, 1770] };
+function lmKBPos(px, py) { const c = lmLC(KBL); return { x: c.x + (px - KB_MAP.cx) * KB_MAP.S, z: c.z + (py - KB_MAP.cy) * KB_MAP.S }; }
+function lmZonKB(x, z) { if (!GEOD || !(DATA && DATA.negeri && DATA.negeri.kelantan)) return false; const c = lmLC(KBL), M = KB_MAP, m = 14; return x > c.x + (M.x0 - M.cx) * M.S - m - 50 && x < c.x + (M.x1 - M.cx) * M.S + m && z > c.z + (M.y0 - M.cy) * M.S - m && z < c.z + (M.y1 - M.cy) * M.S + m; } /* termasuk Sungai Kelantan di barat */
+/* bumbung pelana (rabung ikut paksi x) */
+function kbAtap(w, d, h, col) { const sh = new T.Shape(); sh.moveTo(-d / 2, 0); sh.lineTo(0, h); sh.lineTo(d / 2, 0); sh.lineTo(-d / 2, 0); const ge = new T.ExtrudeGeometry(sh, { depth: w, bevelEnabled: false }); ge.translate(0, 0, -w / 2); ge.rotateY(Math.PI / 2); return lmMesh(ge, col); }
+function kbIstanaBalaiBesar() {
+  const g = new T.Group(), kuning = "#e6bf62", kayu = "#7a4e2c", atap = "#8a3b26";
+  g.add(lmMesh(lmBox(30, 0.3, 22), "#d9d2bd", 0, 0.15, 0, { ns: 1 }));
+  for (const [x, z, w, d] of [[0, -11, 30, 0.6], [0, 11, 30, 0.6], [-15, 0, 0.6, 22], [15, 0, 0.6, 22]]) g.add(lmMesh(lmBox(w, 1.6, d), "#f1ece0", x, 0.8, z)); /* tembok pagar */
+  g.add(lmMesh(lmBox(4, 3.2, 1.2), kuning, 0, 1.6, 11.2)); g.add(kbAtap(4.4, 1.8, 1.2, atap).translateY(3.2).translateZ(11.2)); /* pintu gerbang */
+  for (const [x, z] of [[-6, -5], [6, -5], [-6, 4], [6, 4], [0, -5], [0, 4]]) g.add(lmMesh(lmBox(0.4, 1.4, 0.4), kayu, x, 0.7, z)); /* tiang */
+  g.add(lmMesh(lmBox(16, 0.4, 11), kayu, 0, 1.6, -0.5)); g.add(lmMesh(lmBox(15, 3, 10), kuning, 0, 3.3, -0.5));
+  g.add(kbAtap(16.5, 11.5, 3.6, atap).translateY(4.8).translateZ(-0.5)); g.add(kbAtap(8, 7, 2.2, atap).translateY(7.6).translateZ(-0.5)); /* bumbung bertingkat */
+  g.add(lmMesh(lmBox(6, 2.4, 4), kuning, 0, 2.8, 6.4)); g.add(kbAtap(6.4, 4.4, 1.6, atap).translateY(4).translateZ(6.4)); /* serambi hadapan */
+  return { g: g, r: 13 };
+}
+function kbPadangMerdeka() {
+  const g = new T.Group();
+  g.add(lmMesh(lmBox(22, 0.2, 12), "#6fae55", 0, 0.1, 2, { ns: 1 })); /* padang */
+  const tb = lmMesh(lmCyl(0.1, 0.14, 11, 8), "#d8dde2", -8, 5.5, 2); g.add(tb);
+  const bd = new T.Mesh(GEO.pflag || (GEO.pflag = new T.PlaneGeometry(2.8, 1.4)), new T.MeshBasicMaterial({ map: lmFlagTex(), side: T.DoubleSide })); bd.position.set(-6.55, 10.2, 2); g.add(bd);
+  g.add(lmMesh(lmBox(7, 4.4, 5), "#d9cdb0", 0, 2.2, -7.5)); g.add(lmMesh(lmBox(7.4, 0.4, 5.4), "#8f8470", 0, 4.6, -7.5)); /* Bank Kerapu: Muzium Perang */
+  lmArches(g, 6.4, 1.8, 1.2, -4.95, 4, "#5a4a38");
+  g.add(lmMesh(lmBox(6, 3.6, 5), "#f0ead8", 8, 1.8, -7.5)); lmDome(g, 1.4, "#3f8a6a", 8, 3.6, -7.5, true, true); /* Muzium Islam */
+  return { g: g, r: 12 };
+}
+function kbJeti() {
+  const g = new T.Group(), kayu = "#7a5634";
+  g.add(lmMesh(lmBox(3, 0.3, 14), kayu, -6, 0.6, 0)); for (let i = 0; i < 6; i++) for (const x of [-7.3, -4.7]) g.add(lmMesh(lmBox(0.25, 2, 0.25), "#5a3a22", x, -0.3, -6 + i * 2.4));
+  g.add(lmMesh(lmBox(4, 0.4, 3), kayu, -6, 0.6, -8)); g.add(kbAtap(4.4, 3.2, 1.4, "#9c4a2a").translateY(3).translateX(-6).translateZ(-8)); for (const [x, z] of [[-7.8, -9.2], [-4.2, -9.2], [-7.8, -6.8], [-4.2, -6.8]]) g.add(lmMesh(lmBox(0.2, 2.4, 0.2), kayu, x, 1.8, z));
+  const bot = new T.Group(); bot.add(lmMesh(lmBox(1.4, 0.6, 5), "#2f6fa8", 0, 0, 0)); bot.add(lmMesh(lmBox(1.2, 0.8, 1.6), "#f2efe6", 0, 0.7, -0.8)); bot.position.set(-9, 0.1, 3); g.add(bot);
+  g.add(lmMesh(lmBox(2, 9, 2), "#e8e3d6", 3, 4.5, 0)); g.add(lmMesh(lmBox(3.6, 1.6, 3.6), "#3f7fa8", 3, 9.6, 0)); g.add(lmMesh(lmBox(4, 0.3, 4), "#f2efe6", 3, 10.5, 0)); /* menara peninjau */
+  return { g: g, r: 6 };
+}
+function kbMenaraJam() {
+  const g = new T.Group();
+  g.add(lmMesh(lmCyl(7, 7, 0.25, 32), "#6fae55", 0, 0.12, 0, { ns: 1 })); g.add(lmMesh(lmCyl(7.4, 7.4, 0.15, 32), "#e9e4d6", 0, 0.07, 0, { ns: 1 }));
+  g.add(lmMesh(lmBox(2.4, 1, 2.4), "#d8d2c2", 0, 0.5, 0)); g.add(lmMesh(lmBox(1.6, 12, 1.6), "#f4f1ea", 0, 6.5, 0));
+  for (const [x, z, ry] of [[0, 0.82, 0], [0, -0.82, Math.PI], [0.82, 0, Math.PI / 2], [-0.82, 0, -Math.PI / 2]]) { const c = new T.Mesh(new T.CircleGeometry(0.62, 20), lmMat("#fffdf4")); c.position.set(x, 11, z); c.rotation.y = ry; g.add(c); }
+  g.add(lmMesh(new T.ConeGeometry(1.3, 2.4, 4), "#c9a64a", 0, 13.7, 0)); return { g: g, r: 3 };
+}
+function kbStadium() {
+  const g = new T.Group(), el = (r, h, col, y) => { const m = lmMesh(lmCyl(r, r, h, 40), col, 0, y, 0, { ns: 1 }); m.scale.z = 1.45; return m; };
+  g.add(el(9.5, 0.2, "#b5533c", 0.1)); g.add(el(7.6, 0.25, "#5fa24a", 0.13)); /* trek dan padang */
+  for (let i = 0; i < 28; i++) { const a = i / 28 * Math.PI * 2, x = Math.cos(a) * 11.2, z = Math.sin(a) * 11.2 * 1.45, st = lmMesh(lmBox(2.6, 3 + (i % 7 === 0 ? 2 : 0), 1.6), i % 2 ? "#e9c443" : "#d84a3a", x, 1.5, z); st.rotation.y = -a + Math.PI / 2; g.add(st); }
+  for (const [x, z] of [[-9, -13], [9, -13], [-9, 13], [9, 13]]) { g.add(lmMesh(lmBox(0.4, 12, 0.4), "#c9ced3", x, 6, z)); g.add(lmMesh(lmBox(2, 1, 0.3), "#f4f4ec", x, 12, z)); } /* lampu limpah */
+  return { g: g, r: 16 };
+}
+function kbKTC() {
+  const g = new T.Group(), kaca = lmPbr("kacaKTC", { color: 0xffffff, map: lmKacaTex("#9ec4d8", "#2f5468", 14), roughness: 0.2, metalness: 0.4 });
+  g.add(lmMesh(lmBox(12, 4, 9), "#e3ddd0", 0, 2, 0)); g.add(lmMesh(lmBox(6, 26, 6), kaca, 0, 17, 0)); g.add(lmMesh(lmBox(6.4, 0.6, 6.4), "#e3ddd0", 0, 30.3, 0)); g.add(lmMesh(lmCyl(0.12, 0.12, 4, 6), "#c9ced3", 0, 32.6, 0));
+  return { g: g, r: 7 };
+}
+function kbPasarSiti() {
+  const g = new T.Group(), dinding = lmPbr("pasarSiti", { color: 0xffffff, map: lmKacaTex("#e9b06a", "#7a4a2a", 4), roughness: 0.7 });
+  g.add(lmMesh(lmBox(16, 10, 13), dinding, 0, 5, 0)); g.add(lmMesh(lmBox(16.6, 0.5, 13.6), "#f2efe6", 0, 10.25, 0));
+  g.add(lmMesh(lmCyl(4, 4.4, 2, 8), "#f2efe6", 0, 11.4, 0)); g.add(lmMesh(new T.ConeGeometry(5, 3.4, 8), "#3d7fb8", 0, 14.1, 0)); /* bumbung oktagon tengah */
+  for (const x of [-5, 0, 5]) g.add(lmMesh(lmBox(3.2, 0.2, 2.4), ["#e85d75", "#3fa7b9", "#f2c14e"][(x / 5 + 1) | 0], x, 3.2, 7.6)); /* kanopi gerai */
+  return { g: g, r: 10 };
+}
+const KB_RESERVE = [[1250, 772, 10], [1185, 1130, 14]]; /* gerai Pasar Malam, Terminal Bas: kedai tidak dibina di sini */
+/* air terjun bertingkat dengan kolam (Jeram Pasu, Jeram Linang) */
+function kbAirTerjun() {
+  const g = new T.Group(), air = new T.MeshBasicMaterial({ color: 0xdff4ff, transparent: true, opacity: 0.88, side: T.DoubleSide });
+  /* tebing batu bertingkat (tiga anak tangga) */
+  [[0, 0, -2, 18, 4, 8, "#7d7b70"], [0, 4, -6, 15, 4, 6, "#8a887c"], [0, 8, -9.5, 12, 4.5, 5, "#77756a"]].forEach(([x, y, z, w, h, d, c]) => { g.add(lmMesh(lmBox(w, h, d), c, x, y + h / 2, z)); for (const sx of [-1, 1]) { const b = lmMesh(new T.DodecahedronGeometry(1.6, 0), c, x + sx * (w / 2 - 0.6), y + h, z + d / 2 - 1); b.scale.set(1.3, 0.9, 1.1); g.add(b); } });
+  for (const [y0, h, z] of [[8, 4.5, -7.05], [4, 4, -3.05], [0, 4, 2.05]]) { const f = new T.Mesh(new T.PlaneGeometry(3.2, h + 0.4), air); f.position.set(0, y0 + h / 2, z); g.add(f); } /* tirai air */
+  const kolam = lmMesh(lmCyl(6, 6, 0.25, 28), "#3f9fbf", 0, 0.14, 6, { ns: 1 }); kolam.scale.z = 0.6; g.add(kolam);
+  for (let i = 0; i < 10; i++) { const b = lmMesh(new T.DodecahedronGeometry(0.7 + (i % 3) * 0.3, 0), "#8a887c", Math.cos(i * 0.63) * 6.4, 0.4, 6 + Math.sin(i * 0.63) * 3.8); g.add(b); } /* batu tepi kolam */
+  for (const [x, z] of [[-10, -2], [10, -3], [-9, 6], [10, 6], [-6, -11], [6, -11], [-11, -8], [11, -8]]) { g.add(lmMesh(lmBox(0.5, 5, 0.5), "#6e4a2c", x, 2.5, z)); const d = new T.Mesh(new T.IcosahedronGeometry(2.2, 0), lmMat("#2f7a36")); d.position.set(x, 6, z); g.add(d); }
+  return { g: g, r: 11 };
+}
+/* Wat Siam: dewan putih, bumbung bertingkat merah-jingga dengan hiasan emas, patung Buddha berbaring keemasan di bawah bumbung terbuka */
+function kbWat() {
+  const g = new T.Group(), emas = lmPbr("emasWat", { color: 0xe0b23a, roughness: 0.35, metalness: 0.6 }), merah = "#c4452c", putih = "#f4f1ea";
+  g.add(lmMesh(lmBox(26, 0.6, 16), "#e8e2d4", 0, 0.3, 0));
+  /* dewan (ubosot) */
+  g.add(lmMesh(lmBox(8, 4, 12), putih, -8, 2.6, -1)); for (const [y, w, d, h] of [[4.6, 9.4, 13.4, 2.4], [6.6, 7, 10, 1.8]]) { g.add(kbAtap(d, w, h, merah).translateY(y).translateX(-8).translateZ(-1).rotateY(Math.PI / 2)); }
+  for (const z of [-7.6, 5.6]) g.add(lmMesh(new T.ConeGeometry(0.3, 2, 6), emas, -8, 8.6, z)); /* chofa */
+  /* patung Buddha berbaring (stilisasi) di bawah bumbung terbuka */
+  for (const [x, z] of [[1, -5], [11, -5], [1, 5], [11, 5]]) g.add(lmMesh(lmBox(0.5, 5, 0.5), merah, x, 2.8, z));
+  g.add(kbAtap(11, 11, 2.2, merah).translateY(5.3).translateX(6));
+  g.add(lmMesh(lmBox(10.5, 0.8, 3), "#d8cfbc", 6, 1, 0));
+  const badan = new T.Mesh(new T.CylinderGeometry(1.1, 1.2, 8, 14), emas); badan.rotation.z = Math.PI / 2; badan.position.set(6.6, 2.3, 0); g.add(badan); { const kaki = new T.Mesh(new T.SphereGeometry(1.2, 14, 10), emas); kaki.position.set(10.6, 2.3, 0); g.add(kaki); }
+  const kepala = new T.Mesh(new T.SphereGeometry(1, 16, 12), emas); kepala.position.set(1.8, 3, 0); g.add(kepala); const mahkota = new T.Mesh(new T.ConeGeometry(0.35, 1, 10), emas); mahkota.rotation.z = Math.PI / 2; mahkota.position.set(0.6, 3.1, 0); g.add(mahkota);
+  g.add(lmMesh(lmBox(1.6, 0.9, 1.6), "#c4452c", 1.8, 1.85, 0)); /* bantal */
+  return { g: g, r: 13 };
+}
+/* tokong Cina: tiang merah, bumbung hijau melengkung berhias emas, tanglung */
+function kbTokong() {
+  const g = new T.Group(), merah = "#b8322a", hijau = "#2f8a5a";
+  g.add(lmMesh(lmBox(14, 0.5, 10), "#d8cfbc", 0, 0.25, 0)); g.add(lmMesh(lmBox(10, 4, 6), merah, 0, 2.5, -1));
+  for (const x of [-4, -1.4, 1.4, 4]) g.add(lmMesh(lmCyl(0.25, 0.25, 4, 10), "#d1362a", x, 2.5, 2.4));
+  g.add(kbAtap(11.5, 8, 2.2, hijau).translateY(4.5)); g.add(lmMesh(lmBox(12, 0.3, 0.3), "#e9c443", 0, 6.8, 0));
+  for (const sx of [-1, 1]) { const u = lmMesh(new T.ConeGeometry(0.35, 1.4, 6), "#e9c443", sx * 5.6, 5.2, 0); u.rotation.z = -sx * 0.6; g.add(u); }
+  for (const x of [-3, 3]) { g.add(lmMesh(lmBox(0.05, 0.6, 0.05), "#3a2a20", x, 3.9, 2.6)); g.add(lmMesh(lmSph(0.45, 10, 8), lmGlow("#ff3a2a", 0.7), x, 3.4, 2.6)); }
+  return { g: g, r: 9 };
+}
+/* Masjid Beijing: dewan solat bata merah-hijau, bumbung pagoda bertingkat hijau, menara gaya pagoda */
+function kbMasjidBeijing() {
+  const g = new T.Group(), dinding = "#c9473a", hijau = "#2f8a5a", kuning = "#e9c443";
+  g.add(lmMesh(lmBox(14, 0.6, 12), "#e8e2d4", 0, 0.3, 0)); g.add(lmMesh(lmBox(11, 4, 9), dinding, 0, 2.6, 0));
+  for (const [y, w, d, h] of [[4.6, 13, 11, 2.2], [7.2, 8.5, 7.5, 1.8], [9.4, 5, 4.5, 1.6]]) { g.add(kbAtap(w, d, h, hijau).translateY(y)); g.add(lmMesh(lmBox(w * 0.62, 0.9, d * 0.62), dinding, 0, y + h + 0.1, 0)); }
+  g.add(lmMesh(new T.ConeGeometry(0.5, 1.6, 8), kuning, 0, 12.3, 0));
+  for (const x of [-8.5, 8.5]) { for (let i = 0; i < 4; i++) { g.add(lmMesh(lmBox(2 - i * 0.3, 2.4, 2 - i * 0.3), i % 2 ? "#f2efe6" : dinding, x, 1.2 + i * 2.6, 4)); g.add(lmMesh(new T.ConeGeometry((2.4 - i * 0.3) * 0.75, 0.8, 4), hijau, x, 2.7 + i * 2.6, 4)); } g.add(lmMesh(new T.ConeGeometry(0.3, 1.4, 8), kuning, x, 12.4, 4)); }
+  return { g: g, r: 11 };
+}
+const KB_MODEL = { "kb-balaibesar": kbIstanaBalaiBesar, "kb-merdeka": kbPadangMerdeka, "kb-jeti": kbJeti, "kb-jam": kbMenaraJam, "kb-stadium": kbStadium, "kb-ktc": kbKTC, "kn-siti": kbPasarSiti, "kn-jerampasu": kbAirTerjun, "kn-jeramlinang": kbAirTerjun, "kn-beijing": kbMasjidBeijing, "kn-wat": kbWat, "kn-tokong": kbTokong };
+/* jalan utama (piksel peta) dan nama */
+const KB_JALAN = [
+  ["Jln. Wakaf Mek Zainab", [[480, 520], [1100, 505], [1740, 500]], 2.4],
+  ["Jln. Merbau", [[790, 550], [1150, 580], [1650, 640], [1740, 665]], 2],
+  ["Jln. Kebun Sultan", [[1740, 495], [1660, 680], [1550, 940], [1455, 1190], [1440, 1445]], 2.4],
+  ["Jln. Mahmood", [[1440, 1445], [1420, 1600], [1400, 1760]], 2.2],
+  ["Jln. Sultanah Zainab", [[790, 505], [770, 760], [758, 1000], [740, 1400], [715, 1930]], 2.6],
+  ["Jln. Temenggong", [[985, 760], [972, 1020], [960, 1380]], 1.8],
+  ["Jln. Sultan Ibrahim", [[1000, 1420], [1065, 1520], [1150, 1690], [1280, 1930]], 2.4],
+  ["Jln. Hospital", [[1020, 1430], [1440, 1445], [1740, 1470]], 2.2],
+  ["Jln. Hamzah", [[480, 1830], [1000, 1860], [1740, 1870]], 2.6],
+  ["Jln. Hilir Kota / Jln. Pintu Pong", [[930, 735], [1250, 870], [1550, 940], [1740, 965]], 2],
+  ["Jln. Buluh Kubu / Jln. Padang Garong", [[690, 1000], [990, 1020], [1200, 1080], [1455, 1190], [1740, 1210]], 2],
+  ["Jln. Gajah Mati", [[650, 1400], [960, 1425]], 1.8],
+  ["Jln. Zainal Abidin", [[745, 1640], [1040, 1570]], 1.8],
+  ["Jln. Tengku Besar", [[700, 790], [880, 845], [990, 870]], 1.6],
+  ["Jln. Pasar Lama", [[655, 780], [645, 1000], [660, 1170]], 1.6],
+  ["Jln. Che Su", [[660, 1170], [800, 1215], [1000, 1250]], 1.6],
+  ["Jln. Doktor", [[1205, 1080], [1200, 1420]], 1.4], ["Jln. Ismail", [[1035, 1060], [1030, 1420]], 1.4], ["Jln. Dato' Pati", [[1100, 1070], [1100, 1420]], 1.4],
+  ["Lorong Nyor Raja", [[1450, 1085], [1740, 1130]], 1.6], ["Jln. Seri Cemerlang", [[1550, 940], [1740, 980]], 1.6], ["Jln. Belakang Stadium", [[1670, 1480], [1670, 1740]], 1.4],
+  ["Jln. Maahad", [[1140, 700], [1400, 700], [1460, 650]], 1.4], ["Jln. Tengku Chik", [[700, 925], [860, 945]], 1.3]];
+const KB_SUNGAI = [[650, 470], [638, 760], [606, 980], [600, 1250], [562, 1550], [520, 1780], [470, 1935]]; /* tebing timur Sungai Kelantan */
+/* bangunan hiasan bernama (tidak interaktif): [nama, px, py, lebar, tinggi, dalam, warna, jenis] */
+const KB_BINA = [
+  ["Istana Jahar", 935, 795, 7, 4, 6, "#d9a85a", "rumah"], ["Masjid Muhammadi", 878, 760, 7, 4, 7, "#f2efe6", "masjid"], ["Muzium Diraja (Istana Batu)", 972, 690, 7, 4, 5, "#f0e3c2", "rumah"],
+  ["Kampung Kraftangan", 1060, 730, 9, 3.4, 6, "#9c6b3f", "rumah"], ["Bazar Buluh Kubu", 1050, 935, 9, 7, 8, "#e1d4b8", "blok"], ["Parkson / Mydin", 1185, 1040, 10, 8, 9, "#cfd8de", "blok"],
+["Muzium Negeri Kelantan", 1045, 1462, 7, 4.5, 5, "#efe4c8", "blok"], ["Dewan Jubli Perak", 1232, 1580, 9, 6, 7, "#d9c18a", "blok"],
+  ["Gelanggang Seni (Pusat Kebudayaan)", 1365, 1680, 9, 4, 7, "#b5553a", "rumah"], ["Perpustakaan Awam", 1222, 1655, 6, 4.5, 5, "#e8e2d4", "blok"], ["KB Mall", 1180, 1845, 12, 8, 8, "#d6cdbd", "blok"],
+  ["Masjid Pakistan", 800, 1490, 5, 3.4, 5, "#f2efe6", "masjid"], ["Kampung Cina (China Town)", 1705, 810, 6, 3, 4, "#c0392b", "gerbang"], ["Istana Kota Lama", 665, 1720, 8, 4, 6, "#d9a85a", "rumah"]];
+function lmKotaBharu(g, gnd) {
+  const c = lmLC(KBL), M = KB_MAP, P = (px, py) => [(px - M.cx) * M.S, (py - M.cy) * M.S], grp = new T.Group(); grp.position.set(c.x, 0, c.z); g.scene.add(grp); gnd.push([grp, 0]);
+  /* tanah rata seluruh bandar (satu ketinggian) */
+  const sh = { x: c.x, z: c.z, h: null }; for (let px = M.x0 - 300; px <= M.x1; px += 110) for (let py = M.y0; py <= M.y1; py += 110) { const [u, v] = P(px, py); lmPad(g, c.x + u, c.z + v, 12, false, sh); }
+  /* Sungai Kelantan: air di barat tebing, tebing ditanam pokok, halangan supaya tidak berjalan di atas air */
+  { const pts = KB_SUNGAI.map(([x, y]) => P(x, y)), sh2 = new T.Shape(); sh2.moveTo(pts[0][0], -pts[0][1]); pts.forEach(([x, z]) => sh2.lineTo(x, -z)); const [lx, lz] = pts[pts.length - 1]; sh2.lineTo(lx - 70, -lz); sh2.lineTo(pts[0][0] - 70, -pts[0][1]); sh2.lineTo(pts[0][0], -pts[0][1]);
+    const air = new T.Mesh(new T.ShapeGeometry(sh2), new T.MeshStandardMaterial({ color: 0x5a8a7a, roughness: 0.25, metalness: 0.1 })); air.rotation.x = -Math.PI / 2; air.position.y = 0.06; grp.add(air);
+    for (let i = 0; i < pts.length - 1; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let t = 0; t <= L; t += 3) { const x = ax + (bx - ax) * t / L, z = az + (bz - az) * t / L; g.cols.push({ x: c.x + x - 1.5, z: c.z + z, r: 1.6, h: 30 }); } }
+    const pk = []; for (let i = 0; i < pts.length - 1; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az); for (let t = 2; t < L; t += 6) pk.push([ax + (bx - ax) * t / L + 2.4, 0, az + (bz - az) * t / L]); }
+    lmInst(grp, lmBox(0.3, 2.6, 0.3), lmPbr("batangKB", { color: 0x6e4a2c, roughness: 0.9 }), pk.map(([x, , z]) => [x, 1.3, z])); lmInst(grp, new T.IcosahedronGeometry(1.4, 0), lmPbr("daunKB", { color: 0x3f8a3a, roughness: 0.9 }), pk.map(([x, , z]) => [x, 3.2, z])); }
+  /* jalan: asfalt + garisan tengah; nama jalan utama */
+  const jalanSeg = [], asfalt = lmPbr("asfaltKB", { color: 0x4a4c50, roughness: 0.95 }), garis = new T.MeshBasicMaterial({ color: 0xf2f2ee });
+  KB_JALAN.forEach(([nama, poly, w], ji) => {
+    const pts = poly.map(([x, y]) => P(x, y));
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az), a = Math.atan2(bx - ax, bz - az), mx = (ax + bx) / 2, mz = (az + bz) / 2;
+      const r = new T.Mesh(lmBox(w, 0.08, L + w), asfalt); r.position.set(mx, 0.12, mz); r.rotation.y = a; r.receiveShadow = true; grp.add(r); jalanSeg.push([ax, az, bx, bz, w]);
+      if (w >= 1.8) for (let t = 1; t < L - 1; t += 2.2) { const d = new T.Mesh(lmBox(0.12, 0.02, 1), garis); d.position.set(ax + (bx - ax) * t / L, 0.17, az + (bz - az) * t / L); d.rotation.y = a; grp.add(d); }
+    }
+    if (w >= 1.8 && ji % 1 === 0) { const k = Math.floor((pts.length - 1) / 2), [ax, az] = pts[k], [bx, bz] = pts[k + 1], lb = lmLabel("🛣 " + nama, { fs: 22, k: 0.02, bg: "rgba(30,30,30,.72)", bd: "#ffffff" }); lb.position.set((ax + bx) / 2, 3.2, (az + bz) / 2); grp.add(lb); }
+  });
+  const dekatJalan = (x, z, m) => jalanSeg.some(([ax, az, bx, bz, w]) => { const dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); return Math.hypot(ax + dx * t - x, az + dz * t - z) < w / 2 + m; });
+  /* bangunan hiasan bernama */
+  const sib = []; /* jejak bangunan (tempatan) untuk elak kedai bertindih */
+  KB_BINA.forEach(([nama, px, py, w, h, d, col, jenis]) => {
+    const [x, z] = P(px, py), b = new T.Group(); b.position.set(x, 0, z); grp.add(b); sib.push([x, z, Math.max(w, d) / 2 + 1]);
+    if (jenis === "gerbang") { for (const sx of [-2.4, 2.4]) b.add(lmMesh(lmBox(0.5, 4, 0.5), col, sx, 2, 0)); b.add(lmMesh(lmBox(6, 0.6, 1), col, 0, 4.2, 0)); b.add(kbAtap(6.6, 1.6, 1.1, "#2a7a4a").translateY(4.5)); for (const sx of [-1.6, 1.6]) { const l = lmMesh(lmSph(0.35, 10, 8), lmGlow("#ff4a3a", 0.8), sx, 3.4, 0); b.add(l); } }
+    else {
+      b.add(lmMesh(lmBox(w, h, d), col, 0, h / 2, 0));
+      if (jenis === "rumah") { b.add(kbAtap(w + 0.6, d + 0.8, h * 0.55, "#8a3b26").translateY(h)); }
+      else if (jenis === "masjid") { lmDome(b, Math.min(w, d) * 0.32, "#3f8a6a", 0, h, 0, true, true); b.add(lmMesh(lmCyl(0.35, 0.45, h * 2.2, 8), "#f2efe6", w / 2 + 0.6, h * 1.1, d / 2)); }
+      else if (jenis === "bas") { b.add(lmMesh(lmBox(w + 1, 0.3, d + 1), "#f2efe6", 0, h + 0.15, 0)); for (let i = 0; i < 3; i++) b.add(lmMesh(lmBox(1.4, 1.4, 4), ["#e85d3a", "#2f7fc0", "#f2b53a"][i], -3 + i * 3, 0.9, d / 2 + 2.6)); }
+      else b.add(lmMesh(lmBox(w + 0.3, 0.3, d + 0.3), "#f4f1ea", 0, h + 0.15, 0));
+      g.cols.push({ x: c.x + x, z: c.z + z, r: Math.min(w, d) / 2 + 0.6, h: h + 2 });
+    }
+    const lb = lmLabel(nama, { fs: 22, k: 0.022, bg: "rgba(60,30,8,.75)", bd: "#f5c542" }); lb.position.set(0, h + 3.2, 0); b.add(lb);
+  });
+  /* kedai dua dan tiga tingkat di sepanjang jalan (warna pastel), mengelak mercu tanda, jalan lain dan sungai */
+  const tempat = g.items.filter((it) => it.kind === "pl" && KB_POS[it.id]).map((it) => [it.x - c.x, it.z - c.z, (it.r || 6) + 4]).concat(KB_RESERVE.map(([px, py, r]) => P(px, py).concat([r]))).concat(g.items.filter((it) => (it.kind === "pl" || it.kind === "si") && !KB_POS[it.id] && lmZonKB(it.x, it.z)).map((it) => [it.x - c.x, it.z - c.z, 12]));
+  const sungaiX = (z) => { const pts = KB_SUNGAI.map(([x, y]) => P(x, y)); for (let i = 0; i < pts.length - 1; i++) { const [ax, az] = pts[i], [bx, bz] = pts[i + 1]; if ((z - az) * (z - bz) <= 0) return ax + (bx - ax) * (z - az) / ((bz - az) || 1); } return -1e9; };
+  g.kbKedai = () => { /* dijalankan selepas jaringan jalan raya dibina (elak kedai di atas jalan persekutuan) */
+  const WARNA = ["#efe2c4", "#e9c7a1", "#d9e4d2", "#f2d6c9", "#d6dde8", "#efe7b8", "#e4d3e8"], ins = WARNA.map(() => []), atapL = []; let n = 0;
+  const [mx0, mz0] = P(M.x0 + 6, M.y0 + 6), [mx1, mz1] = P(M.x1 - 6, M.y1 - 6);
+  KB_JALAN.forEach(([, poly, w]) => {
+    const pts = poly.map(([x, y]) => P(x, y));
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [ax, az] = pts[i], [bx, bz] = pts[i + 1], L = Math.hypot(bx - ax, bz - az), ux = (bx - ax) / L, uz = (bz - az) / L, nx = -uz, nz = ux, a = Math.atan2(ux, uz);
+      for (const sd of [1, -1]) for (let t = 3; t < L - 3; t += 4) {
+        const off = w / 2 + 2.9, x = ax + ux * t + nx * off * sd, z = az + uz * t + nz * off * sd;
+        if (x < mx0 || x > mx1 || z < mz0 || z > mz1 || x < sungaiX(z) + 4) continue;
+        if (dekatJalan(x, z, 1.9) || lmJalanNear(g, c.x + x, c.z + z, 6)) continue; if (tempat.some(([px, pz, r]) => Math.hypot(px - x, pz - z) < r + 2)) continue; if (sib.some(([px, pz, r]) => Math.hypot(px - x, pz - z) < r + 2.2)) continue;
+        const h = 4.8 + ((n * 7) % 4) * 1.7; ins[n % WARNA.length].push([x, h / 2, z, a, 1, h, 1]); atapL.push([x, h + 0.12, z, a]); sib.push([x, z, 1.8]); g.cols.push({ x: c.x + x, z: c.z + z, r: 1.7, h: h + 1 + lmHRaw(c.x + x, c.z + z) }); n++;
+      }
+    }
+  });
+  const kedai = lmBox(3.5, 1, 3.8); WARNA.forEach((col, i) => lmInst(grp, kedai, lmPbr("kedaiKB" + i, { color: new T.Color(col), map: lmKacaTex("#ffffff", "#6b7b86", 2), roughness: 0.8 }), ins[i]));
+  lmInst(grp, lmBox(3.7, 0.24, 4), lmPbr("atapKedaiKB", { color: 0x9c5a3c, roughness: 0.8 }), atapL); LM.kbBandar.n = n;
+  };
+  /* gerbang selamat datang di Jln. Hamzah */
+  { const [x, z] = P(1000, 1858), gb = new T.Group(); gb.position.set(x, 0, z); grp.add(gb); for (const sx of [-3.4, 3.4]) gb.add(lmMesh(lmBox(0.8, 6, 0.8), "#f2efe6", sx, 3, 0)); gb.add(lmMesh(lmBox(8, 1.4, 1), "#c0392b", 0, 6.4, 0)); const lb = lmLabel("Selamat Datang ke Kota Bharu · Kelantan Darul Naim", { fs: 24, k: 0.024, bg: "rgba(160,20,20,.9)", bd: "#ffd45a" }); lb.position.set(0, 8.6, 0); gb.add(lb); }
+  const lb = lmLabel("🏙 Pusat Bandar Kota Bharu (ikut peta pelancong · kedudukan anggaran)", { fs: 26, k: 0.03, bg: "rgba(120,10,10,.85)", bd: "#ffd45a" }); lb.position.set(0, 24, 0); grp.add(lb);
+  LM.kbBandar = { n: 0, c: c };
+}
 /* v18.41: Taman KLCC (tasik Simfoni, air pancut) dan Hutan Simpan Bukit Nanas di sekeliling Menara KL, ikut peta pusat bandar */
 function lmPusatKL(g, gnd) {
   const find = (id) => g.items.find((i) => i.kind === "pl" && i.id === id);
@@ -2010,7 +2253,7 @@ function lmRailsPlan(g, used, placed, avoid, gnd) {
         const hubs = g.hubs || (g.hubs = []), hub = hubs.find((h) => h.nm === name && Math.hypot(h.x - w.x, h.z - w.z) < 90);
         const st = { kind: "st", id: L.id + "-" + i, k: k, n: "Stesen " + name, nm: name, line: null, i: sts.length, o: i, x: 0, z: 0, r: 0, ir: 9, m: null, ug: !!ug, hub: null };
         if (hub) { st.x = hub.x; st.z = hub.z; st.m = hub.m; st.hub = hub; hub.lines.push(st); sts.push(st); return; }
-        const free = (x, z) => lmLandW(x, z) && lmLandW(x + 6, z) && lmLandW(x - 6, z) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < u.r + 6) && !g.items.some((it) => it.kind !== "st" && Math.hypot(it.x - x, it.z - z) < 12) && !hubs.some((h) => Math.hypot(h.x - x, h.z - z) < 9);
+        const free = (x, z) => !lmZonKB(x, z) && lmLandW(x, z) && lmLandW(x + 6, z) && lmLandW(x - 6, z) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < u.r + 6) && !g.items.some((it) => it.kind !== "st" && Math.hypot(it.x - x, it.z - z) < 12) && !hubs.some((h) => Math.hypot(h.x - x, h.z - z) < 9);
         if (!free(w.x, w.z)) { let best = null; for (let d = 3; d <= 30 && !best; d += 3) for (let j = 0; j < 12; j++) { const a = j * 0.5236 + d * 0.1, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (free(x, z)) { best = { x: x, z: z }; break; } } if (best) w = best; }
         const m = lmMetroGate(L, name, ug); m.position.set(w.x, 0, w.z); g.scene.add(m); gnd.push([m, 0]); lmPad(g, w.x, w.z, 6);
         const h = { nm: name, x: w.x, z: w.z, m: m, lines: [st] }; hubs.push(h);
@@ -2022,7 +2265,7 @@ function lmRailsPlan(g, used, placed, avoid, gnd) {
         if (hub) { const st = { kind: "st", id: L.id + "-" + i, k: k, n: "Stesen " + name, nm: name, line: null, i: sts.length, o: i, x: hub.x, z: hub.z, r: 0, ir: 13, m: hub.m, hub: hub }; hub.lines.push(st); sts.push(st); return; }
       }
       const okK = (q) => q === k || (k === "wp" && q === "selangor") || (k === "selangor" && q === "wp");
-      const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + 16, z) && lmLandW(x - 16, z) && lmLandW(x, z + 14) && lmLandW(x, z - 14)
+      const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + 16, z) && lmLandW(x - 16, z) && lmLandW(x, z + 14) && lmLandW(x, z - 14)
         && !used.some((u) => Math.hypot(u.x - x, u.z - z) < 20) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < u.r + 30) && !avoid.some((a) => Math.hypot(a.x - x, a.z - z) < a.r + 14);
       let w = ll(la, lo);
       if (!free(w.x, w.z)) { let best = null; for (let d = 6; d <= 60 && !best; d += 6) for (let j = 0; j < 16; j++) { const a = j * 0.3927 + d * 0.07, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (free(x, z)) { best = { x: x, z: z }; break; } } if (best) w = best; }
@@ -2383,7 +2626,8 @@ function lmJalanBuild(g) {
     const a = lmRailAt(q.e, q.s), px = -a.tz, pz = a.tx;
     let side = 1; if (!lmCanStand(a.x + px * 16, a.z + pz * 16)) side = -1;
     let x = a.x + px * 16 * side, z = a.z + pz * 16 * side;
-    if (g.items.some((it) => it.kind !== "pu" && Math.hypot(it.x - x, it.z - z) < 22)) { x += a.tx * 30; z += a.tz * 30; }
+    if (lmZonKB(x, z)) { const w = lmKBPos(KB_RESERVE[1][0], KB_RESERVE[1][1]); x = w.x; z = w.z; } /* v18.48: Terminal Bas Kota Bharu ikut peta (Jln. Padang Garong) */
+    else if (g.items.some((it) => it.kind !== "pu" && Math.hypot(it.x - x, it.z - z) < 22)) { x += a.tx * 30; z += a.tz * 30; }
     const m = lmJTerminalModel(nm); m.position.set(x, lmHRaw(x, z), z); m.rotation.y = Math.atan2(-a.tz, a.tx) + (side < 0 ? Math.PI : 0); g.scene.add(m);
     g.cols.push({ x: x + px * side * 5.5, z: z + pz * side * 5.5, r: 6, h: lmHRaw(x, z) + 6 });
     g.items.push({ kind: "bt", id: "bt-" + nm, k: k, n: nm, x: x, z: z, r: 0, ir: 12, m: m, q: q, cc: q.e.a.cc });
@@ -2718,7 +2962,7 @@ function lmSolatTimes(lat, lon, now) {
   return { f: m(noon - T(20)), r: m(noon - T(0.833)) - 2, z: m(noon), a: m(noon + asr), m: m(noon + T(0.833)), i: m(noon + T(18)) };
 }
 function lmHhmm(mn) { const h = Math.floor(mn / 60) % 24, mi = mn % 60, hh = h % 12 || 12; return hh + ":" + String(mi).padStart(2, "0") + (h < 12 ? " pg" : h < 14 ? " tgh" : h < 19 ? " ptg" : " mlm"); }
-function lmLatLon(x, z) { const q = Math.abs(x - lmKvC().x) < KV.R && Math.abs(z - lmKvC().z) < KV.R ? lmUnwarp(x, z) : { x: x, z: z }; return { lat: GEOD.lat0 - q.z / (GEOD.kz * GEOD.U), lon: q.x / (GEOD.kx * GEOD.U) + GEOD.lon0 }; }
+function lmLatLon(x, z) { const q = lmUnwarp(x, z); return { lat: GEOD.lat0 - q.z / (GEOD.kz * GEOD.U), lon: q.x / (GEOD.kx * GEOD.U) + GEOD.lon0 }; }
 function lmMasjidNear(g) {
   let best = null; for (const it of g.items) { const nm = it.sn || it.n || ""; if (!/masjid/i.test(nm)) continue; const d = Math.hypot(it.x - g.p.x, it.z - g.p.z); if (!best || d < best.d) best = { it: it, d: d, nm: nm }; }
   return best;
@@ -2956,7 +3200,7 @@ function lmIptaBuild(g, used, placed, avoid, gnd) {
   IPTA.forEach(([id, sn, nama, k, la, lo, col]) => {
     if (!DATA.negeri[k]) return;
     const okK = (q) => q === k || (k === "wp" && q === "selangor") || (k === "selangor" && q === "wp"), rr = 18;
-    const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
+    const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
       && !used.some((u) => Math.hypot(u.x - x, u.z - z) < rr + 8) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < rr + u.r + 22) && !avoid.some((a) => Math.hypot(a.x - x, a.z - z) < a.r + rr);
     let w = ll(la, lo);
     if (!free(w.x, w.z)) { let best = null; for (let d = 5; d <= 90 && !best; d += 5) for (let i = 0; i < 16; i++) { const a = i * 0.3927 + d * 0.11, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (free(x, z)) { best = { x: x, z: z }; break; } } if (best) w = best; }
@@ -3107,7 +3351,7 @@ function lmIlmuBuild(g, used, placed, avoid, gnd) {
   SILMU.forEach(([id, k, nama, la, lo, col]) => {
     if (!DATA.negeri[k]) return;
     const okK = (q) => q === k || (k === "wp" && q === "selangor") || (k === "selangor" && q === "wp"), rr = id === "si-parlimen" || id === "si-istbudaya" ? 20 : 11;
-    const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
+    const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
       && !used.some((u) => Math.hypot(u.x - x, u.z - z) < rr + 8) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < rr + u.r + 8) && !avoid.some((a) => Math.hypot(a.x - x, a.z - z) < a.r + rr)
       && !g.items.some((it) => Math.hypot(it.x - x, it.z - z) < 16);
     let w = ll(la, lo);
@@ -3293,7 +3537,7 @@ function lmKemBuild(g, used, placed, avoid, gnd) {
   KEM.forEach(([id, k, nama, la, lo]) => {
     if (!DATA.negeri[k]) return;
     const okK = (q) => q === k || (k === "wp" && q === "selangor") || (k === "selangor" && q === "wp"), rr = 18;
-    const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
+    const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
       && !used.some((u) => Math.hypot(u.x - x, u.z - z) < rr + 8) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < rr + u.r + 8) && !avoid.some((a) => Math.hypot(a.x - x, a.z - z) < a.r + rr);
     let w = ll(la, lo);
     if (!free(w.x, w.z)) { let best = null; for (let d = 6; d <= 140 && !best; d += 6) for (let i = 0; i < 16; i++) { const a = i * 0.3927 + d * 0.17, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (free(x, z)) { best = { x: x, z: z }; break; } } if (best) w = best; }
@@ -3364,7 +3608,7 @@ function lmVenueBuild(g, used, placed, avoid, gnd) {
   VENUE.forEach(([id, k, nama, la, lo, kind]) => {
     if (!DATA.negeri[k]) return;
     const okK = (q) => q === k || (k === "wp" && q === "selangor") || (k === "selangor" && q === "wp"), rr = 12;
-    const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
+    const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
       && !used.some((u) => Math.hypot(u.x - x, u.z - z) < rr + 6) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < rr + u.r + 4) && !avoid.some((a) => Math.hypot(a.x - x, a.z - z) < a.r + rr);
     let w = ll(la, lo);
     if (!free(w.x, w.z)) { let best = null; for (let d = 6; d <= 140 && !best; d += 5) for (let i = 0; i < 16; i++) { const a = i * 0.3927 + d * 0.17, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (free(x, z)) { best = { x: x, z: z }; break; } } if (!best) return; w = best; }
@@ -3439,7 +3683,7 @@ function lmNelayanBuild(g, used, placed, avoid, gnd) {
     if (!spot) {
       /* sungai / tasik (atau pantai yang tidak ditemui): kolam dan anak sungai di daratan */
       jenis = jenis === "laut" ? "laut-k" : jenis; const rr = 16;
-      const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr) && clear(x, z, rr);
+      const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr) && clear(x, z, rr);
       if (free(w0.x, w0.z)) spot = { x: w0.x, z: w0.z };
       for (let d = 6; d <= 160 && !spot; d += 6) for (let i = 0; i < 16; i++) { const a = i * 0.3927 + d * 0.17, x = w0.x + Math.cos(a) * d, z = w0.z + Math.sin(a) * d; if (free(x, z)) { spot = { x: x, z: z }; break; } }
       if (!spot) return;
@@ -3583,10 +3827,10 @@ function lmFoodBuild(g, used, placed, avoid, gnd) {
   FOOD.forEach(([k, town, la, lo, dish, desc, price, en], j) => {
     if (!DATA.negeri[k]) return;
     const okK = (q) => q === k || (k === "wp" && q === "selangor"), rr = 9;
-    const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
+    const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
       && !used.some((u) => Math.hypot(u.x - x, u.z - z) < rr + 8) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < rr + u.r + 14) && !avoid.some((a) => Math.hypot(a.x - x, a.z - z) < a.r + rr);
-    let w = ll(la, lo);
-    if (!free(w.x, w.z)) { let best = null; for (let d = 5; d <= 90 && !best; d += 5) for (let i = 0; i < 16; i++) { const a = i * 0.3927 + d * 0.11, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (free(x, z)) { best = { x: x, z: z }; break; } } if (best) w = best; }
+    let w = ll(la, lo); const diKB = k === "kelantan" && lmZonKB(w.x, w.z); if (diKB) w = lmKBPos(KB_RESERVE[0][0], KB_RESERVE[0][1]); /* v18.48: gerai di Pasar Malam (Night Food Market) ikut peta */
+    if (!diKB && !free(w.x, w.z)) { let best = null; for (let d = 5; d <= 200 && !best; d += 5) for (let i = 0; i < 16; i++) { const a = i * 0.3927 + d * 0.11, x = w.x + Math.cos(a) * d, z = w.z + Math.sin(a) * d; if (free(x, z)) { best = { x: x, z: z }; break; } } if (best) w = best; }
     const md = lmStall(["#e74c3c", "#27ae60", "#2980b9", "#f39c12", "#8e44ad"][j % 5]), rot = (Math.abs(hashStr(k)) % 628) / 100;
     md.position.set(w.x, 0, w.z); md.rotation.y = rot; g.scene.add(md); gnd.push([md, 0]); lmPad(g, w.x, w.z, 9);
     const lb = lmLabel("🍽 Kedai Makan · " + dish, { fs: 28, k: 0.03, bg: "rgba(90,30,10,.85)", bd: "#ffb347" }); lb.position.set(w.x, 8.5, w.z); g.scene.add(lb); gnd.push([lb, 8.5]);
@@ -3777,7 +4021,7 @@ function lmStnBuild(g, used, placed, avoid, gnd) {
   FOOD.forEach(([k, town, la, lo], j) => {
     if (!DATA.negeri[k]) return;
     const okK = (q) => q === k || (k === "wp" && q === "selangor"), rr = 22;
-    const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
+    const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
       && !used.some((u) => Math.hypot(u.x - x, u.z - z) < rr + 8) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < rr + u.r + 10) && !avoid.some((a) => Math.hypot(a.x - x, a.z - z) < a.r + rr);
     const c0 = ll(la, lo); let w = null;
     for (let d = 40; d <= 220 && !w; d += 10) for (let i = 0; i < 16; i++) { const a = i * 0.3927 + j, x = c0.x + Math.cos(a) * d, z = c0.z + Math.sin(a) * d; if (free(x, z)) { w = { x: x, z: z }; break; } }
@@ -4397,14 +4641,14 @@ async function lmBuildWorld(g) {
   /* tempat pelancongan */
   PLACES.forEach((p) => {
     const [id, k, nama, type, la, lo, fakta] = p; if (!DATA.negeri[k]) return;
-    let w = ll(la, lo);
+    let w = KB_POS[id] ? lmKBPos(KB_POS[id][0], KB_POS[id][1]) : ll(la, lo);
     if (id === "pg-jambatan" && RAST.bridge) { const b = RAST.bridge; w = { x: (b[0] + b[2]) / 2, z: (b[1] + b[3]) / 2 }; }
-    const R = lmRand(id), md = type === "masjid" ? lmMosque(id) : (lmLandmarkKhas(id) || lmModel(type, R)), rot = R() * 6.28;
+    const R = lmRand(id), md = type === "masjid" && !KB_MODEL[id] ? lmMosque(id) : (lmLandmarkKhas(id) || lmModel(type, R)), rot = KB_POS[id] ? 0 : R() * 6.28; /* susun atur Kota Bharu ikut peta (utara di atas) */
     /* cari ruang lapang: jauh daripada Menara Ilmu (kedudukan ikut subjek) dan mercu tanda lain.
        W.P. terletak di tengah Selangor, jadi mercu tanda KL boleh melimpah ke Selangor. */
-    if (id !== "pg-jambatan") {
+    if (id !== "pg-jambatan" && !KB_POS[id]) {
       const rr = Math.max(md.r, 6), okK = (q) => q === k || (k === "wp" && q === "selangor");
-      const free = (x, z) => okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
+      const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
         && !used.some((u) => Math.hypot(u.x - x, u.z - z) < rr + 8) && !placed.some((u) => Math.hypot(u.x - x, u.z - z) < rr + u.r + 22);
       if (!free(w.x, w.z)) {
         let best = null;
@@ -4451,6 +4695,7 @@ async function lmBuildWorld(g) {
     for (const t of [-18, 0, 18]) avoid.push({ x: fit.x + px * 32 + ux * t, z: fit.z + pz * 32 + uz * t, r: 16 });
   });
   try { lmPusatKL(g, gnd); } catch (e) { /* abaikan */ } /* v18.41: Taman KLCC, Hutan Bukit Nanas */
+  if (DATA.negeri.kelantan) { try { lmKotaBharu(g, gnd); } catch (e) { console.warn("Kota Bharu", e); } } /* v18.48 */
   /* IPTA: galeri kampus (Kembara Kampus) */
   await lmProg(26, "Universiti, kem dan Stesen Ilmu");
   lmIptaBuild(g, used, placed, avoid, gnd); (g.after || (g.after = [])).push(() => lmKampusFetch(g));
@@ -4483,6 +4728,7 @@ async function lmBuildWorld(g) {
   lmRailsBuild(g);
   await lmProg(86, "Jaringan jalan, terowong dan tol");
   try { lmJalanBuild(g); } catch (e) { console.warn("jalan", e); } /* v18.31: jaringan jalan, terminal bas, pulau */
+  if (g.kbKedai) { try { g.kbKedai(); } catch (e) { console.warn("Kota Bharu kedai", e); } } /* v18.48 */
   try { lmTunBuild(g); lmTolBuild(g); } catch (e) { console.warn("terowong/tol", e); } /* v18.33 */
   await lmProg(94, "Pokok dan MD harian");
   lmBuildTrees(g, avoid);
