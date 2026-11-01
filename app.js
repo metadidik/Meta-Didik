@@ -362,6 +362,18 @@ if (SUBJ === "sc") { DATA.tema = DATA_SC.tema; DATA.topik = DATA_SC.topik; DATA.
 if (SUBJ === "mt") { DATA.tema = DATA_MT.tema; DATA.topik = DATA_MT.topik; DATA.soalan = DATA_MT.soalan; }
 if (SUBJ === "bm") { DATA.tema = DATA_BM.tema; DATA.topik = DATA_BM.topik; DATA.soalan = DATA_BM.soalan; }
 if (SUBJ === "bi") { DATA.tema = DATA_BI.tema; DATA.topik = DATA_BI.topik; DATA.soalan = DATA_BI.soalan; }
+/* v18.56: tajuk dihadkan ikut tahap murid. Senarai DATA.tema/DATA.topik hanya mengandungi tajuk pada tahap murid atau lebih rendah,
+   jadi peta, Stesen Ilmu, misi dan kuiz rawak tidak memaparkan tajuk tahap lebih tinggi. TOPIK/TEMA kekal penuh supaya rekod lama,
+   bilik multiplayer dan rujukan id tidak rosak. Tahap tema: medan "darjah" (1-6) atau "tingkatan" (1-6 -> 7-12). */
+const DATA_PENUH = { tema: DATA.tema, topik: DATA.topik }, TK_MURID = tahapMurid();
+function temaTk(id) { const m = DATA_PENUH.tema.find((x) => x.id === id); return !m ? 0 : m.darjah ? +m.darjah : m.tingkatan ? 6 + (+m.tingkatan) : 0; }
+function tkTopikOk(id) { if (!TK_MURID) return true; const t = DATA_PENUH.topik.find((x) => x.id === id); return !t || temaTk(t.tema) <= TK_MURID; }
+const TK_TERSOROK = (() => {
+  if (!TK_MURID) return 0;
+  const ok = DATA.topik.filter((t) => temaTk(t.tema) <= TK_MURID);
+  if (!ok.length || ok.length === DATA.topik.length) return 0; /* tiada tajuk sepadan (pratonton) atau semua dibenarkan */
+  const n = DATA.topik.length - ok.length; DATA.topik = ok; DATA.tema = DATA.tema.filter((m) => ok.some((t) => t.tema === m.id)); return n;
+})();
 document.documentElement.setAttribute("data-sj", SUBJ);
 try { const vt = document.getElementById("verTap"); if (vt && SUBJS[SUBJ]) setTimeout(() => { vt.textContent = "Hub Inovasi Digital Pendidikan \u00b7 v" + APP_VER; }, 0); } catch (e) { /* abaikan */ } /* v18.39: ikut APP_VER (dahulu tertulis tetap v18.35) */
 const FIRST_ID = DATA.topik[0].id, LAST_TEMA = DATA.tema[DATA.tema.length - 1].id;
@@ -404,8 +416,8 @@ const NSUF = { pi: "_pi", ba: "_ba", p3: "_p3", sj: "_sj", sc: "_sc", mt: "_mt",
 function docSj(id) { const x = String(id).slice(-3); return x === "_pi" ? "pi" : x === "_ba" ? "ba" : x === "_p3" ? "p3" : x === "_sj" ? "sj" : x === "_sc" ? "sc" : x === "_mt" ? "mt" : x === "_bm" ? "bm" : x === "_bi" ? "bi" : "tw"; }
 function docUid(id) { return docSj(id) === "tw" ? String(id) : String(id).slice(0, -3); }
 function nkey(uid) { return uid + (NSUF[SUBJ] || ""); }
-const TOPIK = {}; DATA.topik.forEach((t) => { TOPIK[t.id] = t; });
-const TEMA = {}; DATA.tema.forEach((t) => { TEMA[t.id] = t; });
+const TOPIK = {}; DATA_PENUH.topik.forEach((t) => { TOPIK[t.id] = t; });
+const TEMA = {}; DATA_PENUH.tema.forEach((t) => { TEMA[t.id] = t; });
 const BYTOPIK = {}, QBYID = {};
 let QLIST = [];
 let RLIST = []; /* soalan Operasi Rahsia (t = "P3-R"): tidak masuk misi biasa */
@@ -424,7 +436,7 @@ function qbankBuild() {
     if (q && q.x === 1) { QB.off++; return; }
     if (q && (q.t === "P3-R" || q.t === "TW-R")) { if (qValid(q, 1) && !QBYID[q.i]) { RLIST.push(q); QBYID[q.i] = q; } else QB.bad++; return; }
     if (!qValid(q) || QBYID[q.i]) { QB.bad++; return; }
-    QLIST.push(q); QBYID[q.i] = q; (BYTOPIK[q.t] || (BYTOPIK[q.t] = [])).push(q);
+    if (tkTopikOk(q.t)) QLIST.push(q); QBYID[q.i] = q; (BYTOPIK[q.t] || (BYTOPIK[q.t] = [])).push(q); /* v18.56: kuiz rawak hanya tajuk tahap murid */
   });
   QB.n = QLIST.length;
 }
@@ -991,7 +1003,7 @@ function sqState() {
   const lain = !!d && d.sj !== SUBJ;
   return { id: P.sq.id, doc: d, n: d ? d.n : (P.sq.n || P.sq.id), k: d && !lain ? d.k : 0, mem: mem, aktif: !!d && !lain && mem.length >= SQ_MIN, ada: !!d, lain: lain };
 }
-function sqLocked() { return false; } /* solo: semua misi terbuka */
+function sqLocked(id) { return id != null && !tkTopikOk(id); } /* solo: semua misi terbuka kecuali tajuk melebihi tahap murid (v18.56) */
 function sqSeqLocked(topikId) {
   const st = sqState();
   if (!st || !st.aktif) return false;
@@ -1071,6 +1083,7 @@ function sqOnResult(topikId, stars, score) {
   return { ok: 1, kod: sqT(topikId).kod, nama: sqT(topikId).nama, next: nx ? sqT(nx) : null, tamat: !nx, pasukan: st.n };
 }
 function sqToast(id) {
+  if (!tkTopikOk(id)) { const t = TOPIK[id] || {}, m = TEMA[t.tema] || {}; toast("Tajuk " + (t.kod || "") + " " + (t.nama || "") + " ialah tajuk " + tahapNama(temaTk(t.tema)) + (m.nama ? " (" + m.nama + ")" : "") + ". Ia dibuka apabila anda berada di " + tahapNama(temaTk(t.tema)) + ".", "warn"); return; }
   const t = TOPIK[id], st = sqState(), nx = st && SQ_ORDER[st.k] ? TOPIK[SQ_ORDER[st.k]] : null;
   toast("Misi " + t.kod + " masih terkunci. Pasukan anda perlu menyelesaikan " + (nx ? "Misi " + nx.kod + " " + nx.nama : "misi sebelumnya") + " dahulu.");
 }
@@ -2380,7 +2393,7 @@ function arT(id) { const k = KHAS_BY[id]; return k ? { kod: k.pendek, nama: k.n 
 function arPool(tid, scope) {
   if (KHAS_BY[tid]) return khasAll(KHAS_BY[tid]);
   const t = TOPIK[tid]; if (!t) return [];
-  const ids = Object.keys(TOPIK).filter((id) => scope === "semua" || (scope === "misi" && id === tid) || (scope === "negeri" && TOPIK[id].negeri === t.negeri) || (scope === "tema" && TOPIK[id].tema === t.tema));
+  const ids = Object.keys(TOPIK).filter(tkTopikOk).filter((id) => scope === "semua" || (scope === "misi" && id === tid) || (scope === "negeri" && TOPIK[id].negeri === t.negeri) || (scope === "tema" && TOPIK[id].tema === t.tema));
   const out = [];
   ids.forEach((id) => (BYTOPIK[id] || []).forEach((q) => out.push(q)));
   return out;
@@ -7077,7 +7090,7 @@ function lgSetup() {
     scopeBox.append(el("div", { class: "lg-h2" }, "Skop soalan"), lgChips([["misi", "Misi ini"], ["negeri", "Semua misi negeri ini"], ["tema", "Semua misi tema ini"], ["semua", "Semua misi subjek"]], LG.sel.scope, (v) => { LG.sel.scope = v; LG.sel.topics = []; again(); }));
     const det = el("details", { class: "lg-det" }), sum = el("summary", null, "Guru: pilih topik tertentu (" + LG.sel.topics.length + " dipilih)"); det.append(sum);
     const box = el("div", { class: "lg-tops" });
-    Object.keys(TOPIK).forEach((id) => {
+    Object.keys(TOPIK).filter(tkTopikOk).forEach((id) => {
       const t = TOPIK[id], lab = el("label", { class: "lg-tp" }), cb = el("input", { type: "checkbox" }); cb.checked = LG.sel.topics.indexOf(id) >= 0;
       cb.addEventListener("change", () => { const a = LG.sel.topics, i = a.indexOf(id); if (cb.checked && i < 0) a.push(id); else if (!cb.checked && i >= 0) a.splice(i, 1); sum.textContent = "Guru: pilih topik tertentu (" + a.length + " dipilih)"; });
       lab.append(cb, " " + (t.kod || "") + " " + (t.nama || id)); box.append(lab);
@@ -7254,7 +7267,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.55";
+const APP_VER = "18.56";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -7321,7 +7334,7 @@ function mdPick() {
     g.appendChild(b);
   });
   const x = el("button", { type: "button", class: "mdp-x" }, "Kembali"); x.addEventListener("click", close);
-  ov.appendChild(el("div", { class: "mdp-in" }, el("h2", null, "Pilih subjek"), el("p", { class: "mdp-s" }, "Dunia Meta Didik akan dibina mengikut tajuk subjek pilihan anda." + (tahapMurid() ? " Subjek dibuka mengikut tahap anda (" + tahapNama(tahapMurid()) + ") dan tahap yang lebih rendah." : "")), g, x));
+  ov.appendChild(el("div", { class: "mdp-in" }, el("h2", null, "Pilih subjek"), el("p", { class: "mdp-s" }, "Dunia Meta Didik akan dibina mengikut tajuk subjek pilihan anda." + (tahapMurid() ? " Subjek dan tajuk dibuka mengikut tahap anda (" + tahapNama(tahapMurid()) + ") dan tahap yang lebih rendah." + (TK_TERSOROK ? " " + TK_TERSOROK + " tajuk tahap lebih tinggi dalam subjek ini dikunci." : "") : "")), g, x));
   document.body.appendChild(ov); document.addEventListener("keydown", esc, true);
   try { const f = ov.querySelector(".mdp-c.cur") || ov.querySelector(".mdp-c:not(.lock)"); if (f) f.focus(); } catch (e) { /* abaikan */ }
 }
