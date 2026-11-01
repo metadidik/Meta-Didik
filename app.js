@@ -7237,7 +7237,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.53";
+const APP_VER = "18.54";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -7345,6 +7345,8 @@ const PJ_PAKEJ = {
 };
 const PJ_TEMPOH = [3, 6, 12]; /* bulan paparan logo */
 /* akaun rasmi untuk semua tajaan dan pembayaran kepada Meta Didik (satu tempat sahaja; ubah di sini jika bertukar) */
+/* e-mel rasmi Meta Didik (Zoho Mail, domain metadidik.com) */
+const MD_EMEL = "admin@metadidik.com";
 const MD_BAYAR = { nama: "DIM HOLDINGS SDN. BHD.", akaun: "5560 5751 6022", bank: "Maybank Islamic" };
 function mdBayarBox(ruj) {
   const no = MD_BAYAR.akaun, cp = el("button", { type: "button", class: "btn alt sm" }, "Salin no. akaun");
@@ -7352,7 +7354,8 @@ function mdBayarBox(ruj) {
   return el("div", { class: "notice", style: "display:grid;gap:4px" }, el("b", null, "💳 Akaun rasmi Meta Didik"),
     el("div", null, "Nama akaun: ", el("b", null, MD_BAYAR.nama)), MD_BAYAR.bank ? el("div", null, "Bank: ", el("b", null, MD_BAYAR.bank)) : null,
     el("div", { class: "row", style: "gap:8px;align-items:center;flex-wrap:wrap" }, el("span", null, "No. akaun: ", el("b", { style: "font-size:18px;letter-spacing:.04em" }, no)), cp),
-    el("small", { class: "muted" }, (ruj ? "Rujukan pindahan: " + ruj + ". " : "") + "Pastikan nama penerima ialah " + MD_BAYAR.nama.replace(/\.$/, "") + ". Meta Didik tidak akan meminta bayaran ke akaun lain."));
+    el("small", { class: "muted" }, (ruj ? "Rujukan pindahan: " + ruj + ". " : "") + "Pastikan nama penerima ialah " + MD_BAYAR.nama.replace(/\.$/, "") + ". Meta Didik tidak akan meminta bayaran ke akaun lain."),
+    el("small", null, "Pertanyaan: ", el("a", { href: "mailto:" + MD_EMEL, style: "color:inherit;font-weight:700" }, MD_EMEL)));
 }
 /* lokasi tajaan: tempat sebenar (lat, lon); satu penaja bagi setiap lokasi */
 const PJ_LOK = [

@@ -103,7 +103,7 @@
       try {
         if (typeof AUTH !== "undefined" && AUTH.on()) await AUTH.ensure();
         await FB.req("PUT", "penaja_mohon/pj" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), d);
-        f.textContent = ""; f.append(el("div", { class: "notice" }, "✔ Terima kasih! Permohonan " + d.sy + " diterima. Pentadbir Meta Didik akan menghubungi " + d.em + " untuk urusan sumbangan RM" + d.rm.toLocaleString("ms-MY") + ". Sila salurkan sumbangan ke akaun rasmi di bawah; logo dipaparkan selepas sumbangan diterima."), mdBayarBox(d.sy));
+        f.textContent = ""; f.append(el("div", { class: "notice" }, "✔ Terima kasih! Permohonan " + d.sy + " diterima. Pentadbir Meta Didik akan menghubungi " + d.em + " untuk urusan sumbangan RM" + d.rm.toLocaleString("ms-MY") + ". E-mel rasmi kami: " + (typeof MD_EMEL !== "undefined" ? MD_EMEL : "admin@metadidik.com") + ". Sila salurkan sumbangan ke akaun rasmi di bawah; logo dipaparkan selepas sumbangan diterima."), mdBayarBox(d.sy));
       } catch (e) { sb.disabled = false; out.textContent = "Gagal dihantar (kod " + (e.code || "rangkaian") + "). Cuba lagi."; }
     });
   }
