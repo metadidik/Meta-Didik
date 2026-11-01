@@ -3406,6 +3406,22 @@ const SILMU_TOPIK = { tw: {
   "T4-2.1": "si-terapung", "T4-2.2": "si-kuantan", "T4-2.3": "si-ikim", "T4-3.1": "si-abubakar", "T4-3.2": "si-alwi",
   "T4-3.3": "si-kk", "T4-3.4": "si-istbudaya", "T4-3.5": "si-mkim", "T5-1.1": "si-bursa", "T5-1.2": "si-th",
   "T5-2.1": "si-ik", "T5-2.2": "si-mskb", "T5-3.1": "si-jakim", "T5-3.2": "si-parlimen" } };
+/* v18.73: tajuk Tahun 1-6 / Tingkatan 1-6 dipadankan dengan bangunan sedia ada (dijana oleh tools/kuiz-gabung.py) */
+/* KUIZ-STESEN:MULA */
+const KUIZ_STESEN = {"bm": {"BM-D1-1": "Kampung Baru", "BM-D1-2": "Pasar Siti Khadijah", "BM-D1-3": "Istana Budaya", "BM-D2-1": "Kampung Budaya Sarawak", "BM-D2-2": "Pasar Payang", "BM-D2-3": "Istana Lama Seri Menanti", "BM-D3-1": "Kuching Waterfront", "BM-D3-2": "Menara Alor Setar", "BM-D3-3": "Bangunan Sultan Abdul Samad", "BM-D4-1": "Lembah Bujang", "BM-D4-2": "Gunung Ledang", "BM-D4-3": "Istana Kellie", "BM-D5-1": "Bukit Melawati", "BM-D5-2": "Istana Budaya", "BM-D5-3": "Padang Merdeka dan Muzium Perang", "BM-D6-1": "Parlimen Malaysia", "BM-D6-2": "Kampung Baru", "BM-D6-3": "Kota A Famosa", "BM-T1-1": "Istana Balai Besar", "BM-T1-2": "Muzium Kesenian Islam Malaysia", "BM-T1-3": "Menara Alor Setar", "BM-T2-1": "Kuching Waterfront", "BM-T2-2": "Parlimen Malaysia", "BM-T2-3": "Bangunan Sultan Abdul Samad", "BM-T3-1": "Istana Kellie", "BM-T3-2": "Istana Budaya", "BM-T3-3": "Kampung Budaya Sarawak", "BM-T6-1": "Lembah Bujang", "BM-T6-2": "Muzium Kesenian Islam Malaysia", "BM-T6-3": "Istana Lama Seri Menanti"}, "mt": {"MT-D1-1": "Menara Kuala Lumpur", "MT-D1-2": "Pasar Siti Khadijah", "MT-D1-3": "Pasar Payang", "MT-D2-1": "Menara Berkembar Petronas", "MT-D2-2": "Sawah Padi Sekinchan", "MT-D2-3": "Menara Jam Kota Bharu", "MT-D3-1": "Menara Exchange 106 (TRX)", "MT-D3-2": "Pasar Siti Khadijah", "MT-D3-3": "Jambatan Pulau Pinang", "MT-D4-1": "Menara Kuala Lumpur", "MT-D4-2": "Bursa Malaysia", "MT-D4-3": "Stadium Sultan Muhammad IV", "MT-D5-1": "Pasar Payang", "MT-D5-2": "Lembaga Tabung Haji", "MT-D5-3": "Menara Jam Kota Bharu", "MT-D6-1": "Kelantan Trade Centre", "MT-D6-2": "Menara Alor Setar", "MT-D6-3": "Bukit Bintang", "MT-T1-1": "Menara Taming Sari", "MT-T1-2": "Sawah Padi Sekinchan", "MT-T1-3": "Menara Condong Teluk Intan", "MT-T2-1": "Menara Condong Teluk Intan", "MT-T2-2": "Stadium Sultan Muhammad IV", "MT-T2-3": "Bukit Bintang", "MT-T3-1": "Menara Exchange 106 (TRX)", "MT-T3-2": "Bursa Malaysia", "MT-T3-3": "Jambatan Pulau Pinang", "MT-T6-1": "Menara Alor Setar", "MT-T6-2": "Menara Berkembar Petronas", "MT-T6-3": "Kelantan Trade Centre"}, "sc": {"SC-D1-1": "Taman Negara", "SC-D1-2": "Sepilok", "SC-D1-3": "Gua Tempurung", "SC-D2-1": "Bunga Rafflesia, Lojing", "SC-D2-2": "Tasik Chini", "SC-D2-3": "Sungai Kinabatangan", "SC-D3-1": "Cameron Highlands", "SC-D3-2": "Tasik Kenyir", "SC-D3-3": "Menara Kuala Lumpur", "SC-D4-1": "Taman Negara Bako", "SC-D4-2": "Pantai Teluk Cempedak", "SC-D4-3": "Gunung Kinabalu", "SC-D5-1": "Jambatan Pulau Pinang", "SC-D5-2": "Pantai Teluk Cempedak", "SC-D5-3": "Sungai Kinabatangan", "SC-D6-1": "Gua Niah", "SC-D6-2": "Gunung Kinabalu", "SC-D6-3": "Tanjung Piai", "SC-T1-1": "Hutan Belum-Temenggor", "SC-T1-2": "Gua Tempurung", "SC-T1-3": "Cameron Highlands", "SC-T2-1": "Taman Negara Bako", "SC-T2-2": "Tasik Kenyir", "SC-T2-3": "Sawah Padi Sekinchan", "SC-T3-1": "Cameron Highlands", "SC-T3-2": "Jambatan Pulau Pinang", "SC-T3-3": "Menara Kuala Lumpur", "SC-T6-1": "Sawah Padi Sekinchan", "SC-T6-2": "Tasik Chini", "SC-T6-3": "Sepilok"}, "pi": {"PI-D1-1": "Masjid Alwi Kangar", "PI-D1-2": "Masjid Zahir", "PI-D1-3": "Masjid Kapitan Keling", "PI-D2-1": "Masjid Ubudiah", "PI-D2-2": "Masjid Negara", "PI-D2-3": "Masjid Tengku Tengah Zaharah", "PI-D3-1": "Muzium Kesenian Islam Malaysia", "PI-D3-2": "Masjid Negeri Seremban", "PI-D3-3": "Masjid Sultan Salahuddin Abdul Aziz Shah", "PI-D4-1": "Masjid Bandaraya Kuching", "PI-D4-2": "Masjid Selat Melaka", "PI-D4-3": "Masjid Bandaraya Kota Kinabalu", "PI-D5-1": "Masjid Sultan Abu Bakar", "PI-D5-2": "Masjid Kapitan Keling", "PI-D5-3": "Institut Kefahaman Islam Malaysia (IKIM)", "PI-D6-1": "Lembaga Tabung Haji", "PI-D6-2": "Masjid Zahir", "PI-D6-3": "Muzium Kesenian Islam Malaysia", "PI-T1-1": "Masjid Sultan Salahuddin Abdul Aziz Shah", "PI-T1-2": "Kompleks Islam Putrajaya (JAKIM)", "PI-T1-3": "Istana Kehakiman", "PI-T2-1": "Institut Kefahaman Islam Malaysia (IKIM)", "PI-T2-2": "Masjid Sultan Ahmad Shah", "PI-T2-3": "Lembaga Tabung Haji", "PI-T6-1": "Mahkamah Syariah Kelantan", "PI-T6-2": "Institut Kefahaman Islam Malaysia (IKIM)", "PI-T6-3": "Kompleks Islam Putrajaya (JAKIM)"}};
+/* KUIZ-STESEN:TAMAT */
+/* senarai stesen bagi subjek semasa: SILMU + stesen tambahan di mercu tanda (PLACES) yang memegang tajuk subjek ini */
+function lmSilmuList() {
+  if (LM.silmu && LM.silmu.sj === SUBJ) return LM.silmu.l;
+  const m = KUIZ_STESEN[SUBJ] || {}, ada = new Set(DATA.topik.map((t) => t.id)), out = SILMU.slice(), byN = {};
+  SILMU.forEach((r) => { byN[r[2]] = r[0]; });
+  const map = Object.assign({}, SILMU_TOPIK[SUBJ] || {});
+  Object.keys(m).forEach((tid) => { if (!ada.has(tid)) return; const nm = m[tid];
+    if (byN[nm]) { map[tid] = byN[nm]; return; }
+    const p = PLACES.find((x) => x[2] === nm); if (!p) return;
+    const id = "sx-" + p[0]; if (!out.some((r) => r[0] === id)) out.push([id, p[1], nm, p[4], p[5], "#2f6fb0"]); byN[nm] = id; map[tid] = id; });
+  LM.silmu = { sj: SUBJ, l: out, map: map }; return out;
+}
 /* pavilion Stesen Ilmu: lantai bulat, empat tiang, bumbung berkubah, rehal dengan kitab terbuka */
 function lmIlmuModel(col) {
   const g = new T.Group();
@@ -3506,7 +3522,7 @@ function lmIstanaBudaya() {
   return g;
 }
 function lmIlmuBuild(g, used, placed, avoid, gnd) {
-  SILMU.forEach(([id, k, nama, la, lo, col]) => {
+  lmSilmuList().forEach(([id, k, nama, la, lo, col]) => {
     if (!DATA.negeri[k]) return;
     const okK = (q) => q === k || (k === "wp" && q === "selangor") || (k === "selangor" && q === "wp"), rr = id === "si-parlimen" || id === "si-istbudaya" ? 20 : 11;
     const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
@@ -3529,7 +3545,7 @@ function lmIlmuBuild(g, used, placed, avoid, gnd) {
   });
 }
 function lmIlmuAssign(g) {
-  const sts = SILMU.map(([id]) => g.items.find((x) => x.kind === "si" && x.id === id)).filter(Boolean), map = SILMU_TOPIK[SUBJ], ts = DATA.topik.slice();
+  const sts = lmSilmuList().map(([id]) => g.items.find((x) => x.kind === "si" && x.id === id)).filter(Boolean), map = (LM.silmu && LM.silmu.map && Object.keys(LM.silmu.map).length) ? LM.silmu.map : SILMU_TOPIK[SUBJ], ts = DATA.topik.slice();
   if (map) {
     const left = [];
     ts.forEach((t) => { const it = sts.find((x) => x.id === map[t.id]); if (it) it.tids.push(t.id); else left.push(t.id); });
@@ -5796,6 +5812,15 @@ const LM_MK = {
   kawan: ["🧑‍🤝‍🧑", "Kawan", "Main bersama & raikan", "#9474E8"],
   profil: ["👤", "Profil", "Avatar, pencapaian & tetapan", "#FFC857"]
 };
+/* v18.73: pilih tahap tajuk yang dipaparkan (Tahun 1-6, Tingkatan 1-6); murid hanya tahap sendiri atau lebih rendah */
+function lmTahapPilih() {
+  lmCard((b) => {
+    b.append(el("div", { class: "lm-kick" }, "🎚 " + ((SUBJS[SUBJ] || {}).subjek || "")), el("h2", null, "Pilih tahap"), el("p", { class: "lm-ex" }, "Stesen Ilmu dan tajuk di peta mengikut tahap yang dipilih. Dunia akan dimuat semula."));
+    const g = el("div", { class: "lm-tiles" });
+    TK_LIHAT.list.forEach((v) => g.appendChild(lmTile(v === TK_LIHAT.v ? "✅" : v <= 6 ? "🎒" : "🎓", tkLihatNama(v), () => { if (v === TK_LIHAT.v) { lmCardClose(); return; } lmSave(); tkLihatSet(v); }, v === TK_LIHAT.v ? "pri" : "")));
+    b.append(g, el("div", { class: "lm-row" }, lmBtn("Tutup", "", lmCardClose)));
+  });
+}
 function lmMenu(sub) {
   const go = (fn) => () => { lmCardClose(); fn(); };
   const keluar = () => { if (confirm("Keluar dari Meta Didik? Kemajuan anda sudah disimpan.")) { lmCardClose(); lmClose(); } };
@@ -5834,6 +5859,7 @@ function lmMenu(sub) {
       grid.append(...[
         lmTile(SJ_ICO && SJ_ICO[SUBJ] || "📚", "Subjek", go(() => { if (typeof mdPick === "function") mdPick(); }), "pri"),
         lmTile("📖", "Tajuk", go(() => lmPassport("tajuk"))),
+        typeof TK_LIHAT !== "undefined" && TK_LIHAT.list.length > 1 ? lmTile("🎚", "Tahap: " + tkLihatNama(TK_LIHAT.v), go(lmTahapPilih)) : null,
         lmPelawat() ? null : lmTile("❓", "Kuiz", go(() => lmPassport("ilmu"))),
         lmTile("🏛", "Inovasi Guru", go(lmBigMap))].filter(Boolean));
       if (lmIsGuru()) grid.append(lmTile("📌", "Tambah Inovasi", go(lmPacak)));

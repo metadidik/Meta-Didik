@@ -1,0 +1,2286 @@
+{
+ "subjek": "mt",
+ "draf": "Draf disediakan tanpa akses kepada DSKP rasmi; perlu semakan guru.",
+ "tahap": [
+  {
+   "tema": {
+    "id": "MT-D1",
+    "nama": "Matematik Tahun 1",
+    "darjah": 1
+   },
+   "topik": [
+    {
+     "id": "MT-D1-1",
+     "nama": "Nombor bulat hingga 100",
+     "dskp": "DSKP KSSR Matematik Tahun 1 (draf): Nombor bulat hingga 100: membilang, nilai tempat, membanding dan menyusun nombor",
+     "stesen": "Menara Kuala Lumpur",
+     "nota": [
+      "Nombor dua digit terdiri daripada digit puluh dan digit sa, contohnya 63 = 6 puluh 3 sa.",
+      "Nombor yang lebih besar terletak lebih jauh ke kanan pada garis nombor.",
+      "Membilang secara loncatan 5: 5, 10, 15, 20, ..."
+     ],
+     "soalan": [
+      {
+       "q": "Nombor manakah yang lebih besar daripada 47?",
+       "o": [
+        "52",
+        "39",
+        "45",
+        "41"
+       ],
+       "a": 0,
+       "e": "52 lebih besar daripada 47 kerana 5 puluh lebih besar daripada 4 puluh.",
+       "d": 1
+      },
+      {
+       "q": "Apakah nilai digit 6 dalam nombor 63?",
+       "o": [
+        "6",
+        "63",
+        "60",
+        "600"
+       ],
+       "a": 2,
+       "e": "Digit 6 berada di tempat puluh, maka nilainya 6 puluh = 60.",
+       "d": 2
+      },
+      {
+       "q": "Nombor selepas 79 ialah ...",
+       "o": [
+        "78",
+        "70",
+        "89",
+        "80"
+       ],
+       "a": 3,
+       "e": "79 + 1 = 80.",
+       "d": 1
+      },
+      {
+       "q": "Susunan nombor yang manakah dalam tertib menaik?",
+       "o": [
+        "25, 18, 52, 81",
+        "18, 25, 52, 81",
+        "81, 52, 25, 18",
+        "18, 52, 25, 81"
+       ],
+       "a": 1,
+       "e": "Tertib menaik bermula dari nombor terkecil: 18 < 25 < 52 < 81.",
+       "d": 2
+      },
+      {
+       "q": "Aminah membilang kuih secara loncatan 5: 5, 10, 15, __, 25. Apakah nombor yang tertinggal?",
+       "o": [
+        "16",
+        "20",
+        "18",
+        "30"
+       ],
+       "a": 1,
+       "e": "Setiap nombor bertambah 5, maka 15 + 5 = 20.",
+       "d": 1
+      }
+     ]
+    },
+    {
+     "id": "MT-D1-2",
+     "nama": "Tambah dan tolak dalam lingkungan 100",
+     "dskp": "DSKP KSSR Matematik Tahun 1 (draf): Operasi asas: tambah dan tolak nombor bulat dalam lingkungan 100 serta penyelesaian masalah",
+     "stesen": "Pasar Siti Khadijah",
+     "nota": [
+      "Tambah bermaksud menggabungkan dua kumpulan.",
+      "Tolak bermaksud mengambil keluar atau mencari beza.",
+      "Tambah sa dengan sa dahulu, kemudian puluh dengan puluh."
+     ],
+     "soalan": [
+      {
+       "q": "Ali ada 8 biji guli. Kakaknya memberi 7 biji lagi. Berapakah jumlah guli Ali sekarang?",
+       "o": [
+        "15",
+        "14",
+        "16",
+        "1"
+       ],
+       "a": 0,
+       "e": "8 + 7 = 15.",
+       "d": 1
+      },
+      {
+       "q": "34 + 25 = ?",
+       "o": [
+        "58",
+        "69",
+        "9",
+        "59"
+       ],
+       "a": 3,
+       "e": "4 + 5 = 9 sa dan 3 + 2 = 5 puluh, maka 59.",
+       "d": 1
+      },
+      {
+       "q": "Mak Cik Siti ada 50 biji kuih. Sebanyak 18 biji telah dijual. Berapakah baki kuih?",
+       "o": [
+        "38",
+        "68",
+        "32",
+        "42"
+       ],
+       "a": 2,
+       "e": "50 − 18 = 32.",
+       "d": 2
+      },
+      {
+       "q": "73 − 41 = ?",
+       "o": [
+        "34",
+        "114",
+        "22",
+        "32"
+       ],
+       "a": 3,
+       "e": "3 − 1 = 2 sa dan 7 − 4 = 3 puluh, maka 32.",
+       "d": 2
+      },
+      {
+       "q": "Di dalam bas ada 26 orang murid. Di hentian, 9 orang turun dan 5 orang naik. Berapakah murid di dalam bas sekarang?",
+       "o": [
+        "30",
+        "22",
+        "40",
+        "12"
+       ],
+       "a": 1,
+       "e": "26 − 9 = 17, kemudian 17 + 5 = 22.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D1-3",
+     "nama": "Wang hingga RM100",
+     "dskp": "DSKP KSSR Matematik Tahun 1 (draf): Wang: mengenal wang syiling dan kertas Malaysia, menukar sen dan ringgit, tambah dan tolak wang",
+     "stesen": "Pasar Payang",
+     "nota": [
+      "RM1 = 100 sen.",
+      "Syiling Malaysia: 5 sen, 10 sen, 20 sen dan 50 sen.",
+      "Baki wang = wang yang ada − harga barang."
+     ],
+     "soalan": [
+      {
+       "q": "Berapakah nilai sekeping wang kertas RM10 dan 3 keping wang kertas RM1?",
+       "o": [
+        "RM31",
+        "RM4",
+        "RM13",
+        "RM103"
+       ],
+       "a": 2,
+       "e": "RM10 + RM1 + RM1 + RM1 = RM13.",
+       "d": 1
+      },
+      {
+       "q": "50 sen + 20 sen + 20 sen = ?",
+       "o": [
+        "90 sen",
+        "70 sen",
+        "80 sen",
+        "RM1"
+       ],
+       "a": 0,
+       "e": "50 + 20 + 20 = 90 sen.",
+       "d": 1
+      },
+      {
+       "q": "Berapakah bilangan syiling 10 sen yang sama nilai dengan RM1?",
+       "o": [
+        "5",
+        "100",
+        "10",
+        "20"
+       ],
+       "a": 2,
+       "e": "RM1 = 100 sen dan 10 keping 10 sen = 100 sen.",
+       "d": 2
+      },
+      {
+       "q": "Harga sebiji kuih ialah 30 sen. Berapakah harga 3 biji kuih?",
+       "o": [
+        "60 sen",
+        "90 sen",
+        "33 sen",
+        "RM3"
+       ],
+       "a": 1,
+       "e": "30 sen + 30 sen + 30 sen = 90 sen.",
+       "d": 2
+      },
+      {
+       "q": "Aiman ada RM20. Dia membeli sebuah buku berharga RM12. Berapakah baki wangnya?",
+       "o": [
+        "RM32",
+        "RM9",
+        "RM10",
+        "RM8"
+       ],
+       "a": 3,
+       "e": "RM20 − RM12 = RM8.",
+       "d": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-D2",
+    "nama": "Matematik Tahun 2",
+    "darjah": 2
+   },
+   "topik": [
+    {
+     "id": "MT-D2-1",
+     "nama": "Nombor bulat hingga 1000",
+     "dskp": "DSKP KSSR Matematik Tahun 2 (draf): Nombor bulat hingga 1000: menyebut, menulis, nilai tempat, cerakinan, pembundaran dan pola nombor",
+     "stesen": "Menara Berkembar Petronas",
+     "nota": [
+      "Nombor tiga digit mempunyai digit ratus, puluh dan sa.",
+      "Membundar kepada puluh terdekat: lihat digit sa; 5 ke atas dibundarkan ke atas.",
+      "Cerakinan: 345 = 300 + 40 + 5."
+     ],
+     "soalan": [
+      {
+       "q": "Tulis 'tiga ratus empat puluh lima' dalam angka.",
+       "o": [
+        "345",
+        "3 045",
+        "354",
+        "543"
+       ],
+       "a": 0,
+       "e": "Tiga ratus = 300, empat puluh = 40, lima = 5; 300 + 40 + 5 = 345.",
+       "d": 1
+      },
+      {
+       "q": "Bundarkan 467 kepada puluh yang terdekat.",
+       "o": [
+        "460",
+        "500",
+        "400",
+        "470"
+       ],
+       "a": 3,
+       "e": "Digit sa ialah 7 (5 ke atas), maka 467 dibundarkan kepada 470.",
+       "d": 2
+      },
+      {
+       "q": "Nombor manakah yang terbesar?",
+       "o": [
+        "890",
+        "899",
+        "908",
+        "809"
+       ],
+       "a": 2,
+       "e": "908 mempunyai 9 ratus dan 0 puluh 8 sa, lebih besar daripada 899 dan 890.",
+       "d": 1
+      },
+      {
+       "q": "Cerakinkan 702 mengikut nilai digit.",
+       "o": [
+        "700 + 2",
+        "70 + 2",
+        "700 + 20",
+        "7 + 0 + 2"
+       ],
+       "a": 0,
+       "e": "702 = 7 ratus + 0 puluh + 2 sa = 700 + 2.",
+       "d": 2
+      },
+      {
+       "q": "Lengkapkan pola: 150, 200, 250, __, 350.",
+       "o": [
+        "260",
+        "300",
+        "275",
+        "400"
+       ],
+       "a": 1,
+       "e": "Pola bertambah 50, maka 250 + 50 = 300.",
+       "d": 1
+      }
+     ]
+    },
+    {
+     "id": "MT-D2-2",
+     "nama": "Darab dan bahagi asas",
+     "dskp": "DSKP KSSR Matematik Tahun 2 (draf): Operasi asas: darab dan bahagi dalam lingkungan fakta asas serta penyelesaian masalah",
+     "stesen": "Sawah Padi Sekinchan",
+     "nota": [
+      "Darab ialah tambah berulang: 4 × 6 = 6 + 6 + 6 + 6.",
+      "Bahagi ialah kongsi sama banyak.",
+      "Darab dan bahagi ialah operasi songsang: 5 × 6 = 30, maka 30 ÷ 5 = 6."
+     ],
+     "soalan": [
+      {
+       "q": "4 × 6 = ?",
+       "o": [
+        "10",
+        "24",
+        "20",
+        "28"
+       ],
+       "a": 1,
+       "e": "4 × 6 = 6 + 6 + 6 + 6 = 24.",
+       "d": 1
+      },
+      {
+       "q": "Ada 5 bakul dan setiap bakul berisi 8 biji rambutan. Berapakah jumlah rambutan?",
+       "o": [
+        "13",
+        "35",
+        "45",
+        "40"
+       ],
+       "a": 3,
+       "e": "5 × 8 = 40.",
+       "d": 1
+      },
+      {
+       "q": "36 ÷ 4 = ?",
+       "o": [
+        "9",
+        "8",
+        "32",
+        "7"
+       ],
+       "a": 0,
+       "e": "4 × 9 = 36, maka 36 ÷ 4 = 9.",
+       "d": 2
+      },
+      {
+       "q": "Cikgu membahagikan 30 batang pensel sama banyak kepada 5 orang murid. Berapakah pensel yang diterima oleh setiap murid?",
+       "o": [
+        "5",
+        "25",
+        "6",
+        "150"
+       ],
+       "a": 2,
+       "e": "30 ÷ 5 = 6.",
+       "d": 2
+      },
+      {
+       "q": "Pak Ali menanam 7 baris anak pokok, 9 pokok setiap baris. Kemudian 10 pokok rosak dan dicabut. Berapakah pokok yang tinggal?",
+       "o": [
+        "63",
+        "73",
+        "53",
+        "6"
+       ],
+       "a": 2,
+       "e": "7 × 9 = 63, kemudian 63 − 10 = 53.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D2-3",
+     "nama": "Masa dan waktu",
+     "dskp": "DSKP KSSR Matematik Tahun 2 (draf): Masa dan waktu: hari, bulan, membaca waktu pada jam dan menghitung tempoh",
+     "stesen": "Menara Jam Kota Bharu",
+     "nota": [
+      "1 minggu = 7 hari.",
+      "1 jam = 60 minit.",
+      "Jarum panjang menunjukkan minit, jarum pendek menunjukkan jam."
+     ],
+     "soalan": [
+      {
+       "q": "Berapakah bilangan hari dalam seminggu?",
+       "o": [
+        "5",
+        "12",
+        "30",
+        "7"
+       ],
+       "a": 3,
+       "e": "Seminggu ada 7 hari, iaitu Isnin hingga Ahad.",
+       "d": 1
+      },
+      {
+       "q": "1 jam = ? minit",
+       "o": [
+        "60",
+        "30",
+        "100",
+        "24"
+       ],
+       "a": 0,
+       "e": "1 jam bersamaan dengan 60 minit.",
+       "d": 1
+      },
+      {
+       "q": "Jarum panjang menunjuk ke angka 12 dan jarum pendek menunjuk ke angka 3. Pukul berapakah itu?",
+       "o": [
+        "Pukul 12:15",
+        "Pukul 3:00",
+        "Pukul 12:03",
+        "Pukul 3:12"
+       ],
+       "a": 1,
+       "e": "Jarum pendek di 3 menunjukkan jam 3 dan jarum panjang di 12 menunjukkan tepat, iaitu pukul 3:00.",
+       "d": 1
+      },
+      {
+       "q": "Hari ini hari Isnin. Tiga hari lagi ialah hari ...",
+       "o": [
+        "Khamis",
+        "Rabu",
+        "Jumaat",
+        "Selasa"
+       ],
+       "a": 0,
+       "e": "Isnin → Selasa (1) → Rabu (2) → Khamis (3).",
+       "d": 2
+      },
+      {
+       "q": "Kelas mengaji bermula pukul 2:00 petang dan tamat pukul 4:30 petang. Berapakah tempoh kelas itu?",
+       "o": [
+        "2 jam",
+        "4 jam 30 minit",
+        "3 jam 30 minit",
+        "2 jam 30 minit"
+       ],
+       "a": 3,
+       "e": "Dari 2:00 ke 4:00 ialah 2 jam, ditambah 30 minit, jadi 2 jam 30 minit.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-D3",
+    "nama": "Matematik Tahun 3",
+    "darjah": 3
+   },
+   "topik": [
+    {
+     "id": "MT-D3-1",
+     "nama": "Nombor hingga 10 000 dan operasi",
+     "dskp": "DSKP KSSR Matematik Tahun 3 (draf): Nombor bulat hingga 10 000 serta operasi tambah, tolak, darab dan bahagi",
+     "stesen": "Menara Exchange 106 (TRX)",
+     "nota": [
+      "Nombor empat digit mempunyai nilai tempat ribu, ratus, puluh dan sa.",
+      "Semasa menambah, kumpulkan semula jika hasil tambah sesuatu lajur 10 atau lebih.",
+      "Semasa menolak, pinjam daripada nilai tempat di sebelah kiri jika perlu."
+     ],
+     "soalan": [
+      {
+       "q": "Apakah nilai tempat bagi digit 4 dalam nombor 4 586?",
+       "o": [
+        "Ratus",
+        "Puluh",
+        "Ribu",
+        "Sa"
+       ],
+       "a": 2,
+       "e": "Digit 4 berada di kedudukan paling kiri nombor empat digit, iaitu tempat ribu.",
+       "d": 1
+      },
+      {
+       "q": "2 435 + 3 678 = ?",
+       "o": [
+        "5 013",
+        "6 113",
+        "6 103",
+        "5 113"
+       ],
+       "a": 1,
+       "e": "2 435 + 3 678 = 6 113 (dengan mengumpul semula pada setiap lajur).",
+       "d": 2
+      },
+      {
+       "q": "8 000 − 2 375 = ?",
+       "o": [
+        "6 375",
+        "5 735",
+        "5 625",
+        "6 625"
+       ],
+       "a": 2,
+       "e": "8 000 − 2 375 = 5 625 (pinjam daripada tempat ribu).",
+       "d": 2
+      },
+      {
+       "q": "125 × 4 = ?",
+       "o": [
+        "480",
+        "520",
+        "129",
+        "500"
+       ],
+       "a": 3,
+       "e": "125 × 4 = 100 × 4 + 25 × 4 = 400 + 100 = 500.",
+       "d": 2
+      },
+      {
+       "q": "Sebuah kedai menerima 1 200 biji telur dan membungkusnya 6 biji dalam setiap kotak. Berapakah kotak yang diperlukan?",
+       "o": [
+        "20",
+        "200",
+        "2 000",
+        "120"
+       ],
+       "a": 1,
+       "e": "1 200 ÷ 6 = 200 kotak.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D3-2",
+     "nama": "Pecahan",
+     "dskp": "DSKP KSSR Matematik Tahun 3 (draf): Pecahan: pecahan wajar, pecahan setara, membanding pecahan dan pecahan daripada kuantiti",
+     "stesen": "Pasar Siti Khadijah",
+     "nota": [
+      "Pengangka ialah nombor di atas, penyebut ialah nombor di bawah.",
+      "Pecahan setara mempunyai nilai yang sama, contohnya 1/2 = 2/4 = 3/6.",
+      "Jika penyebut sama, pecahan dengan pengangka lebih besar adalah lebih besar."
+     ],
+     "soalan": [
+      {
+       "q": "Sebiji kek dipotong kepada 4 bahagian sama besar. Ahmad makan 1 bahagian. Pecahan kek yang dimakan ialah ...",
+       "o": [
+        "1/4",
+        "1/3",
+        "4/1",
+        "3/4"
+       ],
+       "a": 0,
+       "e": "1 bahagian daripada 4 bahagian sama besar = 1/4.",
+       "d": 1
+      },
+      {
+       "q": "Pecahan manakah yang setara dengan 1/2?",
+       "o": [
+        "3/6",
+        "2/3",
+        "1/3",
+        "2/6"
+       ],
+       "a": 0,
+       "e": "1/2 = (1 × 3)/(2 × 3) = 3/6.",
+       "d": 2
+      },
+      {
+       "q": "Pecahan manakah yang terbesar?",
+       "o": [
+        "1/4",
+        "3/4",
+        "2/4",
+        "1/8"
+       ],
+       "a": 1,
+       "e": "Bandingkan dengan penyebut 8: 3/4 = 6/8, 2/4 = 4/8, 1/4 = 2/8, 1/8; maka 3/4 terbesar.",
+       "d": 2
+      },
+      {
+       "q": "1/5 + 2/5 = ?",
+       "o": [
+        "3/10",
+        "2/5",
+        "3/5",
+        "1/5"
+       ],
+       "a": 2,
+       "e": "Penyebut sama, tambah pengangka: 1 + 2 = 3, maka 3/5.",
+       "d": 2
+      },
+      {
+       "q": "Berapakah 1/3 daripada 12 biji kuih?",
+       "o": [
+        "3",
+        "9",
+        "36",
+        "4"
+       ],
+       "a": 3,
+       "e": "12 ÷ 3 = 4 biji.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D3-3",
+     "nama": "Ukuran panjang, jisim dan isi padu cecair",
+     "dskp": "DSKP KSSR Matematik Tahun 3 (draf): Ukuran dan sukatan: panjang (m, cm), jisim (kg, g) dan isi padu cecair (ℓ, ml)",
+     "stesen": "Jambatan Pulau Pinang",
+     "nota": [
+      "1 m = 100 cm.",
+      "1 kg = 1 000 g.",
+      "1 ℓ = 1 000 ml."
+     ],
+     "soalan": [
+      {
+       "q": "1 m = ? cm",
+       "o": [
+        "10",
+        "100",
+        "1 000",
+        "60"
+       ],
+       "a": 1,
+       "e": "1 meter bersamaan dengan 100 sentimeter.",
+       "d": 1
+      },
+      {
+       "q": "1 kg = ? g",
+       "o": [
+        "100",
+        "10",
+        "500",
+        "1 000"
+       ],
+       "a": 3,
+       "e": "1 kilogram bersamaan dengan 1 000 gram.",
+       "d": 1
+      },
+      {
+       "q": "Panjang sehelai reben ialah 2 m 30 cm. Tukarkan panjang itu kepada cm.",
+       "o": [
+        "230 cm",
+        "23 cm",
+        "2 030 cm",
+        "203 cm"
+       ],
+       "a": 0,
+       "e": "2 m = 200 cm, maka 200 cm + 30 cm = 230 cm.",
+       "d": 2
+      },
+      {
+       "q": "Ibu membeli 3 botol air, setiap botol berisi 500 ml. Berapakah jumlah isi padu air itu?",
+       "o": [
+        "1 050 ml",
+        "503 ml",
+        "1 500 ml",
+        "150 ml"
+       ],
+       "a": 2,
+       "e": "3 × 500 ml = 1 500 ml.",
+       "d": 2
+      },
+      {
+       "q": "Jisim sebiji tembikai ialah 2 kg 400 g dan jisim sebiji betik ialah 800 g. Berapakah jumlah jisim kedua-duanya?",
+       "o": [
+        "3 kg 400 g",
+        "3 kg 200 g",
+        "10 kg 400 g",
+        "1 kg 600 g"
+       ],
+       "a": 1,
+       "e": "2 400 g + 800 g = 3 200 g = 3 kg 200 g.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-D4",
+    "nama": "Matematik Tahun 4",
+    "darjah": 4
+   },
+   "topik": [
+    {
+     "id": "MT-D4-1",
+     "nama": "Perpuluhan",
+     "dskp": "DSKP KSSR Matematik Tahun 4 (draf): Perpuluhan: nilai tempat, menukar pecahan perpuluhan, membundar serta tambah dan tolak perpuluhan",
+     "stesen": "Menara Kuala Lumpur",
+     "nota": [
+      "Tempat perpuluhan pertama ialah persepuluh, kedua ialah perseratus.",
+      "7/10 = 0.7 dan 7/100 = 0.07.",
+      "Susun titik perpuluhan secara selari semasa menambah atau menolak."
+     ],
+     "soalan": [
+      {
+       "q": "Tulis 7/10 dalam bentuk perpuluhan.",
+       "o": [
+        "7.0",
+        "0.07",
+        "0.17",
+        "0.7"
+       ],
+       "a": 3,
+       "e": "7/10 ialah 7 persepuluh = 0.7.",
+       "d": 1
+      },
+      {
+       "q": "Apakah nilai digit 5 dalam 3.45?",
+       "o": [
+        "0.5",
+        "5",
+        "0.05",
+        "50"
+       ],
+       "a": 2,
+       "e": "Digit 5 berada di tempat perseratus, maka nilainya 5/100 = 0.05.",
+       "d": 2
+      },
+      {
+       "q": "2.6 + 1.75 = ?",
+       "o": [
+        "4.35",
+        "4.81",
+        "3.35",
+        "4.25"
+       ],
+       "a": 0,
+       "e": "2.60 + 1.75 = 4.35.",
+       "d": 2
+      },
+      {
+       "q": "Bundarkan 6.48 kepada satu tempat perpuluhan.",
+       "o": [
+        "6.4",
+        "6.5",
+        "6.0",
+        "7.0"
+       ],
+       "a": 1,
+       "e": "Digit perseratus ialah 8 (5 ke atas), maka 6.48 ≈ 6.5.",
+       "d": 2
+      },
+      {
+       "q": "Seutas tali panjangnya 5 m. Ani memotong 1.35 m daripadanya. Berapakah baki panjang tali itu?",
+       "o": [
+        "4.35 m",
+        "3.75 m",
+        "4.65 m",
+        "3.65 m"
+       ],
+       "a": 3,
+       "e": "5.00 m − 1.35 m = 3.65 m.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D4-2",
+     "nama": "Peratus",
+     "dskp": "DSKP KSSR Matematik Tahun 4 (draf): Peratus: maksud peratus, menukar pecahan dan perpuluhan kepada peratus serta peratus daripada kuantiti",
+     "stesen": "Bursa Malaysia",
+     "nota": [
+      "Peratus bermaksud per seratus: 45% = 45/100.",
+      "Tukar pecahan kepada peratus dengan mendarab 100%.",
+      "10% daripada sesuatu kuantiti = kuantiti ÷ 10."
+     ],
+     "soalan": [
+      {
+       "q": "Tulis 45/100 dalam bentuk peratus.",
+       "o": [
+        "4.5%",
+        "0.45%",
+        "45%",
+        "450%"
+       ],
+       "a": 2,
+       "e": "45/100 = 45 per seratus = 45%.",
+       "d": 1
+      },
+      {
+       "q": "Tulis 1/4 dalam bentuk peratus.",
+       "o": [
+        "25%",
+        "14%",
+        "40%",
+        "4%"
+       ],
+       "a": 0,
+       "e": "1/4 × 100% = 25%.",
+       "d": 2
+      },
+      {
+       "q": "Berapakah 10% daripada RM50?",
+       "o": [
+        "RM10",
+        "RM5",
+        "RM0.50",
+        "RM40"
+       ],
+       "a": 1,
+       "e": "10/100 × RM50 = RM5.",
+       "d": 2
+      },
+      {
+       "q": "Tulis 0.6 dalam bentuk peratus.",
+       "o": [
+        "60%",
+        "6%",
+        "0.6%",
+        "600%"
+       ],
+       "a": 0,
+       "e": "0.6 × 100% = 60%.",
+       "d": 2
+      },
+      {
+       "q": "Dalam sebuah kelas yang mempunyai 40 orang murid, 30 orang suka bermain bola sepak. Berapakah peratus murid yang suka bermain bola sepak?",
+       "o": [
+        "30%",
+        "70%",
+        "75%",
+        "25%"
+       ],
+       "a": 2,
+       "e": "30/40 × 100% = 75%.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D4-3",
+     "nama": "Perimeter dan luas",
+     "dskp": "DSKP KSSR Matematik Tahun 4 (draf): Ukuran dan geometri: perimeter dan luas segi empat sama dan segi empat tepat",
+     "stesen": "Stadium Sultan Muhammad IV",
+     "nota": [
+      "Perimeter ialah jumlah panjang semua sisi.",
+      "Luas segi empat tepat = panjang × lebar.",
+      "Unit luas ialah unit persegi, contohnya cm² dan m²."
+     ],
+     "soalan": [
+      {
+       "q": "Berapakah perimeter segi empat sama yang bersisi 6 cm?",
+       "o": [
+        "36 cm",
+        "12 cm",
+        "18 cm",
+        "24 cm"
+       ],
+       "a": 3,
+       "e": "Perimeter = 4 × 6 cm = 24 cm.",
+       "d": 1
+      },
+      {
+       "q": "Berapakah luas segi empat tepat yang berukuran 8 cm × 5 cm?",
+       "o": [
+        "26 cm²",
+        "13 cm²",
+        "40 cm²",
+        "45 cm²"
+       ],
+       "a": 2,
+       "e": "Luas = 8 cm × 5 cm = 40 cm².",
+       "d": 2
+      },
+      {
+       "q": "Sebuah gelanggang segi empat tepat berukuran panjang 12 m dan lebar 7 m. Berapakah perimeternya?",
+       "o": [
+        "19 m",
+        "38 m",
+        "84 m",
+        "31 m"
+       ],
+       "a": 1,
+       "e": "Perimeter = 12 + 7 + 12 + 7 = 38 m.",
+       "d": 2
+      },
+      {
+       "q": "Satu bentuk dilukis pada kertas petak dan meliputi 14 petak segi empat sama bersisi 1 cm. Berapakah luas bentuk itu?",
+       "o": [
+        "14 cm²",
+        "7 cm²",
+        "28 cm²",
+        "14 cm"
+       ],
+       "a": 0,
+       "e": "Setiap petak berluas 1 cm², maka 14 × 1 cm² = 14 cm².",
+       "d": 1
+      },
+      {
+       "q": "Sebuah padang segi empat tepat mempunyai luas 96 m² dan lebar 8 m. Berapakah panjang padang itu?",
+       "o": [
+        "88 m",
+        "40 m",
+        "104 m",
+        "12 m"
+       ],
+       "a": 3,
+       "e": "Panjang = luas ÷ lebar = 96 ÷ 8 = 12 m.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-D5",
+    "nama": "Matematik Tahun 5",
+    "darjah": 5
+   },
+   "topik": [
+    {
+     "id": "MT-D5-1",
+     "nama": "Operasi pecahan",
+     "dskp": "DSKP KSSR Matematik Tahun 5 (draf): Pecahan: nombor bercampur, pecahan tak wajar, tambah, tolak dan darab pecahan",
+     "stesen": "Pasar Payang",
+     "nota": [
+      "Nombor bercampur kepada pecahan tak wajar: 2 1/3 = (2 × 3 + 1)/3 = 7/3.",
+      "Samakan penyebut sebelum menambah atau menolak pecahan.",
+      "Pecahan daripada kuantiti: 2/5 × 15 = (15 ÷ 5) × 2."
+     ],
+     "soalan": [
+      {
+       "q": "Tukarkan 2 1/3 kepada pecahan tak wajar.",
+       "o": [
+        "5/3",
+        "6/3",
+        "3/7",
+        "7/3"
+       ],
+       "a": 3,
+       "e": "(2 × 3 + 1)/3 = 7/3.",
+       "d": 1
+      },
+      {
+       "q": "1/2 + 1/4 = ?",
+       "o": [
+        "3/4",
+        "2/6",
+        "1/6",
+        "2/4"
+       ],
+       "a": 0,
+       "e": "1/2 = 2/4, maka 2/4 + 1/4 = 3/4.",
+       "d": 2
+      },
+      {
+       "q": "3/4 − 1/8 = ?",
+       "o": [
+        "3/8",
+        "1/2",
+        "5/8",
+        "7/8"
+       ],
+       "a": 2,
+       "e": "3/4 = 6/8, maka 6/8 − 1/8 = 5/8.",
+       "d": 2
+      },
+      {
+       "q": "2/5 × 15 = ?",
+       "o": [
+        "30",
+        "6",
+        "3",
+        "10"
+       ],
+       "a": 1,
+       "e": "15 ÷ 5 = 3, kemudian 3 × 2 = 6.",
+       "d": 2
+      },
+      {
+       "q": "Pak Mat ada 24 biji durian. Dia menjual 3/8 daripadanya. Berapakah biji durian yang belum dijual?",
+       "o": [
+        "15",
+        "9",
+        "21",
+        "16"
+       ],
+       "a": 0,
+       "e": "Dijual: 3/8 × 24 = 9 biji, maka belum dijual 24 − 9 = 15 biji.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D5-2",
+     "nama": "Wang, simpanan dan untung",
+     "dskp": "DSKP KSSR Matematik Tahun 5 (draf): Wang: operasi wang, simpanan, untung dan rugi, diskaun serta dividen ringkas",
+     "stesen": "Lembaga Tabung Haji",
+     "nota": [
+      "Untung = harga jual − harga kos (jika harga jual lebih tinggi).",
+      "Harga selepas diskaun = harga asal − (peratus diskaun × harga asal).",
+      "Dividen = kadar dividen × jumlah simpanan."
+     ],
+     "soalan": [
+      {
+       "q": "RM45.60 + RM18.75 = ?",
+       "o": [
+        "RM63.35",
+        "RM64.25",
+        "RM54.35",
+        "RM64.35"
+       ],
+       "a": 3,
+       "e": "RM45.60 + RM18.75 = RM64.35.",
+       "d": 1
+      },
+      {
+       "q": "Farah menyimpan RM15 setiap bulan. Berapakah jumlah simpanannya dalam setahun?",
+       "o": [
+        "RM150",
+        "RM180",
+        "RM165",
+        "RM120"
+       ],
+       "a": 1,
+       "e": "Setahun ada 12 bulan: 12 × RM15 = RM180.",
+       "d": 2
+      },
+      {
+       "q": "Encik Rahman membeli sebuah basikal dengan harga RM250 dan menjualnya dengan harga RM310. Berapakah untungnya?",
+       "o": [
+        "RM560",
+        "RM50",
+        "RM60",
+        "RM40"
+       ],
+       "a": 2,
+       "e": "Untung = RM310 − RM250 = RM60.",
+       "d": 2
+      },
+      {
+       "q": "Sebuah beg berharga RM80 dijual dengan diskaun 25%. Berapakah harga beg itu selepas diskaun?",
+       "o": [
+        "RM20",
+        "RM55",
+        "RM75",
+        "RM60"
+       ],
+       "a": 3,
+       "e": "Diskaun = 25% × RM80 = RM20, maka harga = RM80 − RM20 = RM60.",
+       "d": 3
+      },
+      {
+       "q": "Puan Aisyah menyimpan RM2 000 dalam sebuah akaun simpanan yang memberi dividen 4% setahun. Berapakah dividen yang diterimanya selepas setahun?",
+       "o": [
+        "RM8",
+        "RM80",
+        "RM800",
+        "RM2 080"
+       ],
+       "a": 1,
+       "e": "4/100 × RM2 000 = RM80.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D5-3",
+     "nama": "Masa: sistem 24 jam dan tempoh",
+     "dskp": "DSKP KSSR Matematik Tahun 5 (draf): Masa dan waktu: sistem 12 jam dan 24 jam, penukaran unit masa serta tempoh",
+     "stesen": "Menara Jam Kota Bharu",
+     "nota": [
+      "Waktu petang dalam sistem 24 jam: tambah 12 pada jam, contohnya 3:45 petang = 1545.",
+      "1 tahun = 12 bulan; 1 dekad = 10 tahun; 1 abad = 100 tahun.",
+      "Tempoh = waktu tamat − waktu mula."
+     ],
+     "soalan": [
+      {
+       "q": "Pukul 3:45 petang dalam sistem 24 jam ialah ...",
+       "o": [
+        "1545",
+        "0345",
+        "1345",
+        "1745"
+       ],
+       "a": 0,
+       "e": "3 + 12 = 15, maka 3:45 petang = 1545.",
+       "d": 1
+      },
+      {
+       "q": "2 1/2 jam = ? minit",
+       "o": [
+        "120",
+        "130",
+        "150",
+        "250"
+       ],
+       "a": 2,
+       "e": "2 1/2 × 60 = 150 minit.",
+       "d": 2
+      },
+      {
+       "q": "Sebuah bas bertolak pada jam 0820 dan tiba pada jam 1105. Berapakah tempoh perjalanan itu?",
+       "o": [
+        "3 jam 25 minit",
+        "3 jam 15 minit",
+        "2 jam 25 minit",
+        "2 jam 45 minit"
+       ],
+       "a": 3,
+       "e": "Dari 0820 ke 1020 ialah 2 jam, dan dari 1020 ke 1105 ialah 45 minit, jadi 2 jam 45 minit.",
+       "d": 3
+      },
+      {
+       "q": "1 dekad = ? tahun",
+       "o": [
+        "100",
+        "10",
+        "12",
+        "1 000"
+       ],
+       "a": 1,
+       "e": "1 dekad bersamaan dengan 10 tahun.",
+       "d": 1
+      },
+      {
+       "q": "3 tahun 8 bulan = ? bulan",
+       "o": [
+        "38",
+        "32",
+        "44",
+        "48"
+       ],
+       "a": 2,
+       "e": "3 × 12 + 8 = 36 + 8 = 44 bulan.",
+       "d": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-D6",
+    "nama": "Matematik Tahun 6",
+    "darjah": 6
+   },
+   "topik": [
+    {
+     "id": "MT-D6-1",
+     "nama": "Nisbah dan kadaran",
+     "dskp": "DSKP KSSR Matematik Tahun 6 (draf): Nisbah dan kadaran: nisbah dalam bentuk termudah, kaedah unitari dan pembahagian mengikut nisbah",
+     "stesen": "Kelantan Trade Centre",
+     "nota": [
+      "Nisbah a : b membandingkan dua kuantiti dalam unit yang sama.",
+      "Ringkaskan nisbah dengan membahagi kedua-dua sebutan dengan faktor sepunya terbesar.",
+      "Kaedah unitari: cari nilai bagi 1 unit dahulu, kemudian darab."
+     ],
+     "soalan": [
+      {
+       "q": "Dalam sebuah kumpulan, ada 6 orang murid lelaki dan 9 orang murid perempuan. Apakah nisbah murid lelaki kepada murid perempuan dalam bentuk termudah?",
+       "o": [
+        "2 : 3",
+        "3 : 2",
+        "2 : 5",
+        "1 : 2"
+       ],
+       "a": 0,
+       "e": "6 : 9 = (6 ÷ 3) : (9 ÷ 3) = 2 : 3.",
+       "d": 2
+      },
+      {
+       "q": "Ungkapkan 8 : 20 dalam bentuk termudah.",
+       "o": [
+        "4 : 10",
+        "5 : 2",
+        "2 : 5",
+        "1 : 4"
+       ],
+       "a": 2,
+       "e": "Bahagi kedua-dua sebutan dengan 4: 8 : 20 = 2 : 5.",
+       "d": 1
+      },
+      {
+       "q": "Harga 3 buah buku ialah RM12. Berapakah harga 5 buah buku yang sama?",
+       "o": [
+        "RM20",
+        "RM15",
+        "RM60",
+        "RM4"
+       ],
+       "a": 0,
+       "e": "1 buku = RM12 ÷ 3 = RM4, maka 5 buku = 5 × RM4 = RM20.",
+       "d": 2
+      },
+      {
+       "q": "Nisbah jisim gula kepada jisim tepung dalam satu resipi kuih ialah 1 : 4. Jika jisim tepung ialah 800 g, berapakah jisim gula?",
+       "o": [
+        "3 200 g",
+        "160 g",
+        "400 g",
+        "200 g"
+       ],
+       "a": 3,
+       "e": "Gula = 800 g ÷ 4 × 1 = 200 g.",
+       "d": 2
+      },
+      {
+       "q": "Wang RM60 dibahagikan antara Ali dan Abu mengikut nisbah 2 : 3. Berapakah bahagian Abu?",
+       "o": [
+        "RM24",
+        "RM36",
+        "RM20",
+        "RM40"
+       ],
+       "a": 1,
+       "e": "Jumlah bahagian = 5; Abu = 3/5 × RM60 = RM36.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D6-2",
+     "nama": "Koordinat",
+     "dskp": "DSKP KSSR Matematik Tahun 6 (draf): Ruang: koordinat dalam sukuan pertama, jarak mengufuk dan mencancang serta titik tengah",
+     "stesen": "Menara Alor Setar",
+     "nota": [
+      "Koordinat (x, y): x ialah jarak mengufuk, y ialah jarak mencancang dari asalan.",
+      "Asalan ialah titik (0, 0).",
+      "Jarak antara dua titik pada garis mengufuk = beza koordinat-x."
+     ],
+     "soalan": [
+      {
+       "q": "Dalam koordinat (4, 7), nombor 4 menunjukkan jarak ...",
+       "o": [
+        "mencancang dari asalan",
+        "pepenjuru dari asalan",
+        "ke bawah dari asalan",
+        "mengufuk dari asalan"
+       ],
+       "a": 3,
+       "e": "Koordinat pertama (x) sentiasa menunjukkan jarak mengufuk dari asalan.",
+       "d": 1
+      },
+      {
+       "q": "Titik P berada pada (2, 5) dan titik Q pada (6, 5). Berapakah jarak PQ?",
+       "o": [
+        "8 unit",
+        "5 unit",
+        "4 unit",
+        "11 unit"
+       ],
+       "a": 2,
+       "e": "Koordinat-y sama, maka jarak = 6 − 2 = 4 unit.",
+       "d": 2
+      },
+      {
+       "q": "Titik A (3, 1) digerakkan 2 unit ke atas. Apakah koordinat baharunya?",
+       "o": [
+        "(5, 1)",
+        "(3, 3)",
+        "(1, 1)",
+        "(5, 3)"
+       ],
+       "a": 1,
+       "e": "Bergerak ke atas menambah koordinat-y: (3, 1 + 2) = (3, 3).",
+       "d": 2
+      },
+      {
+       "q": "Apakah koordinat bagi asalan?",
+       "o": [
+        "(0, 0)",
+        "(1, 1)",
+        "(0, 1)",
+        "(1, 0)"
+       ],
+       "a": 0,
+       "e": "Asalan ialah titik persilangan paksi-x dan paksi-y, iaitu (0, 0).",
+       "d": 1
+      },
+      {
+       "q": "Titik R berada pada (1, 2) dan titik S pada (1, 8). Apakah koordinat titik tengah RS?",
+       "o": [
+        "(1, 6)",
+        "(1, 4)",
+        "(1, 5)",
+        "(2, 5)"
+       ],
+       "a": 2,
+       "e": "Titik tengah = ((1 + 1)/2, (2 + 8)/2) = (1, 5).",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-D6-3",
+     "nama": "Pengurusan data",
+     "dskp": "DSKP KSSR Matematik Tahun 6 (draf): Statistik dan data: purata, mod, median dan julat bagi set data ringkas",
+     "stesen": "Bukit Bintang",
+     "nota": [
+      "Purata = jumlah nilai ÷ bilangan nilai.",
+      "Mod ialah nilai yang paling kerap muncul; median ialah nilai di tengah selepas disusun.",
+      "Julat = nilai terbesar − nilai terkecil."
+     ],
+     "soalan": [
+      {
+       "q": "Berapakah purata bagi 4, 6, 8 dan 10?",
+       "o": [
+        "28",
+        "6",
+        "8",
+        "7"
+       ],
+       "a": 3,
+       "e": "(4 + 6 + 8 + 10) ÷ 4 = 28 ÷ 4 = 7.",
+       "d": 1
+      },
+      {
+       "q": "Apakah mod bagi data 3, 5, 5, 7, 5, 2, 7?",
+       "o": [
+        "5",
+        "7",
+        "3",
+        "2"
+       ],
+       "a": 0,
+       "e": "5 muncul paling kerap (3 kali).",
+       "d": 2
+      },
+      {
+       "q": "Berapakah julat bagi data 12, 7, 19, 4, 15?",
+       "o": [
+        "19",
+        "15",
+        "4",
+        "11"
+       ],
+       "a": 1,
+       "e": "Julat = 19 − 4 = 15.",
+       "d": 2
+      },
+      {
+       "q": "Apakah median bagi data 9, 3, 11, 5, 7?",
+       "o": [
+        "7",
+        "11",
+        "5",
+        "9"
+       ],
+       "a": 0,
+       "e": "Susun: 3, 5, 7, 9, 11; nilai di tengah ialah 7.",
+       "d": 2
+      },
+      {
+       "q": "Purata markah 5 orang murid ialah 80. Jumlah markah 4 orang daripada mereka ialah 316. Berapakah markah murid kelima?",
+       "o": [
+        "80",
+        "79",
+        "84",
+        "76"
+       ],
+       "a": 2,
+       "e": "Jumlah markah = 5 × 80 = 400, maka murid kelima = 400 − 316 = 84.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-T1",
+    "nama": "Matematik Tingkatan 1",
+    "tingkatan": 1
+   },
+   "topik": [
+    {
+     "id": "MT-T1-1",
+     "nama": "Integer",
+     "dskp": "DSKP KSSM Matematik Tingkatan 1 (draf): Nombor nisbah: integer positif dan negatif, garis nombor serta operasi asas ke atas integer",
+     "stesen": "Menara Taming Sari",
+     "nota": [
+      "Integer negatif terletak di sebelah kiri sifar pada garis nombor.",
+      "Tambah integer negatif sama dengan menolak: 5 + (−3) = 2.",
+      "Darab atau bahagi dua integer bertanda sama memberi hasil positif; bertanda berbeza memberi hasil negatif."
+     ],
+     "soalan": [
+      {
+       "q": "Sebuah lif berada di aras −2 (bawah tanah). Lif itu naik 9 aras. Di aras manakah lif itu sekarang?",
+       "o": [
+        "−11",
+        "11",
+        "−7",
+        "7"
+       ],
+       "a": 3,
+       "e": "−2 + 9 = 7.",
+       "d": 1
+      },
+      {
+       "q": "(−7) + (−5) = ?",
+       "o": [
+        "−2",
+        "−12",
+        "2",
+        "12"
+       ],
+       "a": 1,
+       "e": "Tambah dua integer negatif: −(7 + 5) = −12.",
+       "d": 1
+      },
+      {
+       "q": "(−6) × 4 − (−10) = ?",
+       "o": [
+        "−34",
+        "14",
+        "−14",
+        "34"
+       ],
+       "a": 2,
+       "e": "(−6) × 4 = −24, kemudian −24 + 10 = −14.",
+       "d": 2
+      },
+      {
+       "q": "(−48) ÷ (−6) + (−3)² = ?",
+       "o": [
+        "−1",
+        "−17",
+        "1",
+        "17"
+       ],
+       "a": 3,
+       "e": "(−48) ÷ (−6) = 8 dan (−3)² = 9, maka 8 + 9 = 17.",
+       "d": 3
+      },
+      {
+       "q": "Susun integer −4, 2, −9, 0 dalam tertib menaik.",
+       "o": [
+        "−9, −4, 0, 2",
+        "−4, −9, 0, 2",
+        "2, 0, −4, −9",
+        "0, −4, −9, 2"
+       ],
+       "a": 0,
+       "e": "Pada garis nombor, −9 paling kiri, diikuti −4, 0 dan 2.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "MT-T1-2",
+     "nama": "Faktor dan gandaan",
+     "dskp": "DSKP KSSM Matematik Tingkatan 1 (draf): Faktor, gandaan, nombor perdana, faktor sepunya terbesar (FSTB) dan gandaan sepunya terkecil (GSTK)",
+     "stesen": "Sawah Padi Sekinchan",
+     "nota": [
+      "Faktor ialah nombor yang membahagi sesuatu nombor tanpa baki.",
+      "Nombor perdana hanya mempunyai dua faktor: 1 dan dirinya sendiri.",
+      "FSTB digunakan untuk membahagi sama rata; GSTK digunakan untuk mencari bila sesuatu berlaku serentak."
+     ],
+     "soalan": [
+      {
+       "q": "Apakah semua faktor bagi 18?",
+       "o": [
+        "1, 2, 3, 9, 18",
+        "1, 2, 3, 6, 9, 18",
+        "2, 3, 6, 9",
+        "1, 2, 4, 6, 9, 18"
+       ],
+       "a": 1,
+       "e": "18 = 1 × 18 = 2 × 9 = 3 × 6, maka faktornya 1, 2, 3, 6, 9, 18.",
+       "d": 1
+      },
+      {
+       "q": "Seorang petani mempunyai 24 ikat padi huma dan 36 ikat padi wangi. Dia mahu membahagikan kedua-duanya sama banyak ke dalam beberapa bakul tanpa baki. Berapakah bilangan bakul yang paling banyak?",
+       "o": [
+        "6",
+        "12",
+        "4",
+        "72"
+       ],
+       "a": 1,
+       "e": "FSTB bagi 24 dan 36 ialah 12.",
+       "d": 2
+      },
+      {
+       "q": "Apakah GSTK bagi 6 dan 8?",
+       "o": [
+        "48",
+        "2",
+        "14",
+        "24"
+       ],
+       "a": 3,
+       "e": "Gandaan 6: 6, 12, 18, 24; gandaan 8: 8, 16, 24; GSTK = 24.",
+       "d": 2
+      },
+      {
+       "q": "Nombor perdana manakah yang terletak di antara 20 dan 30?",
+       "o": [
+        "23 dan 29",
+        "21 dan 27",
+        "23 dan 27",
+        "25 dan 29"
+       ],
+       "a": 0,
+       "e": "21 = 3 × 7, 25 = 5 × 5 dan 27 = 3 × 9 bukan perdana; hanya 23 dan 29 perdana.",
+       "d": 2
+      },
+      {
+       "q": "Dua lampu berkelip serentak. Lampu A berkelip setiap 12 saat dan lampu B setiap 18 saat. Selepas berapa saat kedua-duanya akan berkelip serentak semula?",
+       "o": [
+        "6",
+        "30",
+        "36",
+        "216"
+       ],
+       "a": 2,
+       "e": "GSTK bagi 12 dan 18 ialah 36 saat.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-T1-3",
+     "nama": "Persamaan dan ketaksamaan linear",
+     "dskp": "DSKP KSSM Matematik Tingkatan 1 (draf): Ungkapan algebra, persamaan linear dalam satu pemboleh ubah dan ketaksamaan linear",
+     "stesen": "Menara Condong Teluk Intan",
+     "nota": [
+      "Untuk menyelesaikan persamaan, lakukan operasi yang sama pada kedua-dua belah.",
+      "Ketaksamaan diselesaikan seperti persamaan, tetapi simbol ditukar arah jika didarab atau dibahagi dengan nombor negatif.",
+      "'Lima kurang daripada 2n' ditulis 2n − 5."
+     ],
+     "soalan": [
+      {
+       "q": "Selesaikan x + 7 = 15.",
+       "o": [
+        "x = 22",
+        "x = 8",
+        "x = 7",
+        "x = −8"
+       ],
+       "a": 1,
+       "e": "x = 15 − 7 = 8.",
+       "d": 1
+      },
+      {
+       "q": "Selesaikan 3x − 5 = 16.",
+       "o": [
+        "x = 11",
+        "x = 5",
+        "x = 21",
+        "x = 7"
+       ],
+       "a": 3,
+       "e": "3x = 16 + 5 = 21, maka x = 21 ÷ 3 = 7.",
+       "d": 2
+      },
+      {
+       "q": "Tulis ungkapan algebra bagi 'lima kurang daripada dua kali n'.",
+       "o": [
+        "5 − 2n",
+        "2(n − 5)",
+        "2n − 5",
+        "5n − 2"
+       ],
+       "a": 2,
+       "e": "Dua kali n ialah 2n, dan lima kurang daripadanya ialah 2n − 5.",
+       "d": 2
+      },
+      {
+       "q": "Selesaikan ketaksamaan 2x + 3 > 11.",
+       "o": [
+        "x > 4",
+        "x > 7",
+        "x < 4",
+        "x > 8"
+       ],
+       "a": 0,
+       "e": "2x > 11 − 3 = 8, maka x > 4.",
+       "d": 2
+      },
+      {
+       "q": "Harga 3 batang pen dan sebuah buku ialah RM14. Harga buku itu RM5. Berapakah harga sebatang pen?",
+       "o": [
+        "RM3",
+        "RM9",
+        "RM4",
+        "RM2"
+       ],
+       "a": 0,
+       "e": "3p + 5 = 14, maka 3p = 9 dan p = RM3.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-T2",
+    "nama": "Matematik Tingkatan 2",
+    "tingkatan": 2
+   },
+   "topik": [
+    {
+     "id": "MT-T2-1",
+     "nama": "Pola, jujukan dan pemfaktoran",
+     "dskp": "DSKP KSSM Matematik Tingkatan 2 (draf): Pola dan jujukan, kembangan ungkapan algebra serta pemfaktoran",
+     "stesen": "Menara Condong Teluk Intan",
+     "nota": [
+      "Sebutan ke-n bagi jujukan dengan beza sepunya d boleh ditulis dn + c.",
+      "(a + b)(a − b) = a² − b².",
+      "Faktorkan x² + bx + c dengan mencari dua nombor yang hasil darabnya c dan hasil tambahnya b."
+     ],
+     "soalan": [
+      {
+       "q": "Kembangkan 3(2x − 4).",
+       "o": [
+        "6x − 4",
+        "5x − 7",
+        "6x − 12",
+        "6x + 12"
+       ],
+       "a": 2,
+       "e": "3 × 2x − 3 × 4 = 6x − 12.",
+       "d": 1
+      },
+      {
+       "q": "Kembangkan (x + 3)(x − 5).",
+       "o": [
+        "x² + 2x − 15",
+        "x² − 2x − 15",
+        "x² − 15",
+        "x² − 8x − 15"
+       ],
+       "a": 1,
+       "e": "x² − 5x + 3x − 15 = x² − 2x − 15.",
+       "d": 2
+      },
+      {
+       "q": "Faktorkan 4x² − 9.",
+       "o": [
+        "(4x + 3)(x − 3)",
+        "(2x − 3)²",
+        "(4x − 9)(x + 1)",
+        "(2x + 3)(2x − 3)"
+       ],
+       "a": 3,
+       "e": "4x² − 9 = (2x)² − 3² = (2x + 3)(2x − 3).",
+       "d": 2
+      },
+      {
+       "q": "Faktorkan x² + 7x + 12.",
+       "o": [
+        "(x + 2)(x + 6)",
+        "(x + 1)(x + 12)",
+        "(x + 3)(x + 4)",
+        "(x − 3)(x − 4)"
+       ],
+       "a": 2,
+       "e": "3 × 4 = 12 dan 3 + 4 = 7, maka (x + 3)(x + 4).",
+       "d": 2
+      },
+      {
+       "q": "Apakah sebutan ke-n bagi jujukan 5, 8, 11, 14, ...?",
+       "o": [
+        "3n + 2",
+        "3n + 5",
+        "5n + 3",
+        "n + 3"
+       ],
+       "a": 0,
+       "e": "Beza sepunya 3, dan apabila n = 1, 3(1) + 2 = 5.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-T2-2",
+     "nama": "Sudut poligon",
+     "dskp": "DSKP KSSM Matematik Tingkatan 2 (draf): Poligon: hasil tambah sudut pedalaman dan sudut luaran serta poligon sekata",
+     "stesen": "Stadium Sultan Muhammad IV",
+     "nota": [
+      "Hasil tambah sudut pedalaman poligon n sisi = (n − 2) × 180°.",
+      "Hasil tambah sudut luaran mana-mana poligon = 360°.",
+      "Sudut pedalaman + sudut luaran = 180°."
+     ],
+     "soalan": [
+      {
+       "q": "Berapakah hasil tambah sudut pedalaman sebuah heksagon?",
+       "o": [
+        "540°",
+        "720°",
+        "360°",
+        "1080°"
+       ],
+       "a": 1,
+       "e": "(6 − 2) × 180° = 720°.",
+       "d": 2
+      },
+      {
+       "q": "Berapakah saiz satu sudut luaran bagi sebuah oktagon sekata?",
+       "o": [
+        "135°",
+        "40°",
+        "60°",
+        "45°"
+       ],
+       "a": 3,
+       "e": "360° ÷ 8 = 45°.",
+       "d": 2
+      },
+      {
+       "q": "Berapakah hasil tambah sudut luaran bagi mana-mana poligon?",
+       "o": [
+        "180°",
+        "540°",
+        "720°",
+        "360°"
+       ],
+       "a": 3,
+       "e": "Hasil tambah sudut luaran sebarang poligon sentiasa 360°.",
+       "d": 1
+      },
+      {
+       "q": "Setiap sudut pedalaman sebuah poligon sekata ialah 120°. Berapakah bilangan sisinya?",
+       "o": [
+        "5",
+        "8",
+        "6",
+        "3"
+       ],
+       "a": 2,
+       "e": "Sudut luaran = 180° − 120° = 60°, maka bilangan sisi = 360° ÷ 60° = 6.",
+       "d": 3
+      },
+      {
+       "q": "Sudut pedalaman sebuah pentagon ialah 100°, 110°, 95°, 120° dan x. Cari nilai x.",
+       "o": [
+        "105°",
+        "115°",
+        "125°",
+        "135°"
+       ],
+       "a": 1,
+       "e": "Jumlah = (5 − 2) × 180° = 540°, maka x = 540° − 425° = 115°.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-T2-3",
+     "nama": "Kebarangkalian mudah",
+     "dskp": "DSKP KSSM Matematik Tingkatan 2 (draf): Kebarangkalian mudah: ruang sampel, peristiwa dan kebarangkalian sesuatu peristiwa",
+     "stesen": "Bukit Bintang",
+     "nota": [
+      "P(A) = bilangan kesudahan peristiwa A ÷ bilangan kesudahan dalam ruang sampel.",
+      "Nilai kebarangkalian antara 0 (mustahil) dan 1 (pasti).",
+      "Jangkaan bilangan = P(A) × jumlah percubaan."
+     ],
+     "soalan": [
+      {
+       "q": "Sebiji dadu adil dilambung sekali. Apakah kebarangkalian mendapat nombor 4?",
+       "o": [
+        "1/6",
+        "1/4",
+        "4/6",
+        "1/2"
+       ],
+       "a": 0,
+       "e": "Ada 6 kesudahan dan hanya satu ialah 4, maka P = 1/6.",
+       "d": 1
+      },
+      {
+       "q": "Sebuah kotak mengandungi 3 biji bola merah, 5 biji bola biru dan 2 biji bola hijau. Sebiji bola dipilih secara rawak. Apakah kebarangkalian bola biru dipilih?",
+       "o": [
+        "1/5",
+        "3/10",
+        "1/2",
+        "1/3"
+       ],
+       "a": 2,
+       "e": "P(biru) = 5/(3 + 5 + 2) = 5/10 = 1/2.",
+       "d": 2
+      },
+      {
+       "q": "Apakah nilai kebarangkalian bagi suatu peristiwa yang pasti berlaku?",
+       "o": [
+        "0",
+        "1",
+        "0.5",
+        "100"
+       ],
+       "a": 1,
+       "e": "Peristiwa pasti mempunyai kebarangkalian 1.",
+       "d": 1
+      },
+      {
+       "q": "Sebiji dadu adil dilambung sekali. Apakah kebarangkalian mendapat nombor perdana?",
+       "o": [
+        "2/3",
+        "1/3",
+        "1/6",
+        "1/2"
+       ],
+       "a": 3,
+       "e": "Nombor perdana ialah 2, 3 dan 5, maka P = 3/6 = 1/2.",
+       "d": 2
+      },
+      {
+       "q": "Sebuah kedai mencatat 240 orang pelanggan dalam sehari. Kebarangkalian seorang pelanggan membeli minuman ialah 3/8. Berapakah jangkaan bilangan pelanggan yang membeli minuman?",
+       "o": [
+        "90",
+        "80",
+        "150",
+        "120"
+       ],
+       "a": 0,
+       "e": "3/8 × 240 = 90 orang.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-T3",
+    "nama": "Matematik Tingkatan 3",
+    "tingkatan": 3
+   },
+   "topik": [
+    {
+     "id": "MT-T3-1",
+     "nama": "Indeks dan bentuk piawai",
+     "dskp": "DSKP KSSM Matematik Tingkatan 3 (draf): Indeks: hukum indeks, indeks pecahan serta bentuk piawai",
+     "stesen": "Menara Exchange 106 (TRX)",
+     "nota": [
+      "aᵐ × aⁿ = aᵐ⁺ⁿ dan (aᵐ)ⁿ = aᵐⁿ.",
+      "a^(m/n) = (ⁿ√a)ᵐ.",
+      "Bentuk piawai: A × 10ⁿ dengan 1 ≤ A < 10 dan n integer."
+     ],
+     "soalan": [
+      {
+       "q": "Ringkaskan a³ × a⁵.",
+       "o": [
+        "a⁸",
+        "a¹⁵",
+        "a²",
+        "2a⁸"
+       ],
+       "a": 0,
+       "e": "a³ × a⁵ = a³⁺⁵ = a⁸.",
+       "d": 1
+      },
+      {
+       "q": "Hitung nilai (2³)².",
+       "o": [
+        "32",
+        "12",
+        "64",
+        "36"
+       ],
+       "a": 2,
+       "e": "(2³)² = 2⁶ = 64.",
+       "d": 2
+      },
+      {
+       "q": "Hitung nilai 27^(2/3).",
+       "o": [
+        "18",
+        "9",
+        "3",
+        "81"
+       ],
+       "a": 1,
+       "e": "27^(2/3) = (∛27)² = 3² = 9.",
+       "d": 2
+      },
+      {
+       "q": "Ungkapkan 0.000452 dalam bentuk piawai.",
+       "o": [
+        "4.52 × 10⁻³",
+        "45.2 × 10⁻⁵",
+        "4.52 × 10⁴",
+        "4.52 × 10⁻⁴"
+       ],
+       "a": 3,
+       "e": "Titik perpuluhan dianjak 4 tempat ke kanan, maka 0.000452 = 4.52 × 10⁻⁴.",
+       "d": 2
+      },
+      {
+       "q": "Hitung (3 × 10⁵) × (4 × 10³) dan beri jawapan dalam bentuk piawai.",
+       "o": [
+        "1.2 × 10⁸",
+        "1.2 × 10⁹",
+        "7 × 10⁸",
+        "1.2 × 10¹⁵"
+       ],
+       "a": 1,
+       "e": "3 × 4 = 12 dan 10⁵ × 10³ = 10⁸, maka 12 × 10⁸ = 1.2 × 10⁹.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-T3-2",
+     "nama": "Simpanan dan pelaburan",
+     "dskp": "DSKP KSSM Matematik Tingkatan 3 (draf): Matematik pengguna: simpanan dan pelaburan, faedah mudah, faedah kompaun dan pulangan pelaburan",
+     "stesen": "Bursa Malaysia",
+     "nota": [
+      "Faedah mudah: I = Prt.",
+      "Nilai matang faedah kompaun: MV = P(1 + r/n)ⁿᵗ.",
+      "Pulangan atas pelaburan (ROI) = jumlah pulangan ÷ modal × 100%."
+     ],
+     "soalan": [
+      {
+       "q": "Encik Hafiz menyimpan RM5 000 dengan kadar faedah mudah 4% setahun. Berapakah faedah yang diterima selepas 3 tahun?",
+       "o": [
+        "RM200",
+        "RM5 600",
+        "RM60",
+        "RM600"
+       ],
+       "a": 3,
+       "e": "I = Prt = 5 000 × 0.04 × 3 = RM600.",
+       "d": 2
+      },
+      {
+       "q": "RM2 000 disimpan dengan kadar faedah mudah 5% setahun. Berapakah jumlah wang selepas 2 tahun?",
+       "o": [
+        "RM2 200",
+        "RM2 100",
+        "RM200",
+        "RM2 205"
+       ],
+       "a": 0,
+       "e": "Faedah = 2 000 × 0.05 × 2 = RM200, maka jumlah = RM2 200.",
+       "d": 2
+      },
+      {
+       "q": "RM1 000 dilaburkan dengan kadar faedah 10% setahun yang dikompaun setiap tahun. Berapakah nilai matang selepas 2 tahun?",
+       "o": [
+        "RM1 200",
+        "RM1 100",
+        "RM1 210",
+        "RM1 021"
+       ],
+       "a": 2,
+       "e": "MV = 1 000(1 + 0.10)² = 1 000 × 1.21 = RM1 210.",
+       "d": 3
+      },
+      {
+       "q": "Encik Lim membeli 200 unit saham pada harga RM2.50 seunit dan menjualnya pada harga RM3.10 seunit. Berapakah keuntungan modalnya?",
+       "o": [
+        "RM620",
+        "RM60",
+        "RM120",
+        "RM12"
+       ],
+       "a": 2,
+       "e": "Untung = 200 × (RM3.10 − RM2.50) = 200 × RM0.60 = RM120.",
+       "d": 3
+      },
+      {
+       "q": "Pelaburan sebanyak RM4 000 memberi jumlah pulangan RM300 dalam setahun. Berapakah pulangan atas pelaburan (ROI)?",
+       "o": [
+        "30%",
+        "7.5%",
+        "13.3%",
+        "0.75%"
+       ],
+       "a": 1,
+       "e": "ROI = 300 ÷ 4 000 × 100% = 7.5%.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "MT-T3-3",
+     "nama": "Teorem Pythagoras dan trigonometri",
+     "dskp": "DSKP KSSM Matematik Tingkatan 3 (draf): Teorem Pythagoras dan nisbah trigonometri (sinus, kosinus, tangen) bagi segi tiga bersudut tegak",
+     "stesen": "Jambatan Pulau Pinang",
+     "nota": [
+      "Teorem Pythagoras: c² = a² + b², dengan c ialah hipotenus.",
+      "sin θ = bertentangan/hipotenus, kos θ = bersebelahan/hipotenus, tan θ = bertentangan/bersebelahan.",
+      "sin 30° = 0.5."
+     ],
+     "soalan": [
+      {
+       "q": "Sebuah segi tiga bersudut tegak mempunyai dua sisi pendek 6 cm dan 8 cm. Berapakah panjang hipotenusnya?",
+       "o": [
+        "14 cm",
+        "12 cm",
+        "7 cm",
+        "10 cm"
+       ],
+       "a": 3,
+       "e": "c² = 6² + 8² = 36 + 64 = 100, maka c = 10 cm.",
+       "d": 1
+      },
+      {
+       "q": "Hipotenus sebuah segi tiga bersudut tegak ialah 13 cm dan satu sisinya 5 cm. Berapakah panjang sisi yang satu lagi?",
+       "o": [
+        "12 cm",
+        "8 cm",
+        "18 cm",
+        "10 cm"
+       ],
+       "a": 0,
+       "e": "13² − 5² = 169 − 25 = 144, maka sisi = 12 cm.",
+       "d": 2
+      },
+      {
+       "q": "Adakah segi tiga dengan sisi 7 cm, 24 cm dan 25 cm sebuah segi tiga bersudut tegak?",
+       "o": [
+        "Tidak, kerana 7 + 24 ≠ 25",
+        "Ya, kerana 7 + 24 > 25",
+        "Tidak, kerana 25² > 24²",
+        "Ya, kerana 7² + 24² = 25²"
+       ],
+       "a": 3,
+       "e": "7² + 24² = 49 + 576 = 625 = 25², maka akas Teorem Pythagoras dipenuhi.",
+       "d": 2
+      },
+      {
+       "q": "Dalam sebuah segi tiga bersudut tegak, sisi bertentangan dengan sudut θ ialah 3 cm dan hipotenusnya 5 cm. Apakah nilai kos θ?",
+       "o": [
+        "3/5",
+        "4/5",
+        "3/4",
+        "5/4"
+       ],
+       "a": 1,
+       "e": "Sisi bersebelahan = √(5² − 3²) = 4 cm, maka kos θ = 4/5.",
+       "d": 2
+      },
+      {
+       "q": "Sebatang tiang setinggi 40 m berdiri tegak di atas dek jambatan. Sebatang kabel lurus dari puncak tiang ke dek membentuk sudut 30° dengan dek. Berapakah panjang kabel itu?",
+       "o": [
+        "20 m",
+        "46.19 m",
+        "80 m",
+        "69.28 m"
+       ],
+       "a": 2,
+       "e": "sin 30° = 40/L, maka L = 40 ÷ 0.5 = 80 m.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "MT-T6",
+    "nama": "Matematik Tingkatan 6 (STPM)",
+    "tingkatan": 6
+   },
+   "topik": [
+    {
+     "id": "MT-T6-1",
+     "nama": "Fungsi",
+     "dskp": "DSKP STPM Matematik (M) Tingkatan 6 (draf): Fungsi: nilai fungsi, fungsi gubahan, fungsi songsang, domain dan nilai minimum fungsi kuadratik",
+     "stesen": "Menara Alor Setar",
+     "nota": [
+      "Fungsi gubahan fg(x) = f(g(x)).",
+      "Untuk mencari f⁻¹, tulis y = f(x) dan ungkapkan x dalam sebutan y.",
+      "Fungsi kuadratik a(x − h)² + k dengan a > 0 mempunyai nilai minimum k."
+     ],
+     "soalan": [
+      {
+       "q": "Diberi f(x) = 2x² − 3x + 1. Cari f(2).",
+       "o": [
+        "3",
+        "1",
+        "15",
+        "7"
+       ],
+       "a": 0,
+       "e": "f(2) = 2(4) − 3(2) + 1 = 8 − 6 + 1 = 3.",
+       "d": 1
+      },
+      {
+       "q": "Diberi f(x) = 3x − 1 dan g(x) = x + 2. Cari fg(x).",
+       "o": [
+        "3x + 1",
+        "4x + 1",
+        "3x² + 5x − 2",
+        "3x + 5"
+       ],
+       "a": 3,
+       "e": "fg(x) = f(x + 2) = 3(x + 2) − 1 = 3x + 5.",
+       "d": 2
+      },
+      {
+       "q": "Diberi f(x) = (x + 4)/3. Cari f⁻¹(x).",
+       "o": [
+        "3x − 4",
+        "3x + 4",
+        "(x − 4)/3",
+        "3/(x + 4)"
+       ],
+       "a": 0,
+       "e": "y = (x + 4)/3 ⇒ x = 3y − 4, maka f⁻¹(x) = 3x − 4.",
+       "d": 2
+      },
+      {
+       "q": "Apakah domain bagi fungsi f(x) = 1/(x − 5)?",
+       "o": [
+        "x > 5",
+        "Semua nombor nyata kecuali x = 5",
+        "Semua nombor nyata kecuali x = −5",
+        "x ≥ 0"
+       ],
+       "a": 1,
+       "e": "Penyebut tidak boleh sifar, jadi x − 5 ≠ 0, iaitu x ≠ 5.",
+       "d": 2
+      },
+      {
+       "q": "Cari nilai minimum bagi f(x) = x² − 6x + 11.",
+       "o": [
+        "3",
+        "11",
+        "2",
+        "−9"
+       ],
+       "a": 2,
+       "e": "f(x) = (x − 3)² + 2, maka nilai minimum ialah 2 apabila x = 3.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-T6-2",
+     "nama": "Persamaan dan ketaksamaan",
+     "dskp": "DSKP STPM Matematik (M) Tingkatan 6 (draf): Persamaan kuadratik, persamaan serentak linear dan ketaksamaan kuadratik",
+     "stesen": "Menara Berkembar Petronas",
+     "nota": [
+      "Bagi ax² + bx + c = 0: hasil tambah punca = −b/a dan hasil darab punca = c/a.",
+      "Punca sama jika b² − 4ac = 0.",
+      "Ketaksamaan (x − p)(x − q) < 0 dengan p < q memberi p < x < q."
+     ],
+     "soalan": [
+      {
+       "q": "Selesaikan x² − 5x + 6 = 0.",
+       "o": [
+        "x = −2 atau x = −3",
+        "x = 1 atau x = 6",
+        "x = −1 atau x = 6",
+        "x = 2 atau x = 3"
+       ],
+       "a": 3,
+       "e": "(x − 2)(x − 3) = 0, maka x = 2 atau x = 3.",
+       "d": 1
+      },
+      {
+       "q": "Apakah hasil tambah punca bagi 2x² − 8x + 3 = 0?",
+       "o": [
+        "4",
+        "−4",
+        "3/2",
+        "8"
+       ],
+       "a": 0,
+       "e": "Hasil tambah punca = −b/a = 8/2 = 4.",
+       "d": 2
+      },
+      {
+       "q": "Selesaikan persamaan serentak x + y = 10 dan x − y = 4.",
+       "o": [
+        "x = 6, y = 4",
+        "x = 3, y = 7",
+        "x = 7, y = 3",
+        "x = 8, y = 2"
+       ],
+       "a": 2,
+       "e": "Tambah kedua-dua persamaan: 2x = 14, maka x = 7 dan y = 10 − 7 = 3.",
+       "d": 2
+      },
+      {
+       "q": "Cari nilai k (k > 0) supaya persamaan x² + kx + 9 = 0 mempunyai dua punca yang sama.",
+       "o": [
+        "3",
+        "6",
+        "9",
+        "18"
+       ],
+       "a": 1,
+       "e": "b² − 4ac = 0 ⇒ k² − 36 = 0, maka k = 6.",
+       "d": 3
+      },
+      {
+       "q": "Selesaikan ketaksamaan x² − 4x − 12 < 0.",
+       "o": [
+        "x < −2 atau x > 6",
+        "−6 < x < 2",
+        "−2 < x < 6",
+        "x < −6 atau x > 2"
+       ],
+       "a": 2,
+       "e": "x² − 4x − 12 = (x − 6)(x + 2) < 0, maka −2 < x < 6.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "MT-T6-3",
+     "nama": "Statistik asas",
+     "dskp": "DSKP STPM Matematik (M) Tingkatan 6 (draf): Statistik: sukatan kecenderungan memusat dan sukatan serakan (min, median, varians, julat antara kuartil)",
+     "stesen": "Kelantan Trade Centre",
+     "nota": [
+      "Min x̄ = Σx/n.",
+      "Varians σ² = Σx²/n − x̄².",
+      "Julat antara kuartil = Q₃ − Q₁."
+     ],
+     "soalan": [
+      {
+       "q": "Cari min bagi data 12, 15, 18, 21, 24.",
+       "o": [
+        "15",
+        "18",
+        "21",
+        "90"
+       ],
+       "a": 1,
+       "e": "Σx = 90, maka min = 90 ÷ 5 = 18.",
+       "d": 1
+      },
+      {
+       "q": "Bagi data 2, 4, 6, 8, hitung Σ(x − x̄)².",
+       "o": [
+        "20",
+        "5",
+        "0",
+        "16"
+       ],
+       "a": 0,
+       "e": "x̄ = 5; (−3)² + (−1)² + 1² + 3² = 9 + 1 + 1 + 9 = 20.",
+       "d": 2
+      },
+      {
+       "q": "Diberi Σx = 120, Σx² = 1 640 dan n = 10. Hitung varians menggunakan σ² = Σx²/n − x̄².",
+       "o": [
+        "164",
+        "144",
+        "4.47",
+        "20"
+       ],
+       "a": 3,
+       "e": "x̄ = 12; σ² = 1 640/10 − 12² = 164 − 144 = 20.",
+       "d": 3
+      },
+      {
+       "q": "Cari median bagi data 3, 8, 5, 12, 9, 6.",
+       "o": [
+        "7",
+        "6",
+        "8",
+        "7.17"
+       ],
+       "a": 0,
+       "e": "Susun: 3, 5, 6, 8, 9, 12; median = (6 + 8)/2 = 7.",
+       "d": 2
+      },
+      {
+       "q": "Bagi suatu taburan, kuartil pertama ialah 24 dan kuartil ketiga ialah 41. Berapakah julat antara kuartil?",
+       "o": [
+        "65",
+        "32.5",
+        "17",
+        "8.5"
+       ],
+       "a": 2,
+       "e": "Julat antara kuartil = Q₃ − Q₁ = 41 − 24 = 17.",
+       "d": 2
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

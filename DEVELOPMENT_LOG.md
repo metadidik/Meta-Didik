@@ -11,6 +11,30 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.73 · Kuiz Tahun 1–6 dan Tingkatan 1–6 (draf) untuk BM, Matematik, Sains dan Pendidikan Islam
+
+- **Kandungan:** 585 soalan dan 117 tajuk baharu, ditanda **draf, perlu semakan guru**. DSKP rasmi tidak dapat dicapai; lihat `docs/KUIZ-DRAF.md`.
+- **Paparan:**
+  - peta dan Stesen Ilmu memaparkan satu tahap pada satu masa;
+  - pemilih tahap ada di Menu → Belajar (murid: tahap sendiri atau lebih rendah) dan di Peta Operasi (guru, lalai Tingkatan 4 & 5).
+- **Stesen kuiz** di mercu tanda sedia ada yang sesuai dengan subjek (`KUIZ_STESEN` → `lmSilmuList`).
+- **`tools/kuiz-gabung.py`:**
+  - gabung draf ke `app.js`, `soalan_*.json` dan `dunia.js`;
+  - kemas kini `SUBJS[].tk` dan versi cache;
+  - kod tajuk ringkas (contoh 3.1, T1.1).
+- **Pembaikan:**
+  - semakan "bank soalan rosak" (< 50 soalan) kini mengira semua tahap, bukan tahap murid sahaja;
+  - id soalan PI (medan `id`) tidak lagi bertindih.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright:
+    - Tahun 3 Sains: 3 tajuk dan 3 stesen di Cameron Highlands, Tasik Kenyir dan Menara KL;
+    - Tingkatan 5 Tasawwur Islam tidak berubah;
+    - guru Sains lalai Tingkatan 4 & 5;
+    - Tahun 6 PI: 90 soalan;
+    - Tingkatan 1 Matematik: 105 soalan;
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.72 · Penilaian murid selepas bermain permainan kendiri (stesen rasmi)
 
 - **Kad penilaian:**

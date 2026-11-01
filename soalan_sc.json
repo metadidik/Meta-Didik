@@ -1,5 +1,5 @@
 {
- "versi": "202610221200",
+ "versi": "202611012209",
  "dikemas": "2026-10-22T12:00:00",
  "nota": "Fail ini diurus melalui bank.html. Jangan ubah nama medan. a = indeks jawapan betul (0=A, 1=B, 2=C, 3=D). d = aras (1 mudah, 2 sederhana, 3 sukar). status: aktif atau gantung. Soalan Sains Tingkatan 4 dan 5 ini dijana daripada buku teks dan DSKP; perlu disemak oleh guru Sains.",
  "topik": [
@@ -15789,6 +15789,2556 @@
    "e": "Satelit GPS mengorbit pada kira-kira 20 000 km (MEO).",
    "s": "Buku Teks Sains KSSM Tingkatan 5, Bab 9: Teknologi Angkasa Lepas",
    "status": "aktif"
+  },
+  {
+   "t": "SC-D1-1",
+   "d": 1,
+   "q": "Organ deria manakah yang kita gunakan untuk menghidu bau buah durian?",
+   "o": [
+    "Telinga",
+    "Lidah",
+    "Kulit",
+    "Hidung"
+   ],
+   "a": 3,
+   "e": "Hidung ialah organ deria bau.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Kemahiran saintifik dan manusia: penggunaan deria untuk memerhati",
+   "status": "aktif",
+   "draf": 1,
+   "i": 980
+  },
+  {
+   "t": "SC-D1-1",
+   "d": 1,
+   "q": "Semasa berjalan di Taman Negara, Aina mendengar kicauan burung. Organ deria apakah yang digunakannya?",
+   "o": [
+    "Telinga",
+    "Mata",
+    "Hidung",
+    "Lidah"
+   ],
+   "a": 0,
+   "e": "Telinga ialah organ deria pendengaran.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Kemahiran saintifik dan manusia: penggunaan deria untuk memerhati",
+   "status": "aktif",
+   "draf": 1,
+   "i": 981
+  },
+  {
+   "t": "SC-D1-1",
+   "d": 1,
+   "q": "Lidah membantu kita mengesan sesuatu yang",
+   "o": [
+    "terang atau gelap",
+    "kuat atau perlahan bunyinya",
+    "manis, masin, masam atau pahit",
+    "besar atau kecil saiznya"
+   ],
+   "a": 2,
+   "e": "Lidah ialah organ deria rasa.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Kemahiran saintifik dan manusia: penggunaan deria untuk memerhati",
+   "status": "aktif",
+   "draf": 1,
+   "i": 982
+  },
+  {
+   "t": "SC-D1-1",
+   "d": 2,
+   "q": "Kulit membolehkan kita mengetahui sama ada sesuatu objek itu",
+   "o": [
+    "berwarna merah atau biru",
+    "berbau wangi atau busuk",
+    "berbunyi kuat atau perlahan",
+    "panas atau sejuk"
+   ],
+   "a": 3,
+   "e": "Kulit ialah organ deria sentuhan yang dapat mengesan panas, sejuk, kasar dan licin.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Kemahiran saintifik dan manusia: penggunaan deria untuk memerhati",
+   "status": "aktif",
+   "draf": 1,
+   "i": 983
+  },
+  {
+   "t": "SC-D1-1",
+   "d": 2,
+   "q": "Apakah nama kemahiran apabila kita menggunakan deria untuk mengumpul maklumat tentang sehelai daun?",
+   "o": [
+    "Memerhati",
+    "Meramal",
+    "Mengukur",
+    "Membuat inferens"
+   ],
+   "a": 0,
+   "e": "Memerhati ialah menggunakan deria untuk mengumpul maklumat tentang objek.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Kemahiran saintifik dan manusia: penggunaan deria untuk memerhati",
+   "status": "aktif",
+   "draf": 1,
+   "i": 984
+  },
+  {
+   "t": "SC-D1-2",
+   "d": 1,
+   "q": "Haiwan manakah yang badannya ditutupi bulu pelepah?",
+   "o": [
+    "Kucing",
+    "Ikan keli",
+    "Katak",
+    "Burung enggang"
+   ],
+   "a": 3,
+   "e": "Burung mempunyai bulu pelepah yang membantunya terbang.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Haiwan: bahagian luar badan haiwan dan penutup badan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 985
+  },
+  {
+   "t": "SC-D1-2",
+   "d": 1,
+   "q": "Ikan bernafas di dalam air menggunakan",
+   "o": [
+    "insang",
+    "paru-paru",
+    "sirip",
+    "ekor"
+   ],
+   "a": 0,
+   "e": "Insang membolehkan ikan mendapat oksigen daripada air.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Haiwan: bahagian luar badan haiwan dan penutup badan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 986
+  },
+  {
+   "t": "SC-D1-2",
+   "d": 1,
+   "q": "Haiwan manakah yang badannya ditutupi sisik?",
+   "o": [
+    "Arnab",
+    "Ayam",
+    "Ular sawa",
+    "Orang utan"
+   ],
+   "a": 2,
+   "e": "Ular ialah reptilia yang badannya ditutupi sisik.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Haiwan: bahagian luar badan haiwan dan penutup badan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 987
+  },
+  {
+   "t": "SC-D1-2",
+   "d": 1,
+   "q": "Bahagian badan manakah yang digunakan oleh burung untuk terbang?",
+   "o": [
+    "Paruh",
+    "Kaki",
+    "Sayap",
+    "Mata"
+   ],
+   "a": 2,
+   "e": "Burung mengepakkan sayapnya untuk terbang.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Haiwan: bahagian luar badan haiwan dan penutup badan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 988
+  },
+  {
+   "t": "SC-D1-2",
+   "d": 2,
+   "q": "Badan orang utan di Sepilok ditutupi oleh",
+   "o": [
+    "sisik yang keras",
+    "bulu (rambut) berwarna perang kemerahan",
+    "bulu pelepah yang berwarna-warni",
+    "cengkerang yang tebal"
+   ],
+   "a": 1,
+   "e": "Orang utan ialah mamalia yang badannya ditutupi bulu atau rambut.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Haiwan: bahagian luar badan haiwan dan penutup badan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 989
+  },
+  {
+   "t": "SC-D1-3",
+   "d": 1,
+   "q": "Objek manakah yang akan ditarik oleh magnet?",
+   "o": [
+    "Paku besi",
+    "Pemadam getah",
+    "Pensel kayu",
+    "Cawan plastik"
+   ],
+   "a": 0,
+   "e": "Magnet menarik objek yang diperbuat daripada besi.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Fizik: sifat magnet dan bahan yang ditarik oleh magnet",
+   "status": "aktif",
+   "draf": 1,
+   "i": 990
+  },
+  {
+   "t": "SC-D1-3",
+   "d": 1,
+   "q": "Dua hujung sebatang magnet dinamakan",
+   "o": [
+    "kutub atas dan kutub bawah",
+    "kutub utara dan kutub selatan",
+    "kutub kiri dan kutub kanan",
+    "kutub timur dan kutub barat"
+   ],
+   "a": 1,
+   "e": "Setiap magnet mempunyai kutub utara dan kutub selatan.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Fizik: sifat magnet dan bahan yang ditarik oleh magnet",
+   "status": "aktif",
+   "draf": 1,
+   "i": 991
+  },
+  {
+   "t": "SC-D1-3",
+   "d": 2,
+   "q": "Apakah yang berlaku apabila dua kutub utara magnet didekatkan?",
+   "o": [
+    "Kedua-duanya menarik",
+    "Kedua-duanya melekat",
+    "Kedua-duanya menjadi panas",
+    "Kedua-duanya menolak"
+   ],
+   "a": 3,
+   "e": "Kutub yang sama akan saling menolak.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Fizik: sifat magnet dan bahan yang ditarik oleh magnet",
+   "status": "aktif",
+   "draf": 1,
+   "i": 992
+  },
+  {
+   "t": "SC-D1-3",
+   "d": 2,
+   "q": "Magnet yang berbentuk seperti huruf U dikenali sebagai magnet",
+   "o": [
+    "ladam",
+    "bar",
+    "butang",
+    "gelang"
+   ],
+   "a": 0,
+   "e": "Magnet ladam berbentuk seperti huruf U.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Fizik: sifat magnet dan bahan yang ditarik oleh magnet",
+   "status": "aktif",
+   "draf": 1,
+   "i": 993
+  },
+  {
+   "t": "SC-D1-3",
+   "d": 1,
+   "q": "Antara berikut, yang manakah kegunaan magnet di rumah?",
+   "o": [
+    "Melekatkan nota pada pintu peti sejuk",
+    "Memotong sayur",
+    "Memanaskan air",
+    "Menyapu lantai"
+   ],
+   "a": 0,
+   "e": "Magnet boleh melekat pada pintu peti sejuk yang mengandungi besi.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 1 (draf): Fizik: sifat magnet dan bahan yang ditarik oleh magnet",
+   "status": "aktif",
+   "draf": 1,
+   "i": 994
+  },
+  {
+   "t": "SC-D2-1",
+   "d": 1,
+   "q": "Bahagian tumbuhan manakah yang menyerap air dari dalam tanah?",
+   "o": [
+    "Daun",
+    "Bunga",
+    "Buah",
+    "Akar"
+   ],
+   "a": 3,
+   "e": "Akar menyerap air dan garam mineral dari tanah.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Tumbuhan: bahagian tumbuhan, keperluan asas dan cara pembiakan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 995
+  },
+  {
+   "t": "SC-D2-1",
+   "d": 1,
+   "q": "Bunga Rafflesia di Lojing terkenal kerana",
+   "o": [
+    "baunya yang sangat wangi",
+    "saiz bunganya yang sangat besar",
+    "warnanya yang biru terang",
+    "tumbuh di padang pasir"
+   ],
+   "a": 1,
+   "e": "Rafflesia mempunyai antara bunga terbesar di dunia dan berbau busuk.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Tumbuhan: bahagian tumbuhan, keperluan asas dan cara pembiakan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 996
+  },
+  {
+   "t": "SC-D2-1",
+   "d": 2,
+   "q": "Tumbuhan manakah yang biasanya membiak melalui biji benih?",
+   "o": [
+    "Pokok pisang",
+    "Pokok buluh",
+    "Pokok keledek",
+    "Pokok rambutan"
+   ],
+   "a": 3,
+   "e": "Rambutan boleh tumbuh daripada biji benih, manakala pisang membiak melalui sulur.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Tumbuhan: bahagian tumbuhan, keperluan asas dan cara pembiakan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 997
+  },
+  {
+   "t": "SC-D2-1",
+   "d": 1,
+   "q": "Apakah keperluan asas tumbuhan untuk hidup?",
+   "o": [
+    "Gula dan garam",
+    "Air, udara dan cahaya matahari",
+    "Susu dan air",
+    "Pasir dan plastik"
+   ],
+   "a": 1,
+   "e": "Tumbuhan memerlukan air, udara dan cahaya matahari.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Tumbuhan: bahagian tumbuhan, keperluan asas dan cara pembiakan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 998
+  },
+  {
+   "t": "SC-D2-1",
+   "d": 3,
+   "q": "Mengapakah pokok bunga yang diletakkan di dalam almari gelap selama seminggu menjadi layu dan kekuningan?",
+   "o": [
+    "Pokok itu mendapat terlalu banyak udara",
+    "Pokok itu terlalu sejuk",
+    "Pokok itu tidak mendapat cahaya matahari",
+    "Pokok itu terlalu banyak cahaya"
+   ],
+   "a": 2,
+   "e": "Tumbuhan memerlukan cahaya matahari untuk membuat makanan dan kekal hijau.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Tumbuhan: bahagian tumbuhan, keperluan asas dan cara pembiakan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 999
+  },
+  {
+   "t": "SC-D2-2",
+   "d": 1,
+   "q": "Bahan manakah yang dapat menyerap air?",
+   "o": [
+    "Span",
+    "Plastik",
+    "Kaca",
+    "Syiling logam"
+   ],
+   "a": 0,
+   "e": "Span mempunyai banyak liang kecil yang menyerap air.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Bahan: keupayaan bahan menyerap air dan bahan kalis air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1000
+  },
+  {
+   "t": "SC-D2-2",
+   "d": 1,
+   "q": "Mengapakah tuala mandi biasanya diperbuat daripada kain kapas?",
+   "o": [
+    "Kain kapas kalis air",
+    "Kain kapas berkilat",
+    "Kain kapas dapat menyerap air",
+    "Kain kapas sangat keras"
+   ],
+   "a": 2,
+   "e": "Kain kapas menyerap air dengan baik, maka sesuai untuk mengeringkan badan.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Bahan: keupayaan bahan menyerap air dan bahan kalis air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1001
+  },
+  {
+   "t": "SC-D2-2",
+   "d": 1,
+   "q": "Bahan manakah paling sesuai untuk membuat baju hujan?",
+   "o": [
+    "Plastik",
+    "Kertas tisu",
+    "Kain kapas",
+    "Span"
+   ],
+   "a": 0,
+   "e": "Plastik kalis air dan tidak menyerap air hujan.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Bahan: keupayaan bahan menyerap air dan bahan kalis air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1002
+  },
+  {
+   "t": "SC-D2-2",
+   "d": 2,
+   "q": "Kertas tisu digunakan untuk mengelap tumpahan air kerana",
+   "o": [
+    "kertas tisu kalis air",
+    "kertas tisu sangat berat",
+    "kertas tisu menyerap air dengan baik",
+    "kertas tisu tidak boleh basah"
+   ],
+   "a": 2,
+   "e": "Kertas tisu mudah menyerap air.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Bahan: keupayaan bahan menyerap air dan bahan kalis air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1003
+  },
+  {
+   "t": "SC-D2-2",
+   "d": 3,
+   "q": "Ali menuang 50 ml air ke atas kain A dan kain B yang sama saiz. Kain A menyerap lebih banyak air. Apakah kesimpulannya?",
+   "o": [
+    "Kain B lebih mudah menyerap air berbanding kain A",
+    "Kain A lebih mudah menyerap air berbanding kain B",
+    "Kedua-dua kain menyerap air yang sama banyak",
+    "Kain A ialah bahan kalis air"
+   ],
+   "a": 1,
+   "e": "Bahan yang menyerap lebih banyak air mempunyai keupayaan menyerap yang lebih tinggi.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Bahan: keupayaan bahan menyerap air dan bahan kalis air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1004
+  },
+  {
+   "t": "SC-D2-3",
+   "d": 1,
+   "q": "Haiwan manakah yang membiak dengan cara beranak?",
+   "o": [
+    "Ayam",
+    "Penyu",
+    "Bekantan",
+    "Buaya"
+   ],
+   "a": 2,
+   "e": "Bekantan ialah mamalia yang melahirkan anak.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Haiwan dan manusia: cara pembiakan, kitaran hidup dan pertumbuhan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1005
+  },
+  {
+   "t": "SC-D2-3",
+   "d": 1,
+   "q": "Buaya di Sungai Kinabatangan membiak dengan cara",
+   "o": [
+    "beranak",
+    "bertelur",
+    "bertunas",
+    "membelah dua"
+   ],
+   "a": 1,
+   "e": "Buaya ialah reptilia yang bertelur.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Haiwan dan manusia: cara pembiakan, kitaran hidup dan pertumbuhan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1006
+  },
+  {
+   "t": "SC-D2-3",
+   "d": 2,
+   "q": "Apakah turutan yang betul bagi kitaran hidup rama-rama?",
+   "o": [
+    "Telur, pupa, larva, dewasa",
+    "Telur, larva, pupa, dewasa",
+    "Larva, telur, pupa, dewasa",
+    "Telur, dewasa, larva, pupa"
+   ],
+   "a": 1,
+   "e": "Rama-rama melalui empat peringkat bermula dengan telur.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Haiwan dan manusia: cara pembiakan, kitaran hidup dan pertumbuhan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1007
+  },
+  {
+   "t": "SC-D2-3",
+   "d": 1,
+   "q": "Anak katak yang hidup di dalam air dan berekor dipanggil",
+   "o": [
+    "ulat",
+    "berudu",
+    "pupa",
+    "jentik-jentik"
+   ],
+   "a": 1,
+   "e": "Berudu ialah peringkat muda katak.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Haiwan dan manusia: cara pembiakan, kitaran hidup dan pertumbuhan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1008
+  },
+  {
+   "t": "SC-D2-3",
+   "d": 2,
+   "q": "Antara berikut, yang manakah menunjukkan seorang murid sedang membesar?",
+   "o": [
+    "Saiz kasutnya semakin kecil",
+    "Tinggi dan berat badannya bertambah",
+    "Rambutnya berhenti tumbuh",
+    "Bilangan jarinya bertambah"
+   ],
+   "a": 1,
+   "e": "Pertumbuhan manusia ditunjukkan oleh pertambahan tinggi dan berat badan.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 2 (draf): Haiwan dan manusia: cara pembiakan, kitaran hidup dan pertumbuhan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1009
+  },
+  {
+   "t": "SC-D3-1",
+   "d": 1,
+   "q": "Tanah mengandungi",
+   "o": [
+    "pasir, tanah liat, humus, air dan udara",
+    "pasir sahaja",
+    "batu sahaja",
+    "air sahaja"
+   ],
+   "a": 0,
+   "e": "Tanah ialah campuran beberapa komponen.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bumi dan bahan: komponen tanah dan jenis tanah",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1010
+  },
+  {
+   "t": "SC-D3-1",
+   "d": 2,
+   "q": "Air mengalir paling cepat melalui",
+   "o": [
+    "tanah liat",
+    "tanah kebun",
+    "pasir",
+    "tanah liat bercampur humus"
+   ],
+   "a": 2,
+   "e": "Pasir mempunyai ruang besar antara butirannya.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bumi dan bahan: komponen tanah dan jenis tanah",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1011
+  },
+  {
+   "t": "SC-D3-1",
+   "d": 2,
+   "q": "Humus berasal daripada",
+   "o": [
+    "batu yang pecah",
+    "tumbuhan dan haiwan yang mereput",
+    "plastik yang hancur",
+    "air hujan"
+   ],
+   "a": 1,
+   "e": "Humus ialah bahan organik daripada hidupan yang mereput.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bumi dan bahan: komponen tanah dan jenis tanah",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1012
+  },
+  {
+   "t": "SC-D3-1",
+   "d": 2,
+   "q": "Jenis tanah manakah paling sesuai untuk menanam sayur di Cameron Highlands?",
+   "o": [
+    "Pasir pantai",
+    "Batu kerikil",
+    "Tanah liat yang keras",
+    "Tanah kebun yang kaya dengan humus"
+   ],
+   "a": 3,
+   "e": "Tanah kebun kaya dengan humus yang menyuburkan tanaman.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bumi dan bahan: komponen tanah dan jenis tanah",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1013
+  },
+  {
+   "t": "SC-D3-1",
+   "d": 3,
+   "q": "Apabila air dituang ke dalam bikar berisi tanah kering, gelembung keluar. Apakah yang ditunjukkan?",
+   "o": [
+    "Tanah mengandungi udara",
+    "Tanah mengandungi garam",
+    "Tanah mengandungi minyak",
+    "Tanah mengandungi gula"
+   ],
+   "a": 0,
+   "e": "Air menolak keluar udara yang berada di ruang antara butiran tanah.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bumi dan bahan: komponen tanah dan jenis tanah",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1014
+  },
+  {
+   "t": "SC-D3-2",
+   "d": 1,
+   "q": "Bahan yang berasa masam biasanya bersifat",
+   "o": [
+    "alkali",
+    "neutral",
+    "asid",
+    "berminyak"
+   ],
+   "a": 2,
+   "e": "Rasa masam ialah ciri bahan berasid.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bahan: sifat asid, alkali dan neutral menggunakan kertas litmus",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1015
+  },
+  {
+   "t": "SC-D3-2",
+   "d": 2,
+   "q": "Apakah warna kertas litmus biru apabila dicelup ke dalam cuka?",
+   "o": [
+    "Biru",
+    "Hijau",
+    "Kuning",
+    "Merah"
+   ],
+   "a": 3,
+   "e": "Asid menukarkan kertas litmus biru kepada merah.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bahan: sifat asid, alkali dan neutral menggunakan kertas litmus",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1016
+  },
+  {
+   "t": "SC-D3-2",
+   "d": 2,
+   "q": "Antara berikut, yang manakah bahan beralkali?",
+   "o": [
+    "Jus limau",
+    "Air sabun",
+    "Cuka",
+    "Air asam jawa"
+   ],
+   "a": 1,
+   "e": "Air sabun bersifat alkali dan terasa licin.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bahan: sifat asid, alkali dan neutral menggunakan kertas litmus",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1017
+  },
+  {
+   "t": "SC-D3-2",
+   "d": 2,
+   "q": "Air suling tidak mengubah warna kertas litmus merah dan biru. Air suling bersifat",
+   "o": [
+    "asid",
+    "alkali",
+    "masam",
+    "neutral"
+   ],
+   "a": 3,
+   "e": "Bahan neutral tidak mengubah warna kertas litmus.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bahan: sifat asid, alkali dan neutral menggunakan kertas litmus",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1018
+  },
+  {
+   "t": "SC-D3-2",
+   "d": 3,
+   "q": "Kertas litmus merah bertukar menjadi biru apabila dicelup ke dalam",
+   "o": [
+    "cuka",
+    "jus oren",
+    "air suling",
+    "larutan ubat gigi"
+   ],
+   "a": 3,
+   "e": "Ubat gigi bersifat alkali.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Bahan: sifat asid, alkali dan neutral menggunakan kertas litmus",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1019
+  },
+  {
+   "t": "SC-D3-3",
+   "d": 1,
+   "q": "Apakah fungsi utama rangka manusia?",
+   "o": [
+    "Memberi bentuk dan sokongan kepada badan",
+    "Mencerna makanan",
+    "Mengepam darah",
+    "Menghidu bau"
+   ],
+   "a": 0,
+   "e": "Rangka menyokong badan seperti kerangka sebuah menara.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Manusia: rangka, tulang dan sendi",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1020
+  },
+  {
+   "t": "SC-D3-3",
+   "d": 1,
+   "q": "Tulang manakah yang melindungi otak?",
+   "o": [
+    "Tulang rusuk",
+    "Tengkorak",
+    "Tulang belakang",
+    "Tulang pelvis"
+   ],
+   "a": 1,
+   "e": "Tengkorak ialah tulang keras yang melindungi otak.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Manusia: rangka, tulang dan sendi",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1021
+  },
+  {
+   "t": "SC-D3-3",
+   "d": 2,
+   "q": "Tulang rusuk melindungi",
+   "o": [
+    "otak",
+    "mata",
+    "jantung dan peparu",
+    "tangan"
+   ],
+   "a": 2,
+   "e": "Tulang rusuk membentuk sangkar yang melindungi jantung dan peparu.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Manusia: rangka, tulang dan sendi",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1022
+  },
+  {
+   "t": "SC-D3-3",
+   "d": 2,
+   "q": "Tempat pertemuan dua tulang yang membolehkan kita membengkokkan lutut dinamakan",
+   "o": [
+    "sendi",
+    "otot",
+    "kulit",
+    "saraf"
+   ],
+   "a": 0,
+   "e": "Sendi membolehkan bahagian badan bergerak.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Manusia: rangka, tulang dan sendi",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1023
+  },
+  {
+   "t": "SC-D3-3",
+   "d": 2,
+   "q": "Mengapakah kita digalakkan minum susu dan makan ikan bilis?",
+   "o": [
+    "Kedua-duanya kaya dengan gula untuk tenaga sahaja",
+    "Kedua-duanya kaya dengan kalsium untuk tulang yang kuat",
+    "Kedua-duanya menjadikan rambut panjang",
+    "Kedua-duanya menajamkan penglihatan pada waktu malam"
+   ],
+   "a": 1,
+   "e": "Kalsium diperlukan untuk membina tulang dan gigi yang kuat.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 3 (draf): Manusia: rangka, tulang dan sendi",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1024
+  },
+  {
+   "t": "SC-D4-1",
+   "d": 1,
+   "q": "Apakah organ utama dalam sistem respirasi manusia?",
+   "o": [
+    "Jantung",
+    "Perut",
+    "Peparu",
+    "Buah pinggang"
+   ],
+   "a": 2,
+   "e": "Pertukaran gas berlaku di dalam peparu.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Manusia: proses pernafasan dan organ yang terlibat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1025
+  },
+  {
+   "t": "SC-D4-1",
+   "d": 1,
+   "q": "Gas manakah yang disedut masuk dan digunakan oleh badan?",
+   "o": [
+    "Karbon dioksida",
+    "Oksigen",
+    "Nitrogen",
+    "Wap air"
+   ],
+   "a": 1,
+   "e": "Badan menggunakan oksigen untuk menghasilkan tenaga.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Manusia: proses pernafasan dan organ yang terlibat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1026
+  },
+  {
+   "t": "SC-D4-1",
+   "d": 2,
+   "q": "Apakah yang berlaku kepada dada semasa kita menarik nafas?",
+   "o": [
+    "Dada turun dan mengempis",
+    "Dada naik dan mengembang",
+    "Dada tidak berubah",
+    "Dada turun dan mengembang"
+   ],
+   "a": 1,
+   "e": "Semasa menarik nafas, rongga dada membesar untuk memberi ruang kepada udara.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Manusia: proses pernafasan dan organ yang terlibat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1027
+  },
+  {
+   "t": "SC-D4-1",
+   "d": 2,
+   "q": "Apakah laluan udara yang betul semasa kita menarik nafas?",
+   "o": [
+    "Mulut, esofagus, perut",
+    "Hidung, trakea, peparu",
+    "Hidung, esofagus, peparu",
+    "Trakea, hidung, peparu"
+   ],
+   "a": 1,
+   "e": "Udara masuk melalui hidung, turun melalui trakea ke peparu.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Manusia: proses pernafasan dan organ yang terlibat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1028
+  },
+  {
+   "t": "SC-D4-1",
+   "d": 2,
+   "q": "Selepas mendaki denai di Taman Negara Bako, kadar pernafasan seorang murid akan",
+   "o": [
+    "bertambah",
+    "berkurang",
+    "berhenti seketika",
+    "tidak berubah"
+   ],
+   "a": 0,
+   "e": "Aktiviti cergas memerlukan lebih banyak oksigen, maka kadar pernafasan bertambah.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Manusia: proses pernafasan dan organ yang terlibat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1029
+  },
+  {
+   "t": "SC-D4-2",
+   "d": 1,
+   "q": "Cahaya bergerak secara",
+   "o": [
+    "bulat",
+    "zig-zag",
+    "berpusing",
+    "lurus"
+   ],
+   "a": 3,
+   "e": "Cahaya merambat dalam garis lurus.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Fizik: sifat cahaya, bayang-bayang, pantulan dan pembiasan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1030
+  },
+  {
+   "t": "SC-D4-2",
+   "d": 2,
+   "q": "Bayang-bayang terbentuk apabila",
+   "o": [
+    "cahaya melalui kaca jernih",
+    "cahaya dipantulkan oleh cermin",
+    "tiada sebarang cahaya langsung",
+    "cahaya dihalang oleh objek legap"
+   ],
+   "a": 3,
+   "e": "Objek legap menghalang cahaya lalu terbentuk kawasan gelap.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Fizik: sifat cahaya, bayang-bayang, pantulan dan pembiasan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1031
+  },
+  {
+   "t": "SC-D4-2",
+   "d": 2,
+   "q": "Permukaan manakah yang paling baik memantulkan cahaya?",
+   "o": [
+    "Cermin",
+    "Kain baldu hitam",
+    "Kertas surat khabar",
+    "Papan kayu kasar"
+   ],
+   "a": 0,
+   "e": "Permukaan licin dan berkilat memantulkan cahaya dengan baik.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Fizik: sifat cahaya, bayang-bayang, pantulan dan pembiasan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1032
+  },
+  {
+   "t": "SC-D4-2",
+   "d": 2,
+   "q": "Bayang-bayang pokok kelapa di Pantai Teluk Cempedak paling pendek pada waktu",
+   "o": [
+    "pagi",
+    "tengah hari",
+    "petang",
+    "senja"
+   ],
+   "a": 1,
+   "e": "Pada tengah hari Matahari berada hampir tegak di atas kepala.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Fizik: sifat cahaya, bayang-bayang, pantulan dan pembiasan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1033
+  },
+  {
+   "t": "SC-D4-2",
+   "d": 3,
+   "q": "Straw di dalam segelas air kelihatan bengkok. Fenomena ini disebabkan oleh",
+   "o": [
+    "pantulan cahaya",
+    "penyerapan cahaya",
+    "pembiasan cahaya",
+    "pembentukan bayang-bayang"
+   ],
+   "a": 2,
+   "e": "Cahaya membias apabila bergerak dari air ke udara.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Fizik: sifat cahaya, bayang-bayang, pantulan dan pembiasan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1034
+  },
+  {
+   "t": "SC-D4-3",
+   "d": 1,
+   "q": "Apakah yang berada di pusat Sistem Suria?",
+   "o": [
+    "Matahari",
+    "Bumi",
+    "Bulan",
+    "Musytari"
+   ],
+   "a": 0,
+   "e": "Semua planet beredar mengelilingi Matahari.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Bumi dan sains angkasa: Matahari dan planet dalam Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1035
+  },
+  {
+   "t": "SC-D4-3",
+   "d": 1,
+   "q": "Planet manakah yang terbesar dalam Sistem Suria?",
+   "o": [
+    "Zuhal",
+    "Musytari",
+    "Bumi",
+    "Marikh"
+   ],
+   "a": 1,
+   "e": "Musytari ialah planet gas yang paling besar.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Bumi dan sains angkasa: Matahari dan planet dalam Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1036
+  },
+  {
+   "t": "SC-D4-3",
+   "d": 2,
+   "q": "Planet manakah yang paling hampir dengan Matahari?",
+   "o": [
+    "Utarid",
+    "Zuhrah",
+    "Bumi",
+    "Neptun"
+   ],
+   "a": 0,
+   "e": "Utarid ialah planet pertama dari Matahari.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Bumi dan sains angkasa: Matahari dan planet dalam Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1037
+  },
+  {
+   "t": "SC-D4-3",
+   "d": 2,
+   "q": "Planet manakah yang terkenal dengan cincin yang jelas dan cantik?",
+   "o": [
+    "Utarid",
+    "Marikh",
+    "Zuhrah",
+    "Zuhal"
+   ],
+   "a": 3,
+   "e": "Zuhal mempunyai sistem cincin yang paling jelas.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Bumi dan sains angkasa: Matahari dan planet dalam Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1038
+  },
+  {
+   "t": "SC-D4-3",
+   "d": 3,
+   "q": "Mengapakah Bumi dapat menyokong hidupan?",
+   "o": [
+    "Bumi ialah planet terbesar",
+    "Bumi ialah planet paling hampir dengan Matahari",
+    "Bumi tidak mempunyai bulan",
+    "Bumi mempunyai air, udara dan suhu yang sesuai"
+   ],
+   "a": 3,
+   "e": "Jarak yang sesuai dari Matahari memberi Bumi suhu sesuai, air dan udara.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 4 (draf): Bumi dan sains angkasa: Matahari dan planet dalam Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1039
+  },
+  {
+   "t": "SC-D5-1",
+   "d": 1,
+   "q": "Antara berikut, yang manakah sumber tenaga elektrik mudah alih?",
+   "o": [
+    "Suis",
+    "Mentol",
+    "Sel kering",
+    "Wayar"
+   ],
+   "a": 2,
+   "e": "Sel kering membekalkan tenaga elektrik dan mudah dibawa.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: sumber elektrik, litar bersiri dan selari, konduktor dan penebat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1040
+  },
+  {
+   "t": "SC-D5-1",
+   "d": 1,
+   "q": "Mentol dalam sebuah litar akan menyala apabila",
+   "o": [
+    "suis dimatikan",
+    "litar lengkap dan suis dihidupkan",
+    "wayar terputus",
+    "sel kering dikeluarkan"
+   ],
+   "a": 1,
+   "e": "Arus elektrik hanya mengalir dalam litar lengkap.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: sumber elektrik, litar bersiri dan selari, konduktor dan penebat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1041
+  },
+  {
+   "t": "SC-D5-1",
+   "d": 1,
+   "q": "Objek manakah ialah konduktor elektrik?",
+   "o": [
+    "Pembaris plastik",
+    "Pemadam getah",
+    "Batang kayu",
+    "Paku besi"
+   ],
+   "a": 3,
+   "e": "Logam seperti besi membenarkan arus elektrik mengalir.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: sumber elektrik, litar bersiri dan selari, konduktor dan penebat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1042
+  },
+  {
+   "t": "SC-D5-1",
+   "d": 2,
+   "q": "Apakah yang berlaku kepada kecerahan mentol jika bilangan sel kering yang disusun secara bersiri ditambah?",
+   "o": [
+    "Mentol menjadi lebih malap",
+    "Mentol terus padam",
+    "Mentol menjadi lebih terang",
+    "Kecerahan tidak berubah"
+   ],
+   "a": 2,
+   "e": "Lebih banyak sel kering bersiri membekalkan lebih banyak tenaga elektrik.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: sumber elektrik, litar bersiri dan selari, konduktor dan penebat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1043
+  },
+  {
+   "t": "SC-D5-1",
+   "d": 3,
+   "q": "Mengapakah lampu di rumah disambung secara selari?",
+   "o": [
+    "Supaya semua mentol menjadi malap",
+    "Jika satu mentol rosak, mentol lain masih menyala",
+    "Supaya kurang suis diperlukan",
+    "Supaya litar tidak memerlukan sumber tenaga"
+   ],
+   "a": 1,
+   "e": "Setiap mentol dalam litar selari mempunyai laluan arus sendiri.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: sumber elektrik, litar bersiri dan selari, konduktor dan penebat",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1044
+  },
+  {
+   "t": "SC-D5-2",
+   "d": 1,
+   "q": "Alat yang digunakan untuk mengukur suhu ialah",
+   "o": [
+    "pembaris",
+    "termometer",
+    "neraca",
+    "jam randik"
+   ],
+   "a": 1,
+   "e": "Termometer mengukur darjah kepanasan sesuatu objek.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: haba, suhu, pengembangan dan pengecutan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1045
+  },
+  {
+   "t": "SC-D5-2",
+   "d": 1,
+   "q": "Apakah unit bagi suhu?",
+   "o": [
+    "Kilogram",
+    "Meter",
+    "Liter",
+    "Darjah Celsius"
+   ],
+   "a": 3,
+   "e": "Suhu diukur dalam darjah Celsius (°C).",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: haba, suhu, pengembangan dan pengecutan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1046
+  },
+  {
+   "t": "SC-D5-2",
+   "d": 2,
+   "q": "Bahan biasanya mengembang apabila",
+   "o": [
+    "disejukkan",
+    "dipanaskan",
+    "diletakkan dalam gelap",
+    "ditimbang"
+   ],
+   "a": 1,
+   "e": "Haba menyebabkan bahan mengembang.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: haba, suhu, pengembangan dan pengecutan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1047
+  },
+  {
+   "t": "SC-D5-2",
+   "d": 2,
+   "q": "Apabila secawan teh panas dibiarkan di atas meja, haba mengalir",
+   "o": [
+    "dari teh ke udara sekeliling yang lebih sejuk",
+    "dari udara sekeliling ke teh",
+    "tidak mengalir langsung",
+    "sama banyak ke kedua-dua arah"
+   ],
+   "a": 0,
+   "e": "Haba sentiasa mengalir dari objek panas ke objek yang lebih sejuk.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: haba, suhu, pengembangan dan pengecutan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1048
+  },
+  {
+   "t": "SC-D5-2",
+   "d": 3,
+   "q": "Pada tengah hari di Pantai Teluk Cempedak, pasir terasa lebih panas daripada air laut. Mengapa?",
+   "o": [
+    "Pasir menjadi panas lebih cepat berbanding air",
+    "Air laut menyerap lebih banyak cahaya matahari",
+    "Pasir tidak menerima haba matahari",
+    "Air laut sentiasa berada dalam bayang-bayang"
+   ],
+   "a": 0,
+   "e": "Pasir memerlukan kurang haba untuk naik suhu berbanding air.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Fizik: haba, suhu, pengembangan dan pengecutan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1049
+  },
+  {
+   "t": "SC-D5-3",
+   "d": 1,
+   "q": "Dalam rantai makanan, pengeluar ialah",
+   "o": [
+    "tumbuhan hijau",
+    "helang",
+    "ular",
+    "tikus"
+   ],
+   "a": 0,
+   "e": "Tumbuhan hijau menghasilkan makanan sendiri.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Hidupan: rantai makanan, pemangsa-mangsa dan persaingan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1050
+  },
+  {
+   "t": "SC-D5-3",
+   "d": 2,
+   "q": "Dalam rantai makanan Padi → Tikus → Ular → Helang, yang manakah pengguna primer?",
+   "o": [
+    "Ular",
+    "Helang",
+    "Padi",
+    "Tikus"
+   ],
+   "a": 3,
+   "e": "Pengguna primer memakan pengeluar secara terus.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Hidupan: rantai makanan, pemangsa-mangsa dan persaingan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1051
+  },
+  {
+   "t": "SC-D5-3",
+   "d": 2,
+   "q": "Dua ekor burung berebut buah ara yang sama. Interaksi ini ialah",
+   "o": [
+    "saling bantu",
+    "persaingan",
+    "pembiakan",
+    "penyesuaian"
+   ],
+   "a": 1,
+   "e": "Persaingan berlaku apabila hidupan memerlukan sumber yang sama.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Hidupan: rantai makanan, pemangsa-mangsa dan persaingan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1052
+  },
+  {
+   "t": "SC-D5-3",
+   "d": 1,
+   "q": "Seekor buaya di Sungai Kinabatangan memakan ikan. Buaya itu ialah",
+   "o": [
+    "mangsa",
+    "pengeluar",
+    "pengurai",
+    "pemangsa"
+   ],
+   "a": 3,
+   "e": "Haiwan yang memburu haiwan lain dipanggil pemangsa.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Hidupan: rantai makanan, pemangsa-mangsa dan persaingan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1053
+  },
+  {
+   "t": "SC-D5-3",
+   "d": 3,
+   "q": "Dalam rantai makanan Padi → Tikus → Ular, apakah yang mungkin berlaku jika semua ular diburu?",
+   "o": [
+    "Bilangan tikus berkurang",
+    "Bilangan padi bertambah",
+    "Bilangan tikus bertambah",
+    "Tiada perubahan berlaku"
+   ],
+   "a": 2,
+   "e": "Tanpa pemangsa, bilangan tikus meningkat dan lebih banyak padi dimakan.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 5 (draf): Hidupan: rantai makanan, pemangsa-mangsa dan persaingan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1054
+  },
+  {
+   "t": "SC-D6-1",
+   "d": 1,
+   "q": "Antara berikut, yang manakah mikroorganisma?",
+   "o": [
+    "Bakteria",
+    "Cacing tanah",
+    "Semut",
+    "Siput"
+   ],
+   "a": 0,
+   "e": "Bakteria terlalu kecil untuk dilihat dengan mata kasar.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan: jenis mikroorganisma, kebaikan dan keburukannya",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1055
+  },
+  {
+   "t": "SC-D6-1",
+   "d": 1,
+   "q": "Alat yang digunakan untuk melihat mikroorganisma ialah",
+   "o": [
+    "teleskop",
+    "periskop",
+    "termometer",
+    "mikroskop"
+   ],
+   "a": 3,
+   "e": "Mikroskop membesarkan objek yang sangat kecil.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan: jenis mikroorganisma, kebaikan dan keburukannya",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1056
+  },
+  {
+   "t": "SC-D6-1",
+   "d": 2,
+   "q": "Yis digunakan dalam penghasilan",
+   "o": [
+    "roti",
+    "ais",
+    "ikan masin",
+    "garam"
+   ],
+   "a": 0,
+   "e": "Yis menghasilkan karbon dioksida yang menaikkan doh roti.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan: jenis mikroorganisma, kebaikan dan keburukannya",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1057
+  },
+  {
+   "t": "SC-D6-1",
+   "d": 2,
+   "q": "Nasi yang dibiarkan terbuka selama dua hari menjadi basi kerana",
+   "o": [
+    "cahaya bulan",
+    "bunyi bising",
+    "tindakan mikroorganisma",
+    "tekanan angin"
+   ],
+   "a": 2,
+   "e": "Mikroorganisma membiak pada makanan dan merosakkannya.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan: jenis mikroorganisma, kebaikan dan keburukannya",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1058
+  },
+  {
+   "t": "SC-D6-1",
+   "d": 3,
+   "q": "Keadaan manakah yang paling menggalakkan pertumbuhan kulat pada roti?",
+   "o": [
+    "Kering dan sangat sejuk",
+    "Di dalam peti sejuk beku",
+    "Lembap dan suam",
+    "Panas terik dan sangat kering"
+   ],
+   "a": 2,
+   "e": "Kulat tumbuh dengan baik dalam keadaan lembap dan suhu suam.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan: jenis mikroorganisma, kebaikan dan keburukannya",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1059
+  },
+  {
+   "t": "SC-D6-2",
+   "d": 2,
+   "q": "Gerhana Bulan berlaku apabila",
+   "o": [
+    "Bulan berada di antara Matahari dan Bumi",
+    "Matahari berada di antara Bumi dan Bulan",
+    "Bulan berada paling jauh dari Bumi",
+    "Bumi berada di antara Matahari dan Bulan"
+   ],
+   "a": 3,
+   "e": "Bayang-bayang Bumi jatuh ke atas Bulan.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Bumi dan sains angkasa: gerhana Bulan, gerhana Matahari dan buruj",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1060
+  },
+  {
+   "t": "SC-D6-2",
+   "d": 2,
+   "q": "Gerhana Matahari berlaku apabila",
+   "o": [
+    "Bumi berada di antara Matahari dan Bulan",
+    "Matahari berada di antara Bumi dan Bulan",
+    "Bulan berada di antara Matahari dan Bumi",
+    "Bumi berhenti berputar"
+   ],
+   "a": 2,
+   "e": "Bulan menghalang cahaya Matahari daripada sampai ke Bumi.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Bumi dan sains angkasa: gerhana Bulan, gerhana Matahari dan buruj",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1061
+  },
+  {
+   "t": "SC-D6-2",
+   "d": 1,
+   "q": "Buruj ialah",
+   "o": [
+    "sekumpulan bintang yang membentuk corak tertentu",
+    "sebuah planet yang bercincin",
+    "satelit buatan manusia",
+    "sejenis komet"
+   ],
+   "a": 0,
+   "e": "Buruj seperti Belantik dan Pari membentuk corak di langit malam.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Bumi dan sains angkasa: gerhana Bulan, gerhana Matahari dan buruj",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1062
+  },
+  {
+   "t": "SC-D6-2",
+   "d": 3,
+   "q": "Pada zaman dahulu, petani Melayu menggunakan kedudukan Buruj Belantik untuk",
+   "o": [
+    "mengukur suhu udara",
+    "meramalkan gempa bumi",
+    "mengira bilangan planet",
+    "menentukan masa sesuai menanam padi"
+   ],
+   "a": 3,
+   "e": "Kemunculan Buruj Belantik dijadikan petunjuk musim menanam padi.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Bumi dan sains angkasa: gerhana Bulan, gerhana Matahari dan buruj",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1063
+  },
+  {
+   "t": "SC-D6-2",
+   "d": 3,
+   "q": "Buruj Pari boleh digunakan untuk menentukan arah",
+   "o": [
+    "utara",
+    "selatan",
+    "timur",
+    "barat"
+   ],
+   "a": 1,
+   "e": "Buruj Pari menunjuk ke arah selatan.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Bumi dan sains angkasa: gerhana Bulan, gerhana Matahari dan buruj",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1064
+  },
+  {
+   "t": "SC-D6-3",
+   "d": 1,
+   "q": "Hutan paya bakau di Tanjung Piai membantu melindungi pantai daripada",
+   "o": [
+    "gempa bumi",
+    "kemarau",
+    "salji",
+    "hakisan ombak"
+   ],
+   "a": 3,
+   "e": "Akar bakau memerangkap lumpur dan memecahkan tenaga ombak.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan dan persekitaran: kepupusan, pencemaran dan amalan 3R",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1065
+  },
+  {
+   "t": "SC-D6-3",
+   "d": 1,
+   "q": "Apakah maksud amalan 3R?",
+   "o": [
+    "Rawat, rosak, rentas",
+    "Rehat, riang, rajin",
+    "Kurangkan, guna semula, kitar semula",
+    "Buang, bakar, tanam"
+   ],
+   "a": 2,
+   "e": "3R ialah Reduce, Reuse, Recycle iaitu kurangkan, guna semula dan kitar semula.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan dan persekitaran: kepupusan, pencemaran dan amalan 3R",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1066
+  },
+  {
+   "t": "SC-D6-3",
+   "d": 2,
+   "q": "Apakah kesan penebangan hutan secara berleluasa?",
+   "o": [
+    "Udara menjadi lebih bersih",
+    "Bilangan hidupan liar bertambah",
+    "Hakisan tanah dan banjir lumpur",
+    "Suhu persekitaran menurun"
+   ],
+   "a": 2,
+   "e": "Tanpa akar pokok, tanah mudah dihakis oleh air hujan.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan dan persekitaran: kepupusan, pencemaran dan amalan 3R",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1067
+  },
+  {
+   "t": "SC-D6-3",
+   "d": 1,
+   "q": "Haiwan manakah yang terancam kepupusan di Malaysia?",
+   "o": [
+    "Harimau Malaya",
+    "Ayam kampung",
+    "Kucing",
+    "Lembu"
+   ],
+   "a": 0,
+   "e": "Bilangan Harimau Malaya di hutan semakin sedikit.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan dan persekitaran: kepupusan, pencemaran dan amalan 3R",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1068
+  },
+  {
+   "t": "SC-D6-3",
+   "d": 2,
+   "q": "Pembakaran terbuka secara besar-besaran boleh menyebabkan",
+   "o": [
+    "jerebu dan pencemaran udara",
+    "air sungai menjadi lebih bersih",
+    "tanah menjadi subur selama-lamanya",
+    "lapisan ozon bertambah tebal"
+   ],
+   "a": 0,
+   "e": "Asap dan zarah halus daripada pembakaran mencemarkan udara.",
+   "s": "Draf Meta Didik: DSKP KSSR Sains Tahun 6 (draf): Hidupan dan persekitaran: kepupusan, pencemaran dan amalan 3R",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1069
+  },
+  {
+   "t": "SC-T1-1",
+   "d": 1,
+   "q": "Apakah unit asas bagi semua hidupan?",
+   "o": [
+    "Tisu",
+    "Sel",
+    "Organ",
+    "Sistem"
+   ],
+   "a": 1,
+   "e": "Semua organisma terdiri daripada satu atau lebih sel.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Penyelenggaraan dan kesinambungan hidup: struktur sel, organisasi sel dan respirasi sel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1070
+  },
+  {
+   "t": "SC-T1-1",
+   "d": 2,
+   "q": "Struktur manakah yang terdapat pada sel tumbuhan tetapi tiada pada sel haiwan?",
+   "o": [
+    "Membran sel",
+    "Nukleus",
+    "Dinding sel",
+    "Sitoplasma"
+   ],
+   "a": 2,
+   "e": "Dinding sel daripada selulosa memberi bentuk tetap kepada sel tumbuhan.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Penyelenggaraan dan kesinambungan hidup: struktur sel, organisasi sel dan respirasi sel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1071
+  },
+  {
+   "t": "SC-T1-1",
+   "d": 2,
+   "q": "Kloroplas penting kepada sel daun kerana ia mengandungi",
+   "o": [
+    "kromosom yang mengawal aktiviti sel",
+    "sap sel yang menyimpan air",
+    "enzim untuk mencerna protein",
+    "klorofil yang menyerap cahaya untuk fotosintesis"
+   ],
+   "a": 3,
+   "e": "Klorofil menyerap tenaga cahaya untuk fotosintesis.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Penyelenggaraan dan kesinambungan hidup: struktur sel, organisasi sel dan respirasi sel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1072
+  },
+  {
+   "t": "SC-T1-1",
+   "d": 2,
+   "q": "Apakah turutan organisasi hidupan yang betul?",
+   "o": [
+    "Tisu, sel, organ, sistem, organisma",
+    "Sel, organ, tisu, sistem, organisma",
+    "Sel, tisu, organ, sistem, organisma",
+    "Organisma, sistem, sel, tisu, organ"
+   ],
+   "a": 2,
+   "e": "Sel yang serupa membentuk tisu, tisu membentuk organ dan seterusnya.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Penyelenggaraan dan kesinambungan hidup: struktur sel, organisasi sel dan respirasi sel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1073
+  },
+  {
+   "t": "SC-T1-1",
+   "d": 3,
+   "q": "Lengkapkan persamaan respirasi sel: glukosa + oksigen →",
+   "o": [
+    "oksigen + glukosa + tenaga",
+    "kanji + air",
+    "karbon dioksida + air + tenaga",
+    "nitrogen + tenaga"
+   ],
+   "a": 2,
+   "e": "Respirasi sel menguraikan glukosa untuk membebaskan tenaga.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Penyelenggaraan dan kesinambungan hidup: struktur sel, organisasi sel dan respirasi sel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1074
+  },
+  {
+   "t": "SC-T1-2",
+   "d": 1,
+   "q": "Jirim ditakrifkan sebagai sesuatu yang",
+   "o": [
+    "boleh dilihat sahaja",
+    "sentiasa berada dalam keadaan pepejal",
+    "tidak mempunyai jisim",
+    "mempunyai jisim dan memenuhi ruang"
+   ],
+   "a": 3,
+   "e": "Udara juga jirim walaupun tidak dapat dilihat.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Jirim: keadaan jirim, unsur, sebatian, campuran dan Jadual Berkala",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1075
+  },
+  {
+   "t": "SC-T1-2",
+   "d": 2,
+   "q": "Bagaimanakah susunan zarah dalam pepejal?",
+   "o": [
+    "Berjauhan dan bergerak bebas secara rawak",
+    "Tersusun longgar dan menggelongsor antara satu sama lain",
+    "Tersusun rapat dan bergetar pada kedudukan tetap",
+    "Tiada zarah langsung"
+   ],
+   "a": 2,
+   "e": "Zarah pepejal tersusun rapat dengan daya tarikan yang kuat.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Jirim: keadaan jirim, unsur, sebatian, campuran dan Jadual Berkala",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1076
+  },
+  {
+   "t": "SC-T1-2",
+   "d": 2,
+   "q": "Unsur-unsur dalam Jadual Berkala disusun mengikut",
+   "o": [
+    "susunan abjad nama unsur",
+    "warna unsur",
+    "pertambahan nombor proton",
+    "tarikh unsur ditemui"
+   ],
+   "a": 2,
+   "e": "Jadual Berkala moden menyusun unsur mengikut nombor proton.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Jirim: keadaan jirim, unsur, sebatian, campuran dan Jadual Berkala",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1077
+  },
+  {
+   "t": "SC-T1-2",
+   "d": 2,
+   "q": "Antara berikut, yang manakah ciri logam?",
+   "o": [
+    "Rapuh",
+    "Permukaan pudar",
+    "Penebat haba yang baik",
+    "Konduktor elektrik yang baik"
+   ],
+   "a": 3,
+   "e": "Logam mengalirkan elektrik dan haba dengan baik.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Jirim: keadaan jirim, unsur, sebatian, campuran dan Jadual Berkala",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1078
+  },
+  {
+   "t": "SC-T1-2",
+   "d": 3,
+   "q": "Kalsium karbonat yang membentuk batu kapur Gua Tempurung ialah contoh",
+   "o": [
+    "unsur",
+    "logam tulen",
+    "sebatian",
+    "gas adi"
+   ],
+   "a": 2,
+   "e": "Kalsium karbonat terdiri daripada unsur kalsium, karbon dan oksigen yang terikat secara kimia.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Jirim: keadaan jirim, unsur, sebatian, campuran dan Jadual Berkala",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1079
+  },
+  {
+   "t": "SC-T1-3",
+   "d": 1,
+   "q": "Gas manakah yang paling banyak terdapat dalam udara?",
+   "o": [
+    "Oksigen",
+    "Karbon dioksida",
+    "Argon",
+    "Nitrogen"
+   ],
+   "a": 3,
+   "e": "Nitrogen membentuk kira-kira 78% udara.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Udara: komposisi udara, pembakaran dan pencemaran",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1080
+  },
+  {
+   "t": "SC-T1-3",
+   "d": 2,
+   "q": "Berapakah peratus anggaran oksigen dalam udara?",
+   "o": [
+    "78%",
+    "0.04%",
+    "21%",
+    "50%"
+   ],
+   "a": 2,
+   "e": "Oksigen membentuk kira-kira satu per lima udara.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Udara: komposisi udara, pembakaran dan pencemaran",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1081
+  },
+  {
+   "t": "SC-T1-3",
+   "d": 2,
+   "q": "Gas manakah yang menyalakan semula kayu uji berbara?",
+   "o": [
+    "Nitrogen",
+    "Karbon dioksida",
+    "Wap air",
+    "Oksigen"
+   ],
+   "a": 3,
+   "e": "Oksigen menyokong pembakaran.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Udara: komposisi udara, pembakaran dan pencemaran",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1082
+  },
+  {
+   "t": "SC-T1-3",
+   "d": 2,
+   "q": "Air kapur menjadi keruh apabila dilalukan dengan gas",
+   "o": [
+    "oksigen",
+    "nitrogen",
+    "hidrogen",
+    "karbon dioksida"
+   ],
+   "a": 3,
+   "e": "Ujian air kapur digunakan untuk mengesan karbon dioksida.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Udara: komposisi udara, pembakaran dan pencemaran",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1083
+  },
+  {
+   "t": "SC-T1-3",
+   "d": 3,
+   "q": "Apakah tiga syarat yang diperlukan untuk pembakaran berlaku?",
+   "o": [
+    "Air, oksigen dan cahaya",
+    "Bahan api, nitrogen dan air",
+    "Bahan api, oksigen dan haba",
+    "Karbon dioksida, haba dan air"
+   ],
+   "a": 2,
+   "e": "Ketiga-tiga syarat membentuk segi tiga api; membuang satu memadamkan api.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 1 (draf): Udara: komposisi udara, pembakaran dan pencemaran",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1084
+  },
+  {
+   "t": "SC-T2-1",
+   "d": 2,
+   "q": "Ekosistem terdiri daripada",
+   "o": [
+    "satu spesies haiwan sahaja",
+    "tumbuhan sahaja",
+    "faktor bukan hidup sahaja",
+    "komuniti organisma dan persekitaran fizikal yang berinteraksi"
+   ],
+   "a": 3,
+   "e": "Ekosistem merangkumi komponen biosis dan abiosis.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: komponen ekosistem dan interaksi antara organisma",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1085
+  },
+  {
+   "t": "SC-T2-1",
+   "d": 1,
+   "q": "Organisma manakah ialah pengurai?",
+   "o": [
+    "Helang",
+    "Rumput",
+    "Kulat dan bakteria",
+    "Rusa"
+   ],
+   "a": 2,
+   "e": "Pengurai menguraikan bahan organik dan mengembalikan nutrien ke tanah.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: komponen ekosistem dan interaksi antara organisma",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1086
+  },
+  {
+   "t": "SC-T2-1",
+   "d": 2,
+   "q": "Hubungan simbiosis di mana kedua-dua organisma mendapat manfaat dinamakan",
+   "o": [
+    "parasitisme",
+    "komensalisme",
+    "mutualisme",
+    "pemangsaan"
+   ],
+   "a": 2,
+   "e": "Dalam mutualisme kedua-dua pihak mendapat faedah.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: komponen ekosistem dan interaksi antara organisma",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1087
+  },
+  {
+   "t": "SC-T2-1",
+   "d": 3,
+   "q": "Antara berikut, yang manakah contoh parasitisme?",
+   "o": [
+    "Lebah mengumpul nektar daripada bunga",
+    "Ikan remora mengikut jerung",
+    "Lintah menghisap darah manusia",
+    "Paku pakis langsuyar tumbuh pada dahan pokok"
+   ],
+   "a": 2,
+   "e": "Lintah mendapat faedah manakala perumah mendapat kerugian.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: komponen ekosistem dan interaksi antara organisma",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1088
+  },
+  {
+   "t": "SC-T2-1",
+   "d": 3,
+   "q": "Periuk kera di Taman Negara Bako menangkap serangga terutamanya untuk mendapatkan",
+   "o": [
+    "air",
+    "oksigen",
+    "nutrien seperti nitrogen yang kurang dalam tanah",
+    "cahaya matahari"
+   ],
+   "a": 2,
+   "e": "Tanah di habitatnya miskin nitrogen, maka serangga menjadi sumber nutrien tambahan.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: komponen ekosistem dan interaksi antara organisma",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1089
+  },
+  {
+   "t": "SC-T2-2",
+   "d": 1,
+   "q": "Pada tekanan atmosfera, air tulen mendidih pada suhu",
+   "o": [
+    "100 °C",
+    "0 °C",
+    "50 °C",
+    "37 °C"
+   ],
+   "a": 0,
+   "e": "Takat didih air tulen ialah 100 °C.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Jirim: sifat air, larutan, keterlarutan dan pembersihan air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1090
+  },
+  {
+   "t": "SC-T2-2",
+   "d": 1,
+   "q": "Larutan terdiri daripada",
+   "o": [
+    "pepejal dan gas sahaja",
+    "zat terlarut dan pelarut",
+    "minyak dan air",
+    "ampaian dan mendakan"
+   ],
+   "a": 1,
+   "e": "Zat terlarut melarut di dalam pelarut untuk membentuk larutan.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Jirim: sifat air, larutan, keterlarutan dan pembersihan air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1091
+  },
+  {
+   "t": "SC-T2-2",
+   "d": 2,
+   "q": "Cara manakah yang dapat meningkatkan kadar pelarutan gula dalam air?",
+   "o": [
+    "Menaikkan suhu air",
+    "Menggunakan ketulan gula yang besar",
+    "Tidak mengacau larutan",
+    "Menyejukkan air"
+   ],
+   "a": 0,
+   "e": "Suhu tinggi menambah tenaga zarah, lalu gula melarut lebih cepat.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Jirim: sifat air, larutan, keterlarutan dan pembersihan air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1092
+  },
+  {
+   "t": "SC-T2-2",
+   "d": 2,
+   "q": "Mengapakah air dikenali sebagai pelarut universal?",
+   "o": [
+    "Air tidak melarutkan apa-apa bahan",
+    "Air hanya melarutkan minyak",
+    "Air ialah satu-satunya cecair di Bumi",
+    "Air dapat melarutkan banyak jenis bahan"
+   ],
+   "a": 3,
+   "e": "Banyak bahan seperti garam dan gula larut dalam air.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Jirim: sifat air, larutan, keterlarutan dan pembersihan air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1093
+  },
+  {
+   "t": "SC-T2-2",
+   "d": 3,
+   "q": "Kaedah pembersihan air manakah yang menghasilkan air paling tulen?",
+   "o": [
+    "Penapisan",
+    "Pengklorinan",
+    "Pengenapan",
+    "Penyulingan"
+   ],
+   "a": 3,
+   "e": "Penyulingan memisahkan air daripada hampir semua bendasing.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Jirim: sifat air, larutan, keterlarutan dan pembersihan air",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1094
+  },
+  {
+   "t": "SC-T2-3",
+   "d": 1,
+   "q": "Nasi kaya dengan kelas makanan",
+   "o": [
+    "protein",
+    "lemak",
+    "vitamin C",
+    "karbohidrat"
+   ],
+   "a": 3,
+   "e": "Beras mengandungi banyak kanji, sejenis karbohidrat.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: kelas makanan, gizi seimbang dan sistem pencernaan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1095
+  },
+  {
+   "t": "SC-T2-3",
+   "d": 2,
+   "q": "Kekurangan vitamin C dalam diet boleh menyebabkan penyakit",
+   "o": [
+    "skurvi",
+    "rabun malam",
+    "riket",
+    "goiter"
+   ],
+   "a": 0,
+   "e": "Skurvi menyebabkan gusi berdarah dan berpunca daripada kekurangan vitamin C.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: kelas makanan, gizi seimbang dan sistem pencernaan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1096
+  },
+  {
+   "t": "SC-T2-3",
+   "d": 2,
+   "q": "Apakah fungsi utama protein?",
+   "o": [
+    "Membekalkan serat untuk mencegah sembelit",
+    "Membina dan membaiki sel serta tisu",
+    "Menyerap cahaya matahari",
+    "Menyejukkan badan"
+   ],
+   "a": 1,
+   "e": "Protein diperlukan untuk pertumbuhan dan pembaikan tisu.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: kelas makanan, gizi seimbang dan sistem pencernaan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1097
+  },
+  {
+   "t": "SC-T2-3",
+   "d": 2,
+   "q": "Apakah warna larutan iodin apabila diteteskan pada nasi?",
+   "o": [
+    "Biru tua",
+    "Merah bata",
+    "Perang kekuningan tanpa perubahan",
+    "Hijau"
+   ],
+   "a": 0,
+   "e": "Iodin bertukar biru tua dengan kehadiran kanji.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: kelas makanan, gizi seimbang dan sistem pencernaan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1098
+  },
+  {
+   "t": "SC-T2-3",
+   "d": 3,
+   "q": "Enzim manakah yang mula mencernakan kanji di dalam mulut?",
+   "o": [
+    "Pepsin",
+    "Amilase liur",
+    "Lipase",
+    "Tripsin"
+   ],
+   "a": 1,
+   "e": "Amilase liur menguraikan kanji kepada maltosa.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 2 (draf): Penyelenggaraan dan kesinambungan hidup: kelas makanan, gizi seimbang dan sistem pencernaan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1099
+  },
+  {
+   "t": "SC-T3-1",
+   "d": 2,
+   "q": "Di manakah pertukaran gas berlaku dalam peparu?",
+   "o": [
+    "Trakea",
+    "Bronkus",
+    "Rongga hidung",
+    "Alveolus"
+   ],
+   "a": 3,
+   "e": "Alveolus ialah kantung udara yang dikelilingi kapilari darah.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Penyelenggaraan dan kesinambungan hidup: sistem respirasi dan pertukaran gas",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1100
+  },
+  {
+   "t": "SC-T3-1",
+   "d": 3,
+   "q": "Apakah yang berlaku kepada diafragma semasa menarik nafas?",
+   "o": [
+    "Diafragma mengecut dan menjadi mendatar",
+    "Diafragma mengendur dan melengkung ke atas",
+    "Diafragma tidak berubah",
+    "Diafragma mengecut dan melengkung ke atas"
+   ],
+   "a": 0,
+   "e": "Diafragma yang mendatar menambah isi padu rongga toraks dan menurunkan tekanannya.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Penyelenggaraan dan kesinambungan hidup: sistem respirasi dan pertukaran gas",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1101
+  },
+  {
+   "t": "SC-T3-1",
+   "d": 2,
+   "q": "Ciri alveolus yang membantu pertukaran gas yang cekap ialah",
+   "o": [
+    "dindingnya tebal dan keras",
+    "permukaannya kering",
+    "dikelilingi sedikit kapilari darah",
+    "dinding setebal satu sel"
+   ],
+   "a": 3,
+   "e": "Dinding yang nipis memendekkan jarak resapan gas.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Penyelenggaraan dan kesinambungan hidup: sistem respirasi dan pertukaran gas",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1102
+  },
+  {
+   "t": "SC-T3-1",
+   "d": 2,
+   "q": "Oksigen diangkut di dalam darah terutamanya oleh",
+   "o": [
+    "sel darah putih",
+    "hemoglobin dalam sel darah merah",
+    "platlet",
+    "garam mineral dalam plasma"
+   ],
+   "a": 1,
+   "e": "Hemoglobin bergabung dengan oksigen membentuk oksihemoglobin.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Penyelenggaraan dan kesinambungan hidup: sistem respirasi dan pertukaran gas",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1103
+  },
+  {
+   "t": "SC-T3-1",
+   "d": 1,
+   "q": "Bahan dalam asap rokok yang boleh menyebabkan kanser peparu ialah",
+   "o": [
+    "oksigen",
+    "wap air",
+    "tar",
+    "nitrogen"
+   ],
+   "a": 2,
+   "e": "Tar ialah bahan karsinogen yang termendap dalam peparu.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Penyelenggaraan dan kesinambungan hidup: sistem respirasi dan pertukaran gas",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1104
+  },
+  {
+   "t": "SC-T3-2",
+   "d": 1,
+   "q": "Apakah unit bagi rintangan?",
+   "o": [
+    "Ohm (Ω)",
+    "Volt (V)",
+    "Ampere (A)",
+    "Watt (W)"
+   ],
+   "a": 0,
+   "e": "Rintangan diukur dalam ohm.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Tenaga dan kelestarian hidup: arus, voltan, rintangan, elektromagnet dan transformer",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1105
+  },
+  {
+   "t": "SC-T3-2",
+   "d": 1,
+   "q": "Alat yang digunakan untuk mengukur arus elektrik ialah",
+   "o": [
+    "ammeter",
+    "voltmeter",
+    "termometer",
+    "barometer"
+   ],
+   "a": 0,
+   "e": "Ammeter disambung secara bersiri untuk mengukur arus.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Tenaga dan kelestarian hidup: arus, voltan, rintangan, elektromagnet dan transformer",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1106
+  },
+  {
+   "t": "SC-T3-2",
+   "d": 2,
+   "q": "Arus 2 A mengalir melalui perintang 3 Ω. Berapakah beza keupayaan merentasi perintang itu?",
+   "o": [
+    "1.5 V",
+    "6 V",
+    "5 V",
+    "0.67 V"
+   ],
+   "a": 1,
+   "e": "V = IR = 2 A × 3 Ω = 6 V.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Tenaga dan kelestarian hidup: arus, voltan, rintangan, elektromagnet dan transformer",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1107
+  },
+  {
+   "t": "SC-T3-2",
+   "d": 2,
+   "q": "Bagaimanakah kekuatan sebuah elektromagnet dapat ditingkatkan?",
+   "o": [
+    "Mengurangkan arus",
+    "Menambah bilangan lilitan gegelung",
+    "Mengeluarkan teras besi lembut",
+    "Menggantikan wayar dengan benang"
+   ],
+   "a": 1,
+   "e": "Lebih banyak lilitan menghasilkan medan magnet yang lebih kuat.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Tenaga dan kelestarian hidup: arus, voltan, rintangan, elektromagnet dan transformer",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1108
+  },
+  {
+   "t": "SC-T3-2",
+   "d": 3,
+   "q": "Apakah fungsi transformer injak turun pada pengecas telefon bimbit?",
+   "o": [
+    "Mengurangkan voltan bekalan",
+    "Menaikkan voltan bekalan",
+    "Menyimpan cas elektrik",
+    "Menukar haba kepada elektrik"
+   ],
+   "a": 0,
+   "e": "Transformer injak turun mempunyai lilitan sekunder kurang daripada lilitan primer.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Tenaga dan kelestarian hidup: arus, voltan, rintangan, elektromagnet dan transformer",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1109
+  },
+  {
+   "t": "SC-T3-3",
+   "d": 1,
+   "q": "Sistem Suria kita terletak dalam galaksi",
+   "o": [
+    "Andromeda",
+    "Bima Sakti",
+    "Magellan Besar",
+    "Pusaran"
+   ],
+   "a": 1,
+   "e": "Bima Sakti ialah galaksi berpilin yang mengandungi Sistem Suria.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Bumi dan angkasa lepas: bintang, galaksi, alam semesta dan Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1110
+  },
+  {
+   "t": "SC-T3-3",
+   "d": 2,
+   "q": "Bintang manakah yang paling hampir dengan Bumi?",
+   "o": [
+    "Proxima Centauri",
+    "Sirius",
+    "Matahari",
+    "Polaris"
+   ],
+   "a": 2,
+   "e": "Matahari ialah bintang; Proxima Centauri ialah bintang kedua terdekat.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Bumi dan angkasa lepas: bintang, galaksi, alam semesta dan Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1111
+  },
+  {
+   "t": "SC-T3-3",
+   "d": 2,
+   "q": "Tahun cahaya ialah unit bagi",
+   "o": [
+    "masa",
+    "jisim",
+    "suhu",
+    "jarak"
+   ],
+   "a": 3,
+   "e": "Tahun cahaya ialah jarak yang dilalui cahaya dalam setahun.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Bumi dan angkasa lepas: bintang, galaksi, alam semesta dan Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1112
+  },
+  {
+   "t": "SC-T3-3",
+   "d": 2,
+   "q": "Bintang yang berjisim sangat besar boleh mengakhiri hayatnya dengan letupan yang dinamakan",
+   "o": [
+    "komet",
+    "supernova",
+    "meteor",
+    "asteroid"
+   ],
+   "a": 1,
+   "e": "Supernova ialah letupan dahsyat bintang raksasa.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Bumi dan angkasa lepas: bintang, galaksi, alam semesta dan Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1113
+  },
+  {
+   "t": "SC-T3-3",
+   "d": 3,
+   "q": "Bagaimanakah Matahari menghasilkan tenaganya?",
+   "o": [
+    "Pembelahan nuklear uranium",
+    "Pelakuran nuklear nukleus hidrogen membentuk helium",
+    "Pembakaran arang batu",
+    "Tindak balas oksigen dengan petroleum"
+   ],
+   "a": 1,
+   "e": "Di teras Matahari, nukleus hidrogen bercantum membentuk helium dan membebaskan tenaga.",
+   "s": "Draf Meta Didik: DSKP KSSM Sains Tingkatan 3 (draf): Bumi dan angkasa lepas: bintang, galaksi, alam semesta dan Sistem Suria",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1114
+  },
+  {
+   "t": "SC-T6-1",
+   "d": 1,
+   "q": "Kanji dalam beras terbina daripada monomer",
+   "o": [
+    "glukosa",
+    "asid amino",
+    "nukleotida",
+    "gliserol"
+   ],
+   "a": 0,
+   "e": "Kanji ialah polimer α-glukosa.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Molekul biologi: karbohidrat, lipid dan protein",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1115
+  },
+  {
+   "t": "SC-T6-1",
+   "d": 2,
+   "q": "Ikatan yang menghubungkan dua asid amino dinamakan ikatan",
+   "o": [
+    "peptida",
+    "glikosidik",
+    "ester",
+    "fosfodiester"
+   ],
+   "a": 0,
+   "e": "Ikatan peptida terbentuk melalui tindak balas kondensasi antara asid amino.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Molekul biologi: karbohidrat, lipid dan protein",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1116
+  },
+  {
+   "t": "SC-T6-1",
+   "d": 2,
+   "q": "Sebuah molekul trigliserida terdiri daripada",
+   "o": [
+    "satu gliserol dan tiga asid lemak",
+    "tiga gliserol dan satu asid lemak",
+    "glukosa dan fruktosa",
+    "dua asid amino"
+   ],
+   "a": 0,
+   "e": "Tiga ikatan ester menghubungkan asid lemak kepada gliserol.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Molekul biologi: karbohidrat, lipid dan protein",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1117
+  },
+  {
+   "t": "SC-T6-1",
+   "d": 2,
+   "q": "Sukrosa ialah disakarida yang terdiri daripada",
+   "o": [
+    "glukosa dan galaktosa",
+    "glukosa dan fruktosa",
+    "dua molekul glukosa",
+    "fruktosa dan galaktosa"
+   ],
+   "a": 1,
+   "e": "Glukosa dan galaktosa membentuk laktosa; dua glukosa membentuk maltosa.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Molekul biologi: karbohidrat, lipid dan protein",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1118
+  },
+  {
+   "t": "SC-T6-1",
+   "d": 3,
+   "q": "Selulosa berbeza daripada kanji kerana selulosa terbina daripada",
+   "o": [
+    "β-glukosa yang dihubungkan oleh ikatan glikosidik β(1→4)",
+    "α-glukosa yang dihubungkan oleh ikatan glikosidik α(1→4)",
+    "asid amino yang dihubungkan oleh ikatan peptida",
+    "fruktosa yang dihubungkan oleh ikatan ester"
+   ],
+   "a": 0,
+   "e": "Ikatan β(1→4) menghasilkan rantai lurus yang membentuk mikrofibril kuat.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Molekul biologi: karbohidrat, lipid dan protein",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1119
+  },
+  {
+   "t": "SC-T6-2",
+   "d": 1,
+   "q": "Enzim bertindak sebagai",
+   "o": [
+    "sumber tenaga utama sel",
+    "mangkin biologi yang mempercepat tindak balas",
+    "bahan binaan dinding sel",
+    "hormon yang mengawal pertumbuhan"
+   ],
+   "a": 1,
+   "e": "Enzim merendahkan tenaga pengaktifan tanpa berubah secara kekal.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Enzim: mekanisme tindakan, faktor yang mempengaruhi dan perencatan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1120
+  },
+  {
+   "t": "SC-T6-2",
+   "d": 2,
+   "q": "Mengikut model kunci dan mangga, substrat bergabung dengan enzim pada",
+   "o": [
+    "tapak aktif",
+    "tapak alosterik",
+    "ribosom",
+    "membran plasma"
+   ],
+   "a": 0,
+   "e": "Bentuk tapak aktif adalah pelengkap kepada substrat.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Enzim: mekanisme tindakan, faktor yang mempengaruhi dan perencatan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1121
+  },
+  {
+   "t": "SC-T6-2",
+   "d": 2,
+   "q": "Apakah yang berlaku kepada enzim pada suhu yang terlampau tinggi?",
+   "o": [
+    "Enzim menjadi lebih aktif tanpa had",
+    "Enzim membiak dengan cepat",
+    "Enzim bertukar menjadi lipid",
+    "Enzim ternyahasli dan tapak aktif berubah bentuk"
+   ],
+   "a": 3,
+   "e": "Haba memutuskan ikatan hidrogen yang mengekalkan struktur tiga dimensi enzim.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Enzim: mekanisme tindakan, faktor yang mempengaruhi dan perencatan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1122
+  },
+  {
+   "t": "SC-T6-2",
+   "d": 2,
+   "q": "pH optimum bagi pepsin dalam perut ialah kira-kira",
+   "o": [
+    "pH 7",
+    "pH 9",
+    "pH 2",
+    "pH 12"
+   ],
+   "a": 2,
+   "e": "Pepsin berfungsi dalam suasana berasid di perut.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Enzim: mekanisme tindakan, faktor yang mempengaruhi dan perencatan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1123
+  },
+  {
+   "t": "SC-T6-2",
+   "d": 3,
+   "q": "Bagaimanakah perencat kompetitif merencat tindakan enzim?",
+   "o": [
+    "Terikat pada tapak lain dan mengubah bentuk tapak aktif secara kekal",
+    "Bersaing dengan substrat untuk terikat pada tapak aktif",
+    "Memecahkan enzim kepada asid amino",
+    "Meningkatkan kepekatan substrat"
+   ],
+   "a": 1,
+   "e": "Perencatan kompetitif dapat diatasi dengan menambah kepekatan substrat.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Enzim: mekanisme tindakan, faktor yang mempengaruhi dan perencatan",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1124
+  },
+  {
+   "t": "SC-T6-3",
+   "d": 1,
+   "q": "Apakah bentuk struktur molekul DNA?",
+   "o": [
+    "Heliks tiga lembar",
+    "Rantai tunggal bercabang",
+    "Heliks ganda dua",
+    "Kepingan rata"
+   ],
+   "a": 2,
+   "e": "Watson dan Crick menghuraikan DNA sebagai heliks ganda dua.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Genetik: struktur DNA, kod genetik dan pewarisan Mendel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1125
+  },
+  {
+   "t": "SC-T6-3",
+   "d": 2,
+   "q": "Dalam DNA, bes adenina berpasangan dengan",
+   "o": [
+    "guanina",
+    "sitosina",
+    "urasil",
+    "timina"
+   ],
+   "a": 3,
+   "e": "Adenina berpasangan dengan timina melalui dua ikatan hidrogen.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Genetik: struktur DNA, kod genetik dan pewarisan Mendel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1126
+  },
+  {
+   "t": "SC-T6-3",
+   "d": 2,
+   "q": "Kacukan Tt × Tt (T dominan) menghasilkan nisbah fenotip",
+   "o": [
+    "3 : 1",
+    "1 : 1",
+    "1 : 2 : 1",
+    "9 : 3 : 3 : 1"
+   ],
+   "a": 0,
+   "e": "Tiga daripada empat zuriat mempunyai sekurang-kurangnya satu alel dominan.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Genetik: struktur DNA, kod genetik dan pewarisan Mendel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1127
+  },
+  {
+   "t": "SC-T6-3",
+   "d": 2,
+   "q": "Satu kodon terdiri daripada",
+   "o": [
+    "dua nukleotida",
+    "tiga nukleotida",
+    "satu nukleotida",
+    "empat nukleotida"
+   ],
+   "a": 1,
+   "e": "Kod genetik ialah kod triplet.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Genetik: struktur DNA, kod genetik dan pewarisan Mendel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1128
+  },
+  {
+   "t": "SC-T6-3",
+   "d": 3,
+   "q": "Jika satu helai DNA mempunyai jujukan 5'-ATGC-3', apakah jujukan helai pelengkapnya?",
+   "o": [
+    "3'-ATGC-5'",
+    "3'-UACG-5'",
+    "3'-TACG-5'",
+    "3'-GCAT-5'"
+   ],
+   "a": 2,
+   "e": "A berpasangan dengan T dan G dengan C; helai pelengkap adalah antiselari.",
+   "s": "Draf Meta Didik: DSKP STPM Biologi (draf): Genetik: struktur DNA, kod genetik dan pewarisan Mendel",
+   "status": "aktif",
+   "draf": 1,
+   "i": 1129
   }
  ]
 }
