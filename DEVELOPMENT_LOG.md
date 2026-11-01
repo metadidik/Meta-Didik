@@ -25,7 +25,7 @@ Branch `claude/guru-kod-sementara`.
 - kod salah ditolak dan kod betul diterima;
 - butang Pacak muncul dalam Menu dan borang dibuka;
 - dengan API Key diisi, `guruKod` dan `stnTrial` menjadi palsu;
-- tiada ralat; Node 59/59.
+- tiada ralat; Node 59/59 (ujian automasi dikemas kini untuk dasar sementara).
 
 **Perhatian:** peraturan Firebase yang aktif mesti membenarkan mod percubaan (`docs/firebase-rules-lengkap-percubaan.json`). Peraturan "ketat" memerlukan log masuk.
 
