@@ -5,10 +5,12 @@ const fs = require("node:fs");
 const path = require("node:path");
 const D = fs.readFileSync(path.join(__dirname, "../../dunia.js"), "utf8"), A = fs.readFileSync(path.join(__dirname, "../../app.js"), "utf8"), H = fs.readFileSync(path.join(__dirname, "../../index.html"), "utf8");
 
-test("guru wajib DELIMa: kod guru 1991 tidak lagi membuka akses", () => {
-  assert.match(A, /const GURU_DELIMA_WAJIB = true;/);
-  assert.match(A, /function guruKod\(\) \{ return !GURU_DELIMA_WAJIB &&/);
-  assert.match(A, /function stnTrial\(\) \{ return !GURU_DELIMA_WAJIB &&/);
+test("kod guru (v18.52, sementara atas arahan pemilik) hanya berfungsi selagi DELIMa belum aktif; tertutup sendiri bila API Key diisi", () => {
+  assert.match(A, /const GURU_DELIMA_WAJIB = (true|false);/);
+  assert.match(A, /function guruKod\(\) \{ return !GURU_DELIMA_WAJIB && !AUTH\.on\(\) &&/);
+  assert.match(A, /function stnTrial\(\) \{ return !GURU_DELIMA_WAJIB && !AUTH\.on\(\); \}/);
+  assert.match(A, /if \(kind === "guru" && v === KOD_GURU && !AUTH\.on\(\)\)/);
+  assert.match(A, /on\(\) \{ return !!\(window\.TW_AUTH && window\.TW_AUTH\.apiKey\); \}/);
 });
 test("inovasi: booth 'tunggu' terus kelihatan, ikut subjek, dibina semula bila status berubah, sinar emas", () => {
   const f = D.slice(D.indexOf("function lmStnGeo("), D.indexOf("function lmStnOpen("));
