@@ -1884,7 +1884,7 @@ async function downloadCertificate() {
 /* =====================================================================
    BILIK OPERASI  |  peta, panel misi, senarai, kedudukan, pangkat
    ===================================================================== */
-const UI = { sel: null, view: "map", boardFilter: "all" };
+const UI = { sel: null, view: "map", boardFilter: "all", pmin: (() => { try { return matchMedia("(max-width: 999px) and (min-height: 501px)").matches; } catch (e) { return false; } })() }; /* v18.68: kad misi dikecilkan dahulu pada telefon potret */
 const SEA_PEN = [["LAUT CHINA", 240, 90], ["SELATAN", 240, 98]];
 
 function progOf(id) { return P.prog[id] || { b: 0, hs: 0, n: 0 }; }
@@ -1913,6 +1913,32 @@ function grassUrl() {
   } catch (e) { _grassUrl = ""; }
   return _grassUrl;
 }
+/* ---------- v18.68: penanda peta gaya Meta Didik 2.0 (pin bulat; ✓ selesai, 🔒 terkunci, denyut = misi seterusnya) ---------- */
+function po2Pin(g, x, y, col, label, o) {
+  o = o || {};
+  if (o.nxt) g.appendChild(sv("circle", { class: "mk-pulse", cx: x, cy: y - 5, r: 9 }));
+  g.appendChild(sv("ellipse", { class: "mk-sh", cx: x, cy: y + 7.2, rx: 4.2, ry: 1.4 }));
+  g.appendChild(sv("path", { class: "mk-body", d: "M" + x + " " + (y + 7) + "C" + (x - 3) + " " + (y + 2) + " " + (x - 8.5) + " " + (y - 1) + " " + (x - 8.5) + " " + (y - 5.5) + "A8.5 8.5 0 1 1 " + (x + 8.5) + " " + (y - 5.5) + "C" + (x + 8.5) + " " + (y - 1) + " " + (x + 3) + " " + (y + 2) + " " + x + " " + (y + 7) + "Z", fill: o.lock ? "#aebccb" : col }));
+  g.appendChild(sv("circle", { class: "mk-disc", cx: x, cy: y - 5.5, r: 6.2 }));
+  if (o.lock) g.appendChild(sv("path", { class: "mk-lock", d: "M" + (x - 2.6) + " " + (y - 5.6) + "h5.2v4h-5.2zM" + (x - 1.6) + " " + (y - 5.6) + "v-1.4a1.6 1.6 0 0 1 3.2 0v1.4", transform: "" }));
+  else g.appendChild(sv("text", { class: "mk-num", x: x, y: y - 3.4, "font-size": String(label).length > 3 ? 3.6 : 5.6 }, label));
+  if (o.done) { g.appendChild(sv("circle", { class: "mk-ok", cx: x + 6.6, cy: y - 11.4, r: 3.4 })); g.appendChild(sv("path", { class: "mk-okt", d: "M" + (x + 5) + " " + (y - 11.4) + "l1.1 1.2 2.2-2.4" })); }
+}
+/* v18.68: miniatur mercu tanda (ilustrasi ringkas; kedudukan ANGGARAN pada peta skematik, bukan koordinat sebenar) */
+const PO2_MINI = { svgPen: [["petronas", 151, 209, "Menara Berkembar Petronas (ilustrasi)"]], svgBor: [["kinabalu", 520, 104, "Gunung Kinabalu (ilustrasi)"]] };
+function po2Mini(kind, x, y, nm) {
+  const g = sv("g", { class: "po2-mini", "pointer-events": "none", transform: "translate(" + x + " " + y + ")" });
+  g.appendChild(sv("title", {}, nm));
+  g.appendChild(sv("ellipse", { cx: 0, cy: 0.6, rx: 7, ry: 1.8, fill: "rgba(23,50,77,.25)" }));
+  if (kind === "petronas") {
+    [-3, 3].forEach((dx) => { g.appendChild(sv("path", { d: "M" + (dx - 1.6) + " 0V-12l" + 1.6 + "-4 " + 1.6 + " 4V0z", fill: "#cfd9e4", stroke: "#6c7f94", "stroke-width": ".35" })); g.appendChild(sv("path", { d: "M" + dx + " -16v-3.2", stroke: "#6c7f94", "stroke-width": ".45" })); });
+    g.appendChild(sv("rect", { x: -1.4, y: -9.4, width: 2.8, height: .9, fill: "#6c7f94" }));
+  } else if (kind === "kinabalu") {
+    g.appendChild(sv("path", { d: "M-9 0l4.5-7 2 1.8 2.4-5.4 1.9 3.6 1.4-1.6 5.8 8.6z", fill: "#5f8f6e", stroke: "#3e6b4d", "stroke-width": ".35" }));
+    g.appendChild(sv("path", { d: "M-2.1 -9.6l2.4-1.6 1.9 3.6-1.6-.8-1.2 1.1z", fill: "#fff" }));
+  }
+  return g;
+}
 /* ---------- Peta ---------- */
 function buildMap(svgId, view, ids) {
   const svg = $(svgId);
@@ -1932,9 +1958,9 @@ function buildMap(svgId, view, ids) {
     [[0, "#ffffff", 0.2], [0.45, "#ffffff", 0], [1, "#000000", 0.3]].forEach((a) => lg.appendChild(sv("stop", { offset: a[0], "stop-color": a[1], "stop-opacity": a[2] })));
     defs.appendChild(lg);
     const bl = sv("filter", { id: "bl-" + svgId, x: "-10%", y: "-10%", width: "125%", height: "130%" }); bl.appendChild(sv("feGaussianBlur", { stdDeviation: 3 })); defs.appendChild(bl); }
-  { const sh = sv("g", { filter: "url(#bl-" + svgId + ")", opacity: ".6", transform: "translate(3,17)", fill: "#000" });
+  { const sh = sv("g", { filter: "url(#bl-" + svgId + ")", opacity: ".22", transform: "translate(3,12)", fill: "#17324D" }); /* v18.68: bayang lembut */
     ids.forEach((nid) => sh.appendChild(sv("use", { href: "#x-" + svgId + "-" + nid }))); gE.appendChild(sh); }
-  ["#1b1408", "#2b200d", "#3f2f14", "#55401a", "#6e5222", "#8a6a2c", "#6b6a2a", "#7e8f35", "#9db445"].forEach((c, i, a) => {
+  ["#b98a5a", "#c49364", "#cf9f6f", "#d9ab7b", "#e3b886", "#7cbf6a", "#86c873", "#90d17c"].forEach((c, i, a) => { /* v18.68: tebing tanah cerah + rumput */
     const lg = sv("g", { fill: c, transform: "translate(0," + ((a.length - i) * 1.35).toFixed(1) + ")" });
     ids.forEach((nid) => lg.appendChild(sv("use", { href: "#x-" + svgId + "-" + nid }))); gE.appendChild(lg);
   });
@@ -1952,10 +1978,8 @@ function buildMap(svgId, view, ids) {
     const n = DATA.negeri[t.negeri], xy = t.xy || n.pins[t.pin], pr = progOf(t.id);
     const lk = sqLocked(t.id), nx = !lk && sqNext() === t.id && sqState() && sqState().aktif && P.kc !== 0;
     const g = sv("g", { class: "pin" + (pr.b >= 3 ? " s3" : "") + (UI.sel === t.id ? " sel" : "") + (lk ? " lock" : "") + (nx ? " nxt" : ""), tabindex: "0", role: "button", "data-t": t.id, "aria-label": "Misi " + t.kod + " " + t.nama + ", " + n.nama + ", " + pr.b + " bintang" + (lk ? ", terkunci" : "") });
-    g.appendChild(sv("polygon", { points: hexPts(xy[0], xy[1], 9), fill: TEMA[t.tema].warna }));
-    g.appendChild(sv("text", { x: xy[0], y: xy[1] + 2.6 }, t.kod));
-    for (let i = 0; i < 3; i++) g.appendChild(sv("circle", { cx: xy[0] - 4.6 + i * 4.6, cy: xy[1] + 13, r: 1.7, fill: i < pr.b ? "#f4ab3a" : "rgba(255,255,255,.22)", stroke: "#0b100b", "stroke-width": ".5" }));
-    g.addEventListener("click", () => selectMission(t.id));
+    po2Pin(g, xy[0], xy[1], TEMA[t.tema].warna, t.kod, { lock: lk, nxt: nx, done: pr.b > 0 });
+    g.addEventListener("click", () => { UI.pmin = false; selectMission(t.id); });
     g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectMission(t.id); } });
     gP.appendChild(g);
   });
@@ -1963,20 +1987,39 @@ function buildMap(svgId, view, ids) {
     const ps = KHAS_POS[k.id]; if (!ps || ps[0] !== svgId) return;
     const r = khasRec(k.id), x = ps[1], y = ps[2];
     const g = sv("g", { class: "pin khas" + (k.rahsia ? " rahsia" : "") + (UI.sel === k.id ? " sel" : ""), tabindex: "0", role: "button", "data-t": k.id, "aria-label": k.n + ", " + (r.b | 0) + " bintang" });
-    g.appendChild(sv("polygon", { points: hexPts(x, y, 10), fill: k.warna }));
-    g.appendChild(sv("text", { x: x, y: y + 2.4 }, k.pendek));
-    for (let i = 0; i < 3; i++) g.appendChild(sv("circle", { cx: x - 4.6 + i * 4.6, cy: y + 14, r: 1.7, fill: i < (r.b | 0) ? "#f4ab3a" : "rgba(255,255,255,.22)", stroke: "#0b100b", "stroke-width": ".5" }));
-    g.addEventListener("click", () => selectMission(k.id));
+    po2Pin(g, x, y, k.warna, k.pendek, { done: (r.b | 0) > 0 });
+    g.addEventListener("click", () => { UI.pmin = false; selectMission(k.id); });
     g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectMission(k.id); } });
     gP.appendChild(g);
   });
   kbatPin(gP, svgId);
-  svg.append(defs, gE, gS, gT, gL, gP);
+  const gM = sv("g", { class: "po2-minis" }); (PO2_MINI[svgId] || []).forEach((m) => gM.appendChild(po2Mini(m[0], m[1], m[2], m[3])));
+  svg.append(defs, gE, gS, gT, gM, gL, gP);
   try { zvPlaceOnMap(svg, gP); } catch (e) { /* abaikan */ }
 }
 function renderMaps() {
   buildMap("svgPen", DATA.views.pen, ["perlis", "kedah", "penang", "perak", "kelantan", "terengganu", "pahang", "selangor", "wp", "nsembilan", "melaka", "johor"]);
   buildMap("svgBor", DATA.views.bor, ["sarawak", "sabah"]);
+}
+/* v18.68: susun atur Peta Operasi 2.0: peta + kad misi (sisi pada desktop/landskap, bottom sheet pada potret), pemilih negeri, butang buka semula kad */
+(function po2Init() {
+  const ms = document.querySelector("#v-map .mapstage"), dk = document.querySelector("#v-map .dock"); if (!ms || !dk || ms.parentNode.classList.contains("po2")) return;
+  const w = el("div", { class: "po2" }); ms.parentNode.insertBefore(w, ms); w.append(ms, dk);
+  const ng = el("div", { class: "po2-ng", role: "group", "aria-label": "Pilih negeri" }); w.parentNode.insertBefore(ng, w);
+  const buka = el("button", { type: "button", id: "po2Buka", class: "po2-buka", hidden: "" }, "📋 Kad Misi"); buka.addEventListener("click", () => { po2Tutup(false); UI.pmin = false; renderPanel(); });
+  dk.parentNode.insertBefore(buka, dk.nextSibling);
+})();
+function po2Negeri() {
+  const ng = document.querySelector(".po2-ng"); if (!ng) return;
+  const sel = UI.sel && TOPIK[UI.sel] ? TOPIK[UI.sel].negeri : "";
+  const susun = ["perlis", "kedah", "penang", "perak", "kelantan", "terengganu", "pahang", "selangor", "wp", "nsembilan", "melaka", "johor", "sarawak", "sabah"];
+  const ada = susun.filter((k) => DATA.negeri[k] && DATA.topik.some((t) => t.negeri === k));
+  const kunci = ada.join(",") + "|" + sel + "|" + SUBJ;
+  if (ng.dataset.k === kunci) return; ng.dataset.k = kunci; ng.textContent = "";
+  ada.forEach((k) => { const ms = DATA.topik.filter((t) => t.negeri === k), siap = ms.filter((t) => progOf(t.id).b > 0).length;
+    const b = el("button", { type: "button", class: "po2-nb" + (k === sel ? " on" : ""), "aria-pressed": String(k === sel) }, DATA.negeri[k].pendek, el("small", null, siap + "/" + ms.length));
+    b.addEventListener("click", () => { const t = ms.find((x) => !sqLocked(x.id) && progOf(x.id).b === 0) || ms[0]; UI.pmin = false; selectMission(t.id); });
+    ng.appendChild(b); if (k === sel) setTimeout(() => { try { b.scrollIntoView({ block: "nearest", inline: "center" }); } catch (e) { /* abaikan */ } }, 0); });
 }
 function renderLegend() {
   const lg = $("legend");
@@ -7271,7 +7314,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.67";
+const APP_VER = "18.68";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -7774,7 +7817,7 @@ function decorModes(root) {
 }
 function renderPanel() {
   const p = $("panel");
-  p.textContent = "";
+  p.textContent = ""; p.classList.remove("mc2", "mc2-min"); try { po2Negeri(); } catch (e) { /* abaikan */ }
   if (UI.sel && KHAS_BY[UI.sel]) { renderKhasPanel(p, KHAS_BY[UI.sel]); return; }
   const t = UI.sel ? TOPIK[UI.sel] : null;
   if (!t) {
@@ -7820,27 +7863,42 @@ function renderPanel() {
   const bzb = el("button", { type: "button", class: "btn alt", id: "btnBZ" }, "Misi Busana");
   bzb.title = "Dandan busana sopan mengikut tema majlis, dinilai pengadil";
   bzb.addEventListener("click", () => bzOpen(t.id));
-  p.append(close,
-    el("div", { class: "tagline" }, SUBJ !== "tw" ? "Tingkatan " + tm.tingkatan + " | " + tm.nama + " | " + (SUBJ === "pi" || SUBJ === "p3" ? "Pelajaran " : "Misi ") + t.kod : "Tingkatan " + tm.tingkatan + " | Tema " + tm.id.split("-")[1] + " | Misi " + t.kod),
-    el("h3", null, t.nama),
-    sr,
-    el("div", { class: "mgl k" }, "Misi kendiri murid"), mdKendiri(), el("div", { class: "mgl pd" }, "PdPc guru"), el("div", { class: "row pd" }, slb, arb, jtb, blb, nlb));
+  /* v18.68: Mission Card Meta Didik 2.0: boleh dikembang, dikecil, ditutup dan dibuka semula; butang dan modul asal dikekalkan */
+  p.classList.add("mc2"); p.classList.toggle("mc2-min", !!UI.pmin); po2Tutup(false);
+  const bidang = SUBJ !== "tw" ? tm.nama : "Tema " + tm.id.split("-")[1] + ": " + tm.nama, lab = SUBJ !== "tw" ? (SUBJ === "pi" || SUBJ === "p3" ? "Pelajaran " : "Misi ") + t.kod : "Misi " + t.kod;
+  const minB = el("button", { type: "button", class: "mc2-ic", "aria-label": UI.pmin ? "Kembangkan kad misi" : "Kecilkan kad misi", "aria-expanded": String(!UI.pmin), title: UI.pmin ? "Kembangkan" : "Kecilkan" }, UI.pmin ? "▴" : "▾");
+  minB.addEventListener("click", () => { UI.pmin = !UI.pmin; renderPanel(); });
+  const tutB = el("button", { type: "button", class: "mc2-ic", "aria-label": "Tutup kad misi", title: "Tutup" }, "✕");
+  tutB.addEventListener("click", () => po2Tutup(true));
+  const chip = el("span", { class: "mc2-chip", style: "--c:" + (tm.warna || "#9474E8") }, bidang);
+  const hd = el("div", { class: "mc2-hd" }, el("div", { class: "mc2-chips" }, chip, el("span", { class: "mc2-chip mc2-tk" }, "Tingkatan " + tm.tingkatan), el("span", { class: "mc2-chip mc2-kod" }, lab)), el("div", { class: "mc2-ctl" }, minB, tutB));
+  const pct = Math.round(pr.b / 3 * 100);
+  const prog = el("div", { class: "mc2-prog" }, sr, el("span", { class: "mc2-bar", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "3", "aria-valuenow": String(pr.b), "aria-label": "Kemajuan bintang" }, el("i", { style: "width:" + pct + "%" })), el("small", null, pr.b + "/3 ★" + (pr.n ? " · skor terbaik " + pr.hs : " · belum dimain")));
+  const mula = el("button", { type: "button", class: "mc2-go mc2-mula" }, "▶ Mula Belajar"); mula.title = "Buka Slaid PdPc tajuk ini";
+  mula.addEventListener("click", () => slOpen(t.id));
+  const tuju = el("button", { type: "button", class: "mc2-go mc2-tuju" }, "📍 Pergi ke Destinasi"); tuju.title = "Masuk Meta Didik dan berada di Stesen Ilmu tajuk ini";
+  tuju.addEventListener("click", () => { window.MD_TUJU = t.id; mdGo(); });
+  const act = el("div", { class: "row pd mc2-act", role: "group", "aria-label": "Aktiviti pembelajaran" }, slb, arb, jtb, blb, nlb);
+  p.append(hd, el("h3", { class: "mc2-t" }, t.nama), el("div", { class: "mc2-ng" }, "📍 " + n.nama), prog);
+  if (!UI.pmin) {
+    if (t.nota && t.nota[0]) p.appendChild(el("p", { class: "mc2-obj" }, el("b", null, "🎯 Objektif: "), t.nota[0]));
+    p.append(el("div", { class: "mc2-cta" }, mula, tuju), el("div", { class: "mc2-sub" }, "Aktiviti"), act);
+  } else p.appendChild(el("div", { class: "mc2-cta" }, mula));
   decorModes(p);
-  // pilihan misi lain dalam negeri yang sama
+  if (UI.pmin) return;
   const sibs = DATA.topik.filter((x) => x.negeri === t.negeri);
   if (sibs.length > 1) {
-    const ch = el("div", { class: "row", style: "gap:6px" });
-    sibs.forEach((x) => {
-      const b = el("button", { type: "button", class: "btn sm " + (x.id === t.id ? "" : "alt") }, "Misi " + x.kod);
-      b.addEventListener("click", () => selectMission(x.id));
-      ch.appendChild(b);
-    });
+    const ch = el("div", { class: "mc2-sibs", role: "group", "aria-label": "Misi lain di " + n.nama });
+    sibs.forEach((x) => { const b = el("button", { type: "button", class: "mc2-sib" + (x.id === t.id ? " on" : ""), "aria-pressed": String(x.id === t.id) }, (progOf(x.id).b > 0 ? "✓ " : sqLocked(x.id) ? "🔒 " : "") + x.kod); b.addEventListener("click", () => selectMission(x.id)); ch.appendChild(b); });
     p.appendChild(ch);
   }
-  p.append(
-    el("div", { class: "std" }, "Skop DSKP: " + t.dskp),
-    (() => { const d = el("details"); d.append(el("summary", { class: "tagline", style: "color:var(--khaki);cursor:pointer" }, "Taklimat ringkas"), ul); return d; })(),
-    el("div", { class: "muted", style: "font-size:14px" }, (BYTOPIK[t.id] || []).length + " soalan dalam bank. " + (pr.n ? "Dimain " + pr.n + " kali, skor terbaik " + pr.hs + "." : "Belum pernah dimain.")));
+  const d = el("details", { class: "mc2-more" }); d.append(el("summary", null, "Taklimat & skop DSKP"), el("div", { class: "mc2-std" }, "Skop DSKP: " + t.dskp), ul, el("div", { class: "mc2-bank" }, (BYTOPIK[t.id] || []).length + " soalan dalam bank. " + (pr.n ? "Dimain " + pr.n + " kali, skor terbaik " + pr.hs + "." : "Belum pernah dimain.")));
+  p.appendChild(d);
+}
+/* v18.68: kad misi ditutup → butang "📋 Kad Misi" untuk buka semula */
+function po2Tutup(on) {
+  UI.ptutup = !!on; document.body.classList.toggle("po2-tutup", !!on);
+  const b = document.getElementById("po2Buka"); if (b) b.hidden = !on;
 }
 
 /* ---------- Sesi Bersama (v17.44): pasukan belajar dan battle serentak untuk Busana, Lagenda dan Dunia Ilmu ---------- */
@@ -12578,8 +12636,7 @@ function kbatPin(gP, svgId) {
   if (svgId !== KB_POS[0] || !kbPool().length) return;
   const x = KB_POS[1], y = KB_POS[2], kb = ((P.kb || {})[SUBJ]) || { n: 0 };
   const g = sv("g", { class: "pin khas kbat", tabindex: "0", role: "button", "data-t": "KBAT", "aria-label": "Misi KBAT, jawapan huraian disemak AI" });
-  g.appendChild(sv("polygon", { points: hexPts(x, y, 10), fill: "#6ee7ff" }));
-  g.appendChild(sv("text", { x: x, y: y + 2 }, "KBAT"));
+  po2Pin(g, x, y, "#39BCEB", "KBAT", { done: (kb.n | 0) > 0 });
   g.addEventListener("click", kbOpen);
   g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); kbOpen(); } });
   gP.appendChild(g);
@@ -19789,9 +19846,10 @@ function mapHere() {
 }
 function zvPlaceOnMap(svg, gP) {
   const id = mapHere(); const pin = [].find.call(gP.querySelectorAll(".pin"), (g) => g.getAttribute("data-t") === id); if (!pin) return;
-  const pg = pin.querySelector("polygon"); if (!pg) return;
-  const pts = pg.getAttribute("points").trim().split(/\s+/).map((p) => p.split(",").map(Number));
-  let cx = 0, top = 1e9; pts.forEach((p) => { cx += p[0]; if (p[1] < top) top = p[1]; }); cx /= pts.length;
+  const dc = pin.querySelector(".mk-disc"), pg = pin.querySelector("polygon"); let cx = 0, top = 1e9;
+  if (dc) { cx = +dc.getAttribute("cx"); top = +dc.getAttribute("cy") - 14; } /* v18.68: penanda bulat baharu */
+  else if (pg) { const pts = pg.getAttribute("points").trim().split(/\s+/).map((p) => p.split(",").map(Number)); pts.forEach((p) => { cx += p[0]; if (p[1] < top) top = p[1]; }); cx /= pts.length; }
+  else return;
   const n = zvMapNode(cx, top - 1.5); if (n) svg.appendChild(n);
 }
 /* ---------- skrin Gudang ---------- */
