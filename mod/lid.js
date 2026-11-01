@@ -169,7 +169,8 @@
     pd.addEventListener("click", async () => { const nota = prompt("Mohon pentadbir memadam data anda di pelayan Meta Didik. Nyatakan sebab (pilihan):", ""); if (nota === null) return; try { await hantarMohon("padam", r, { nota: nota }); ST.msg = "Permohonan pemadaman dihantar. Pentadbir akan memprosesnya mengikut polisi data."; } catch (e) { ST.msg = "Permohonan gagal dihantar (kod " + (e.code || "rangkaian") + ")."; } lukis(); });
     const lp = el("button", { type: "button", class: "btn alt sm" }, "Padam rekod Lifelong ID pada peranti ini");
     lp.addEventListener("click", () => { if (!confirm("Padam rekod Lifelong ID pada peranti ini? Kemajuan permainan tidak dipadam.")) return; try { localStorage.removeItem(KEY); localStorage.removeItem(KSAH); } catch (e) { /* abaikan */ } ST.msg = "Rekod Lifelong ID pada peranti ini dipadam."; lukis(); });
-    d.append(el("div", { class: "row", style: "gap:8px;flex-wrap:wrap" }, ex, pd, lp), el("p", { class: "muted", style: "margin:0;font-size:12px" }, AUTH.on() ? "Rekod anda disimpan di pelayan di bawah akaun Firebase anda; hanya anda dan pentadbir boleh membacanya." : "Mod percubaan: rekod Lifelong ID disimpan pada peranti ini sahaja sehingga log masuk akaun diaktifkan."));
+    d.append(el("div", { class: "row", style: "gap:8px;flex-wrap:wrap" }, ex, pd, lp), el("p", { class: "muted", style: "margin:0;font-size:12px" }, AUTH.on() ? "Rekod anda disimpan di pelayan di bawah akaun Firebase anda; hanya anda dan pentadbir boleh membacanya." : "Mod percubaan: rekod Lifelong ID disimpan pada peranti ini sahaja sehingga log masuk akaun diaktifkan."),
+      el("p", { class: "muted", style: "margin:0;font-size:12px" }, "Pertanyaan tentang data peribadi: ", el("a", { href: "mailto:" + (typeof MD_EMEL !== "undefined" ? MD_EMEL : "admin@metadidik.com") }, typeof MD_EMEL !== "undefined" ? MD_EMEL : "admin@metadidik.com")));
   }
 
   /* ---------- pentadbir: pengesahan alumni dan permohonan padam ---------- */

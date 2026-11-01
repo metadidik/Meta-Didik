@@ -555,6 +555,7 @@ body.vmap .wrap, body.vmap .top-in { max-width: 1600px; }
 #scopeOv .d { position: absolute; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: #e0584d; }
 #cpFoot { text-align: center; padding: 18px 16px calc(22px + env(safe-area-inset-bottom, 0px)); font-family: var(--font-util); font-size: 12px; letter-spacing: .06em; color: var(--muted); line-height: 1.6; }
 #cpFoot b { color: var(--khaki); font-weight: 700; }
+#cpFoot a { color: var(--khaki); text-decoration: underline; }
 .subjbar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 18px; position: relative; padding-top: 26px; }
 .subjbar .sl { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 10px; font-family: var(--font-util); font-weight: 700; font-size: 13px; letter-spacing: .26em; text-transform: uppercase; color: var(--amber); }
 .subjbar .sl::before { content: ""; width: 26px; height: 3px; background: var(--amber); box-shadow: 0 0 10px var(--amber); }

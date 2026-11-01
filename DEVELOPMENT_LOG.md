@@ -11,6 +11,16 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.54 · E-mel rasmi admin@metadidik.com
+
+- Pemalar `MD_EMEL` ditambah dalam `app.js`. E-mel dihoskan di Zoho Mail; rekod MX, SPF, DKIM dan DMARC disediakan oleh pemilik di DNS Exabytes.
+- Alamat dipaparkan di empat tempat:
+  - kaki halaman utama (`#cpFoot`, pautan mailto);
+  - kotak akaun rasmi (`mdBayarBox`), iaitu borang penaja dan dompet MD;
+  - mesej selepas permohonan penaja dihantar;
+  - tab Privasi & data Meta Didik ID.
+- Ujian: 59/59 ujian Node lulus. Kaki halaman disemak dengan Playwright (teks muncul, tiada `pageerror`).
+
 ## 2026-11-01 · v18.53 · Butang kawasan perintis Setapak dibuang dari Menu
 - **Atas arahan pemilik:** butang "🏙 Setapak (data sebenar)" dibuang dari ☰ Menu dunia Meta Didik. Tanpa data OSM, ia hanya padang kosong.
 - **Prakache:** `mod/perintis*.js` dikeluarkan daripada prakache service worker.
