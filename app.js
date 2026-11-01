@@ -7333,7 +7333,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.75";
+const APP_VER = "18.76";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -19767,7 +19767,11 @@ const ZV_UNI = {
   ou_sb: { t: "#a9d4f2", b: "#27345a", tie: "#27345a", bP: "#1f3f7a" },
   ou_pk: { t: "#b59a5b", b: "#6b5532", tP: "#5b8fd0", bP: "#27345a", scarf: "#c43b52" },
   ou_kp: { t: "#22305e", b: "#1a2238", tie: "#1a2238", lan: "#f0c53c" },
-  ou_bs: { t: "#f4f4f0", b: "#1a2238", tie: "#d0232f", arm: "#d0232f" }
+  ou_bs: { t: "#f4f4f0", b: "#1a2238", tie: "#d0232f", arm: "#d0232f" },
+  /* v18.76: Pasukan Kadet Bersatu Malaysia (PKBM): warna dipermudah (ilustrasi, bukan replika rasmi) */
+  ou_kd: { t: "#5f6b3c", b: "#4b5530", lan: "#f0c53c", arm: "#c43b2f" },
+  ou_kl: { t: "#f4f4f0", b: "#1a2238", tie: "#1a2238", lan: "#f0c53c" },
+  ou_ku: { t: "#8fb4d8", b: "#2f4a6e", tie: "#2f4a6e", lan: "#f0c53c" }
 };
 function zvUni(ou, g) { const u = ZV_UNI[ou]; if (!u) return null; return { t: (g === "P" && u.tP) || u.t, b: (g === "P" && u.bP) || u.b, tie: u.tie || "", scarf: u.scarf || "", lan: u.lan || "", arm: u.arm || "" }; }
 /* v18.3: lencana sekolah (singkatan, warna dan bentuk dipilih murid) */
@@ -19791,7 +19795,8 @@ const ZV_IT = [];
   const zi = (id, s, n, p, g) => ZV_IT.push({ id: id, s: s, n: n, p: p, g: g || "*" });
   zi("ou_sc", "ou", "Pakaian sekolah", 0); zi("ou_my", "ou", "Baju Melayu", 120, "L"); zi("ou_sm", "ou", "Baju Melayu bersampin", 260, "L");
   zi("ou_kr", "ou", "Baju Kurung", 120, "P"); zi("ou_jb", "ou", "Jubah", 200); zi("ou_tk", "ou", "Pakaian sukan", 90);
-  zi("ou_sb", "ou", "Pakaian sekolah agama", 80); zi("ou_bs", "ou", "Bulan Sabit Merah (PBSM)", 100); zi("ou_pk", "ou", "Pengakap / Pandu Puteri", 120); zi("ou_kp", "ou", "Kadet Polis", 120); zi("ou_pw", "ou", "Seragam pengawas", 150);
+  zi("ou_sb", "ou", "Pakaian sekolah agama", 80); zi("ou_bs", "ou", "Bulan Sabit Merah (PBSM)", 100); zi("ou_pk", "ou", "Pengakap / Pandu Puteri", 120); zi("ou_kp", "ou", "Kadet Polis", 120);
+  zi("ou_kd", "ou", "PKBM Darat", 120); zi("ou_kl", "ou", "PKBM Laut", 120); zi("ou_ku", "ou", "PKBM Udara", 120); /* v18.76 */ zi("ou_pw", "ou", "Seragam pengawas", 150);
   ZV_OCOL.forEach((c) => zi("oc_" + c[0], "oc", c[1], c[3]));
   zi("hd_no", "hd", "Tanpa penutup", 0, "L"); zi("hd_sk", "hd", "Songkok", 60, "L"); zi("hd_kp", "hd", "Kopiah", 40, "L"); zi("hd_sb", "hd", "Serban", 150, "L"); zi("hd_tp", "hd", "Topi", 50, "L");
   zi("hd_td", "hd", "Tudung bawal", 0, "P"); zi("hd_sw", "hd", "Tudung sarung", 70, "P"); zi("hd_tl", "hd", "Tudung labuh", 100, "P"); zi("hd_ts", "hd", "Tudung sukan", 80, "P");
@@ -19938,8 +19943,8 @@ function zvPlaceOnMap(svg, gP) {
 const ZVUI = { slot: "ou", try: "", det: "", info: false, dlg: null };
 const ZV_TAB = [["ou", "Pakaian", "👕"], ["hd", "Penutup Kepala", "🧢"], ["bk", "Beg", "🎒"], ["bd", "Lencana", "⭐"], ["pt", "Haiwan", "🐾"], ["ef", "Kesan 3D", "🧊"], ["rc", "Keraian", "🎉"], ["fc", "Cermin Mata", "👓"], ["hn", "Pegangan", "📚"], ["fr", "Bingkai", "🖼"], ["set", "Set Lengkap", "👔"], ["free", "Percuma", "🎁"]];
 const ZV_TAB_SUB = { ou: "Pilih pakaian untuk avatar anda.", hd: "Songkok, kopiah, tudung dan topi yang sopan.", bk: "Beg untuk ke sekolah.", bd: "Lencana pencapaian dan lencana sekolah anda.", pt: "Haiwan comel yang menemani anda.", ef: "Kesan khas pada avatar 3D di Meta Didik.", rc: "Cara avatar meraikan selepas kuiz.", fc: "Cermin mata yang kemas.", hn: "Barang yang dipegang avatar.", fr: "Bingkai profil avatar.", set: "Lengkapkan satu gaya sekali gus.", free: "Item percuma untuk semua murid." };
-const ZV_DESC = { ou_sc: "Pakaian seragam sekolah yang kemas.", ou_my: "Set tradisional yang kemas dan sopan.", ou_sm: "Baju Melayu lengkap bersampin untuk hari istimewa.", ou_kr: "Baju Kurung tradisional yang sopan.", ou_jb: "Jubah labuh yang selesa dan sopan.", ou_tk: "Pakaian sukan untuk Hari Sukan dan PJ.", ou_sb: "Pakaian sekolah agama.", ou_bs: "Uniform Persatuan Bulan Sabit Merah.", ou_pk: "Uniform Pengakap / Pandu Puteri.", ou_kp: "Uniform Kadet Polis.", ou_pw: "Seragam pengawas sekolah." };
-const ZV_PADAN = { ou_my: ["hd_sk", "hd_kp", "bd_sk"], ou_sm: ["hd_sk", "hn_ts", "bd_st"], ou_kr: ["hd_tl", "hd_sw", "bd_sk"], ou_sc: ["bk_bg", "bd_sk", "hn_bk"], ou_tk: ["hd_tp", "hd_ts", "hn_bl", "bd_st"], ou_sb: ["hd_kp", "hd_tl", "hn_qr", "hn_ts"], ou_bs: ["bd_md", "bk_bg", "hn_bk"], ou_pk: ["hd_tp", "bd_st", "hn_jg"], ou_kp: ["bd_pf", "hn_jg", "bk_bg"], ou_pw: ["bd_pf", "hn_bk", "fc_cm"], ou_jb: ["hd_sb", "hd_tl", "hn_ts", "hn_qr"] };
+const ZV_DESC = { ou_sc: "Pakaian seragam sekolah yang kemas.", ou_my: "Set tradisional yang kemas dan sopan.", ou_sm: "Baju Melayu lengkap bersampin untuk hari istimewa.", ou_kr: "Baju Kurung tradisional yang sopan.", ou_jb: "Jubah labuh yang selesa dan sopan.", ou_tk: "Pakaian sukan untuk Hari Sukan dan PJ.", ou_sb: "Pakaian sekolah agama.", ou_bs: "Uniform Persatuan Bulan Sabit Merah.", ou_pk: "Uniform Pengakap / Pandu Puteri.", ou_kp: "Uniform Kadet Polis.", ou_pw: "Seragam pengawas sekolah.", ou_kd: "Uniform Pasukan Kadet Bersatu Malaysia (PKBM) Darat.", ou_kl: "Uniform Pasukan Kadet Bersatu Malaysia (PKBM) Laut.", ou_ku: "Uniform Pasukan Kadet Bersatu Malaysia (PKBM) Udara." };
+const ZV_PADAN = { ou_my: ["hd_sk", "hd_kp", "bd_sk"], ou_sm: ["hd_sk", "hn_ts", "bd_st"], ou_kr: ["hd_tl", "hd_sw", "bd_sk"], ou_sc: ["bk_bg", "bd_sk", "hn_bk"], ou_tk: ["hd_tp", "hd_ts", "hn_bl", "bd_st"], ou_sb: ["hd_kp", "hd_tl", "hn_qr", "hn_ts"], ou_bs: ["bd_md", "bk_bg", "hn_bk"], ou_pk: ["hd_tp", "bd_st", "hn_jg"], ou_kp: ["bd_pf", "hn_jg", "bk_bg"], ou_pw: ["bd_pf", "hn_bk", "fc_cm"], ou_jb: ["hd_sb", "hd_tl", "hn_ts", "hn_qr"], ou_kd: ["hn_jg", "bd_pf", "bd_md"], ou_kl: ["hn_jg", "bd_pf", "bd_st"], ou_ku: ["hn_jg", "bd_pf", "fc_sg"] };
 const ZV_SET = [
   ["set_sk", "Set Sekolah", "🏫", ["ou_sc", "bk_bg", "bd_sk", "hn_bk"]],
   ["set_ag", "Set Sekolah Agama", "🕌", ["ou_sb", "hd_kp", "hd_tl", "hn_qr"]],
@@ -19947,7 +19952,10 @@ const ZV_SET = [
   ["set_ry", "Set Hari Raya", "🌙", ["ou_sm", "hd_sk", "ou_kr", "hd_sw", "hn_ts"]],
   ["set_bs", "Set PBSM", "⛑", ["ou_bs", "bd_md", "bk_bg"]],
   ["set_pk", "Set Pengakap", "⚜", ["ou_pk", "hd_tp", "hn_jg"]],
-  ["set_kp", "Set Kadet Polis", "🛡", ["ou_kp", "bd_pf", "hn_jg"]]
+  ["set_kp", "Set Kadet Polis", "🛡", ["ou_kp", "bd_pf", "hn_jg"]],
+  ["set_kd", "Set PKBM Darat", "🪖", ["ou_kd", "bd_pf", "hn_jg"]],
+  ["set_kl", "Set PKBM Laut", "⚓", ["ou_kl", "bd_pf", "hn_jg"]],
+  ["set_ku", "Set PKBM Udara", "✈", ["ou_ku", "bd_pf", "hn_jg"]]
 ];
 const ZV_FX_IC = { ef_no: "—", ef_bt: "✨", ef_pl: "🌈", ef_jp: "🚀", rc_tp: "👏", rc_sj: "🤲", rc_ab: "🙌", rc_lg: "🤸", rc_tr: "💃", rc_si: "⚽" };
 function zvRare(it) { return it.p === 0 ? ["Percuma", "fr"] : it.p < 100 ? ["Biasa", "bs"] : it.p < 250 ? ["Rare", "rr"] : ["Istimewa", "is"]; }

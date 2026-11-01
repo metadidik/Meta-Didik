@@ -11,6 +11,19 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.76 · Uniform PKBM Darat, Laut dan Udara
+
+- **Uniform baharu:**
+  - item Avatar Studio **PKBM Darat**, **PKBM Laut** dan **PKBM Udara** (Pasukan Kadet Bersatu Malaysia), 120 MD setiap satu, untuk lelaki dan perempuan;
+  - warna dipermudah sebagai ilustrasi, bukan replika rasmi: Darat hijau zaitun dengan lencana lengan merah, Laut putih dengan seluar biru tua dan tali leher, Udara biru muda dengan biru kelabu;
+  - semua dengan lilitan bahu (lanyard) kuning.
+- **Avatar Studio:** set lengkap Set PKBM Darat/Laut/Udara dan Padanan Sesuai (Jalur Gemilang, lencana pengawas).
+- **Serasi dengan multiplayer:** klien lama yang belum dikemas kini memaparkan pakaian sekolah.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright: ketiga-tiga item dalam grid Pakaian dan pratonton;
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.75 · Evolusi avatar 3D (model, animasi, emote) dan HUD ikut lakaran
 
 - **Audit:**
