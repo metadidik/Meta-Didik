@@ -5094,8 +5094,8 @@ function lmNet(g, dt, ts) {
   if (LM.vc && ts - (LM.vcT || 0) > 700) { LM.vcT = ts; lmVoiceTick(g); }
   if (ts - LM.sent > (LM.roomKind === "open" ? 500 : 200)) {
     LM.sent = ts;
-    const o = { x: +p.x.toFixed(1), y: +p.y.toFixed(1), z: +p.z.toFixed(1), r: +p.yaw.toFixed(2), m: p.moving ? 1 : 0, a: p.on ? 0 : 1, n: lmMyName(), gr: lmIsGuru() ? 1 : 0, gl: lmIsGuru() || "", sh: LM.sh || "", c: g.myCode, st: lmStamps(), fy: g.sail ? 1 : 0, rl: g.ride ? 1 : 0, sw: p.swim ? (p.moving ? 2 : 1) : 0, pl: g.flight ? 1 : 0, pp: g.flight ? +g.flight.pitch.toFixed(2) : 0, pb: g.flight ? +g.flight.bank.toFixed(2) : 0 };
-    const sig = [o.x, o.y, o.z, o.r, o.m, o.a, o.st, o.pl, o.pp, o.pb, o.fy, o.rl, o.sw].join(",");
+    const o = { x: +p.x.toFixed(1), y: +p.y.toFixed(1), z: +p.z.toFixed(1), r: +p.yaw.toFixed(2), m: p.moving ? 1 : 0, a: p.on ? 0 : 1, n: lmMyName(), gr: lmIsGuru() ? 1 : 0, gl: lmIsGuru() || "", pw: lmPelawat() ? 1 : 0, pg: lmPelawat() ? lmGelSaya() : "", sl: LM.slTo || "", sn: LM.slN | 0, sk: LM.slK || "", sh: LM.sh || "", c: g.myCode, st: lmStamps(), fy: g.sail ? 1 : 0, rl: g.ride ? 1 : 0, sw: p.swim ? (p.moving ? 2 : 1) : 0, pl: g.flight ? 1 : 0, pp: g.flight ? +g.flight.pitch.toFixed(2) : 0, pb: g.flight ? +g.flight.bank.toFixed(2) : 0 };
+    const sig = [o.x, o.y, o.z, o.r, o.m, o.a, o.st, o.pl, o.pp, o.pb, o.fy, o.rl, o.sw, o.sn].join(",");
     if (sig !== LM.lastSig) { LM.lastSig = sig; try { const x = r.presence(o); if (x && x.catch) x.catch(() => {}); } catch (e) { /* abaikan */ } }
   }
   if (ts - LM.pollT > 220) {
@@ -5109,8 +5109,12 @@ function lmNet(g, dt, ts) {
       const x = clamp(v.x, WB.x0, WB.x0 + WB.w), y = clamp(+v.y || 0, -8, 400), z = clamp(v.z, WB.z0, WB.z0 + WB.h), nm = cleanName(String(v.n || "")) || "Pelajar";
       let e = LM.peers[pr.peer];
       const gr = v.gr ? (gelClean(v.gl) || "Cikgu") : false;
-      if (e && (e.c !== v.c || e.n !== nm || e.gr !== gr)) { lmAvatarDrop(g, e.av, e); e = null; }
-      if (!e) { const av = lmAvatar(v.c, nm, false, gr); g.scene.add(av.g); e = LM.peers[pr.peer] = { id: pr.peer, x: x, y: y, z: z, r: +v.r || 0, av: av, c: v.c, n: nm, gr: gr, en: v.en | 0, cn: v.cn | 0, rn: v.rn | 0 }; } /* emote lama sebelum kita masuk tidak dipaparkan */
+      const pw = !gr && v.pw ? (gelClean(v.pg) || "") : null; /* v18.69: pelawat bergelaran */
+      const nmP = pw ? (pw + " " + nm.replace(GEL_RE, "")).trim() : nm;
+      if (e && (e.c !== v.c || e.n !== nmP || e.gr !== gr)) { lmAvatarDrop(g, e.av, e); e = null; }
+      if (!e) { const av = lmAvatar(v.c, nmP, false, gr); g.scene.add(av.g); e = LM.peers[pr.peer] = { id: pr.peer, x: x, y: y, z: z, r: +v.r || 0, av: av, c: v.c, n: nmP, gr: gr, en: v.en | 0, cn: v.cn | 0, rn: v.rn | 0, sn: v.sn | 0 }; } /* emote lama sebelum kita masuk tidak dipaparkan */
+      e.pw = pw !== null; e.gel = gr || pw || "";
+      if ((v.sn | 0) !== e.sn) { e.sn = v.sn | 0; if (v.sl && v.sl === LM.myPeer && !lmMuted(pr.peer)) lmSalamGot(e, v.sk === "j" ? "j" : "s"); }
       e.tx = x; e.ty = y; e.tz = z; e.tr = +v.r || 0; e.m = !!v.m; e.a = !!v.a; e.st = clamp(v.st | 0, 0, 999); e.pl = !!v.pl; e.fy = !!v.fy; e.pp = clamp(+v.pp || 0, -1, 1); e.pb = clamp(+v.pb || 0, -1, 1);
       if (typeof v.e === "string" && EMOTE[v.e] && (v.en | 0) !== e.en) { if (!lmMuted(pr.peer)) lmBubble(e.av, EMOTE[v.e]); e.en = v.en | 0; }
       if (typeof v.ct === "string" && (v.cn | 0) !== e.cn) { e.cn = v.cn | 0; lmChatGot(e, v.ct); }
@@ -5238,6 +5242,7 @@ function lmChatSend(raw) {
   const g = LM.g; if (!g) return false;
   let s = lmChatClean(raw); if (!s) return false;
   if (!LM.room) { lmChatAdd("", "Chat hanya tersedia apabila bermain bersama (Dunia Terbuka atau bilik).", "sys"); return false; }
+  if (lmPelawat()) { lmChatAdd("", "Pelawat tidak boleh berchat dengan murid. Anda boleh menjawab salam.", "sys"); return false; } /* v18.69 */
   const now = Date.now(); if (now - (LM.chatAt || 0) < 3000) { lmChatAdd("", "Tunggu 3 saat sebelum menghantar mesej lagi.", "sys"); return false; }
   if (lmChatContact(s)) { lmChatAdd("", "Pautan, e-mel, media sosial dan nombor telefon tidak dibenarkan.", "sys"); return false; }
   s = lmChatFilter(s); LM.chatAt = now; LM.cn = (LM.cn | 0) + 1;
@@ -5246,9 +5251,58 @@ function lmChatSend(raw) {
   return true;
 }
 function lmChatGot(e, raw) {
+  if (lmPelawat() || e.pw) return; /* v18.69: tiada chat antara pelawat dan murid */
   const s = lmChatClean(raw); if (!s || lmChatContact(s) || lmMuted(e.id)) return;
   const t = lmChatFilter(s); e.last = t; lmBubble(e.av, t); e.av.bubT = 5; lmChatAdd(lmGuruName(e.n, e.gr), t);
 }
+/* ---------- v18.69: Salam: murid memberi salam kepada guru/pelawat yang berdekatan; guru/pelawat menjawab ---------- */
+const SALAM_R = 14;
+function lmGelSaya() { try { return gelClean(P.gel) || (typeof myGel === "function" && lmIsGuru() ? myGel() : ""); } catch (e) { return ""; } }
+function lmSalamSasar(g) { /* guru atau pelawat bergelaran paling dekat */
+  let best = null, bd = SALAM_R;
+  for (const id in LM.peers) { const e = LM.peers[id]; if (!(e.gr || e.pw) || lmMuted(id)) continue; const d = Math.hypot(e.x - g.p.x, e.z - g.p.z); if (d < bd) { bd = d; best = e; } }
+  return best;
+}
+function lmSalamHantar(id, kind) {
+  const r = LM.room; if (!r) return false;
+  LM.slTo = id; LM.slK = kind; LM.slN = (LM.slN | 0) + 1;
+  try { const x = r.presence({ sl: id, sn: LM.slN, sk: kind }); if (x && x.catch) x.catch(() => {}); } catch (e) { /* abaikan */ }
+  return true;
+}
+function lmSalamBeri() {
+  const g = LM.g; if (!g) return;
+  const now = Date.now(); if (now - (LM.slAt || 0) < 5000) { lmPop("Tunggu sebentar sebelum memberi salam lagi"); return; }
+  const e = lmSalamSasar(g); if (!e) { lmPop("Tiada guru atau pelawat berdekatan"); return; }
+  LM.slAt = now; lmSalamHantar(e.id, "s");
+  const t = "Assalamualaikum, " + (e.gr ? gelName(e.gr, e.n) : e.n) + "!"; lmBubble(g.me, t); g.me.bubT = 5; lmChatAdd(lmMyName(), t, "me"); lmSnd("coin");
+}
+function lmSalamGot(e, kind) {
+  const g = LM.g; if (!g) return;
+  if (kind === "s") { /* guru/pelawat menerima salam */
+    const t = "Assalamualaikum, " + (lmGelSaya() ? lmGelSaya() + "!" : "!"); lmBubble(e.av, t); e.av.bubT = 5; lmChatAdd(e.n, t);
+    lmPop("👋 " + e.n + " memberi salam"); LM.slDari = { id: e.id, n: e.n, t: Date.now() }; lmSalamUi(true);
+  } else { /* murid menerima jawapan salam */
+    const t = "Waalaikumussalam!"; lmBubble(e.av, t); e.av.bubT = 5; lmChatAdd(lmGuruName(e.n, e.gr), t); lmPop("😊 " + (e.gr ? gelName(e.gr, e.n) : e.n) + " menjawab salam anda");
+  }
+}
+function lmSalamJawab() {
+  const d = LM.slDari, g = LM.g; if (!d || !g) return;
+  lmSalamHantar(d.id, "j"); LM.slDari = null;
+  const t = "Waalaikumussalam, " + d.n + "!"; lmBubble(g.me, t); g.me.bubT = 5; lmChatAdd(lmGuruName(lmMyName(), lmIsGuru()), t, "me"); lmSalamUi(false);
+}
+/* butang pintasan: murid → "Beri Salam" apabila guru/pelawat dekat; guru/pelawat → "Jawab Salam" selepas menerima salam */
+function lmSalamUi(force) {
+  const b = LM.ui && LM.ui.salamB, g = LM.g; if (!b || !g) return;
+  const murid = !lmIsGuru() && !lmPelawat();
+  const d = LM.slDari && Date.now() - LM.slDari.t < 20000 ? LM.slDari : null; if (!d) LM.slDari = null;
+  let mode = "";
+  if (d) mode = "j"; else if (murid && LM.room && lmSalamSasar(g)) mode = "s";
+  if (b.dataset.m === mode && !force) return; b.dataset.m = mode; b.hidden = !mode;
+  const lab = b.querySelector("small"); if (lab) lab.textContent = mode === "j" ? "Jawab" : "Salam";
+  b.setAttribute("aria-label", mode === "j" ? "Jawab salam " + (d ? d.n : "") : "Beri salam kepada guru atau pelawat berdekatan");
+  b.classList.toggle("lm-salam-j", mode === "j");
+}
+LM.salam = { ui: lmSalamUi, beri: lmSalamBeri, got: lmSalamGot, jawab: lmSalamJawab, chat: lmChatSend }; /* untuk ujian dan alat lain */
 /* senyap dan lapor (disimpan ikut uid peranti) */
 const lmUidOf = (peer) => String(peer || "").split("_")[0];
 function lmMutes() { if (!LM.mutes) { try { LM.mutes = JSON.parse(localStorage.getItem("gt-lm-mute") || "{}") || {}; } catch (e) { LM.mutes = {}; } } return LM.mutes; }
@@ -5624,6 +5678,10 @@ body.pelawat #lmOv .lm-guide{display:none}
 #lmOv .lm-rb .lm-rci svg{width:26px;height:26px;display:block}
 #lmOv .lm-rb small,#lmOv .lm-rn small{font:800 12px Nunito,sans-serif;color:#fff}
 #lmOv .lm-rc .lm-cb{display:grid}
+#lmOv .lm-rb.lm-salam{background:linear-gradient(180deg,#4fd67a,#22a84c);animation:lmSlm 1.6s ease-in-out infinite}
+#lmOv .lm-rb.lm-salam.lm-salam-j{background:linear-gradient(180deg,#ffd45a,#f2a900);color:#17324D}#lmOv .lm-rb.lm-salam.lm-salam-j small{color:#17324D}
+@keyframes lmSlm{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){#lmOv .lm-rb.lm-salam{animation:none}}
 #lmOv .lm-top .lm-mb{display:none!important}
 #lmOv .lm-guide,#lmOv.touch .lm-guide{left:max(10px,env(safe-area-inset-left))!important;transform:none!important;top:calc(max(10px,env(safe-area-inset-top)) + 72px)!important;width:min(300px,calc(100vw - 150px))!important;min-width:0!important;background:linear-gradient(180deg,rgba(22,44,90,.92),rgba(14,30,66,.92))!important;border:2px solid rgba(255,255,255,.85)!important;border-radius:16px!important;padding:7px 12px!important}
 #lmOv .lm-guide .gh b{color:#fff!important}
@@ -6777,7 +6835,7 @@ async function lmBuildScene() {
   LM.g = g;
   lmEnvMaps(g); lmBuildSky(g); await lmBuildWorld(g); lmBuildSea(g); lmDayNight(g);
   setTimeout(() => (g.after || []).forEach((f) => { try { f(); } catch (e) { /* abaikan */ } }), 1500); /* muat data dalam talian selepas dunia siap */
-  g.myCode = lmMyCode(); g.me = lmAvatar(g.myCode, P.nama, true, lmIsGuru()); scene.add(g.me.g);
+  g.myCode = lmMyCode(); g.me = lmAvatar(g.myCode, lmPelawat() && lmGelSaya() ? lmGelSaya() + " " + cleanName(P.nama) : P.nama, true, lmIsGuru()); /* v18.69: gelaran pelawat */ scene.add(g.me.g);
   lmSkyInit(g); lmTrafficInit(g);
   return g;
 }
@@ -6874,7 +6932,10 @@ function lmHud() {
   const ik = (svg, n) => { const x = el("span", { class: "lm-rci" }); x.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">' + svg + "</svg>"; return [x, el("small", null, n)]; };
   ui.menuB = el("button", { type: "button", class: "lm-rb lm-rb-menu", "aria-label": "Menu" }, ...ik('<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>', "Menu")); ui.menuB.addEventListener("click", () => lmMenu());
   ui.kawanB = el("button", { type: "button", class: "lm-rb", "aria-label": "Kawan" }, ...ik('<circle cx="8.5" cy="8" r="3.8"/><circle cx="16.8" cy="8.6" r="3.1"/><path d="M1.5 20.5c.5-4.2 3.4-6.5 7-6.5s6.5 2.3 7 6.5z"/><path d="M16.4 13.6c3.4 0 6.1 2.2 6.6 5.9h-6c-.3-2.4-1.3-4.3-2.8-5.6.7-.2 1.4-.3 2.2-.3z"/>', "Kawan")); ui.kawanB.addEventListener("click", () => lmMenu("kawan")); if (lmPelawat()) ui.kawanB.hidden = true;
-  const rc = el("div", { class: "lm-rc" }, ui.menuB, ui.kawanB); r.appendChild(rc);
+  /* v18.69: pintasan Salam (muncul apabila guru/pelawat berdekatan, atau untuk menjawab salam) */
+  ui.salamB = el("button", { type: "button", class: "lm-rb lm-salam", hidden: "" }, ...ik('<path d="M7.5 11.3 4.2 8a1.6 1.6 0 0 1 2.3-2.3l3.4 3.4-.3-5.2a1.6 1.6 0 0 1 3.2-.2l.4 6.2 1.7-3.4a1.6 1.6 0 0 1 2.9 1.4l-1.6 3.3 2.3-1.6a1.6 1.6 0 0 1 1.9 2.6l-5.3 4.2a6.5 6.5 0 0 1-8.7-.4L3.4 13a1.6 1.6 0 1 1 2.3-2.3z"/>', "Salam"));
+  ui.salamB.addEventListener("click", () => { if (ui.salamB.dataset.m === "j") lmSalamJawab(); else lmSalamBeri(); });
+  const rc = el("div", { class: "lm-rc" }, ui.salamB, ui.menuB, ui.kawanB); r.appendChild(rc);
   if (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen) {
     ui.fs = lmBtn("Skrin penuh", "lm-fs", lmFsToggle);
     top.appendChild(ui.fs); lmFsSync();
@@ -6954,7 +7015,8 @@ function lmHudTick(g) {
   ui.stamp.textContent = "📘 Cop " + s.pl + "/" + s.plN; { const J = lmJourney(); ui.tw.textContent = "📖 Stesen Ilmu " + J.d + "/" + J.t; }
   const np = Object.keys(LM.peers).length, op = LM.roomKind === "open"; ui.peers.hidden = !LM.room && !op;
   ui.peers.textContent = op ? (LM.room ? "🌏 " + (np + 1) + " · " + (ZONES[LM.zone] || "") : LM.openFull ? "🌏 Penuh · main solo" : "🌏 Menyambung...") : "👥 " + (np + 1) + (LM.roomKind === "privasi" ? " · 🔐 " + String(LM.roomCode).slice(1) : "");
-  ui.chat.hidden = !LM.room; ui.chatB.hidden = !LM.room; if (!ui.vcB.hidden !== lmVoiceOk()) lmVoiceUi();
+  ui.chat.hidden = !LM.room || lmPelawat(); ui.chatB.hidden = !LM.room || lmPelawat(); /* v18.69: pelawat tiada chat */
+  { const t = performance.now(); if (t - (LM.slUiT || 0) > 400) { LM.slUiT = t; lmSalamUi(false); } } if (!ui.vcB.hidden !== lmVoiceOk()) lmVoiceUi();
   if (g.wp && g.wp.pid) { const e = LM.peers[g.wp.pid]; if (!e) { g.wp = null; lmWpSet(); lmPop("Rakan sudah keluar"); } else { g.wp.x = e.x; g.wp.z = e.z; lmWpSet(); } }
   if (g.wp) { ui.wp.hidden = false; const km = lmKmAB(g.p.x, g.p.z, g.wp.x, g.wp.z), d = Math.hypot(g.wp.x - g.p.x, g.wp.z - g.p.z); ui.wp.textContent = "📍 " + g.wp.n + " · " + (km < 1 ? Math.round(km * 1000) + " m" : Math.round(km) + " km"); if (d < 12) { g.wp = null; lmWpSet(); } }
   else ui.wp.hidden = true;
@@ -7232,7 +7294,7 @@ function lmOpen(tid) {
   if (!GEOD) {
     const r = lmRoot(); r.appendChild(el("div", { class: "lm-card" }, el("div", { class: "lm-box" }, el("div", { class: "lm-kick" }, "META DIDIK"), el("h2", null, "Memuat peta Malaysia sebenar..."), el("p", null, "Sempadan negeri dan ketinggian muka bumi (kali pertama sahaja)."))));
   }
-  lmGeoLoad().then(() => lmOwnSchool()).then((sk) => { LM.ownSk = sk; lmRaster(); lmStart("", Net.room && !lmPelawat() ? "open" : ""); /* v18.64: pelawat tidak menyertai bilik (tiada interaksi dengan murid) */ /* v18.39: terus masuk; subjek, tetapan dan Ruang Privasi dalam ☰ Menu */ }).catch(() => { toast("Peta META DIDIK tidak dapat dimuatkan. Semak sambungan internet dan cuba lagi.", "warn"); lmClose(); });
+  lmGeoLoad().then(() => lmOwnSchool()).then((sk) => { LM.ownSk = sk; lmRaster(); lmStart("", Net.room ? "open" : ""); /* v18.69: pelawat masuk Dunia Terbuka supaya murid boleh memberi salam; chat dan Ruang Privasi kekal ditutup untuk pelawat */ /* v18.64: pelawat tidak menyertai bilik (tiada interaksi dengan murid) */ /* v18.39: terus masuk; subjek, tetapan dan Ruang Privasi dalam ☰ Menu */ }).catch(() => { toast("Peta META DIDIK tidak dapat dimuatkan. Semak sambungan internet dan cuba lagi.", "warn"); lmClose(); });
 }
 /* v18.38: logo penaja Platinum pada skrin memuat */
 function lmPjMuatLogo() {
