@@ -11,6 +11,29 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.55 · Paparan penuh automatik dan subjek ikut tahap murid
+
+**Paparan penuh**
+- Modul `mdAppFs` (akhir `app.js`): skrin penuh diminta pada klik, ketikan atau kekunci pertama di laman. Pelayar tidak membenarkannya tanpa tindakan pengguna.
+- Butang terapung "⤡ Keluar paparan penuh" / "⤢ Paparan penuh" (`#mdFsBtn`). Jika pemain keluar, tiada permintaan automatik lagi dalam sesi itu (`sessionStorage gt-fs-off`).
+- Butang disembunyikan dalam Meta Didik dan permainan (`body.ar-lock`), yang sudah ada butang sendiri.
+- Tidak aktif di iPhone dan iPad (Safari iPhone tiada API; iPad, rujuk v18.50) dan dalam mod aplikasi PWA (manifest `display: fullscreen`).
+- `window.MD_APPFS`: permainan dan modul yang ditutup tidak lagi keluar dari skrin penuh peringkat aplikasi.
+
+**Tahap murid**
+- `TAHAP`: Darjah 1–6 (1–6), Tingkatan 1–5 (7–11), Tingkatan 6 (12). Setiap subjek ada `tk`: Tasawwur Islam, PI, BA, Sejarah, Sains, Matematik, BM dan BI = [10, 11]; PI T3 = [9].
+- Murid hanya boleh membuka subjek yang tahap terendahnya ≤ tahap murid, jadi murid tahap lebih tinggi boleh memilih subjek tahap lebih rendah. Guru, pelawat dan pentadbir tidak dihadkan.
+- Borang daftar: medan "Darjah / Tingkatan" (wajib untuk murid). Tahap tanpa kandungan ditanda "(kandungan akan datang)". Disimpan dalam `localStorage gt-tk` dan `P.tk` (tempatan sahaja; Firebase tidak diubah).
+- Murid lama tanpa tahap diminta memilih semasa dibuka. Pilihan diisi awal daripada kelas dan jenis sekolah (`tahapTeka`).
+- Pemilih subjek (Menu, pengepala, bar subjek) memaparkan "🔒 Untuk murid Tingkatan 4 hingga 5".
+- Ujian (Playwright):
+  - murid T3 hanya dapat PI T3, dan subjek bertukar automatik selepas daftar;
+  - murid T4 dan T5 mendapat semua subjek;
+  - guru tidak dihadkan;
+  - murid lama diminta memilih tahap;
+  - skrin penuh masuk pada klik pertama, keluar melalui butang dan tidak masuk semula;
+  - tiada `pageerror`. Node 59/59.
+
 ## 2026-11-01 · v18.54 · E-mel rasmi admin@metadidik.com
 
 - Pemalar `MD_EMEL` ditambah dalam `app.js`. E-mel dihoskan di Zoho Mail; rekod MX, SPF, DKIM dan DMARC disediakan oleh pemilik di DNS Exabytes.

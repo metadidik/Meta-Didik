@@ -6848,7 +6848,7 @@ function lmPjMuatLogo() {
   const row = el("div", { style: "display:flex;gap:10px;flex-wrap:wrap;justify-content:center" }); L.forEach((d) => row.appendChild(el("div", { style: "background:#fff;border-radius:10px;width:130px;height:62px;display:grid;place-items:center;padding:6px" }, el("img", { src: d.logo, alt: d.n, style: "max-width:100%;max-height:100%" })))); r.appendChild(row); return r;
 }
 function lmStart(code, kind) {
-  if (TOUCH && !lmIPad() && LM.st && LM.st.fs !== 0) { if ((document.fullscreenElement || document.webkitFullscreenElement) && window.MD_FS) { LM.fsAuto = true; lmLandskap(); } else lmFsMasuk(); } /* v18.35/18.39: skrin penuh + landskap (diminta semasa klik Masuk Meta Didik) */
+  if (TOUCH && !lmIPad() && LM.st && LM.st.fs !== 0) { if ((document.fullscreenElement || document.webkitFullscreenElement) && window.MD_FS) { LM.fsAuto = true; lmLandskap(); } else if (document.fullscreenElement || document.webkitFullscreenElement) lmLandskap(); else lmFsMasuk(); } /* v18.35/18.39: skrin penuh + landskap (diminta semasa klik Masuk Meta Didik) */
   lmAudUnlock(); AZ.last = null; lmAzanLoad(); /* v18.33: azan */ /* dalam klik pengguna: buka kunci audio telefon */
   const r = lmRoot(); /* kembali dari permainan lain (LM.resume): lapisan mungkin masih tersembunyi */ LM.ptsLast = null; LM.roomKind = kind || ""; LM.sh = lmMySh(); LM.zoneN = null; LM.zoneAt = 0; LM.roomCode = ""; LM.openFull = false; LM.openRetry = 0; LM.zone = "";
   lmCardClose(); r.textContent = "";
