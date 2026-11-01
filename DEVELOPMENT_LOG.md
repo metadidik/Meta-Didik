@@ -11,6 +11,34 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.69 · Gelaran guru/pelawat dan pintasan Salam
+
+- **Pendaftaran:** guru dan pelawat memilih gelaran pada langkah 2.
+  - Senarai guru: Cikgu, Ustaz, Ustazah, Sir, Puan, Encik, dan lain-lain.
+  - Senarai pelawat: Encik, Puan, Cik, Tuan, Haji, Hajah, Dr., Prof., Ustaz, Ustazah, Cikgu, dan lain-lain.
+  - Gelaran wajib dipilih dan dipaparkan dalam ringkasan.
+  - Disimpan dalam `P.gel` (medan sama seperti gelaran guru v18.29).
+- **Dalam Meta Didik:**
+  - nama guru dipaparkan "🎓 Ustaz Ali" seperti sebelum ini;
+  - pelawat kini dipaparkan bergelaran (contoh "Puan Aminah") melalui presence `pw` dan `pg`.
+- **Pintasan Salam:**
+  - butang hijau 👋 **Salam** muncul di lajur kanan HUD apabila murid berada dalam 14 unit daripada guru atau pelawat;
+  - satu ketikan menghantar "Assalamualaikum, Ustaz Ali!" (presence `sl`/`sn`/`sk`, had 5 saat);
+  - penerima melihat makluman dan butang kuning **Jawab** (20 saat) untuk membalas "Waalaikumussalam!".
+- **Perubahan dasar pelawat (v18.64):**
+  - pelawat kini masuk Dunia Terbuka supaya murid boleh memberi salam;
+  - chat dua hala antara pelawat dan murid **tetap disekat** (tidak boleh hantar dan mesej diabaikan);
+  - Kawan dan Ruang Privasi kekal ditutup untuk pelawat.
+  - Satu-satunya interaksi ialah salam dengan frasa tetap.
+- **Pembaikan kecil:**
+  - medan sekolah tidak lagi muncul semula untuk pelawat selepas memilih negeri;
+  - nota peranan pelawat dikemas kini.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright untuk pendaftaran pelawat bergelaran (ditolak tanpa gelaran), butang Salam muncul apabila guru dekat dan hilang apabila jauh, presence salam dan jawapan, chat pelawat disekat;
+  - tiada `pageerror`.
+  - Pertemuan sebenar dua peranti tidak dapat diuji kerana Firebase disekat oleh rangkaian pembangunan.
+
 ## 2026-11-01 · v18.68 · Peta Operasi & Pusat Pembelajaran (Meta Didik 2.0)
 
 - **Audit (sebelum):**

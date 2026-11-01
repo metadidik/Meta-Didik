@@ -7314,7 +7314,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.68";
+const APP_VER = "18.69";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -14940,12 +14940,27 @@ function gtRoleUi() {
   const f = $("inSubjField"); if (f) f.hidden = !g;
   { const e = $("guruEmField"); if (e) e.hidden = !g; if (g) guruEmUi(); } /* v18.64 */
   { const t = $("tahapField"); if (t) t.hidden = g || pl; }
+  { const gf = $("gelField"); if (gf) { gf.hidden = !(g || pl); if (!gf.hidden) gelRegUi(pl); } } /* v18.69: gelaran guru dan pelawat */
   ["sekText", "sekPick", "sekHint", "regHint"].forEach((id) => { const e = $(id); if (e) { if (pl) { e.dataset.plHide = e.hidden ? "1" : "0"; e.hidden = true; } else if (e.dataset.plHide != null) { e.hidden = e.dataset.plHide === "1"; delete e.dataset.plHide; } } });
   { const k = $("inKelas"); if (k && k.parentElement) k.parentElement.hidden = pl; }
   { const l = document.querySelector('label[for="inNegeri"]'); if (l) l.textContent = pl ? "Negeri anda (untuk waktu solat)" : "Negeri sekolah"; }
-  { const n = $("roleNote"); if (n) n.textContent = pl ? "Pelawat boleh menjelajah Meta Didik dan menjawab kuiz tanpa sekolah. Markah pelawat tidak dikira dalam kedudukan sekolah." : g ? "Guru wajib log masuk dengan akaun DELIMa (@moe-dl.edu.my) di Ruang Guru untuk memacak inovasi dalam Meta Didik." : "Murid: pilih sekolah anda supaya markah digabungkan dengan rakan sekolah."; }
+  { const n = $("roleNote"); if (n) n.textContent = pl ? "Pelawat boleh menjelajah Meta Didik, melihat booth inovasi dan menjawab salam murid. Pelawat tidak boleh berchat dengan murid." : g ? "Guru wajib log masuk dengan akaun DELIMa (@moe-dl.edu.my) di Ruang Guru untuk memacak inovasi dalam Meta Didik." : "Murid: pilih sekolah anda supaya markah digabungkan dengan rakan sekolah."; }
   const l = document.querySelector('label[for="inKelas"]'); if (l) l.textContent = g ? "Kelas yang diajar (pilihan)" : "Kelas (pilihan)";
 }
+/* v18.69: pilihan gelaran dalam pendaftaran (guru dan pelawat) */
+const GELARAN_PL = ["Encik", "Puan", "Cik", "Tuan", "Haji", "Hajah", "Dr.", "Prof.", "Ustaz", "Ustazah", "Cikgu"];
+function gelRegUi(pl) {
+  const sel = $("inGel"), lain = $("inGelLain"); if (!sel || !lain) return;
+  const senarai = pl ? GELARAN_PL : GELARAN, cur = gelClean(P.gel) || (pl ? "" : "Cikgu");
+  if (sel.dataset.k !== (pl ? "pl" : "g")) {
+    sel.dataset.k = pl ? "pl" : "g"; sel.textContent = "";
+    if (pl) sel.appendChild(el("option", { value: "" }, "Pilih gelaran..."));
+    senarai.forEach((x) => sel.appendChild(el("option", { value: x }, x))); sel.appendChild(el("option", { value: "*" }, "Lain-lain..."));
+    if (!sel.dataset.on) { sel.dataset.on = "1"; sel.addEventListener("change", () => { sel.removeAttribute("aria-invalid"); lain.removeAttribute("aria-invalid"); lain.hidden = sel.value !== "*"; if (!lain.hidden) lain.focus(); }); lain.addEventListener("input", () => lain.removeAttribute("aria-invalid")); }
+  }
+  if (!cur) { sel.value = ""; lain.hidden = true; } else if (senarai.indexOf(cur) >= 0) { sel.value = cur; lain.hidden = true; } else { sel.value = "*"; lain.hidden = false; lain.value = cur; }
+}
+function gelRegNilai() { const sel = $("inGel"), lain = $("inGelLain"); if (!sel) return ""; return gelClean(sel.value === "*" ? (lain ? lain.value : "") : sel.value); }
 /* v18.64: e-mel DELIMa guru dalam pendaftaran. Jika log masuk DELIMa sudah dipasang (AUTH.on), butang log masuk sebenar dipaparkan. */
 function guruEmUi() {
   const i = $("inGuruEm"), host = $("guruAuthHost"), h = $("guruEmHelp"); if (!i || !host) return;
@@ -18783,6 +18798,7 @@ function hostStart() {
 /* ---------- Profil ---------- */
 let resetArmed = 0, pickedName = "";
 function pickerFill(keep) {
+  if (gtRolePilih() === "pelawat") { ["sekText", "sekPick", "sekHint"].forEach((id) => { const e = $(id); if (e) e.hidden = true; }); return; } /* v18.69: pelawat tiada sekolah */
   const ng = $("inNegeri").value, db = SEKOLAH_DB[ng], box = $("sekPick"), txt = $("sekText");
   const hint = $("sekHint");
   if (!db || !Object.keys(db).length) {
@@ -18920,6 +18936,7 @@ function confirmReg() {
   }
   const changed = sekolahSid(ng, sk) !== mySid();
   P.nama = n; P.negeri = ng; P.sekolah = sk; if (pl) { P.pelawat = 1; kl = ""; } else delete P.pelawat;
+  if (gtRolePilih() !== "murid") { const gv = gelRegNilai(); if (gv) P.gel = gv; } /* v18.69 */
   P.kelas = kl;
   if (changed) Net.lastSek = "";
   const tkLama = tahapMurid();
@@ -18969,7 +18986,7 @@ function rgSalah2() {
   let authOn = false; try { authOn = AUTH.on(); } catch (e) { authOn = false; }
   const guru = gtRolePilih() === "guru", em = String(($("inGuruEm") || {}).value || "").trim().toLowerCase();
   const emSalah = guru && (authOn ? !(AUTH.guru && AUTH.guru()) : !RE_DELIMA.test(em));
-  const salah = [["inName", n.length < 2, "Isi nama panggilan (sekurang-kurangnya 2 huruf)."], ["inGuruEm", emSalah, authOn ? "Log masuk dengan akaun DELIMa dahulu." : "Guru wajib menggunakan e-mel DELIMa (contoh: nama@moe-dl.edu.my)."], ["inTahap", murid && !tk, "Pilih darjah atau tingkatan."], ["inNegeri", !$("inNegeri").value, "Pilih negeri."], ["inSekolah", !pl && sk.length < 4, "Pilih atau taip nama sekolah."]];
+  const salah = [["inName", n.length < 2, "Isi nama panggilan (sekurang-kurangnya 2 huruf)."], ["inGuruEm", emSalah, authOn ? "Log masuk dengan akaun DELIMa dahulu." : "Guru wajib menggunakan e-mel DELIMa (contoh: nama@moe-dl.edu.my)."], ["inTahap", murid && !tk, "Pilih darjah atau tingkatan."], [gelRegNilai() || $("inGel").value !== "*" ? "inGel" : "inGelLain", !murid && gelRegNilai().length < 2, "Pilih gelaran anda (contoh: Cikgu, Ustaz, Encik, Puan)."], ["inNegeri", !$("inNegeri").value, "Pilih negeri."], ["inSekolah", !pl && sk.length < 4, "Pilih atau taip nama sekolah."]];
   salah.forEach(([id]) => $(id).removeAttribute("aria-invalid"));
   const x = salah.find((q) => q[1]); if (!x) return "";
   $(x[0]).setAttribute("aria-invalid", "true"); return x;
@@ -18982,7 +18999,7 @@ function rgRingkas() {
   const r = gtRolePilih(), d = $("rgSum"); d.textContent = "";
   const neg = $("inNegeri"), ng = neg.options[neg.selectedIndex] ? neg.options[neg.selectedIndex].textContent : "";
   const ts = $("inTahap"), tk = r === "murid" && ts && ts.value ? ts.options[ts.selectedIndex].textContent.replace(/ \(.*\)$/, "") : "";
-  const baris = [["👤", "Peranan", { murid: "Murid", guru: "Guru (DELIMa)", pelawat: "Pelawat" }[r], 1], ["🏷", "Nama panggilan", cleanName($("inName").value), 2], tk ? ["🎓", "Tahap", tk, 2] : null, ["📍", "Negeri", ng, 2], r !== "pelawat" ? ["🏫", "Sekolah", cleanSekolah($("inSekolah").value), 2] : null, r !== "pelawat" && $("inKelas").value ? ["👥", "Kelas", kelasNorm($("inKelas").value), 2] : null, r === "guru" ? ["✉", "E-mel DELIMa", String(($("inGuruEm") || {}).value || "").trim().toLowerCase(), 2] : null, r === "guru" && $("inSubj").value ? ["📚", "Subjek", $("inSubj").value.trim(), 2] : null, r !== "pelawat" ? ["🔒", "Sekolah kepada pemain lain", $("inPsk") && $("inPsk").checked ? "Dipaparkan" : "Disembunyikan", 2] : null].filter(Boolean);
+  const baris = [["👤", "Peranan", { murid: "Murid", guru: "Guru (DELIMa)", pelawat: "Pelawat" }[r], 1], r !== "murid" ? ["🎓", "Gelaran", gelRegNilai() + " " + cleanName($("inName").value), 2] : null, ["🏷", "Nama panggilan", cleanName($("inName").value), 2], tk ? ["🎓", "Tahap", tk, 2] : null, ["📍", "Negeri", ng, 2], r !== "pelawat" ? ["🏫", "Sekolah", cleanSekolah($("inSekolah").value), 2] : null, r !== "pelawat" && $("inKelas").value ? ["👥", "Kelas", kelasNorm($("inKelas").value), 2] : null, r === "guru" ? ["✉", "E-mel DELIMa", String(($("inGuruEm") || {}).value || "").trim().toLowerCase(), 2] : null, r === "guru" && $("inSubj").value ? ["📚", "Subjek", $("inSubj").value.trim(), 2] : null, r !== "pelawat" ? ["🔒", "Sekolah kepada pemain lain", $("inPsk") && $("inPsk").checked ? "Dipaparkan" : "Disembunyikan", 2] : null].filter(Boolean);
   baris.forEach(([ic, k, v, st]) => { const b = el("button", { type: "button", class: "rg-ed", "aria-label": "Ubah " + k }); b.innerHTML = RG_IK.ubah; b.addEventListener("click", () => rgGo(st)); const i = el("i", { "aria-hidden": "true" }); if (RG_IK[ic]) i.innerHTML = RG_IK[ic]; else i.textContent = ic; d.append(el("div", null, el("dt", null, i, k), el("dd", null, v || "-"), b)); });
 }
 $("rgNext").addEventListener("click", () => { if (RG.s === 1) rgGo(2); else if (RG.s === 2) { const x = rgSalah2(); if (x) { toast(x[2], "warn"); try { (x[0] === "inSekolah" && !$("sekPick").hidden ? $("cariSek") : $(x[0])).focus(); } catch (e) { /* abaikan */ } return; } rgGo(3); } });
