@@ -7237,7 +7237,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.51";
+const APP_VER = "18.53";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -17634,8 +17634,11 @@ async function stnCount(node, id) { try { const v = await FB.req("GET", node + "
 async function stnStats(id) { const r = await Promise.all(["stesen_lawat", "stesen_suka", "stesen_klik"].map((n) => stnCount(n, id))); return { lawat: r[0], suka: r[1], klik: r[2] }; }
 /* v18.27: mod percubaan (sebelum log masuk DELIMa diwajibkan di metadidik.com): tanpa Firebase Auth,
    identiti guru dan murid ialah ID peranti; e-mel DELIMa guru diisi sendiri dan disemak pentadbir. */
-/* v18.41: guru WAJIB log masuk DELIMa (kod guru 1991 dimansuhkan). Tukar kepada false hanya untuk ujian dalaman. */
-const GURU_DELIMA_WAJIB = true;
+/* v18.41: guru WAJIB log masuk DELIMa (kod guru 1991 dimansuhkan).
+   v18.52: SEMENTARA dibuka semula atas arahan pemilik: selagi Web API Key DELIMa belum dimasukkan (AUTH.on() palsu), guru boleh
+   masuk dengan kod guru untuk memacak inovasi; e-mel DELIMa diisi sendiri dan disemak pentadbir sebelum booth diluluskan.
+   Sebaik window.TW_AUTH.apiKey diisi, AUTH.on() benar dan kod guru TERTUTUP SENDIRI (guruKod/stnTrial), DELIMa kembali wajib. */
+const GURU_DELIMA_WAJIB = false;
 function stnTrial() { return !GURU_DELIMA_WAJIB && !AUTH.on(); }
 function stnGuru() {
   if (!stnTrial()) return AUTH.guru();

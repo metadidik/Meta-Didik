@@ -11,6 +11,33 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.53 · Butang kawasan perintis Setapak dibuang dari Menu
+- **Atas arahan pemilik:** butang "🏙 Setapak (data sebenar)" dibuang dari ☰ Menu dunia Meta Didik. Tanpa data OSM, ia hanya padang kosong.
+- **Prakache:** `mod/perintis*.js` dikeluarkan daripada prakache service worker.
+- **Kod dikekalkan:** modul, pipeline OSM, DEM dan Geospatial Validation Engine masih dalam repo (`mod/perintis*.js`, `tools/geo/`) untuk kegunaan masa depan. Ia tidak lagi boleh dicapai oleh pengguna.
+
+---
+
+## 2026-11-01 · v18.52 · Kod guru SEMENTARA untuk memacak inovasi
+Branch `claude/guru-kod-sementara`.
+
+**Atas arahan pemilik**
+- `GURU_DELIMA_WAJIB = false`: selagi Web API Key DELIMa belum diisi, guru boleh masuk dengan kod guru di Ruang Guru.
+- Selepas itu, guru nampak "🏛 Pacak inovasi di sini" dalam ☰ Menu dunia Meta Didik.
+- E-mel DELIMa diisi sendiri oleh guru dan disemak pentadbir sebelum booth diluluskan (mod percubaan v18.27).
+
+**Penutupan automatik:** sebaik `window.TW_AUTH.apiKey` diisi, `AUTH.on()` benar, jadi `guruKod()` dan `stnTrial()` menjadi palsu dan DELIMa kembali wajib tanpa perubahan kod lain.
+
+**Diuji** (Playwright):
+- kod salah ditolak dan kod betul diterima;
+- butang Pacak muncul dalam Menu dan borang dibuka;
+- dengan API Key diisi, `guruKod` dan `stnTrial` menjadi palsu;
+- tiada ralat; Node 59/59 (ujian automasi dikemas kini untuk dasar sementara).
+
+**Perhatian:** peraturan Firebase yang aktif mesti membenarkan mod percubaan (`docs/firebase-rules-lengkap-percubaan.json`). Peraturan "ketat" memerlukan log masuk.
+
+---
+
 ## 2026-11-01 · v18.51 · Jalan raya di atas laut (Port Dickson dan lain-lain)
 Branch `claude/jalan-pantai`.
 
