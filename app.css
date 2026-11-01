@@ -1050,3 +1050,6 @@ body:not(.gv) #v-map .mapstage,body:not(.gv) #v-map .legend,body:not(.gv) #v-map
 #mdFsBtn { position: fixed; left: max(10px, env(safe-area-inset-left, 0px)); bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 80; padding: 7px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .25); background: rgba(10, 16, 10, .82); color: #f1e6c4; font: 600 12px/1.2 var(--font-util, system-ui); letter-spacing: .03em; cursor: pointer; backdrop-filter: blur(6px); }
 #mdFsBtn:hover, #mdFsBtn:focus-visible { background: rgba(30, 44, 30, .95); outline: 2px solid var(--khaki, #c9b37a); outline-offset: 2px; }
 body.ar-lock #mdFsBtn { display: none; }
+/* v18.57: Gudang dibuka dari Profil dalam Meta Didik: sembunyi butang paparan penuh */
+body.lm-gd #mdFsBtn { display: none; }
+body.lm-gd #backBar { display: none !important; }

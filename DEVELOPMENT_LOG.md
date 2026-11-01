@@ -11,6 +11,26 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.57 · Menu ringkas mesra murid dan Profil (Gudang di dalamnya)
+
+**☰ Menu dalam Meta Didik**
+- Senarai butang teks yang panjang diganti dengan panel `lmMenu`:
+  - grid ikon besar: Profil, Subjek, Pasport, Tajuk, Waktu solat, Kolam Ikan, Swafoto, Main bersama;
+  - guru juga mendapat Pacak inovasi dan Ruang Privasi;
+  - butang Suara jika bilik membenarkan;
+  - baris "Tukar pantas" (Bunyi, Suasana, Top 5);
+  - baris bawah: Ruang Privasi, Tetapan, Keluar.
+- Butang "👤 Profil & Gudang" kini "👤 Profil". Panel `lmProfil` memaparkan:
+  - lencana pangkat, nama, tahap dan sekolah;
+  - statistik (MD, XP, cop tempat, lencana);
+  - butang Gudang, Lencana, Pasport dan Ubah maklumat.
+- **Gudang hanya dibuka dari Profil.** Butang "⬅ Kembali ke Profil" kembali ke panel Profil. Bar "Peta operasi" dan butang paparan penuh disembunyikan semasa Gudang dibuka dari dunia (`body.lm-gd`).
+- "Ubah maklumat" membuka borang profil (contohnya tukar tingkatan) tanpa menutup Meta Didik, dan dunia disambung semula selepas borang ditutup.
+
+**Ujian (Playwright, telefon 844×390 sentuh dan desktop 1280×800)**
+- Aliran diuji: Menu → Profil → Gudang → kembali ke Profil, togol Bunyi, dan Ubah maklumat → Batal → dunia disambung semula.
+- Tiada `pageerror`. Node 59/59.
+
 ## 2026-11-01 · v18.56 · Tajuk dikunci ikut tahap murid
 
 - Selepas data subjek dipilih, `DATA.topik` dan `DATA.tema` ditapis kepada tema dengan tahap ≤ tahap murid. Tahap tema: medan `tingkatan` (n → 6+n), atau `darjah` untuk kandungan sekolah rendah kelak.

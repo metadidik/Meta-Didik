@@ -3815,7 +3815,7 @@ function lmOwnSchoolOpen(it) {
     if (!J.next && J.t) row.append(lmBtn("📜 Terima Sijil META DIDIK", "pri", lmCertGet), lmBtn("🏅 Lencana", "", () => lmPassport("lencana")));
     if (J.next) row.append(lmBtn("Tunjuk arah ke " + J.next.sn, "pri", () => { LM.g.wp = { x: J.next.x, z: J.next.z, n: J.next.sn }; lmWpSet(); lmCardClose(); lmPop("Ikut tiang merah ke " + J.next.sn); }));
     row.append(lmBtn("🍛 Kantin (percuma)", "", () => { if (lmEnergy() >= 100) { toast("Tenaga anda masih penuh.", "ok"); return; } lmCardClose(); lmEat(50, "Makan di kantin sekolah"); }), lmBtn("🛍 Gudang", "", lmGudang), lmBtn("Pasport", "", () => lmPassport("ilmu")), lmBtn("Tutup", "", lmCardClose));
-    b.append(el("p", { class: "lm-ex" }, "Profil & Gudang (avatar, pakaian seragam, lencana dan cara meraikan) juga boleh dibuka terus dari ☰ Menu."), row);
+    b.append(el("p", { class: "lm-ex" }, "Gudang (avatar, pakaian seragam dan cara meraikan) juga boleh dibuka dari ☰ Menu → 👤 Profil."), row);
   });
 }
 /* ---------- v18.11: kedai makan tradisi setiap negeri dan tenaga (lapar) ----------
@@ -4619,19 +4619,20 @@ function lmGudang() {
   const g = LM.g; if (!g) return;
   lmCardClose(); LM.gd = { view: typeof UI !== "undefined" ? UI.view : "map" }; LM.pause = true; g.ui = true; for (const k in LM.keys) LM.keys[k] = false;
   LM.root.hidden = true; document.body.classList.remove("ar-lock");
-  setView("gudang"); try { window.scrollTo(0, 0); } catch (e) { /* abaikan */ }
-  const b = el("button", { type: "button", id: "lmGdBack", class: "btn" }, "⬅ Kembali ke META DIDIK");
+  setView("gudang"); document.body.classList.add("lm-gd"); try { window.scrollTo(0, 0); } catch (e) { /* abaikan */ }
+  const b = el("button", { type: "button", id: "lmGdBack", class: "btn" }, "⬅ Kembali ke Profil");
   b.style.cssText = "position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:90;box-shadow:0 8px 20px rgba(0,0,0,.4)";
   b.addEventListener("click", lmGudangBack); document.body.appendChild(b);
 }
 function lmGudangBack() {
-  const b = document.getElementById("lmGdBack"); if (b) b.remove();
+  const b = document.getElementById("lmGdBack"); if (b) b.remove(); document.body.classList.remove("lm-gd");
   if (!LM.g || !LM.pause) return;
   setView(LM.gd && LM.gd.view && LM.gd.view !== "gudang" ? LM.gd.view : "map");
   LM.root.hidden = false; document.body.classList.add("ar-lock"); LM.pause = false;
   const g = LM.g, code = lmMyCode();
   if (code !== g.myCode) { const old = g.me, nm = lmAvatar(code, P.nama, true, lmIsGuru()); nm.g.position.copy(old.g.position); nm.g.rotation.y = old.g.rotation.y; g.scene.remove(old.g); g.me = nm; g.myCode = code; g.scene.add(nm.g); }
   g.ui = false; lmPop("Kembali ke Meta Didik");
+  setTimeout(lmProfil, 50); /* v18.57: Gudang dibuka dari Profil, jadi kembali ke Profil */
 }
 function lmCoinMesh() {
   if (!GEO.coin) GEO.coin = new T.CylinderGeometry(0.9, 0.9, 0.25, 14);
@@ -5282,6 +5283,25 @@ const LM_CSS = `
 @keyframes lmIn{from{transform:translateY(14px) scale(.97);opacity:0}}
 #lmOv .lm-box h2{font:900 24px Fredoka,Nunito,sans-serif;margin:0 0 6px}
 #lmOv .lm-box p{margin:6px 0;color:#d4e2ee;line-height:1.45}
+#lmOv .lm-menu .lm-box{width:min(520px,100%);padding:14px 14px 12px}
+#lmOv .lm-mhd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}#lmOv .lm-mhd h2{margin:0}
+#lmOv .lm-x{width:40px;height:40px;border-radius:50%;padding:0;font-size:18px;flex:none}
+#lmOv .lm-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#lmOv .lm-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:78px;padding:10px 4px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;font:800 13px/1.15 Nunito,system-ui,sans-serif;text-align:center}
+#lmOv .lm-tile i{font-style:normal;font-size:28px;line-height:1}
+#lmOv .lm-tile.pri{background:linear-gradient(#ffd166,#f4a93a);color:#3a2300;border-color:transparent}
+#lmOv .lm-tile:active{transform:scale(.96)}
+#lmOv .lm-sub{margin:12px 2px 6px;font:800 11px Nunito,sans-serif;letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+#lmOv .lm-qk{display:flex;flex-wrap:wrap;gap:6px}#lmOv .lm-qk button{flex:1 1 0;min-width:0;padding:9px 8px;border-radius:999px;font-size:13px;white-space:nowrap}
+#lmOv .lm-qk button.on{background:rgba(111,224,166,.22);border-color:rgba(111,224,166,.6)}
+#lmOv .lm-qk2{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12)}
+#lmOv .lm-phd{display:flex;align-items:center;gap:12px;margin:2px 0 10px}#lmOv .lm-phd h2{margin:0;font-size:22px}
+#lmOv .lm-pav{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);border:2px solid #ffd166;font:900 28px Fredoka,sans-serif;flex:none}
+#lmOv .lm-psub{font-size:13px;opacity:.8}#lmOv .lm-prk{font:800 13px Nunito,sans-serif;color:#ffd166;margin-top:2px}
+#lmOv .lm-sts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+#lmOv .lm-st{display:flex;flex-direction:column;align-items:center;padding:8px 4px;border-radius:12px;background:rgba(0,0,0,.22)}#lmOv .lm-st b{font:900 16px Fredoka,Nunito,sans-serif}#lmOv .lm-st span{font-size:11px;opacity:.75}
+@media (max-width:420px){#lmOv .lm-tiles{grid-template-columns:repeat(3,1fr)}}
+@media (max-height:500px){#lmOv .lm-tile{min-height:60px;padding:6px 4px}#lmOv .lm-tile i{font-size:22px}#lmOv .lm-menu .lm-box{padding:10px}#lmOv .lm-sub{margin:8px 2px 4px}}
 #lmOv .lm-kick{font:900 12px Nunito,sans-serif;letter-spacing:.18em;color:#ffd45a;text-transform:uppercase}
 #lmOv .lm-q{font-size:18px;font-weight:800;margin:10px 0 12px;line-height:1.4}
 #lmOv .lm-opts{display:grid;gap:8px}
@@ -5403,6 +5423,73 @@ function lmBtn(text, cls, fn) { const b = el("button", { type: "button", class: 
 
 /* ---------- skrin mula ---------- */
 /* ---------- v18.39: tetapan, Ruang Privasi dan pacak inovasi melalui ☰ Menu (tiada skrin mula) ---------- */
+/* ---------- v18.57: Menu ringkas mesra murid (grid ikon) dan Profil (Gudang di dalamnya) ---------- */
+const LM_SMN = { siang: ["☀️", "Siang"], malam: ["🌙", "Malam"] };
+function lmTile(ic, lbl, fn, cls) { const b = el("button", { type: "button", class: "lm-tile" + (cls ? " " + cls : "") }, el("i", { "aria-hidden": "true" }, ic), el("span", null, lbl)); b.addEventListener("click", fn); return b; }
+function lmMenu() {
+  const go = (fn) => () => { lmCardClose(); fn(); };
+  lmCard((b) => {
+    const g = LM.g;
+    b.append(el("div", { class: "lm-mhd" }, el("h2", null, "Menu"), lmBtn("✕", "lm-x", lmCardClose)));
+    const grid = el("div", { class: "lm-tiles" });
+    grid.append(
+      lmTile("👤", "Profil", go(lmProfil), "pri"),
+      lmTile(SJ_ICO && SJ_ICO[SUBJ] || "📚", "Subjek", go(() => { if (typeof mdPick === "function") mdPick(); })),
+      lmTile("🛂", "Pasport", go(() => lmPassport())),
+      lmTile("📖", "Tajuk", go(() => lmPassport("tajuk"))),
+      lmTile("🕌", "Waktu solat", go(lmSolatOpen)),
+      lmTile("🐟", "Kolam Ikan", go(() => { const gg = LM.g; if (!gg) return; LM.resume = { x: gg.p.x, z: gg.p.z, msg: "Kembali dari Kolam Ikan" }; lmSave(); lmClose(); setTimeout(() => setView("kolam"), 60); })),
+      lmTile("📸", "Swafoto", go(() => lmSelfie(null))),
+      lmTile("👥", "Main bersama", go(lmRoomPanel)));
+    if (lmIsGuru()) grid.append(lmTile("🏛", "Pacak inovasi", go(lmPacak)), lmTile("🔐", "Ruang Privasi", go(lmPrivPanel)));
+    if (lmVoiceOk()) grid.append(lmTile("🎙", LM.vc ? "Suara: buka" : "Suara: tutup", go(() => { if (LM.vc) lmVoiceOff(); else lmVoiceOn(); })));
+    b.append(grid);
+    /* tukar pantas: ketik untuk tukar, label menunjukkan keadaan semasa */
+    const sm = LM_SMN[LM.st.sm] || ["🕒", "Ikut masa"], sky = !(g && g.sky5 && !g.sky5.sp.visible) && LM.st.sky !== 0;
+    const qk = el("div", { class: "lm-qk" });
+    qk.append(
+      lmBtn((LM.mute ? "🔇" : "🔊") + " Bunyi", LM.mute ? "" : "on", () => { LM.mute = !LM.mute; if (!LM.mute) lmAudUnlock(); lmMenu(); }),
+      lmBtn(sm[0] + " " + sm[1], "on", () => { const o = ["", "siang", "malam"], n = o[(o.indexOf(LM.st.sm || "") + 1) % 3]; if (n) LM.st.sm = n; else delete LM.st.sm; lmSave(); const gg = LM.g; if (gg && gg.wx) { gg.wx.hp = null; lmDayNight(gg); } lmMenu(); }),
+      lmBtn("🏆 Top 5", sky ? "on" : "", () => { const gg = LM.g; if (!gg || !gg.sky5) return; const on = !gg.sky5.sp.visible; gg.sky5.sp.visible = on; LM.st.sky = on ? 1 : 0; lmSave(); lmMenu(); }));
+    b.append(el("div", { class: "lm-sub" }, "Tukar pantas"), qk);
+    if (!lmIsGuru()) b.append(el("div", { class: "lm-qk lm-qk2" }, lmBtn("🔐 Ruang Privasi", "", go(lmPrivPanel)), lmBtn("⚙ Tetapan", "", go(lmTetapan)), lmBtn("🚪 Keluar", "", () => { if (confirm("Keluar dari Meta Didik? Kemajuan anda sudah disimpan.")) { lmCardClose(); lmClose(); } })));
+    else b.append(el("div", { class: "lm-qk lm-qk2" }, lmBtn("⚙ Tetapan", "", go(lmTetapan)), lmBtn("🚪 Keluar", "", () => { if (confirm("Keluar dari Meta Didik? Kemajuan anda sudah disimpan.")) { lmCardClose(); lmClose(); } })));
+  }, "lm-menu");
+}
+/* Profil: siapa saya, pencapaian, kemudian Gudang untuk membeli pakaian dan kelengkapan avatar */
+function lmProfil() {
+  lmCard((b) => {
+    const ri = typeof rankIdx === "function" ? rankIdx(P.xp | 0) : 0, rk = (typeof RANKS !== "undefined" && RANKS[ri]) || { n: "" };
+    const tk = typeof tahapMurid === "function" ? tahapMurid() : 0, guru = lmIsGuru();
+    const sub = [guru ? "Guru" : tk ? tahapNama(tk) : (typeof gtRole === "function" && gtRole() === "pelawat" ? "Pelawat" : ""), P.sekolah && P.sekolah !== "Pelawat" ? P.sekolah : ""].filter(Boolean).join(" · ");
+    const av = el("div", { class: "lm-pav", "aria-hidden": "true" }); try { av.innerHTML = insignia(ri, 56); } catch (e) { av.textContent = String(P.nama || "?").charAt(0).toUpperCase(); }
+    b.append(el("div", { class: "lm-mhd" }, el("div", { class: "lm-kick" }, "👤 Profil saya"), lmBtn("✕", "lm-x", lmCardClose)),
+      el("div", { class: "lm-phd" }, av, el("div", null, el("h2", null, P.nama || "Pemain"), el("div", { class: "lm-psub" }, sub), el("div", { class: "lm-prk" }, "🎖 " + rk.n))));
+    const st = lmSummary(), lc = Object.keys(LM.st.lc || {}).length;
+    const stat = (ic, v, l) => el("div", { class: "lm-st" }, el("b", null, ic + " " + v), el("span", null, l));
+    b.append(el("div", { class: "lm-sts" }, stat("🪙", P.coin | 0, "MD"), stat("⭐", P.xp | 0, "XP"), stat("🛂", st.pl, "Cop tempat"), stat("🏅", lc + "/" + LCN.length, "Lencana")));
+    const grid = el("div", { class: "lm-tiles" });
+    grid.append(
+      lmTile("🛍", "Gudang", () => { lmCardClose(); lmGudang(); }, "pri"),
+      lmTile("🏅", "Lencana", () => lmPassport("lencana")),
+      lmTile("🛂", "Pasport", () => lmPassport()),
+      lmTile("✏️", "Ubah maklumat", lmProfilUbah));
+    b.append(grid, el("p", { class: "lm-ex" }, "Gudang: beli pakaian, aksesori dan cara meraikan dengan MD. Kumpul MD dengan menjawab kuiz di Stesen Ilmu."));
+  }, "lm-menu");
+}
+/* buka borang profil (halaman utama) tanpa menutup Meta Didik; kembali selepas borang ditutup */
+function lmProfilUbah() {
+  if (typeof openReg !== "function") return;
+  lmCardClose(); const g = LM.g; if (!g) return;
+  LM.pause = true; g.ui = true; for (const k in LM.keys) LM.keys[k] = false;
+  LM.root.hidden = true; document.body.classList.remove("ar-lock");
+  openReg(false);
+  const t = setInterval(() => {
+    const r = document.getElementById("reg"); if (r && !r.hidden) return;
+    clearInterval(t); if (!LM.g || !LM.on) return;
+    LM.root.hidden = false; document.body.classList.add("ar-lock"); LM.pause = false; LM.g.ui = false; LM.g.last = 0; lmPop("Profil dikemas kini");
+  }, 400);
+}
 function lmTetapan() {
   lmCard((b) => {
     b.append(el("div", { class: "lm-kick" }, "⚙ Tetapan Meta Didik"), el("h2", null, "Tetapan"));
@@ -6467,7 +6554,8 @@ function lmHud() {
   LM.mmBase = lmMapBase(380, 192);
   const top = el("div", { class: "lm-top" }); r.classList.add("mini");
   /* v18.30: semua peranti: butang dan statistik di bawah satu butang menu */
-  ui.menuB = lmBtn("☰ Menu", "lm-mb", () => { const on = !r.classList.contains("menu"); r.classList.toggle("menu", on); ui.menuB.textContent = on ? "✕ Tutup" : "☰ Menu"; });
+  /* v18.57: ☰ Menu membuka panel grid ikon yang ringkas (lmMenu). Butang lama kekal sebagai objek (dikemas kini oleh fungsi lain). */
+  ui.menuB = lmBtn("☰ Menu", "lm-mb", () => lmMenu());
   top.append(ui.menuB);
   if (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen) {
     ui.fs = lmBtn("Skrin penuh", "lm-fs", lmFsToggle);
@@ -6475,29 +6563,8 @@ function lmHud() {
     document.addEventListener("fullscreenchange", lmFsSync);
     document.addEventListener("webkitfullscreenchange", lmFsSync);
   }
-  ui.skyB = lmBtn(LM.st.sky === 0 ? "Top 5: tutup" : "Top 5: buka", "", () => { const g = LM.g; if (!g || !g.sky5) return; const on = !g.sky5.sp.visible; g.sky5.sp.visible = on; LM.st.sky = on ? 1 : 0; lmSave(); ui.skyB.textContent = on ? "Top 5: buka" : "Top 5: tutup"; });
-  const smTxt = () => ({ siang: "☀️ Suasana: siang", malam: "🌙 Suasana: malam" })[LM.st.sm] || "🕒 Suasana: ikut masa";
-  ui.smB = lmBtn(smTxt(), "", () => {
-    const o = ["", "siang", "malam"], n = o[(o.indexOf(LM.st.sm || "") + 1) % 3]; if (n) LM.st.sm = n; else delete LM.st.sm; lmSave();
-    ui.smB.textContent = smTxt(); const g = LM.g; if (g && g.wx) { g.wx.hp = null; lmDayNight(g); }
-    lmPop(n === "siang" ? "☀️ Suasana siang" : n === "malam" ? "🌙 Suasana malam" : "🕒 Suasana ikut masa sebenar (1 minit = 1 jam)");
-  });
-  /* v18.28: Kolam Ikan dalam menu Meta Didik (murid dan guru); kembali ke kedudukan yang sama */
-  const kol = lmBtn("🐟 Kolam Ikan", "", () => { const g = LM.g; if (!g) return; LM.resume = { x: g.p.x, z: g.p.z, msg: "Kembali dari Kolam Ikan" }; lmSave(); lmClose(); setTimeout(() => setView("kolam"), 60); });
-  /* v18.30: bina profil (avatar, pakaian, lencana) terus dari menu; tidak perlu ke sekolah */
-  const prof = lmBtn("👤 Profil & Gudang", "", () => { r.classList.remove("menu"); ui.menuB.textContent = "☰ Menu"; lmGudang(); });
-  const sol = lmBtn("🕌 Waktu solat", "", () => { r.classList.remove("menu"); ui.menuB.textContent = "☰ Menu"; lmSolatOpen(); });
-  const tutupM = () => { r.classList.remove("menu"); ui.menuB.textContent = "☰ Menu"; };
-  const sjB = lmBtn("📚 Subjek: " + SUBJS[SUBJ].subjek, "", () => { tutupM(); if (typeof mdPick === "function") mdPick(); });
-  const setB = lmBtn("⚙ Tetapan", "", () => { tutupM(); lmTetapan(); });
-  const pvB = lmBtn("🔐 Ruang Privasi", "", () => { tutupM(); lmPrivPanel(); });
-  top.append(sjB);
-  if (lmIsGuru()) top.append(lmBtn("🏛 Pacak inovasi di sini", "", () => { tutupM(); lmPacak(); }));
-  top.append(pvB, setB);
-  top.append(prof, ui.smB, kol, sol, lmBtn("Pasport (P)", "", () => lmPassport()), lmBtn("Tajuk (T)", "", () => lmPassport("tajuk")), ui.skyB, lmBtn("Bilik", "", lmRoomPanel), lmBtn("Swafoto", "", () => lmSelfie(null)),
-    ui.snd = lmBtn(LM.mute ? "Bunyi: tutup" : "Bunyi: buka", "", () => { LM.mute = !LM.mute; if (!LM.mute) lmAudUnlock(); ui.snd.textContent = LM.mute ? "Bunyi: tutup" : "Bunyi: buka"; }),
-    lmBtn("Keluar", "", () => { if (confirm("Keluar dari META DIDIK? Cop pasport dan menara yang ditawan sudah disimpan.")) lmClose(); }));
-  ui.vcB = lmBtn("🎙 Suara: tutup", "", () => { if (LM.vc) lmVoiceOff(); else lmVoiceOn(); }); ui.vcB.hidden = true; top.insertBefore(ui.vcB, top.children[4]);
+  ui.skyB = lmBtn("", "", () => {}); ui.smB = lmBtn("", "", () => {}); ui.snd = lmBtn("", "", () => {});
+  ui.vcB = lmBtn("🎙 Suara: tutup", "", () => { if (LM.vc) lmVoiceOff(); else lmVoiceOn(); }); ui.vcB.hidden = true;
   r.appendChild(top);
   ui.ptt = el("button", { type: "button", class: "lm-ptt", hidden: "" }, TOUCH ? "Tekan & cakap" : "Tahan V untuk cakap");
   const pt = (on) => (ev) => { ev.preventDefault(); lmTalk(on); };
