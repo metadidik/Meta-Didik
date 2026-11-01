@@ -29,6 +29,8 @@ Audit penuh dan kajian dataset ada dalam `docs/FASA1-PERINTIS.md`.
 | Fail DEM | `data/perintis/<kawasan>-dem.json`, Copernicus GLO-30 |
 | Pengesahan | Geospatial Validation Engine (`tools/geo/validasi.py`, V1–V7) dan semakan enjin V8, ujian Node dan Python |
 
+> **v18.53:** pemilik memutuskan kawasan perintis Setapak tidak dipaparkan kepada pengguna. Butang Menu dibuang; kod dan alat dikekalkan dalam repo.
+
 ## Fasa dan status
 
 ### Fasa 1: Audit dan prototaip geospatial Kuala Lumpur (Setapak)

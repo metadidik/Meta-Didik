@@ -11,6 +11,13 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.53 · Butang kawasan perintis Setapak dibuang dari Menu
+- **Atas arahan pemilik:** butang "🏙 Setapak (data sebenar)" dibuang dari ☰ Menu dunia Meta Didik. Tanpa data OSM, ia hanya padang kosong.
+- **Prakache:** `mod/perintis*.js` dikeluarkan daripada prakache service worker.
+- **Kod dikekalkan:** modul, pipeline OSM, DEM dan Geospatial Validation Engine masih dalam repo (`mod/perintis*.js`, `tools/geo/`) untuk kegunaan masa depan. Ia tidak lagi boleh dicapai oleh pengguna.
+
+---
+
 ## 2026-11-01 · v18.52 · Kod guru SEMENTARA untuk memacak inovasi
 Branch `claude/guru-kod-sementara`.
 
