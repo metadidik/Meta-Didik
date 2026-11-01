@@ -11,6 +11,26 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.63 · Terowong boleh dimasuki dan ditembusi
+
+- **Tiub terowong** (`lmTunTiub`) untuk 6 terowong (Menora, Genting Sempah, Bukit Berapit, Genting ECRL, SMART, Penchala), sepanjang jajaran sebenar dari mulut ke mulut:
+  - dinding konkrit berlengkung, jalan bergaris (atau landasan), kerb;
+  - lampu siling (`InstancedMesh`);
+  - bingkai mulut berlubang.
+  - Pintu gelap portal lama di sepanjang tiub disembunyikan.
+- **Profil lantai:** sekurang-kurangnya 1.2 unit di bawah permukaan bukit, dengan penapis minimum dan purata. Dari setiap mulut, cerun maksimum 1.0, jadi bahagian berbumbung di mulut ialah ~9 unit.
+- **Mod terowong:**
+  - `lmTunMasuk`: berjalan ke dalam mulut;
+  - `lmTunGerak`: ikut lantai, dihadkan dinding;
+  - keluar di mulut sebelah sana;
+  - `lmTunSah`: mod ditamatkan jika avatar dipindahkan oleh sistem lain.
+- **Kamera:** di belakang avatar sejajar terowong, dengan had tinggi ikut lantai di kedudukan kamera. Selepas keluar, kamera kekal dekat sehingga avatar jauh dari mulut. Laut disembunyikan semasa dalam terowong (lantai boleh di bawah paras laut).
+- **Ujian:**
+  - Node 59/59;
+  - Playwright: berjalan menembusi Genting Sempah (masuk di Selangor, keluar di Pahang), Menora dan Penchala;
+  - tiada `pageerror`.
+- Imej: `docs/reka-semula/terowong.jpg`.
+
 ## 2026-11-01 · v18.62 · Borang Pacak Inovasi guru direka semula
 
 - `stnGuruBox` (digunakan dalam dunia 3D dan Ruang Guru) menjadi wizard 4 langkah bertema cerah:
