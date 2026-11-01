@@ -11,6 +11,27 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.58 · Malaysia Living Landmarks: audit dan prototaip mercu tanda pertama
+
+- **Audit:** `docs/MERCU-TANDA-AUDIT.md`.
+  - Seni bina dan kandungan dunia (diukur).
+  - 64 daripada 97 destinasi menggunakan model generik.
+  - 19 daripada 22 Stesen Ilmu ialah kiosk generik yang boleh dianjak sehingga ~16 km.
+  - Booth guru hanya disemak di klien.
+  - Garis dasar prestasi: bina 12.5 s, 13k mesh, 223 draw calls, 1.41 juta segi tiga, heap 141 MB (SwiftShader).
+  - Seluruh Malaysia dimuat serentak.
+- **Pelan:** tiga lapisan (Malaysia, negeri, zon mercu tanda), pemampatan jejarian monotonik yang boleh diuji, kuiz di pintu mercu tanda, dan booth disahkan melalui grid lot sah dalam RTDB Rules.
+- **Prototaip:** `lmSultanAbdulSamad` dibina semula mengikut gambar rujukan pemilik:
+  - fasad putih krim, arked dua tingkat;
+  - serambi tiga gerbang;
+  - menara jam berkubah tembaga dengan tanglung;
+  - menara bulat hujung sayap;
+  - chhatri dan bendera.
+  - Tapak dikekalkan (r 18).
+- Rekod rujukan `data/mercu-tanda/rujukan.json`. Calon destinasi `data/mercu-tanda/calon.json` (97, status "calon"). Perbandingan `docs/mercu-tanda/sultan-abdul-samad-banding.jpg`.
+- **Disekat:** portal rasmi (MOTAC, Tourism Malaysia, portal negeri, JMM, Wikimedia, Overpass) ditolak oleh rangkaian persekitaran. Tiada destinasi disahkan dengan sumber rasmi.
+- Ujian: Node 59/59; Playwright (dunia dibina, model dirakam, tiada `pageerror`).
+
 ## 2026-11-01 · v18.57 · Menu ringkas mesra murid dan Profil (Gudang di dalamnya)
 
 **☰ Menu dalam Meta Didik**

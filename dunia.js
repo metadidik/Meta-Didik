@@ -992,19 +992,74 @@ function lmExchange106() {
   add(new T.Mesh(lmBox(34, 1, 18), lmPbr("dataranTRX", { color: 0xcfd3d6, roughness: 0.8 }))).position.set(0, 0.5, 2);
   return { g: g, r: 16 };
 }
-/* Bangunan Sultan Abdul Samad: bata merah berjalur putih, serambi gerbang, menara jam tengah berkubah tembaga, dua menara sisi */
+/* Bangunan Sultan Abdul Samad (v18.58, prototaip "Landmark-Accurate"):
+   rujukan visual = gambar hadapan yang diberi pemilik (2026-11-01): fasad putih krim, dua tingkat arked gerbang ladam,
+   serambi tengah tiga gerbang besar, menara jam tengah berkubah tembaga (merah jambu) dengan tanglung gelap di puncak,
+   dua menara bulat di hujung sayap berkubah tembaga, kubah kecil putih (chhatri) di bumbung, bendera di atas.
+   Nisbah panjang:tinggi ialah ANGGARAN daripada gambar (menara jam ~41 m, rujuk teks PLACES); ukuran tapak belum disahkan sumber rasmi.
+   Rekod rujukan: data/mercu-tanda/rujukan.json. Tapak (r 18) dikekalkan supaya susun atur sekitar tidak berubah. */
 function lmSultanAbdulSamad() {
-  const g = new T.Group(), q = lmQ(), bata = "#b5553a", putih = "#f2ede2", tembaga = "#5f9f86";
+  const g = new T.Group(), q = lmQ(), krim = "#f7f2e9", putih = "#fffdf8", gerbang = "#4e433c", tembaga = "#d4917a", genting = "#b9614a", hitam = "#2b2b2e";
   const add = (o) => { o.castShadow = q >= 1; o.receiveShadow = true; g.add(o); return o; };
-  add(lmMesh(lmBox(34, 6, 8), bata, 0, 3, 0)); for (const y of [1.8, 3.6, 5.6]) g.add(lmMesh(lmBox(34.1, 0.25, 8.1), putih, 0, y, 0));
-  lmArches(g, 32, 3.4, 2.4, 4.06, 16, "#3a2a22"); add(lmMesh(lmBox(34.6, 0.4, 8.6), putih, 0, 6.2, 0));
-  add(lmMesh(lmBox(4.2, 16, 4.2), bata, 0, 8, 1)); for (const y of [6.5, 10.5, 14.5]) g.add(lmMesh(lmBox(4.3, 0.3, 4.3), putih, 0, y, 1));
-  for (const [x, z, ry] of [[0, 3.16, 0], [0, -1.16, Math.PI], [2.16, 1, Math.PI / 2], [-2.16, 1, -Math.PI / 2]]) { const c = new T.Mesh(new T.CircleGeometry(1.2, 20), lmMat("#fffdf4")); c.position.set(x, 12.6, z); c.rotation.y = ry; g.add(c); const h = new T.Mesh(lmBox(0.12, 0.9, 0.05), lmMat("#222")); h.position.set(x, 12.8, z); h.rotation.y = ry; g.add(h); } /* jam */
-  add(lmMesh(lmCyl(1.9, 2.1, 1.2, 16), putih, 0, 16.6, 1)); lmDome(g, 2.1, tembaga, 0, 17.2, 1, true, true);
-  for (const x of [-13, 13]) { add(lmMesh(lmBox(3, 9, 3), bata, x, 4.5, 0)); add(lmMesh(lmCyl(1.3, 1.4, 0.8, 12), putih, x, 9.4, 0)); lmDome(g, 1.4, tembaga, x, 9.8, 0, true, true); }
-  add(lmMesh(lmBox(36, 0.2, 18), "#6fa85a", 0, 0.1, 13)); /* Dataran Merdeka */
-  const tiang = add(lmMesh(lmCyl(0.12, 0.16, 16, 8), "#d8dde2", 0, 8, 18)); void tiang;
-  const bd = new T.Mesh(GEO.pflag || (GEO.pflag = new T.PlaneGeometry(2.8, 1.4)), new T.MeshBasicMaterial({ map: lmFlagTex(), side: T.DoubleSide })); bd.position.set(1.45, 15.2, 18); g.add(bd);
+  const arch = (w, h, x, y, z, ry) => { /* bukaan gerbang: segi empat + lengkung bulat di atas (sisi hadapan +z selepas putaran) */
+    const k = new T.Group(); k.position.set(x, y, z); k.rotation.y = ry || 0;
+    k.add(lmMesh(lmBox(w, h, 0.12), gerbang, 0, 0, 0, { ns: 1 }));
+    const c = new T.Mesh(new T.CircleGeometry(w / 2, 14, 0, Math.PI), lmMat(gerbang)); c.position.set(0, h / 2, 0.061); k.add(c);
+    const c2 = c.clone(); c2.rotation.y = Math.PI; c2.position.z = -0.061; k.add(c2);
+    g.add(k);
+  };
+  const chhatri = (x, y, z, r) => { add(lmMesh(lmCyl(r * 0.8, r * 0.8, r * 1.6, 8), putih, x, y + r * 0.8, z)); lmDome(g, r, putih, x, y + r * 1.6, z, true, true); };
+  /* tapak dan sayap utama (dua tingkat) */
+  add(lmMesh(lmBox(37, 0.6, 9.4), "#d9d2c6", 0, 0.3, 0));
+  add(lmMesh(lmBox(32, 7, 8), krim, 0, 3.8, 0));
+  for (const y of [0.9, 4.1, 7.2]) g.add(lmMesh(lmBox(32.2, 0.35, 8.2), putih, 0, y, 0)); /* kornis */
+  add(lmMesh(lmBox(31, 0.9, 6.6), genting, 0, 7.8, 0)); /* bumbung genting di belakang parapet */
+  add(lmMesh(lmBox(32.4, 0.7, 8.4), putih, 0, 7.6, 0)); /* parapet */
+  const nA = q >= 1 ? 9 : 6;
+  for (const sx of [-1, 1]) for (let i = 0; i < nA; i++) {
+    const x = sx * (5.6 + (i + 0.5) * (10 / nA));
+    arch(0.95, 1.7, x, 2.2, 4.07); arch(0.85, 1.35, x, 5.3, 4.07); /* arked bawah dan atas */
+    if (q >= 1) { arch(0.95, 1.7, x, 2.2, -4.07, Math.PI); arch(0.85, 1.35, x, 5.3, -4.07, Math.PI); }
+  }
+  for (const x of [-12.5, -8, 8, 12.5]) chhatri(x, 7.95, 3.4, 0.45); /* kubah kecil di bumbung */
+  /* serambi tengah: tiga gerbang besar, tingkat atas tiga gerbang, parapet berhias, menara kecil di penjuru */
+  add(lmMesh(lmBox(10, 8.2, 3.2), krim, 0, 4.4, 4.6));
+  for (const y of [0.9, 4.6, 8.3]) g.add(lmMesh(lmBox(10.2, 0.35, 3.4), putih, 0, y, 4.6));
+  for (const x of [-3, 0, 3]) { arch(2.1, 2.9, x, 2.3, 6.22); arch(1.5, 1.9, x, 6, 6.22); }
+  for (const x of [-4.8, 4.8]) { add(lmMesh(lmBox(0.9, 9.6, 0.9), putih, x, 4.8, 6)); chhatri(x, 9.6, 6, 0.5); }
+  for (const x of [-1.6, 1.6]) chhatri(x, 8.5, 6, 0.38);
+  /* menara jam: batang segi empat, tingkat jam, tingkat loceng bergerbang, kubah tembaga, tanglung gelap */
+  add(lmMesh(lmBox(4.6, 12, 4.6), krim, 0, 9, 1.2));
+  for (const y of [8.6, 12.4, 15]) g.add(lmMesh(lmBox(4.8, 0.3, 4.8), putih, 0, y, 1.2));
+  for (const [x, z, ry] of [[0, 3.52, 0], [0, -1.12, Math.PI], [2.32, 1.2, Math.PI / 2], [-2.32, 1.2, -Math.PI / 2]]) {
+    const c = new T.Mesh(new T.CircleGeometry(1.1, 20), lmMat("#fffdf4")); c.position.set(x, 13.7, z); c.rotation.y = ry; g.add(c);
+    const h = new T.Mesh(lmBox(0.12, 0.8, 0.05), lmMat("#222")); h.position.set(x, 13.85, z); h.rotation.y = ry; g.add(h);
+    const k = new T.Mesh(lmBox(0.6, 0.1, 0.05), lmMat("#222")); k.position.set(x, 13.7, z); k.rotation.y = ry; g.add(k);
+  } /* jam empat muka */
+  add(lmMesh(lmBox(4.2, 2.4, 4.2), krim, 0, 16.3, 1.2));
+  for (const [x, z, ry] of [[0, 3.32, 0], [0, -0.92, Math.PI], [2.12, 1.2, Math.PI / 2], [-2.12, 1.2, -Math.PI / 2]]) arch(1.2, 1.4, x, 16.1, z, ry);
+  for (const [x, z] of [[-2, -0.8], [2, -0.8], [-2, 3.2], [2, 3.2]]) chhatri(x, 17.5, z, 0.32);
+  add(lmMesh(lmCyl(1.9, 2, 0.9, 16), putih, 0, 17.95, 1.2));
+  lmDome(g, 2.05, tembaga, 0, 18.4, 1.2, false, false);
+  add(lmMesh(lmCyl(0.45, 0.5, 1.1, 8), hitam, 0, 21, 1.2)); lmDome(g, 0.55, hitam, 0, 21.55, 1.2, true, true); /* tanglung */
+  /* menara bulat di hujung sayap */
+  for (const sx of [-1, 1]) {
+    const x = sx * 16.6;
+    add(lmMesh(lmCyl(2.7, 2.8, 8.4, 18), krim, x, 4.2, 0.4));
+    for (const y of [0.9, 4.1, 8.4]) add(lmMesh(lmCyl(2.85, 2.85, 0.3, 18), putih, x, y, 0.4));
+    for (let i = 0; i < 6; i++) { const a = -Math.PI / 2 + (i - 2.5) * 0.5 + (sx < 0 ? 0 : 0), ax = x + Math.sin(a + Math.PI / 2) * 2.76, az = 0.4 + Math.cos(a + Math.PI / 2) * 2.76; arch(0.8, 1.6, ax, 2.3, az, a + Math.PI / 2); arch(0.75, 1.3, ax, 5.6, az, a + Math.PI / 2); }
+    add(lmMesh(lmCyl(2.2, 2.3, 1.3, 18), putih, x, 9.2, 0.4));
+    lmDome(g, 2.45, tembaga, x, 9.8, 0.4, true, true);
+  }
+  /* bendera di bumbung (gambar rujukan: tiga bendera di sekitar menara) */
+  for (const [x, z, h] of [[-2.6, 4, 2.6], [2.6, 4, 2.6], [0.9, 5.6, 3.2]]) {
+    add(lmMesh(lmCyl(0.05, 0.05, h, 6), "#d8dde2", x, 8.6 + h / 2, z));
+    const f = new T.Mesh(GEO.pflagS || (GEO.pflagS = new T.PlaneGeometry(1.1, 0.55)), new T.MeshBasicMaterial({ map: lmFlagTex(), side: T.DoubleSide })); f.position.set(x + 0.58, 8.6 + h - 0.3, z); g.add(f);
+  }
+  /* Dataran Merdeka di hadapan dan tiang bendera */
+  add(lmMesh(lmBox(36, 0.2, 18), "#6fa85a", 0, 0.1, 15));
+  add(lmMesh(lmCyl(0.12, 0.16, 16, 8), "#d8dde2", 0, 8, 20));
+  const bd = new T.Mesh(GEO.pflag || (GEO.pflag = new T.PlaneGeometry(2.8, 1.4)), new T.MeshBasicMaterial({ map: lmFlagTex(), side: T.DoubleSide })); bd.position.set(1.45, 15.2, 20); g.add(bd);
   return { g: g, r: 18 };
 }
 /* Kampung Baru: rumah Melayu tradisional bertiang di tengah bandar */
