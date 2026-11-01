@@ -11,6 +11,26 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.64 · Akses ikut peranan: murid, pelawat dan guru
+
+- **Murid dan pelawat:** butang Ruang Guru di paparan utama disembunyikan (`mdGuru`, `guruUi`).
+- **Guru:**
+  - wajib e-mel DELIMa (`@moe-dl.edu.my`) dalam pendaftaran langkah 2; jika log masuk DELIMa sudah dipasang (`AUTH.on()`), butang log masuk sebenar dipaparkan;
+  - e-mel disimpan dalam `gt-stn-em` dan dihantar ke `stesen_em` (pentadbir sahaja) semasa menghantar inovasi;
+  - `guruDaftarOk()` menjadikan guru berdaftar sebagai guru (selagi `AUTH.on()` palsu);
+  - butang **📌 Tambah Inovasi** dalam Menu Utama memasang booth di kedudukan semasa guru (`lmPacak`).
+- **Pelawat** (`mdPelawat`, `lmPelawat`), tanpa e-mel:
+  - interaksi dihadkan kepada `LM_PELAWAT_OK` (booth, tempat, pengangkutan, kedai makan, penaja, maklumat);
+  - kuiz, Stesen Ilmu, Menara, kem Tempur, nelayan dan situasi akhlak ditolak;
+  - kad tempat tanpa "Jawab Kuiz";
+  - booth: pengenalan inovasi sahaja, tanpa Guna/Suka/penilaian;
+  - tidak menyertai bilik multiplayer, jadi tiada chat atau suara dan tidak kelihatan kepada murid;
+  - menu tanpa Kawan, Kuiz dan Ruang Privasi.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright untuk 3 peranan: daftar, butang Ruang Guru, menu, bilik, e-mel bukan DELIMa ditolak, Tambah Inovasi, Stesen Ilmu ditolak bagi pelawat, kad tempat tanpa kuiz;
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.63 · Terowong boleh dimasuki dan ditembusi
 
 - **Tiub terowong** (`lmTunTiub`) untuk 6 terowong (Menora, Genting Sempah, Bukit Berapit, Genting ECRL, SMART, Penchala), sepanjang jajaran sebenar dari mulut ke mulut:

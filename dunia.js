@@ -4377,6 +4377,10 @@ function lmStnOpen(it) {
     }
     b.append(el("p", { class: "lm-ex" }, "Oleh " + d.n + (d.sk ? " · " + d.sk : "") + ((d.hg | 0) ? " · Harga guna: " + d.hg + " MD sehari (MD anda: " + (P.coin | 0) + ")" : " · Percuma")), el("p", null, d.ds));
     if (d.yt && /^[\w-]{11}$/.test(d.yt)) { const f = el("iframe", { src: "https://www.youtube-nocookie.com/embed/" + d.yt + "?rel=0", title: "Video inovasi", allow: "encrypted-media; picture-in-picture", allowfullscreen: "", loading: "lazy", style: "width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000" }); b.appendChild(f); }
+    if (lmPelawat()) { /* v18.64: pelawat melihat papan pengenalan inovasi sahaja */
+      b.append(el("p", { class: "lm-ex" }, "👀 Mod pelawat: anda boleh melihat pengenalan inovasi ini. Penggunaan inovasi, penilaian dan komen untuk murid dan guru berdaftar."), el("div", { class: "lm-row" }, lmBtn("Tutup", "pri", lmCardClose)));
+      return;
+    }
     const st = el("p", { class: "lm-ex" }, "Memuat statistik...");
     b.appendChild(st);
     const row = el("div", { class: "lm-row" });
@@ -4912,6 +4916,10 @@ function lmTowerState(o) {
 function lmMyCode() { return window.AV3 ? AV3.code() : "L|1|ou_sc|oc_gn|hd_no|hc_w"; }
 /* v18.26: guru ditanda "🎓 Cikgu" pada nama (label, chat, peta) supaya murid menghormati guru */
 /* v18.28: hanya guru disahkan DELIMa (atau pentadbir); v18.29: dengan gelaran pilihan (Ustaz, Ustazah, Cikgu, Sir...) */
+/* v18.64: pelawat = lihat sahaja (booth, tempat, pengangkutan); tiada kuiz, permainan, guna inovasi atau interaksi dengan murid */
+function lmPelawat() { try { return typeof mdPelawat === "function" && mdPelawat(); } catch (e) { return false; } }
+const LM_PELAWAT_OK = { tn: 1, tl: 1, bt: 1, tx: 1, pu: 1, sn: 1, pl: 1, ap: 1, jt: 1, st: 1, ip: 1, fd: 1, pj: 1 };
+function lmPelawatTolak() { lmPop("👀 Mod pelawat: lihat sahaja"); toast("Pelawat boleh meneroka dan melihat booth inovasi sahaja. Kuiz, permainan dan interaksi dengan murid untuk murid dan guru berdaftar.", "warn"); }
 function lmIsGuru() { try { return typeof guruOk === "function" && guruOk() ? myGel() : false; } catch (e) { return false; } }
 function lmGuruName(n, gr) { return gr ? "🎓 " + gelName(typeof gr === "string" ? gr : "Cikgu", n) : n; }
 function lmAvatar(code, name, me, gr) {
@@ -5583,6 +5591,10 @@ const LM_CSS = `
 #lmOv .lm-mu .lm-tile{background:#fff;color:#17324D;border:2px solid #d7e6f3}
 #lmOv .lm-mu .lm-tile.pri{background:#FFC857;border-color:#FFC857;color:#17324D}
 #lmOv .lm-pk .lm-box{width:min(440px,100%)}
+#lmOv .lm-tambah{display:flex;align-items:center;gap:12px;width:100%;margin-top:10px;padding:12px 14px;border-radius:18px;background:#9474E8;border:0;color:#fff;text-align:left;box-shadow:0 4px 0 #6f53c4}
+#lmOv .lm-tambah i{font-style:normal;font-size:30px}#lmOv .lm-tambah b{display:block;font:700 18px Fredoka,Nunito,sans-serif}#lmOv .lm-tambah small{display:block;font:700 12.5px Nunito,sans-serif;opacity:.9}
+#lmOv .lm-tambah:hover{background:#8563e0}#lmOv .lm-tambah:active{transform:translateY(3px);box-shadow:0 1px 0 #6f53c4}
+body.pelawat #lmOv .lm-guide{display:none}
 #lmOv .lm-pk .lm-qk button{white-space:normal}
 @media (max-width:560px),(max-height:430px){#lmOv .lm-mk{min-height:96px;padding:8px 4px;border-radius:16px}#lmOv .lm-mk i{font-size:28px}#lmOv .lm-mk b{font-size:15px}#lmOv .lm-mk span{display:none}}
 @media (max-width:560px){#lmOv .lm-mk4{grid-template-columns:repeat(2,1fr)}#lmOv .lm-ut{display:grid;grid-template-columns:repeat(4,1fr)}#lmOv .lm-tl{max-width:calc(100% - 132px)}#lmOv .lm-tl .lm-state{max-width:calc(100vw - 250px)}#lmOv .lm-guide,#lmOv.touch .lm-guide{top:calc(max(10px,env(safe-area-inset-top)) + 112px)!important;width:min(340px,calc(100vw - 24px))}#lmOv .lm-hud{max-width:calc(100% - 24px)}#lmOv .lm-prompt{max-width:calc(100vw - 150px);font-size:15px}#lmOv .lm-top{top:calc(max(10px,env(safe-area-inset-top)) + 72px)!important}#lmOv .lm-mm,#lmOv.touch .lm-mm{width:110px;height:56px}}
@@ -5637,8 +5649,10 @@ function lmMenu(sub) {
     if (!sub) {
       b.append(el("div", { class: "lm-mhd" }, el("h2", null, "Menu Utama"), lmBtn("✕", "lm-x", lmCardClose)));
       const grid = el("div", { class: "lm-mk4" });
-      Object.keys(LM_MK).forEach((k) => { const [ic, n, d, c] = LM_MK[k]; const t = el("button", { type: "button", class: "lm-mk", style: "--c:" + c }, el("i", { "aria-hidden": "true" }, ic), el("b", null, n), el("span", null, d)); t.addEventListener("click", () => lmMenu(k)); grid.appendChild(t); });
+      Object.keys(LM_MK).filter((k) => !(k === "kawan" && lmPelawat())).forEach((k) => { const [ic, n, d, c] = LM_MK[k]; const t = el("button", { type: "button", class: "lm-mk", style: "--c:" + c }, el("i", { "aria-hidden": "true" }, ic), el("b", null, n), el("span", null, d)); t.addEventListener("click", () => lmMenu(k)); grid.appendChild(t); });
       b.append(grid);
+      if (lmIsGuru()) { const tb = el("button", { type: "button", class: "lm-tambah" }, el("i", { "aria-hidden": "true" }, "📌"), el("span", null, el("b", null, "Tambah Inovasi"), el("small", null, "Pasang booth inovasi di tempat anda berdiri sekarang"))); tb.addEventListener("click", go(lmPacak)); b.append(tb); }
+      if (lmPelawat()) b.append(el("p", { class: "lm-ex" }, "👀 Mod pelawat: teroka Malaysia dan lihat booth inovasi guru. Daftar sebagai murid atau guru untuk kuiz, permainan dan main bersama."));
       const sm = LM_SMN[LM.st.sm] || ["🕒", "Ikut masa"], sky = !(g && g.sky5 && !g.sky5.sp.visible) && LM.st.sky !== 0;
       const ut = el("div", { class: "lm-ut" });
       const u = (ic, n, fn, on) => { const x = el("button", { type: "button", class: on ? "on" : "" }, el("i", { "aria-hidden": "true" }, ic), el("span", null, n)); x.addEventListener("click", fn); ut.appendChild(x); };
@@ -5661,12 +5675,12 @@ function lmMenu(sub) {
       lmTile("🛂", "Pasport", go(() => lmPassport())),
       lmTile("🎯", "Misi hari ini", go(() => lmPassport("ilmu"))));
     if (sub === "belajar") {
-      grid.append(
+      grid.append(...[
         lmTile(SJ_ICO && SJ_ICO[SUBJ] || "📚", "Subjek", go(() => { if (typeof mdPick === "function") mdPick(); }), "pri"),
         lmTile("📖", "Tajuk", go(() => lmPassport("tajuk"))),
-        lmTile("❓", "Kuiz", go(() => lmPassport("ilmu"))),
-        lmTile("🏛", "Inovasi Guru", go(lmBigMap)));
-      if (lmIsGuru()) grid.append(lmTile("📌", "Pacak inovasi", go(lmPacak)));
+        lmPelawat() ? null : lmTile("❓", "Kuiz", go(() => lmPassport("ilmu"))),
+        lmTile("🏛", "Inovasi Guru", go(lmBigMap))].filter(Boolean));
+      if (lmIsGuru()) grid.append(lmTile("📌", "Tambah Inovasi", go(lmPacak)));
     }
     if (sub === "kawan") {
       grid.append(
@@ -5676,11 +5690,11 @@ function lmMenu(sub) {
         lmTile("📸", "Swafoto", go(() => lmSelfie(null))));
       if (lmVoiceOk()) grid.append(lmTile("🎙", LM.vc ? "Suara: buka" : "Suara: tutup", go(() => { if (LM.vc) lmVoiceOff(); else lmVoiceOn(); })));
     }
-    if (sub === "profil") grid.append(
+    if (sub === "profil") grid.append(...[
       lmTile("🧑", "Avatar & Profil", go(lmProfil), "pri"),
       lmTile("🏅", "Pencapaian", go(() => lmPassport("lencana"))),
-      lmTile("🔐", "Ruang Privasi", go(lmPrivPanel)),
-      lmTile("⚙️", "Tetapan", go(lmTetapan)));
+      lmPelawat() ? null : lmTile("🔐", "Ruang Privasi", go(lmPrivPanel)),
+      lmTile("⚙️", "Tetapan", go(lmTetapan))].filter(Boolean));
     b.append(grid);
     if (sub === "belajar") b.append(el("p", { class: "lm-ex" }, "Inovasi Guru: buka Peta Malaysia untuk melihat Stesen Inovasi guru di seluruh negara. Booth juga boleh ditemui semasa meneroka."));
   }, "lm-menu lm-mu");
@@ -5763,7 +5777,7 @@ function lmPacak() {
   if (!k || !DATA.negeri[k]) { toast("Pergi ke daratan dalam Malaysia dahulu, kemudian cuba lagi.", "warn"); return; }
   const c = lmLatLon(g.p.x, g.p.z), loc = { la: Math.round(c.lat * 1e5) / 1e5, lo: Math.round(c.lon * 1e5) / 1e5, pn: k };
   lmCard((b) => { /* v18.62: kad cerah, borang wizard 4 langkah */
-    b.append(el("div", { class: "lm-mhd" }, el("h2", null, "📌 Pacak Inovasi"), lmBtn("✕", "lm-x", lmCardClose)));
+    b.append(el("div", { class: "lm-mhd" }, el("h2", null, "📌 Tambah Inovasi"), lmBtn("✕", "lm-x", lmCardClose)));
     const host = el("div", { class: "lm-stnform" }); b.appendChild(host);
     try { stnGuruBox(host, { loc: loc, rr: () => { if (LM.ui.card) lmPacakLukis(host, loc); lmStnFetch(LM.g); } }); } catch (e) { host.textContent = "Borang tidak dapat dibuka."; }
   }, "lm-mu lm-pc");
@@ -6102,9 +6116,12 @@ function lmPlaceKad(pl, kenali) {
     b.append(el("div", { class: "lm-mhd" }, el("div", { class: "lm-kick" }, "📍 " + (ng.nama || "") + (seen ? " · ✔ cop diperoleh" : "")), lmBtn("✕", "lm-x", lmCardClose)), el("h2", null, "🏛 " + pl.n));
     if (kenali) b.append(el("p", null, pl.fakta));
     const row = el("div", { class: "lm-qk" });
-    row.append(lmBtn("📖 Jawab Kuiz", "pri", () => lmPlaceOpen(pl)), kenali ? lmBtn("📸 Swafoto", "", () => { lmCardClose(); setTimeout(() => lmSelfie(pl), 60); }) : lmBtn("🔎 Kenali Tempat", "", () => lmPlaceKad(pl, true)), lmBtn("Teruskan jelajah", "", lmCardClose));
+    const pw = lmPelawat();
+    if (!pw) row.append(lmBtn("📖 Jawab Kuiz", "pri", () => lmPlaceOpen(pl)));
+    if (pw && !kenali) b.append(el("p", null, pl.fakta));
+    row.append(kenali ? lmBtn("📸 Swafoto", "", () => { lmCardClose(); setTimeout(() => lmSelfie(pl), 60); }) : lmBtn("🔎 Kenali Tempat", "", () => lmPlaceKad(pl, true)), lmBtn("Teruskan jelajah", "", lmCardClose));
     b.append(row);
-    if (!kenali) b.append(el("p", { class: "lm-ex" }, "Jawab 5 soalan (3 betul) untuk cop pasport" + (seen ? " sekali lagi." : ".")));
+    if (!kenali && !pw) b.append(el("p", { class: "lm-ex" }, "Jawab 5 soalan (3 betul) untuk cop pasport" + (seen ? " sekali lagi." : ".")));
   }, "lm-menu lm-pk");
 }
 function lmPlaceOpen(pl) {
@@ -6930,6 +6947,7 @@ function lmInteract() {
   const g = LM.g; if (!g || g.ui || !g.near) return;
   lmSnd("open");
   const it = g.near;
+  if (lmPelawat() && !LM_PELAWAT_OK[it.kind]) { lmPelawatTolak(); return; }
   if (it.kind === "tn") lmTunOpen(it); else if (it.kind === "tl") lmTolOpen(it); else if (it.kind === "bt") lmTerminalOpen(it); else if (it.kind === "tx") lmTaksiOpen(it); else if (it.kind === "pu") lmPulauOpen(it); else if (it.kind === "sn") lmStnOpen(it); else if (it.kind === "tw") lmTowerOpen(it); else if (it.kind === "pl") lmPlaceKad(it); else if (it.kind === "ap") lmAirportOpen(it); else if (it.kind === "kh") lmKhasOpen(it); else if (it.kind === "jt") lmFerryOpen(it); else if (it.kind === "st") lmRailOpen(it); else if (it.kind === "si") lmIlmuOpen(it); else if (it.kind === "km") lmKemOpen(it); else if (it.kind === "ny") lmNelayanOpen(it); else if (it.kind === "vn") lmVenueOpen(it); else if (it.kind === "ip") lmKampusOpen(it); else if (it.kind === "sk") lmOwnSchoolOpen(it); else if (it.kind === "fd") lmFoodOpen(it); else if (it.kind === "ak") lmAkOpen(it); else if (it.kind === "pj") lmPjOpen(it);
 }
 /* ---------- input ---------- */
@@ -7160,7 +7178,7 @@ function lmOpen(tid) {
   if (!GEOD) {
     const r = lmRoot(); r.appendChild(el("div", { class: "lm-card" }, el("div", { class: "lm-box" }, el("div", { class: "lm-kick" }, "META DIDIK"), el("h2", null, "Memuat peta Malaysia sebenar..."), el("p", null, "Sempadan negeri dan ketinggian muka bumi (kali pertama sahaja)."))));
   }
-  lmGeoLoad().then(() => lmOwnSchool()).then((sk) => { LM.ownSk = sk; lmRaster(); lmStart("", Net.room ? "open" : ""); /* v18.39: terus masuk; subjek, tetapan dan Ruang Privasi dalam ☰ Menu */ }).catch(() => { toast("Peta META DIDIK tidak dapat dimuatkan. Semak sambungan internet dan cuba lagi.", "warn"); lmClose(); });
+  lmGeoLoad().then(() => lmOwnSchool()).then((sk) => { LM.ownSk = sk; lmRaster(); lmStart("", Net.room && !lmPelawat() ? "open" : ""); /* v18.64: pelawat tidak menyertai bilik (tiada interaksi dengan murid) */ /* v18.39: terus masuk; subjek, tetapan dan Ruang Privasi dalam ☰ Menu */ }).catch(() => { toast("Peta META DIDIK tidak dapat dimuatkan. Semak sambungan internet dan cuba lagi.", "warn"); lmClose(); });
 }
 /* v18.38: logo penaja Platinum pada skrin memuat */
 function lmPjMuatLogo() {
