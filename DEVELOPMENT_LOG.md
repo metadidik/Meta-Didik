@@ -11,6 +11,22 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.62 · Borang Pacak Inovasi guru direka semula
+
+- `stnGuruBox` (digunakan dalam dunia 3D dan Ruang Guru) menjadi wizard 4 langkah bertema cerah:
+  1. **Inovasi:** tajuk, kategori (cip), huraian dengan kiraan aksara.
+  2. **Subjek:** subjek dan tajuk berkaitan.
+  3. **Media & harga:** YouTube, pautan, harga MD (cip), e-mel DELIMa (mod percubaan).
+  4. **Semak:** pratonton kad booth.
+- Pengesahan per langkah menggunakan peraturan yang sama dengan `stnSubmit`, yang kekal sebagai pengesahan akhir. Medan data dan struktur `stesen/<uid>` tidak berubah.
+- Lokasi dipaparkan sebagai kad 📍 di atas. Kad dunia: tajuk "📌 Pacak Inovasi" dengan ✕, tema cerah (`lm-mu lm-pc`). Skrol bersarang `.lm-stnform` dibuang dalam kad ini.
+- Borang perjanjian (guru baharu) dan nota mod percubaan turut menggunakan gaya cerah.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright 844×390 sentuh sebagai guru (kod sementara, Firebase disimulasikan): tajuk kosong ditolak; berbayar tanpa pautan ditolak; hantar menulis `stesen/<uid>` dengan tj, kat, sj, tp, hg, url, pn dan `st: tunggu`;
+  - paparan perjanjian dan Ruang Guru disemak;
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.61 · Privasi sekolah murid dan Ruang Penaja (bayar dahulu)
 
 - **Privasi sekolah** (`skPaparSaya`, `skPapar`, `P.psk`, medan `ps`):

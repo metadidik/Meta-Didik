@@ -205,3 +205,19 @@ Butiran aliran dalam `docs/PENAJA.md`. Ringkasan:
   - `skPapar` menyembunyikan pemain `ps:0` dan rekod lama, memaparkan `ps:1` dan diri sendiri;
   - kehadiran tidak menghantar `sk`.
 - Tiada `pageerror`.
+
+---
+
+# Fasa 4 (v18.62): borang Pacak Inovasi guru
+
+- Borang yang sama digunakan dalam dunia 3D (☰ Menu → Belajar → 📌 Pacak inovasi) dan dalam Ruang Guru.
+- **Sebelum:** satu senarai 9 medan bertema gelap dengan perenggan penerangan panjang, dalam kad yang mempunyai skrol bersarang.
+- **Selepas:** kad cerah dengan:
+  - lokasi 📍 di atas;
+  - wizard **Inovasi → Subjek → Media & harga → Semak**;
+  - kategori dan harga sebagai cip besar;
+  - kiraan aksara huraian;
+  - mesej ralat per langkah;
+  - **pratonton kad booth** sebelum hantar.
+- `stnSubmit` dan struktur data `stesen/<uid>` tidak berubah. Kelulusan pentadbir masih diperlukan.
+- Imej: `docs/reka-semula/pacak-inovasi.jpg`.

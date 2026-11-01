@@ -5670,12 +5670,11 @@ function lmPacak() {
   const k = lmAt(g.p.x, g.p.z);
   if (!k || !DATA.negeri[k]) { toast("Pergi ke daratan dalam Malaysia dahulu, kemudian cuba lagi.", "warn"); return; }
   const c = lmLatLon(g.p.x, g.p.z), loc = { la: Math.round(c.lat * 1e5) / 1e5, lo: Math.round(c.lon * 1e5) / 1e5, pn: k };
-  lmCard((b) => {
-    b.append(el("div", { class: "lm-kick" }, "🏛 Pacak inovasi · " + DATA.negeri[k].nama), el("h2", null, "Stesen Inovasi di sini"));
+  lmCard((b) => { /* v18.62: kad cerah, borang wizard 4 langkah */
+    b.append(el("div", { class: "lm-mhd" }, el("h2", null, "📌 Pacak Inovasi"), lmBtn("✕", "lm-x", lmCardClose)));
     const host = el("div", { class: "lm-stnform" }); b.appendChild(host);
     try { stnGuruBox(host, { loc: loc, rr: () => { if (LM.ui.card) lmPacakLukis(host, loc); lmStnFetch(LM.g); } }); } catch (e) { host.textContent = "Borang tidak dapat dibuka."; }
-    b.append(el("div", { class: "lm-row" }, lmBtn("Tutup", "", lmCardClose)));
-  });
+  }, "lm-mu lm-pc");
 }
 function lmPacakLukis(host, loc) { host.textContent = ""; stnGuruBox(host, { loc: loc, rr: () => { lmPacakLukis(host, loc); lmStnFetch(LM.g); } }); }
 /* menara seterusnya: tajuk pertama (ikut susunan peta operasi) yang belum ditawan */
