@@ -11,6 +11,27 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.59 · Reka semula UI/UX fasa 1: halaman utama, HUD, menu dan kad mercu tanda
+
+- Spesifikasi: `docs/REKA-SEMULA-UI.md`. Imej sebelum/selepas: `docs/reka-semula/`.
+- **Halaman utama** (tema cerah, palet baharu):
+  - hero "Jom Jelajah & Belajar!" dengan CTA 🚀 Mula Jelajah (`mdGo`), Ruang Guru dan Cara Bermain;
+  - jalur ilustrasi SVG ciptaan sendiri (Menara Berkembar, Menara KL, Bangunan Sultan Abdul Samad), dengan avatar `zvSvg`;
+  - bahagian Cara Bermain dan Aktiviti Menarik;
+  - testimoni dan penaja sedia ada digayakan semula.
+- **HUD:**
+  - kiri atas: avatar, kawasan dan butang status;
+  - panel status boleh dilipat (`lmstat`), dan cip tenaga hanya muncul apabila ≤ 35%;
+  - kad Seterusnya di tengah atas;
+  - kanan bawah: Lompat + ⋯ (Lari, Raikan, Chat);
+  - label 3D: mercu tanda dalam 170 unit, lain-lain 95 unit (dahulu 260).
+- **Menu Utama 2×2:** Jelajah, Belajar, Kawan, Profil, setiap satu dengan submenu, ditambah baris utiliti (Waktu Solat, Kolam Ikan, Bunyi, Siang/Malam, Top 5, Tetapan, Keluar).
+- **Kad mercu tanda** (`lmPlaceKad`): Jawab Kuiz (kuiz ziarah sedia ada), Kenali Tempat (fakta, Swafoto), Teruskan jelajah.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright telefon potret, telefon landskap dan desktop (halaman utama, butang, HUD, menu, submenu, kad mercu tanda, masuk dunia);
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.58 · Malaysia Living Landmarks: audit dan prototaip mercu tanda pertama
 
 - **Audit:** `docs/MERCU-TANDA-AUDIT.md`.
