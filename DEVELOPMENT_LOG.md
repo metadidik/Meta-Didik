@@ -11,6 +11,101 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.76 · Uniform PKBM Darat, Laut dan Udara
+
+- **Uniform baharu:**
+  - item Avatar Studio **PKBM Darat**, **PKBM Laut** dan **PKBM Udara** (Pasukan Kadet Bersatu Malaysia), 120 MD setiap satu, untuk lelaki dan perempuan;
+  - warna dipermudah sebagai ilustrasi, bukan replika rasmi: Darat hijau zaitun dengan lencana lengan merah, Laut putih dengan seluar biru tua dan tali leher, Udara biru muda dengan biru kelabu;
+  - semua dengan lilitan bahu (lanyard) kuning.
+- **Avatar Studio:** set lengkap Set PKBM Darat/Laut/Udara dan Padanan Sesuai (Jalur Gemilang, lencana pengawas).
+- **Serasi dengan multiplayer:** klien lama yang belum dikemas kini memaparkan pakaian sekolah.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright: ketiga-tiga item dalam grid Pakaian dan pratonton;
+  - tiada `pageerror`.
+
+## 2026-11-01 · v18.75 · Evolusi avatar 3D (model, animasi, emote) dan HUD ikut lakaran
+
+- **Audit:**
+  - avatar ialah model prosedural Three.js r128 (`avatar3d.js`), dikongsi oleh pratonton Gudang, dunia Meta Didik dan multiplayer melalui satu kod konfigurasi (`AV3.code`, `g|sk|ou|...`);
+  - tiada fail GLB;
+  - animasi berasaskan pose (`POSE0`, `RAI`).
+  - Pendekatan dipilih: naik taraf model sedia ada, bukan gantikan dengan GLB. Semua item Gudang, item dimiliki dan kod multiplayer kekal serasi tanpa migrasi data.
+- **Model:**
+  - kepala lebih besar (gaya watak pengembaraan mesra kanak-kanak, skala 1.36);
+  - rambut bervolum (jambul, sisi, poni);
+  - kening (bergerak), hidung kecil, mata, senyuman dan pipi (v18.74);
+  - tapak kasut putih.
+- **Animasi (mesin keadaan dengan pengadunan):**
+  - diam: bernafas, alih berat badan, kepala bergerak, kelip mata, kening;
+  - jalan → lari diadun lancar dengan condong ke depan semasa lari;
+  - lompat: naik, udara, mendarat dengan mampatan lembut;
+  - pusingan lancar tanpa lompat sudut, dengan condong ke arah pusingan.
+- **Emote baharu:**
+  - Lambaian (`em_lb`), Gembira (`em_gb`), Salam (`em_sl`), serta Tepuk Tangan (`rc_tp`) dan Keraian Saya;
+  - dihantar kepada pemain lain melalui medan `rc` sedia ada; klien lama mengabaikan kunci baharu.
+- **HUD:**
+  - logo Meta Didik (skrin lebar);
+  - panel kiri Inventori, Avatar, Misi dan Ganjaran (mendatar dalam landskap pendek);
+  - bar emote ✋👍🙌👏 dengan butang 😊;
+  - karusel emote bergambar avatar (sentiasa kelihatan di skrin lebar, ditogol di telefon);
+  - panah pada joystick;
+  - label nama lebih kecil;
+  - emote disembunyikan semasa menaiki kenderaan.
+- **Tidak dibuat (perlukan aset atau peranti sebenar):**
+  - model GLB/rig rangka sebenar, LOD dan pemampatan tekstur;
+  - kamera anti-tembus bangunan (kamera sedia ada dikekalkan);
+  - ujian pada peranti fizikal.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright 900×414, 390×844 dan 1280×600: HUD tanpa pertindihan (panel kiri/joystick/panduan, bar emote/Lari-Lompat, karusel/joystick/butang), emote Lambaian dimainkan, dunia dimuat;
+  - tiada `pageerror`.
+  - Tangkapan: `docs/reka-semula/avatar-evolusi.jpg`.
+
+## 2026-11-01 · v18.74 · Avatar Studio (Gudang avatar direka semula ikut lakaran)
+
+- **Audit (sebelum):**
+  - halaman gelap;
+  - 12 butang kategori bertimbun;
+  - kad item ringkas;
+  - avatar 3D tanpa wajah;
+  - beli terus tanpa pengesahan.
+- **Avatar Studio:**
+  - kepala halaman: ikon, tajuk, MD dan bantuan ❓;
+  - pratonton 3D di atas pentas cerah dengan gelang bercahaya, butang Depan/Sisi dan zum ＋/－, serta "Seret untuk pusing";
+  - butang jantina Lelaki/Perempuan dan warna kulit;
+  - butang **Simpan Gaya**, **Rawak**, **Tanggalkan Semua** dan **Set Saya** (maksimum 4 gaya, `P.zv.sets`).
+- **Kedai:**
+  - cip kategori berikon;
+  - Warna baju dan Warna penutup digabung ke dalam tab Pakaian dan Penutup Kepala;
+  - tab **Set Lengkap** (Sekolah, Sekolah Agama, Sukan, Hari Raya, PBSM, Pengakap, Kadet Polis) dan tab **Percuma**.
+- **Kad item:**
+  - tahap Percuma, Biasa, ★ Rare atau 💎 Istimewa (ikut harga);
+  - ✓ Dipakai, Dimiliki → Pakai, Beli N, atau "Kurang N MD";
+  - butang 👕 Cuba.
+- **Halaman butiran:**
+  - pratonton besar, keterangan, harga dan status milikan;
+  - butang Cuba Dulu, Beli Sekarang dan Pakai;
+  - **Padanan Sesuai**: 3 aksesori yang sepadan.
+- **Pembelian:**
+  - dialog pengesahan ringkas dengan baki selepas beli;
+  - jika MD tidak cukup, cara mendapatkan MD dipaparkan.
+- **Interaksi:**
+  - selepas memakai item, avatar bertepuk dan percikan ✨;
+  - wajah ringkas (mata, senyuman, pipi) pada avatar 3D dan 2D;
+  - mata berkelip.
+- **Data kekal:**
+  - `P.zv` (g, sk, own, eq, sb), harga, slot, MD, lencana sekolah dan integrasi dengan Meta Didik dan peta tidak berubah;
+  - medan baharu `sets` adalah pilihan.
+- **Tidak dibuat:**
+  - "Popular minggu ini" dan "Murid lain juga suka", kerana tiada data penggunaan sebenar dan saya tidak mahu memaparkan populariti palsu;
+  - item ganjaran kuiz dan koleksi mingguan (fasa seterusnya).
+- **Ujian:**
+  - Node 59/59;
+  - Playwright 390×844: beli Baju Melayu melalui dialog (160 → 40 MD), set lengkap, simpan gaya, rawak, "Kurang N MD", wajah 3D lelaki/perempuan, dunia Meta Didik masih dimuat;
+  - tiada `pageerror`.
+  - Tangkapan: `docs/reka-semula/avatar-studio.jpg`.
+
 ## 2026-11-01 · v18.73 · Kuiz Tahun 1–6 dan Tingkatan 1–6 (draf) untuk BM, Matematik, Sains dan Pendidikan Islam
 
 - **Kandungan:** 585 soalan dan 117 tajuk baharu, ditanda **draf, perlu semakan guru**. DSKP rasmi tidak dapat dicapai; lihat `docs/KUIZ-DRAF.md`.
