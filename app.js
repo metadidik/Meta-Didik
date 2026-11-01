@@ -7314,7 +7314,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.69";
+const APP_VER = "18.70";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -17919,7 +17919,7 @@ function stnGuruBox(box, opt) {
 }
 /* kod negeri profil (JHR, KUL...) -> kunci peta META DIDIK */
 function lmNegeriKey(kod) { return ({ JHR: "johor", KDH: "kedah", KTN: "kelantan", MLK: "melaka", NSN: "nsembilan", PHG: "pahang", PRK: "perak", PLS: "perlis", PNG: "penang", SBH: "sabah", SWK: "sarawak", SGR: "selangor", TRG: "terengganu", KUL: "wp", PJY: "wp", LBN: "sabah" })[kod] || ""; }
-async function stnAdmLoad() { STN.admBusy = true; try { const [v0, em, jn] = await Promise.all([kmAdmReq("GET", "stesen"), kmAdmReq("GET", "stesen_em").catch(() => null), kmAdmReq("GET", "stesen_janji").catch(() => null)]), v = v0 || {}; STN.adm = Object.keys(v).map((k) => Object.assign({ id: k }, v[k], em && em[k] ? { _em: em[k] } : {}, jn && jn[k] ? { _jn: jn[k] } : {})).filter((x) => x && x.tj); } catch (e) { STN.adm = []; STN.err = "Gagal memuat stesen (kod " + (e.code || "rangkaian") + ")."; } STN.admBusy = false; }
+async function stnAdmLoad() { STN.admBusy = true; try { const [v0, em, jn] = await Promise.all([kmAdmReq("GET", "stesen"), kmAdmReq("GET", "stesen_em").catch(() => null), kmAdmReq("GET", "stesen_janji").catch(() => null)]), v = v0 || {}; STN.adm = Object.keys(v).map((k) => Object.assign({ id: k }, v[k], em && em[k] ? { _em: em[k] } : {}, jn && jn[k] ? { _jn: jn[k] } : {})).filter((x) => x && x.tj && !mdRasmiDari(x.id)); } catch (e) { STN.adm = []; STN.err = "Gagal memuat stesen (kod " + (e.code || "rangkaian") + ")."; } STN.admBusy = false; }
 function stnAdminBox(box) {
   if (!kmAdm()) return;
   const c = el("details", { class: "card", style: "margin:8px 0" }); c.open = !!STN.adm;
@@ -17985,7 +17985,7 @@ async function mdGuna(d, done) {
   let opened = {}; try { opened = JSON.parse(localStorage.getItem(key) || "{}"); } catch (e) { opened = {}; }
   if (!hg || opened[d.id] === day || mdUid() === d.id) { done(true); return; }
   if ((P.coin | 0) < hg) { toast("MD anda " + (P.coin | 0) + ". Perlu " + hg + " MD: kumpul lagi dengan menjawab kuiz, menawan menara dan menyiapkan misi.", "warn"); done(false); return; }
-  if (!confirm("Guna inovasi \"" + d.tj + "\" hari ini dengan " + hg + " MD?\n\nMD anda: " + (P.coin | 0) + " → " + ((P.coin | 0) - hg) + ".\nMD ini menjadi ganjaran kepada guru pencipta inovasi.")) { done(false); return; }
+  if (!confirm("Guna " + (d.rasmi ? "stesen" : "inovasi") + " \"" + d.tj + "\" hari ini dengan " + hg + " MD?\n\nMD anda: " + (P.coin | 0) + " → " + ((P.coin | 0) - hg) + ".\n" + (d.rasmi ? "Bayaran sekali sehari bagi setiap permainan. MD ini menyokong pembangunan Meta Didik." : "MD ini menjadi ganjaran kepada guru pencipta inovasi."))) { done(false); return; }
   try {
     await AUTH.ensure(); const me = mdUid(); if (!me) throw Object.assign(new Error("id"), { code: "ID" });
     const had = await FB.req("GET", "stesen_guna/" + d.id + "/" + me + "/" + day).catch(() => null);
@@ -17995,6 +17995,31 @@ async function mdGuna(d, done) {
     try { localStorage.setItem(key, JSON.stringify(opened)); } catch (e) { /* abaikan */ }
     toast(had ? "Anda sudah menggunakan inovasi ini hari ini." : "-" + hg + " MD. Terima kasih kerana menyokong inovasi guru!", "good"); done(true);
   } catch (e) { toast("Bayaran MD gagal (kod " + (e.code || "rangkaian") + "). MD anda tidak ditolak.", "bad"); done(false); }
+}
+/* ---------- v18.70: permainan kendiri murid sebagai Stesen Inovasi rasmi Meta Didik ----------
+   Rekod stesen/md-<permainan>-<subjek> (dipasang pentadbir, st "lulus", hg MD). Murid membayar sekali sehari bagi setiap
+   permainan dan subjek melalui stesen_guna sedia ada (Rules tidak berubah). Jika belum dipasang, permainan percuma. */
+const MD_RASMI = { tp: ["Tempur", "🎯"], lg: ["Misi Lagenda", "⚔️"], am: ["Amali", "🤲"], dw: ["Dunia Ilmu", "📚"], bz: ["Misi Busana", "👗"], ny: ["Nelayan", "🎣"] };
+const MD_RASMI_HG = 5;
+const MDR = { ada: {}, busy: false };
+function mdRasmiId(k, sj) { return "md-" + k + "-" + (sj || SUBJ); }
+function mdRasmiDari(id) { const m = /^md-([a-z]+)-([a-z0-9]+)$/.exec(String(id)); return m && MD_RASMI[m[1]] ? { k: m[1], sj: m[2] } : null; }
+async function mdRasmiInfo(k) {
+  const id = mdRasmiId(k); if (MDR.ada[id] !== undefined) return MDR.ada[id];
+  let d = null; try { d = FB.url ? await FB.req("GET", "stesen/" + id) : null; } catch (e) { d = null; }
+  MDR.ada[id] = d && d.st === "lulus" && d.hg > 0 ? d : null; return MDR.ada[id];
+}
+async function mdRasmiGuna(k, done) {
+  const d = await mdRasmiInfo(k); if (!d) { done(true); return; } /* belum dipasang: percuma */
+  mdGuna(Object.assign({}, d, { id: mdRasmiId(k), rasmi: 1, tj: MD_RASMI[k][0] + " (" + ((SUBJS[SUBJ] || {}).subjek || SUBJ) + ")" }), done);
+}
+async function mdRasmiPasang(hg) {
+  const ids = []; Object.keys(MD_RASMI).forEach((k) => Object.keys(SUBJS).forEach((sj) => ids.push([k, sj])));
+  for (const [k, sj] of ids) {
+    const [n, ic] = MD_RASMI[k];
+    await kmAdmPut("stesen/" + mdRasmiId(k, sj), { u: mdRasmiId(k, sj), n: "Meta Didik", tj: n, ds: ic + " Permainan kendiri murid " + n + " (" + ((SUBJS[sj] || {}).subjek || sj) + "). Bayaran sekali sehari.", kat: "Permainan Meta Didik", pn: "rasmi", st: "lulus", t: Date.now(), tu: Date.now(), hg: hg, sj: sj, rasmi: 1 });
+  }
+  MDR.ada = {}; return ids.length;
 }
 async function mdLoadMe() {
   const uid = mdUid(); if (!uid) { MD.me = null; return; }
@@ -18044,8 +18069,9 @@ async function mdAdmLoad(m) {
   MD.admBusy = true; MD.admM = m;
   try {
     const [g, st, tb, tt] = await Promise.all([kmAdmReq("GET", "stesen_guna"), kmAdmReq("GET", "stesen"), kmAdmReq("GET", "tabung/" + m), kmAdmReq("GET", "tuntutan/" + m)]);
-    const rows = Object.keys(g || {}).map((id) => Object.assign({ id: id, d: (st || {})[id] || {} }, mdTally(g[id], m))).filter((r) => r.md > 0).sort((a, b) => b.md - a.md);
-    MD.adm = { rows: rows, tot: rows.reduce((a, r) => a + r.md, 0), tb: tb, tt: tt || {} };
+    const all = Object.keys(g || {}).map((id) => Object.assign({ id: id, d: (st || {})[id] || {} }, mdTally(g[id], m))).filter((r) => r.md > 0).sort((a, b) => b.md - a.md);
+    const rows = all.filter((r) => !mdRasmiDari(r.id)), rasmi = all.filter((r) => mdRasmiDari(r.id)); /* v18.70: permainan Meta Didik tidak diagih kepada guru */
+    MD.adm = { rows: rows, tot: rows.reduce((a, r) => a + r.md, 0), tb: tb, tt: tt || {}, rasmi: rasmi, rasmiTot: rasmi.reduce((a, r) => a + r.md, 0), pasang: Object.keys(st || {}).filter((id) => mdRasmiDari(id)).length };
   } catch (e) { MD.adm = null; toast("Gagal memuat data MD (kod " + (e.code || "rangkaian") + ").", "bad"); }
   MD.admBusy = false;
 }
@@ -18059,6 +18085,18 @@ function mdAdminBox(box) {
   const ld = el("button", { type: "button", class: "btn alt sm" }, MD.admBusy ? "Memuat..." : "Muat"); ld.addEventListener("click", async () => { ld.disabled = true; await mdAdmLoad(sel.value); renderGuru(); });
   c.appendChild(el("div", { class: "row", style: "gap:8px" }, sel, ld));
   const A = MD.adm; if (!A || MD.admM !== sel.value) return;
+  /* v18.70: rekod MD daripada permainan kendiri murid (Stesen Inovasi Meta Didik) */
+  { const rb = el("div", { class: "card", style: "padding:10px;gap:6px;margin:6px 0" });
+    rb.appendChild(el("b", null, "⭐ Permainan kendiri murid (Stesen Inovasi Meta Didik)"));
+    rb.appendChild(el("div", { style: "font-size:13px" }, A.pasang ? A.pasang + " stesen dipasang (" + Object.keys(MD_RASMI).length + " permainan × " + Object.keys(SUBJS).length + " subjek)." : "Belum dipasang: permainan kendiri masih percuma. Tekan butang di bawah untuk mula mengutip MD."));
+    const hgS = el("select", { "aria-label": "Harga MD sehari" }); MD_HARGA.filter((h) => h > 0).forEach((h) => hgS.appendChild(el("option", { value: String(h) }, h + " MD sehari"))); hgS.value = String(MD_RASMI_HG);
+    const ps = el("button", { type: "button", class: "btn sm" }, A.pasang ? "Kemas kini harga" : "Pasang stesen rasmi");
+    ps.addEventListener("click", async () => { if (!confirm("Pasang/kemas kini " + Object.keys(MD_RASMI).length * Object.keys(SUBJS).length + " stesen rasmi dengan harga " + hgS.value + " MD sehari?")) return; ps.disabled = true; try { const n = await mdRasmiPasang(+hgS.value); toast(n + " stesen rasmi dipasang.", "ok"); await mdAdmLoad(MD.admM); renderGuru(); } catch (e) { ps.disabled = false; toast("Gagal (kod " + (e.code || "rangkaian") + ").", "bad"); } });
+    rb.appendChild(el("div", { class: "row", style: "gap:8px" }, hgS, ps));
+    rb.appendChild(el("div", { style: "font-size:14px;font-weight:700" }, mdMonthName(MD.admM) + ": " + A.rasmiTot + " MD diterima daripada murid"));
+    const per = {}; A.rasmi.forEach((r) => { const x = mdRasmiDari(r.id), o = per[x.k] || (per[x.k] = { md: 0, n: 0, sj: {} }); o.md += r.md; o.n += r.n; o.sj[x.sj] = (o.sj[x.sj] | 0) + r.md; });
+    Object.keys(MD_RASMI).forEach((k) => { const o = per[k]; rb.appendChild(el("div", { style: "font-size:13px;padding:3px 0;border-top:1px solid var(--line2)" }, MD_RASMI[k][1] + " " + MD_RASMI[k][0] + " · " + (o ? o.md + " MD · " + o.n + " guna · " + Object.keys(o.sj).map((sj) => ((SUBJS[sj] || {}).subjek || sj) + " " + o.sj[sj]).join(", ") : "0 MD"))); });
+    c.appendChild(rb); }
   c.appendChild(el("p", { style: "font-size:14px" }, mdMonthName(MD.admM) + ": " + A.tot + " MD daripada " + A.rows.length + " inovasi." + (A.tb ? " Tabung ditetapkan: " + mdRM(A.tb.rm) + " (" + mdRM(A.tb.kd) + "/MD)." : " Tabung belum ditetapkan.")));
   A.rows.forEach((r) => c.appendChild(el("div", { style: "font-size:13px;padding:4px 0;border-top:1px solid var(--line2)" }, (r.d.tj || r.id) + " · " + (r.d.n || "-") + " · " + r.md + " MD · " + r.n + " guna · " + r.murid + " murid" + (r.n > r.murid * 20 ? " ⚠ semak: guna berulang tinggi" : ""))));
   if (MD.admM !== mdMonth()) {
@@ -18550,7 +18588,7 @@ async function admDashLoad() {
   try {
     const key = !!kmAdm(), get = (p) => (key ? kmAdmReq("GET", p) : FB.req("GET", p)).catch(() => null);
     const [st, nl] = await Promise.all([get("stesen"), get("stesen_nilai")]);
-    const ids = Object.keys(st || {});
+    const ids = Object.keys(st || {}).filter((id) => !mdRasmiDari(id)); /* v18.70: stesen rasmi dilapor berasingan */
     const cnt = async (node, id) => { try { const v = await FB.req("GET", node + "/" + id, undefined, "shallow=true"); return v && typeof v === "object" ? Object.keys(v).length : 0; } catch (e) { return 0; } };
     const stats = await Promise.all(ids.map((id) => Promise.all(["stesen_lawat", "stesen_suka", "stesen_klik"].map((n) => cnt(n, id)))));
     const [gu, km, jn] = key ? await Promise.all([get("stesen_guna"), get("stesen_komen"), get("stesen_janji")]) : [null, null, null];

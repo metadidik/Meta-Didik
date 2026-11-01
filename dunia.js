@@ -3709,19 +3709,37 @@ function lmKemBuild(g, used, placed, avoid, gnd) {
     for (const [lx, lz] of [[-9, -6], [0, -7], [9, -6]]) { const q = at(lx, lz); g.cols.push({ x: q.x, z: q.z, r: 3.6, h: 4 }); }
   });
 }
+/* ---------- v18.70: permainan kendiri murid = Stesen Inovasi rasmi Meta Didik (lampu emas, bayaran MD sekali sehari ikut subjek) ---------- */
+/* v18.70: tutup/buka bunyi (jimat bateri): disimpan; AudioContext digantung apabila senyap */
+function lmBunyi(on) {
+  LM.mute = !on; try { localStorage.setItem("gt-lm-senyap", LM.mute ? "1" : "0"); } catch (e) { /* abaikan */ }
+  try { if (LM.mute) { if (LAUD.ac && LAUD.ac.state === "running") LAUD.ac.suspend(); } else lmAudUnlock(); } catch (e) { /* abaikan */ }
+  const b = LM.ui && LM.ui.sndB; if (b) { b.setAttribute("aria-pressed", String(LM.mute)); b.setAttribute("aria-label", LM.mute ? "Buka bunyi" : "Tutup bunyi (jimat bateri)"); const i = b.querySelector(".lm-rci"); if (i) i.innerHTML = LM.mute ? LM_IK_SENYAP : LM_IK_BUNYI; const l = b.querySelector("small"); if (l) l.textContent = LM.mute ? "Senyap" : "Bunyi"; b.classList.toggle("off", LM.mute); }
+}
+const LM_IK_BUNYI = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 9h4l5-4v14l-5-4H3z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const LM_IK_SENYAP = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 9h4l5-4v14l-5-4H3z"/><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+function lmRasmi(k, go) { if (typeof mdRasmiGuna !== "function") { go(); return; } mdRasmiGuna(k, (ok) => { if (ok) go(); }); }
+function lmRasmiNota(ks) {
+  const sj = (typeof SUBJS !== "undefined" && SUBJS[SUBJ] && SUBJS[SUBJ].subjek) || SUBJ, p = el("p", { class: "lm-ex lm-rasmi" }, "⭐ Stesen Inovasi Meta Didik · soalan " + sj);
+  if (typeof mdRasmiInfo === "function") Promise.all(ks.map((k) => mdRasmiInfo(k))).then((ds) => { const h = ds.filter(Boolean).map((d) => d.hg | 0); p.textContent = "⭐ Stesen Inovasi Meta Didik · soalan " + sj + (h.length ? " · " + Math.max(...h) + " MD sekali sehari (MD anda " + (P.coin | 0) + ")" : " · percuma"); }).catch(() => {});
+  return p;
+}
+function lmRasmiTanda(g) { /* lampu emas pada setiap lokasi permainan kendiri */
+  g.items.forEach((it) => { if ((it.kind !== "km" && it.kind !== "vn" && it.kind !== "ny") || it.rasmiB) return; const b = lmBeam("#ffcf3a", 200, 0.32); b.position.set(it.x, lmGround(it.x, it.z) + 100, it.z); g.scene.add(b); it.rasmiB = b; it.rasmi = 1; });
+}
 function lmKemOpen(it) {
   const ts = DATA.topik.filter((t) => DATA.negeri[t.negeri]);
   lmCard((b) => {
-    b.append(el("div", { class: "lm-kick" }, "🎖 " + it.n + " · " + DATA.negeri[it.k].pendek), el("h2", null, "Kem Latihan"));
+    b.append(el("div", { class: "lm-kick" }, "🎖 " + it.n + " · " + DATA.negeri[it.k].pendek), el("h2", null, "Kem Latihan"), lmRasmiNota(["tp", "lg"]));
     b.append(el("p", null, "🎯 Tempur: medan latihan menembak di kem ini. Buka peti bekalan, jawab soalan untuk peluru dan perisai, tumpaskan sasaran."), el("p", null, "⚔️ Misi Lagenda: pertempuran tiga lorong di padang kawad kem. Jawab kuiz untuk memecahkan perisai ilmu dan menawan menara pihak lawan."), el("p", { class: "lm-ex" }, "Selepas misi tamat, anda kembali ke kem ini."));
     const sel = el("select", { "aria-label": "Tajuk misi", style: "width:100%;padding:8px;border-radius:10px;font:inherit" });
     ts.forEach((t) => sel.appendChild(el("option", { value: t.id }, (lmTopicDone(t.id) ? "✔ " : "") + (t.kod || t.id) + " " + t.nama)));
     { const nx = ts.find((t) => !lmTopicDone(t.id)); if (nx) sel.value = nx.id; }
     b.append(el("p", { class: "lm-ex" }, "Pilih tajuk misi:"), sel);
-    b.append(el("div", { class: "lm-row" }, lmBtn("🎯 Mula Tempur", "pri", () => {
-      const tid = sel.value; LM.resume = { at: it.id }; lmSave(); lmCardClose(); lmClose();
+    b.append(el("div", { class: "lm-row" }, lmBtn("🎯 Mula Tempur", "pri", () => { const tid = sel.value; lmRasmi("tp", () => {
+      LM.resume = { at: it.id }; lmSave(); lmCardClose(); lmClose();
       setTimeout(() => { try { openBrief(tid, "solo"); } catch (e) { LM.resume = null; toast("Tempur tidak dapat dibuka.", "warn"); } }, 60);
-    }), lmBtn("⚔️ Misi Lagenda", "pri", () => { const tid = sel.value; lmVenueGo(it, () => lgOpen(tid)); }), lmBtn("Nanti dulu", "", lmCardClose)));
+    }); }), lmBtn("⚔️ Misi Lagenda", "pri", () => { const tid = sel.value; lmRasmi("lg", () => lmVenueGo(it, () => lgOpen(tid))); }), lmBtn("Nanti dulu", "", lmCardClose)));
   });
 }
 /* ---------- v18.26: misi kendiri murid di lokasi bersesuaian (Busana di butik, Dunia Ilmu di perpustakaan, Amali di masjid) ---------- */
@@ -3793,13 +3811,13 @@ function lmTopicSel() {
 function lmVenueOpen(it) {
   const V = VN_INFO[it.sub];
   lmCard((b) => {
-    b.append(el("div", { class: "lm-kick" }, V.ic + " " + it.n + " · " + DATA.negeri[it.k].pendek), el("h2", null, V.m), el("p", null, V.d));
+    b.append(el("div", { class: "lm-kick" }, V.ic + " " + it.n + " · " + DATA.negeri[it.k].pendek), el("h2", null, V.m), lmRasmiNota([it.sub]), el("p", null, V.d));
     if (it.sub === "am") {
-      b.append(el("div", { class: "lm-row" }, lmBtn("🤲 Mula Amali", "pri", () => lmVenueGo(it, () => setView("prak"))), lmBtn("Nanti dulu", "", lmCardClose)));
+      b.append(el("div", { class: "lm-row" }, lmBtn("🤲 Mula Amali", "pri", () => lmRasmi("am", () => lmVenueGo(it, () => setView("prak")))), lmBtn("Nanti dulu", "", lmCardClose)));
       return;
     }
     const sel = lmTopicSel(); b.append(el("p", { class: "lm-ex" }, "Pilih tajuk soalan:"), sel);
-    b.append(el("div", { class: "lm-row" }, lmBtn(V.ic + " Mula " + V.m, "pri", () => { const tid = sel.value; lmVenueGo(it, () => (it.sub === "bz" ? bzOpen(tid) : dgOpen(tid))); }), lmBtn("Nanti dulu", "", lmCardClose)));
+    b.append(el("div", { class: "lm-row" }, lmBtn(V.ic + " Mula " + V.m, "pri", () => { const tid = sel.value; lmRasmi(it.sub, () => lmVenueGo(it, () => (it.sub === "bz" ? bzOpen(tid) : dgOpen(tid)))); }), lmBtn("Nanti dulu", "", lmCardClose)));
   });
 }
 /* ---------- v18.25: jeti nelayan di pantai, sungai dan tasik sebenar: masuk permainan Nelayan (mod/nelayan.js) ---------- */
@@ -3882,17 +3900,17 @@ function lmNelayanBuild(g, used, placed, avoid, gnd) {
 function lmNelayanOpen(it) {
   const ts = DATA.topik.filter((t) => DATA.negeri[t.negeri]);
   lmCard((b) => {
-    b.append(el("div", { class: "lm-kick" }, "🎣 " + it.n + " · " + DATA.negeri[it.k].pendek), el("h2", null, "Nelayan"));
+    b.append(el("div", { class: "lm-kick" }, "🎣 " + it.n + " · " + DATA.negeri[it.k].pendek), el("h2", null, "Nelayan"), lmRasmiNota(["ny"]));
     b.append(el("p", null, (it.jenis === "laut" ? "Naik sampan ke laut" : "Naik sampan di " + (/Tasik/.test(it.n) ? "tasik" : "sungai")) + " dan memancing. Setiap kali ikan menyambar, jawab soalan tajuk dengan betul untuk menariknya naik. Jawab berturut-turut untuk ikan yang lebih besar dan jarang ditemui. Selepas tamat, anda kembali ke jeti ini."));
     const sel = el("select", { "aria-label": "Tajuk soalan", style: "width:100%;padding:8px;border-radius:10px;font:inherit" });
     ts.forEach((t) => sel.appendChild(el("option", { value: t.id }, (lmTopicDone(t.id) ? "✔ " : "") + (t.kod || t.id) + " " + t.nama)));
     { const nx = ts.find((t) => !lmTopicDone(t.id)); if (nx) sel.value = nx.id; }
     b.append(el("p", { class: "lm-ex" }, "Pilih tajuk soalan:"), sel);
-    b.append(el("div", { class: "lm-row" }, lmBtn("🎣 Mula memancing", "pri", () => {
-      const tid = sel.value, h = lmClock(), malam = h < 6.5 || h >= 19.3;
+    b.append(el("div", { class: "lm-row" }, lmBtn("🎣 Mula memancing", "pri", () => { const tid0 = sel.value; lmRasmi("ny", () => {
+      const tid = tid0, h = lmClock(), malam = h < 6.5 || h >= 19.3;
       LM.resume = { at: it.id, msg: "Kembali dari memancing" }; lmSave(); lmCardClose(); lmClose();
       setTimeout(() => { try { pcOpen(tid, { spot: { n: it.n, jenis: it.jenis, malam: malam }, onExit: () => { if (window.LMX && window.LMX.resume && typeof window.lmOpen === "function") window.lmOpen(""); } }); } catch (e) { LM.resume = null; toast("Permainan Nelayan tidak dapat dibuka.", "warn"); } }, 60);
-    }), lmBtn("Nanti dulu", "", lmCardClose)));
+    }); }), lmBtn("Nanti dulu", "", lmCardClose)));
   });
 }
 /* ---------- v18.8: sekolah murid sendiri (titik mula setiap misi) ---------- */
@@ -4452,8 +4470,8 @@ function lmStnOpen(it) {
 }
 
 function lmEnergy() { const e = LM.st.en; return e == null ? 100 : clamp(e, 0, 100); }
-function lmEat(add, msg) {
-  LM.st.en = clamp(lmEnergy() + add, 0, 100); LM.st.enW = 0; lmSave(); lmSnd("coin"); lmPop(msg + " · Tenaga " + Math.round(LM.st.en) + "%");
+function lmEat(add, msg) { void add; /* v18.70: sekali makan = kenyang (100%) supaya 3 kali makan sehari mencukupi */
+  LM.st.en = 100; LM.st.enW = 0; lmSave(); lmSnd("coin"); lmPop(msg + " · Tenaga " + Math.round(LM.st.en) + "%");
 }
 function lmFoodOpen(it) {
   const e = Math.round(lmEnergy());
@@ -4872,7 +4890,7 @@ async function lmBuildWorld(g) {
   lmFoodBuild(g, used, placed, avoid, gnd);
   /* Dataran Inovasi: stesen guru */
   await lmProg(36, "Dataran Inovasi");
-  lmStnBuild(g, used, placed, avoid, gnd); (g.after || (g.after = [])).push(() => lmStnFetch(g));
+  lmStnBuild(g, used, placed, avoid, gnd); (g.after || (g.after = [])).push(() => lmStnFetch(g)); g.after.push(() => lmRasmiTanda(g));
   g.after.push(() => lmPjFetch(g)); /* v18.38: bangunan/papan iklan penaja */
   /* v18.41: automasi: inovasi dan penaja yang baru diluluskan muncul sendiri tanpa keluar dari Meta Didik */
   g.after.push(() => { const t = setInterval(() => { if (LM.g !== g || !LM.on) { if (LM.g !== g) clearInterval(t); return; } if (document.hidden) return; try { lmStnFetch(g); } catch (e) { /* abaikan */ } try { if (typeof pjMuat === "function") pjMuat().then(() => lmPjFetch(g)); } catch (e) { /* abaikan */ } }, 60000); });
@@ -4973,7 +4991,7 @@ function lmUpdatePlayer(g, dt) {
   const en = lmEnergy(), weak = en <= 0 ? 0.5 : en < 15 ? 0.75 : 1;
   const sp = (p.swim ? (run ? 13 : 9) : (run ? 50 : 24)) * Math.min(1, il) * weak, cy = Math.cos(g.cam.yaw), sy = Math.sin(g.cam.yaw);
   if (il > 0.1 && !g.ui) {
-    const ne = Math.max(0, en - dt * (p.swim ? 0.9 : run ? 0.8 : 0.5) * Math.min(1, il) * (g.wx && g.wx.terik ? 1.3 : 1)); LM.st.en = ne;
+    const ne = Math.max(0, en - dt * (p.swim ? 0.32 : run ? 0.28 : 0.2) /* v18.70: tenaga penuh ~8 minit berjalan (8 jam permainan): makan 3 kali sehari cukup */ * Math.min(1, il) * (g.wx && g.wx.terik ? 1.3 : 1)); LM.st.en = ne;
     const w = ne <= 0 ? 3 : ne < 15 ? 2 : ne < 35 ? 1 : 0;
     if (w > (LM.st.enW | 0)) { LM.st.enW = w; lmSave(); toast(w === 3 ? "Anda terlalu lapar dan bergerak perlahan. Makan di kedai makan atau kantin sekolah." : w === 2 ? "Perut berkeroncong! Cari kedai makan berdekatan (🍽 pada peta)." : "Anda mula lapar. Kedai makan tradisi ada di setiap negeri.", "warn"); }
     if ((g.enT = (g.enT || 0) + dt) > 15) { g.enT = 0; lmSave(); }
@@ -5678,6 +5696,8 @@ body.pelawat #lmOv .lm-guide{display:none}
 #lmOv .lm-rb .lm-rci svg{width:26px;height:26px;display:block}
 #lmOv .lm-rb small,#lmOv .lm-rn small{font:800 12px Nunito,sans-serif;color:#fff}
 #lmOv .lm-rc .lm-cb{display:grid}
+#lmOv .lm-rb.lm-snd.off{background:linear-gradient(180deg,#6c7f94,#3e4f63)}
+#lmOv .lm-card .lm-rasmi,#lmOv .lm-rasmi{color:#6b4500!important;background:#ffe9a8!important;border:2px solid #ffcf3a;border-radius:12px;padding:6px 10px;font-weight:800;opacity:1!important}
 #lmOv .lm-rb.lm-salam{background:linear-gradient(180deg,#4fd67a,#22a84c);animation:lmSlm 1.6s ease-in-out infinite}
 #lmOv .lm-rb.lm-salam.lm-salam-j{background:linear-gradient(180deg,#ffd45a,#f2a900);color:#17324D}#lmOv .lm-rb.lm-salam.lm-salam-j small{color:#17324D}
 @keyframes lmSlm{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
@@ -5751,7 +5771,7 @@ function lmMenu(sub) {
       const u = (ic, n, fn, on) => { const x = el("button", { type: "button", class: on ? "on" : "" }, el("i", { "aria-hidden": "true" }, ic), el("span", null, n)); x.addEventListener("click", fn); ut.appendChild(x); };
       u("🕌", "Waktu Solat", go(lmSolatOpen));
       u("🐟", "Kolam Ikan", go(() => { const gg = LM.g; if (!gg) return; LM.resume = { x: gg.p.x, z: gg.p.z, msg: "Kembali dari Kolam Ikan" }; lmSave(); lmClose(); setTimeout(() => setView("kolam"), 60); }));
-      u(LM.mute ? "🔇" : "🔊", "Bunyi", () => { LM.mute = !LM.mute; if (!LM.mute) lmAudUnlock(); lmMenu(); }, !LM.mute);
+      u(LM.mute ? "🔇" : "🔊", "Bunyi", () => { lmBunyi(LM.mute); lmMenu(); }, !LM.mute);
       u(sm[0], sm[1], () => { const o = ["", "siang", "malam"], n = o[(o.indexOf(LM.st.sm || "") + 1) % 3]; if (n) LM.st.sm = n; else delete LM.st.sm; lmSave(); const gg = LM.g; if (gg && gg.wx) { gg.wx.hp = null; lmDayNight(gg); } lmMenu(); }, true);
       u("🏆", "Top 5", () => { const gg = LM.g; if (!gg || !gg.sky5) return; const on = !gg.sky5.sp.visible; gg.sky5.sp.visible = on; LM.st.sky = on ? 1 : 0; lmSave(); lmMenu(); }, sky);
       u("🎉", "Raikan", go(lmRai));
@@ -6524,6 +6544,7 @@ function lmMapDraw(cv, m, big) {
   }
   for (const it of g.items) {
     const [px, py] = lmMapPt(m, it.x, it.z);
+    if (it.rasmi) { x.fillStyle = big ? "rgba(255,207,58,.6)" : "rgba(255,207,58,.95)"; x.beginPath(); x.arc(px, py, big ? 12 : 2.8, 0, 6.2832); x.fill(); if (big) { x.strokeStyle = "#fff4c2"; x.lineWidth = 1.5; x.stroke(); } } /* v18.70: Stesen Inovasi Meta Didik */
     if (it.kind === "pl") { x.fillStyle = LM.st.pl[it.id] ? "#ffd45a" : "#ffffff"; x.beginPath(); x.arc(px, py, r, 0, 6.2832); x.fill(); if (big) { x.strokeStyle = "#5a3a1e"; x.lineWidth = 1.5; x.stroke(); } }
     else if (it.kind === "tw") { x.fillStyle = it.done ? "#ffd45a" : "#7fe3ff"; x.fillRect(px - r * 0.8, py - r * 0.8, r * 1.6, r * 1.6); }
     else if (big && it.kind === "ap") { x.font = "16px sans-serif"; x.fillStyle = "#fff"; x.fillText("✈", px - 7, py + 6); }
@@ -6935,7 +6956,11 @@ function lmHud() {
   /* v18.69: pintasan Salam (muncul apabila guru/pelawat berdekatan, atau untuk menjawab salam) */
   ui.salamB = el("button", { type: "button", class: "lm-rb lm-salam", hidden: "" }, ...ik('<path d="M7.5 11.3 4.2 8a1.6 1.6 0 0 1 2.3-2.3l3.4 3.4-.3-5.2a1.6 1.6 0 0 1 3.2-.2l.4 6.2 1.7-3.4a1.6 1.6 0 0 1 2.9 1.4l-1.6 3.3 2.3-1.6a1.6 1.6 0 0 1 1.9 2.6l-5.3 4.2a6.5 6.5 0 0 1-8.7-.4L3.4 13a1.6 1.6 0 1 1 2.3-2.3z"/>', "Salam"));
   ui.salamB.addEventListener("click", () => { if (ui.salamB.dataset.m === "j") lmSalamJawab(); else lmSalamBeri(); });
+  /* v18.70: butang bunyi (murid boleh senyapkan permainan untuk jimat bateri) */
+  try { LM.mute = localStorage.getItem("gt-lm-senyap") === "1" ? true : LM.mute; } catch (e) { /* abaikan */ }
+  ui.sndB = el("button", { type: "button", class: "lm-rb lm-snd" }, el("span", { class: "lm-rci" }), el("small", null, "Bunyi")); ui.sndB.addEventListener("click", () => lmBunyi(LM.mute));
   const rc = el("div", { class: "lm-rc" }, ui.salamB, ui.menuB, ui.kawanB); r.appendChild(rc);
+  rc.appendChild(ui.sndB); setTimeout(() => lmBunyi(!LM.mute), 0);
   if (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen) {
     ui.fs = lmBtn("Skrin penuh", "lm-fs", lmFsToggle);
     top.appendChild(ui.fs); lmFsSync();
