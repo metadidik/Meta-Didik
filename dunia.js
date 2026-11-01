@@ -2577,6 +2577,29 @@ function lmJalanLoad() {
   return JL.p;
 }
 const JL_W = [0, 5.4, 3.6]; /* separuh lebar jalan ikut kelas: 1 lebuh raya, 2 jalan persekutuan */
+/* v18.51: titik jalan di atas air (lmHRaw < 0.5) dikelaskan:
+   - daratan dekat di SATU sisi (ukur serenjang jalan, sehingga 60 unit ~ 8 km): jalan pesisir yang tersasar kerana garis
+     pantai dan data jalan kasar -> dialih ke darat (3 unit ke dalam dari pantai);
+   - air di kedua-dua sisi (merentas teluk, muara, selat): kekal sebagai jambatan.
+   Lebuh raya bertanda (jambatan Pulau Pinang dan lain-lain) menggunakan jajaran sendiri dan tidak melalui fungsi ini. */
+function lmJalanPantai(pts) {
+  const basah = (x, z) => lmHRaw(x, z) < 0.5, n = pts.length; let ubah = 0;
+  /* panjang larian titik basah yang mengandungi titik i (jambatan laut panjang di Malaysia ialah lebuh raya bertanda) */
+  const W = pts.map((p) => basah(p.x, p.z)), larianBasah = (i) => { let a = i, b = i; while (a > 0 && W[a - 1]) a--; while (b < n - 1 && W[b + 1]) b++; return b - a + 1; };
+  for (let i = 0; i < n; i++) {
+    const p = pts[i]; if (!basah(p.x, p.z)) continue;
+    const a = pts[Math.max(0, i - 2)], b = pts[Math.min(n - 1, i + 2)]; let tx = b.x - a.x, tz = b.z - a.z; const L = Math.hypot(tx, tz) || 1; tx /= L; tz /= L;
+    let kiri = 0, kanan = 0;
+    for (let d = 2; d <= 60 && !(kiri && kanan); d += 2) { if (!kiri && !basah(p.x - tz * d, p.z + tx * d)) kiri = d; if (!kanan && !basah(p.x + tz * d, p.z - tx * d)) kanan = d; }
+    if (!kiri && !kanan) continue;                                   /* jauh dari darat: jambatan/tambak sebenar */
+    if (kiri && kanan && Math.abs(kiri - kanan) <= 6 && kiri + kanan <= 24 && larianBasah(i) <= 3) continue; /* muara sempit pendek: kekal jambatan */
+    const sd = !kanan || (kiri && kiri < kanan) ? 1 : -1, d = (sd > 0 ? kiri : kanan) + 3;
+    p.x += -tz * d * sd; p.z += tx * d * sd; ubah++;
+  }
+  /* licinkan titik yang dialih supaya tiada sudut tajam */
+  if (ubah) for (let k = 0; k < 2; k++) for (let i = 1; i < n - 1; i++) { const q = { x: (pts[i - 1].x + pts[i].x * 2 + pts[i + 1].x) / 4, z: (pts[i - 1].z + pts[i].z * 2 + pts[i + 1].z) / 4 }; if (!basah(q.x, q.z)) { pts[i].x = q.x; pts[i].z = q.z; } }
+  return ubah;
+}
 function lmJalanBuild(g) {
   const J = JL.d; if (!J || !J.jalan) return;
   const N = new Map(), nodes = [], edges = [];
@@ -2598,6 +2621,7 @@ function lmJalanBuild(g) {
     } else {
       const W = w.P.map((q) => ll(q[0], q[1])); W[0] = { x: w.a.x, z: w.a.z }; W[W.length - 1] = { x: w.b.x, z: w.b.z }; pts = [{ x: W[0].x, z: W[0].z }];
       for (let i = 1; i < W.length; i++) { const p = W[i - 1], q = W[i], d = Math.hypot(q.x - p.x, q.z - p.z), n = Math.max(1, Math.ceil(d / 7)); for (let k = 1; k <= n; k++) pts.push({ x: p.x + (q.x - p.x) * k / n, z: p.z + (q.z - p.z) * k / n }); }
+      lmJalanPantai(pts); /* v18.51: jalan pesisir yang tersasar ke laut (garis pantai kasar) dialih ke darat; jambatan sebenar kekal */
       const gy = pts.map((p) => lmHRaw(p.x, p.z));
       pts.forEach((p, i) => { let s = 0, c = 0; for (let j = -2; j <= 2; j++) { const v = gy[i + j]; if (v != null) { s += Math.max(v, 1.25); c++; } } p.wet = gy[i] < 0.5; p.y = Math.max(s / c, gy[i], p.wet ? 1.6 : 0) + 0.38; p.rw = onRwy(p.x, p.z); });
     }
