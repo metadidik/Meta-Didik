@@ -5702,12 +5702,11 @@ function lmMenu(sub) {
 /* Profil: siapa saya, pencapaian, kemudian Gudang untuk membeli pakaian dan kelengkapan avatar */
 function lmProfil() {
   lmCard((b) => {
-    const ri = typeof rankIdx === "function" ? rankIdx(P.xp | 0) : 0, rk = (typeof RANKS !== "undefined" && RANKS[ri]) || { n: "" };
     const tk = typeof tahapMurid === "function" ? tahapMurid() : 0, guru = lmIsGuru();
     const sub = [guru ? "Guru" : tk ? tahapNama(tk) : (typeof gtRole === "function" && gtRole() === "pelawat" ? "Pelawat" : ""), P.sekolah && P.sekolah !== "Pelawat" ? P.sekolah : ""].filter(Boolean).join(" · ");
-    const av = el("div", { class: "lm-pav", "aria-hidden": "true" }); try { av.innerHTML = insignia(ri, 56); } catch (e) { av.textContent = String(P.nama || "?").charAt(0).toUpperCase(); }
+    const av = el("div", { class: "lm-pav", "aria-hidden": "true" }); try { av.innerHTML = mdAvatarMini(60); } catch (e) { av.textContent = String(P.nama || "?").charAt(0).toUpperCase(); } /* v18.65: avatar, bukan pangkat Tempur */
     b.append(el("div", { class: "lm-mhd" }, el("div", { class: "lm-kick" }, "👤 Profil saya"), lmBtn("✕", "lm-x", lmCardClose)),
-      el("div", { class: "lm-phd" }, av, el("div", null, el("h2", null, P.nama || "Pemain"), el("div", { class: "lm-psub" }, sub), el("div", { class: "lm-prk" }, "🎖 " + rk.n))));
+      el("div", { class: "lm-phd" }, av, el("div", null, el("h2", null, P.nama || "Pemain"), el("div", { class: "lm-psub" }, sub))));
     const st = lmSummary(), lc = Object.keys(LM.st.lc || {}).length;
     const stat = (ic, v, l) => el("div", { class: "lm-st" }, el("b", null, ic + " " + v), el("span", null, l));
     b.append(el("div", { class: "lm-sts" }, stat("🪙", P.coin | 0, "MD"), stat("⭐", P.xp | 0, "XP"), stat("🛂", st.pl, "Cop tempat"), stat("🏅", lc + "/" + LCN.length, "Lencana")));
@@ -6808,7 +6807,7 @@ function lmHud() {
   /* v18.59: kiri atas ringkas (avatar, kawasan, status); maklumat lain dalam panel status yang boleh dilipat */
   ui.tl = el("div", { class: "lm-tl" });
   ui.avB = lmBtn(String(P.nama || "?").charAt(0).toUpperCase(), "lm-av", () => lmProfil()); ui.avB.title = "Profil"; ui.avB.setAttribute("aria-label", "Profil " + (P.nama || ""));
-  try { const ri = typeof rankIdx === "function" ? rankIdx(P.xp | 0) : -1; if (ri >= 0 && typeof insignia === "function") ui.avB.innerHTML = insignia(ri, 30); } catch (e) { /* abaikan */ }
+  try { if (typeof mdAvatarMini === "function") ui.avB.innerHTML = mdAvatarMini(36); } catch (e) { /* abaikan */ } /* v18.65: avatar, bukan pangkat Tempur */
   ui.statB = lmBtn("▾", "lm-sb", () => { if (ui.quest && ui.quest.parentNode !== ui.hud) ui.hud.appendChild(ui.quest); const on = !r.classList.contains("lmstat"); r.classList.toggle("lmstat", on); ui.statB.textContent = on ? "▴" : "▾"; ui.statB.setAttribute("aria-expanded", String(on)); });
   ui.statB.title = "Status: masa, mata, MD, tenaga, cop"; ui.statB.setAttribute("aria-label", "Tunjuk status"); ui.statB.setAttribute("aria-expanded", "false");
   ui.enW = el("div", { class: "lm-pill lm-enw", hidden: "" });

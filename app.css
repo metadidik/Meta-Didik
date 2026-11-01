@@ -1306,3 +1306,8 @@ body.vmap .mcard:not(.rgw) { color: var(--ink); }
 :is(#lmOv, body) .stw .stw-chips button { background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; }
 :is(#lmOv, body) .stw .stw-chips button.on { background: #9474E8 !important; border-color: #9474E8 !important; color: #fff !important; }
 :is(#lmOv, body) .stw .field label { color: #17324D !important; }
+/* v18.65: avatar mini (ganti lencana pangkat Tempur dalam Meta Didik) */
+.mdav { display: inline-grid; place-items: start center; border-radius: 50%; overflow: hidden; background: linear-gradient(#bfe9fb, #FFC857); flex: none; vertical-align: middle; }
+.mdav svg { width: 200%; height: auto; margin-top: 6%; flex: none; }
+.mdav-h { place-items: center; background: #FFC857; color: #17324D; font-family: "Fredoka", var(--font-body); font-weight: 700; }
+.meb .xpbar { display: none; }
