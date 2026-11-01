@@ -11,6 +11,13 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.65 · Pangkat tentera dibuang dari Meta Didik (kekal dalam Tempur)
+
+- Butang nama di paparan utama (`renderMe`), butang avatar HUD dan panel Profil dalam dunia kini memaparkan **avatar pemain** (`mdAvatarMini`, menggunakan `zvSvg`; huruf awal nama jika avatar belum dicipta) dan **peranan** (Guru, Murid · Tingkatan X, Pelawat), bukan lencana dan nama pangkat Tempur.
+- Bar kemajuan pangkat di butang nama disembunyikan.
+- Sistem pangkat, XP dan paparan pangkat dalam permainan Tempur tidak berubah.
+- **Ujian:** Node 59/59; Playwright (butang nama "Guru · 35 mata" dengan avatar; profil tanpa pangkat); tiada `pageerror`.
+
 ## 2026-11-01 · v18.64 · Akses ikut peranan: murid, pelawat dan guru
 
 - **Murid dan pelawat:** butang Ruang Guru di paparan utama disembunyikan (`mdGuru`, `guruUi`).

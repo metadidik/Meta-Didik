@@ -7271,7 +7271,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.64";
+const APP_VER = "18.65";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -8598,11 +8598,22 @@ function slListSection() {
 }
 
 /* ---------- Profil, pangkat ---------- */
+/* v18.65: pangkat tentera hanya untuk permainan Tempur. Dalam Meta Didik, butang profil memaparkan avatar dan peranan. */
+function mdAvatarMini(sz) {
+  let z = null; try { z = zvState(); } catch (e) { z = null; }
+  if (z && (z.g === "L" || z.g === "P") && typeof zvSvg === "function") { try { return '<span class="mdav" style="width:' + sz + 'px;height:' + sz + 'px">' + zvSvg(z, sz * 2, { noframe: true }) + "</span>"; } catch (e) { /* abaikan */ } }
+  return '<span class="mdav mdav-h" style="width:' + sz + 'px;height:' + sz + 'px;font-size:' + Math.round(sz * 0.5) + 'px">' + String(P.nama || "?").charAt(0).toUpperCase().replace(/[<>&"]/g, "") + "</span>";
+}
+function mdPerananLbl() {
+  const r = typeof gtRole === "function" ? gtRole() : "murid";
+  if (r === "guru") return "Guru"; if (r === "pelawat") return "Pelawat";
+  const tk = typeof tahapMurid === "function" ? tahapMurid() : 0; return tk && typeof tahapNama === "function" ? "Murid · " + tahapNama(tk) : "Murid";
+}
 function renderMe() {
   const cx = curXp(), ri = myRank(), next = RANKS[ri + 1];
-  { const sd = mySid(), lg = sd ? logoOf(sd) : ""; $("meIns").innerHTML = (lg ? '<span class="crestbk" style="background-image:url(' + lg + ')"></span>' : "") + insignia(ri, 34); }
+  $("meIns").innerHTML = mdAvatarMini(34);
   $("meName").textContent = P.nama || "Anggota";
-  $("meRank").textContent = RANKS[ri].n + " | " + Math.round(cx) + " mata";
+  $("meRank").textContent = mdPerananLbl() + " · " + Math.round(cx) + " mata";
   const lo = RANKS[ri].xp, hi = next ? next.xp : lo + 1;
   $("meXp").style.width = (next ? clamp((cx - lo) / (hi - lo), 0, 1) * 100 : 100) + "%";
 }
