@@ -11,6 +11,34 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.51 · Jalan raya di atas laut (Port Dickson dan lain-lain)
+Branch `claude/jalan-pantai`.
+
+**Masalah (dilaporkan dari iPad):** di Port Dickson, jalan raya dilukis sebagai jambatan bertiang di atas laut.
+
+**Punca**
+- Garis pantai dunia adalah kasar (~1 km), dan data jalan Natural Earth 10m serta tambahan manual juga kasar.
+- Jalan pesisir jatuh ke dalam laut, dan setiap titik jalan basah dijadikan dek jambatan.
+
+**Pembaikan** (`lmJalanPantai` dalam `lmJalanBuild`):
+- **Jalan pesisir:** jika daratan ada di satu sisi jalan (serenjang, sehingga 60 unit ~ 8 km), titik itu dialih ke darat (3 unit ke dalam dari pantai) dan dilicinkan.
+- **Muara sempit:** lintasan pendek (≤ 3 titik, ~2.8 km) dengan darat di kedua-dua sisi kekal sebagai jambatan.
+- **Lebuh raya bertanda** (contohnya Jambatan Pulau Pinang) menggunakan jajaran sendiri dan tidak terjejas.
+- **Data `meta-jalan.json`:** entri tambahan manual Sandakan → Lahad Datu → Tawau dibuang. Entri itu hanya 9 titik untuk ~250 km dan memotong Teluk Darvel sejauh ~13 km di atas laut. Laluan Sandakan → Tawau tetap bersambung melalui data Natural Earth.
+
+**Diuji** (Playwright, seluruh Malaysia):
+
+| Ukuran | Sebelum | Selepas |
+|---|---|---|
+| Titik jalan basah | 226 / 11,800 | 26 / 11,561 |
+| Larian basah lebih 2 titik | 17 (terpanjang 54) | 0 |
+
+- Semua 47 terminal bas kekal (Semenanjung 30, Borneo 17).
+- Jambatan Pulau Pinang utuh.
+- Tiada ralat halaman; Node 59/59.
+
+---
+
 ## 2026-11-01 · v18.49–v18.50 · iPad: avatar tidak berjalan di dunia Meta Didik
 Branch `claude/ipad-gerak` (termasuk diagnostik v18.49 daripada PR #57).
 
