@@ -11,6 +11,23 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.71 · Pil perjalanan kecil (kereta api, bas, teksi, feri, kapal terbang)
+
+- **Masalah:** panel perjalanan besar di tengah atas skrin menutup pemandangan dan kad panduan "Seterusnya".
+- **Reka semula** (komponen `.lm-fl` yang sama untuk semua kenderaan):
+  - pil separa lutsinar di bawah tengah;
+  - laluan (satu baris, dipendekkan jika panjang) dan status/kelajuan kuning;
+  - bar kemajuan nipis di tepi bawah pil;
+  - butang **Langkau** kecil di kanan.
+  - Bagi kapal terbang, butang "Langkau ke pendaratan" dipendekkan menjadi "Langkau ⏭".
+- **Kedudukan:**
+  - landskap: antara joystick dan butang Lari/Lompat;
+  - potret: lebar penuh di atas joystick.
+  - Tiada pertindihan dengan joystick, butang atau kad panduan (disemak secara automatik).
+- **Ujian:**
+  - Playwright 1000×460 dan 390×844;
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.70 · Butang bunyi, tenaga 3 kali makan sehari, permainan kendiri sebagai Stesen Inovasi
 
 - **Butang bunyi (jimat bateri):**
