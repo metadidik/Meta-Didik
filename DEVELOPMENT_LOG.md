@@ -11,6 +11,23 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.72 · Penilaian murid selepas bermain permainan kendiri (stesen rasmi)
+
+- **Kad penilaian:**
+  - selepas murid kembali daripada Tempur, Misi Lagenda, Amali, Dunia Ilmu, Busana atau Nelayan, kad "Bagaimana <permainan> tadi?" dibuka;
+  - murid memberi 1 hingga 5 bintang dan komen pilihan (ditapis kata kesat, pautan dan nombor telefon), atau tekan "Nanti".
+- **Penyimpanan:**
+  - `stesen_nilai/md-<permainan>-<subjek>/<peranti>` dan `stesen_komen/...`, iaitu nod dan Rules sedia ada yang sama dengan inovasi guru;
+  - hanya selepas pentadbir memasang stesen rasmi, kerana Rules mensyaratkan stesen "lulus".
+- **Paparan:**
+  - nota stesen di kad lokasi memaparkan purata bintang;
+  - papan pentadbir memaparkan purata bintang setiap permainan dan 10 komen terkini.
+  - Penilaian inovasi guru (v18.34) tidak berubah.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright: Mula Tempur (-5 MD), kembali ke dunia, kad penilaian dibuka, 4 bintang dihantar ke `stesen_nilai/md-tp-tw/<peranti>`;
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.71 · Pil perjalanan kecil (kereta api, bas, teksi, feri, kapal terbang)
 
 - **Masalah:** panel perjalanan besar di tengah atas skrin menutup pemandangan dan kad panduan "Seterusnya".

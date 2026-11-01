@@ -7314,7 +7314,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.71";
+const APP_VER = "18.72";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -18068,10 +18068,12 @@ function mdGuruBox(box) {
 async function mdAdmLoad(m) {
   MD.admBusy = true; MD.admM = m;
   try {
-    const [g, st, tb, tt] = await Promise.all([kmAdmReq("GET", "stesen_guna"), kmAdmReq("GET", "stesen"), kmAdmReq("GET", "tabung/" + m), kmAdmReq("GET", "tuntutan/" + m)]);
+    const [g, st, tb, tt, nl, kmn] = await Promise.all([kmAdmReq("GET", "stesen_guna"), kmAdmReq("GET", "stesen"), kmAdmReq("GET", "tabung/" + m), kmAdmReq("GET", "tuntutan/" + m), kmAdmReq("GET", "stesen_nilai").catch(() => null), kmAdmReq("GET", "stesen_komen").catch(() => null)]);
     const all = Object.keys(g || {}).map((id) => Object.assign({ id: id, d: (st || {})[id] || {} }, mdTally(g[id], m))).filter((r) => r.md > 0).sort((a, b) => b.md - a.md);
     const rows = all.filter((r) => !mdRasmiDari(r.id)), rasmi = all.filter((r) => mdRasmiDari(r.id)); /* v18.70: permainan Meta Didik tidak diagih kepada guru */
-    MD.adm = { rows: rows, tot: rows.reduce((a, r) => a + r.md, 0), tb: tb, tt: tt || {}, rasmi: rasmi, rasmiTot: rasmi.reduce((a, r) => a + r.md, 0), pasang: Object.keys(st || {}).filter((id) => mdRasmiDari(id)).length };
+    const nilai = {}, komen = []; Object.keys(nl || {}).forEach((id) => { const x = mdRasmiDari(id); if (!x) return; const o = nilai[x.k] || (nilai[x.k] = { s: 0, n: 0 }); Object.values(nl[id] || {}).forEach((v) => { if (v && v.r >= 1 && v.r <= 5) { o.s += v.r; o.n++; } }); });
+    Object.keys(kmn || {}).forEach((id) => { const x = mdRasmiDari(id); if (!x) return; Object.values(kmn[id] || {}).forEach((v) => { if (v && v.k) komen.push({ k: x.k, sj: x.sj, t: v.t || 0, n: v.n || "Murid", m: String(v.k).slice(0, 140) }); }); }); komen.sort((a, b) => b.t - a.t);
+    MD.adm = { nilai: nilai, komen: komen.slice(0, 10), rows: rows, tot: rows.reduce((a, r) => a + r.md, 0), tb: tb, tt: tt || {}, rasmi: rasmi, rasmiTot: rasmi.reduce((a, r) => a + r.md, 0), pasang: Object.keys(st || {}).filter((id) => mdRasmiDari(id)).length };
   } catch (e) { MD.adm = null; toast("Gagal memuat data MD (kod " + (e.code || "rangkaian") + ").", "bad"); }
   MD.admBusy = false;
 }
@@ -18095,7 +18097,8 @@ function mdAdminBox(box) {
     rb.appendChild(el("div", { class: "row", style: "gap:8px" }, hgS, ps));
     rb.appendChild(el("div", { style: "font-size:14px;font-weight:700" }, mdMonthName(MD.admM) + ": " + A.rasmiTot + " MD diterima daripada murid"));
     const per = {}; A.rasmi.forEach((r) => { const x = mdRasmiDari(r.id), o = per[x.k] || (per[x.k] = { md: 0, n: 0, sj: {} }); o.md += r.md; o.n += r.n; o.sj[x.sj] = (o.sj[x.sj] | 0) + r.md; });
-    Object.keys(MD_RASMI).forEach((k) => { const o = per[k]; rb.appendChild(el("div", { style: "font-size:13px;padding:3px 0;border-top:1px solid var(--line2)" }, MD_RASMI[k][1] + " " + MD_RASMI[k][0] + " · " + (o ? o.md + " MD · " + o.n + " guna · " + Object.keys(o.sj).map((sj) => ((SUBJS[sj] || {}).subjek || sj) + " " + o.sj[sj]).join(", ") : "0 MD"))); });
+    Object.keys(MD_RASMI).forEach((k) => { const o = per[k], nv = (A.nilai || {})[k]; rb.appendChild(el("div", { style: "font-size:13px;padding:3px 0;border-top:1px solid var(--line2)" }, MD_RASMI[k][1] + " " + MD_RASMI[k][0] + " · " + (o ? o.md + " MD · " + o.n + " guna · " + Object.keys(o.sj).map((sj) => ((SUBJS[sj] || {}).subjek || sj) + " " + o.sj[sj]).join(", ") : "0 MD") + " · " + (nv && nv.n ? "★ " + (nv.s / nv.n).toFixed(1) + " (" + nv.n + " penilaian)" : "belum dinilai"))); });
+    if ((A.komen || []).length) { rb.appendChild(el("b", { style: "font-size:13px;margin-top:4px" }, "Komen terkini murid")); A.komen.forEach((x) => rb.appendChild(el("div", { style: "font-size:12.5px" }, MD_RASMI[x.k][1] + " " + x.n + ": " + x.m))); }
     c.appendChild(rb); }
   c.appendChild(el("p", { style: "font-size:14px" }, mdMonthName(MD.admM) + ": " + A.tot + " MD daripada " + A.rows.length + " inovasi." + (A.tb ? " Tabung ditetapkan: " + mdRM(A.tb.rm) + " (" + mdRM(A.tb.kd) + "/MD)." : " Tabung belum ditetapkan.")));
   A.rows.forEach((r) => c.appendChild(el("div", { style: "font-size:13px;padding:4px 0;border-top:1px solid var(--line2)" }, (r.d.tj || r.id) + " · " + (r.d.n || "-") + " · " + r.md + " MD · " + r.n + " guna · " + r.murid + " murid" + (r.n > r.murid * 20 ? " ⚠ semak: guna berulang tinggi" : ""))));

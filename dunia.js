@@ -3718,10 +3718,44 @@ function lmBunyi(on) {
 }
 const LM_IK_BUNYI = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 9h4l5-4v14l-5-4H3z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const LM_IK_SENYAP = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 9h4l5-4v14l-5-4H3z"/><path d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
-function lmRasmi(k, go) { if (typeof mdRasmiGuna !== "function") { go(); return; } mdRasmiGuna(k, (ok) => { if (ok) go(); }); }
+function lmRasmi(k, go) {
+  const mula = () => { LM.st.nilaiDue = { k: k, sj: SUBJ, t: Date.now() }; lmSave(); go(); }; /* v18.72: minta penilaian selepas kembali */
+  if (typeof mdRasmiGuna !== "function") { mula(); return; } mdRasmiGuna(k, (ok) => { if (ok) mula(); });
+}
+/* v18.72: penilaian 1-5 bintang (dan komen pilihan) selepas murid bermain permainan kendiri / stesen rasmi */
+async function lmRasmiNilai(due) {
+  if (!due || due.sj !== SUBJ || Date.now() - (due.t || 0) > 3 * 3600000 || lmPelawat()) return;
+  let d = null; try { d = typeof mdRasmiInfo === "function" ? await mdRasmiInfo(due.k) : null; } catch (e) { d = null; }
+  if (!d || !FB.url) return; /* stesen belum dipasang pentadbir: Rules menolak penilaian */
+  const id = mdRasmiId(due.k), nm = (MD_RASMI[due.k] || ["Permainan"])[0];
+  lmCard((b) => {
+    b.append(el("div", { class: "lm-kick" }, "⭐ Stesen Inovasi Meta Didik"), el("h2", null, "Bagaimana " + nm + " tadi?"), el("p", { class: "lm-ex" }, "Beri bintang supaya permainan ini boleh ditambah baik."));
+    let r = 0; const st = el("div", { class: "lm-row lm-bintang", role: "radiogroup", "aria-label": "Penilaian" });
+    const paint = () => [...st.children].forEach((x, i) => { x.textContent = i < r ? "★" : "☆"; x.className = i < r ? "pri" : ""; x.setAttribute("aria-checked", String(i + 1 === r)); });
+    for (let i = 1; i <= 5; i++) { const sb = lmBtn("☆", "", () => { r = i; paint(); }); sb.setAttribute("role", "radio"); sb.setAttribute("aria-label", i + " bintang"); sb.style.minWidth = "48px"; sb.style.fontSize = "24px"; st.appendChild(sb); }
+    paint();
+    const k = el("input", { class: "lm-in", maxlength: "140", placeholder: "Komen (pilihan)", "aria-label": "Komen", style: "width:100%;text-transform:none;letter-spacing:0;font-size:14px;text-align:left" });
+    const out = el("span", { class: "lm-ex" });
+    const send = lmBtn("Hantar penilaian", "pri", async () => {
+      if (!r) { out.textContent = "Pilih bilangan bintang."; return; }
+      const kk = String(k.value || "").replace(/[\u0000-\u001f<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, 140);
+      if (kk && typeof kmBad === "function" && kmBad(kk)) { out.textContent = "Komen mengandungi perkataan tidak sesuai, pautan atau nombor telefon."; return; }
+      send.disabled = true; out.textContent = "Menghantar...";
+      try {
+        const gid = FB.getUid();
+        await FB.req("PUT", "stesen_nilai/" + id + "/" + gid, { r: r, t: { ".sv": "timestamp" } });
+        if (kk) await FB.req("PUT", "stesen_komen/" + id + "/" + gid, { k: kk, n: String(lmShortName(P.nama) || "Murid").slice(0, 20), t: { ".sv": "timestamp" } });
+        lmCardClose(); lmPop("⭐ Terima kasih atas penilaian anda");
+      } catch (e) { send.disabled = false; out.textContent = "Gagal dihantar (kod " + (e.code || "rangkaian") + ")."; }
+    });
+    b.append(st, k, el("div", { class: "lm-row", style: "margin-top:6px" }, send, lmBtn("Nanti", "", lmCardClose), out));
+  });
+}
 function lmRasmiNota(ks) {
   const sj = (typeof SUBJS !== "undefined" && SUBJS[SUBJ] && SUBJS[SUBJ].subjek) || SUBJ, p = el("p", { class: "lm-ex lm-rasmi" }, "⭐ Stesen Inovasi Meta Didik · soalan " + sj);
-  if (typeof mdRasmiInfo === "function") Promise.all(ks.map((k) => mdRasmiInfo(k))).then((ds) => { const h = ds.filter(Boolean).map((d) => d.hg | 0); p.textContent = "⭐ Stesen Inovasi Meta Didik · soalan " + sj + (h.length ? " · " + Math.max(...h) + " MD sekali sehari (MD anda " + (P.coin | 0) + ")" : " · percuma"); }).catch(() => {});
+  if (typeof mdRasmiInfo === "function") Promise.all(ks.map((k) => mdRasmiInfo(k))).then(async (ds) => { const h = ds.filter(Boolean).map((d) => d.hg | 0); let nil = "";
+    if (h.length && FB.url) { try { const rs = []; for (const k of ks) { const v = (await FB.req("GET", "stesen_nilai/" + mdRasmiId(k))) || {}; Object.values(v).forEach((x) => { if (x && x.r >= 1 && x.r <= 5) rs.push(x.r); }); } if (rs.length) nil = " · ★ " + (rs.reduce((a, b) => a + b, 0) / rs.length).toFixed(1) + " (" + rs.length + " penilaian)"; } catch (e) { nil = ""; } }
+    p.textContent = "⭐ Stesen Inovasi Meta Didik · soalan " + sj + (h.length ? " · " + Math.max(...h) + " MD sekali sehari (MD anda " + (P.coin | 0) + ")" : " · percuma") + nil; }).catch(() => {});
   return p;
 }
 function lmRasmiTanda(g) { /* lampu emas pada setiap lokasi permainan kendiri */
@@ -6876,6 +6910,7 @@ function lmSpawn(g) {
       if (si) LM.resume = { x: si.x, z: si.z, msg: "Destinasi: " + si.n + " · " + (t ? t.nama : "") };
       else if (t && DATA.negeri[t.negeri]) { const n = DATA.negeri[t.negeri], pins = n.pins && n.pins.length ? n.pins : [[0, 0]], xy = t.xy || pins[(t.pin | 0) % pins.length] || pins[0], w = lmSnap(t.negeri, toW(t.negeri, xy[0], xy[1])); LM.resume = { x: w.x, z: w.z, msg: "Destinasi: " + n.nama + " · " + t.nama }; }
     } catch (e) { /* abaikan: mula seperti biasa */ } }
+  { const due = LM.st && LM.st.nilaiDue; if (due) { delete LM.st.nilaiDue; lmSave(); setTimeout(() => { try { lmRasmiNilai(due); } catch (e) { /* abaikan */ } }, 2500); } }
   { const rs = LM.resume; LM.resume = null; /* v18.18: kembali dari Tempur atau Tanah Suci */
     const it = rs && (rs.at ? g.items.find((x) => x.id === rs.at) : rs.x != null ? { x: rs.x, z: rs.z, n: "Meta Didik" } : null); /* v18.28: atau kedudukan terakhir (Kolam Ikan) */
     if (it) { g.p.x = it.x; g.p.z = it.z; g.p.yaw = 0; g.cam.yaw = 0; g.camera.position.set(it.x, 30, it.z + 30); setTimeout(() => lmPop(rs.msg || "Selamat kembali ke " + (it.n || it.sn || "Meta Didik")), 600); return; } }
