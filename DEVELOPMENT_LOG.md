@@ -11,6 +11,46 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.64 · Akses ikut peranan: murid, pelawat dan guru
+
+- **Murid dan pelawat:** butang Ruang Guru di paparan utama disembunyikan (`mdGuru`, `guruUi`).
+- **Guru:**
+  - wajib e-mel DELIMa (`@moe-dl.edu.my`) dalam pendaftaran langkah 2; jika log masuk DELIMa sudah dipasang (`AUTH.on()`), butang log masuk sebenar dipaparkan;
+  - e-mel disimpan dalam `gt-stn-em` dan dihantar ke `stesen_em` (pentadbir sahaja) semasa menghantar inovasi;
+  - `guruDaftarOk()` menjadikan guru berdaftar sebagai guru (selagi `AUTH.on()` palsu);
+  - butang **📌 Tambah Inovasi** dalam Menu Utama memasang booth di kedudukan semasa guru (`lmPacak`).
+- **Pelawat** (`mdPelawat`, `lmPelawat`), tanpa e-mel:
+  - interaksi dihadkan kepada `LM_PELAWAT_OK` (booth, tempat, pengangkutan, kedai makan, penaja, maklumat);
+  - kuiz, Stesen Ilmu, Menara, kem Tempur, nelayan dan situasi akhlak ditolak;
+  - kad tempat tanpa "Jawab Kuiz";
+  - booth: pengenalan inovasi sahaja, tanpa Guna/Suka/penilaian;
+  - tidak menyertai bilik multiplayer, jadi tiada chat atau suara dan tidak kelihatan kepada murid;
+  - menu tanpa Kawan, Kuiz dan Ruang Privasi.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright untuk 3 peranan: daftar, butang Ruang Guru, menu, bilik, e-mel bukan DELIMa ditolak, Tambah Inovasi, Stesen Ilmu ditolak bagi pelawat, kad tempat tanpa kuiz;
+  - tiada `pageerror`.
+
+## 2026-11-01 · v18.63 · Terowong boleh dimasuki dan ditembusi
+
+- **Tiub terowong** (`lmTunTiub`) untuk 6 terowong (Menora, Genting Sempah, Bukit Berapit, Genting ECRL, SMART, Penchala), sepanjang jajaran sebenar dari mulut ke mulut:
+  - dinding konkrit berlengkung, jalan bergaris (atau landasan), kerb;
+  - lampu siling (`InstancedMesh`);
+  - bingkai mulut berlubang.
+  - Pintu gelap portal lama di sepanjang tiub disembunyikan.
+- **Profil lantai:** sekurang-kurangnya 1.2 unit di bawah permukaan bukit, dengan penapis minimum dan purata. Dari setiap mulut, cerun maksimum 1.0, jadi bahagian berbumbung di mulut ialah ~9 unit.
+- **Mod terowong:**
+  - `lmTunMasuk`: berjalan ke dalam mulut;
+  - `lmTunGerak`: ikut lantai, dihadkan dinding;
+  - keluar di mulut sebelah sana;
+  - `lmTunSah`: mod ditamatkan jika avatar dipindahkan oleh sistem lain.
+- **Kamera:** di belakang avatar sejajar terowong, dengan had tinggi ikut lantai di kedudukan kamera. Selepas keluar, kamera kekal dekat sehingga avatar jauh dari mulut. Laut disembunyikan semasa dalam terowong (lantai boleh di bawah paras laut).
+- **Ujian:**
+  - Node 59/59;
+  - Playwright: berjalan menembusi Genting Sempah (masuk di Selangor, keluar di Pahang), Menora dan Penchala;
+  - tiada `pageerror`.
+- Imej: `docs/reka-semula/terowong.jpg`.
+
 ## 2026-11-01 · v18.62 · Borang Pacak Inovasi guru direka semula
 
 - `stnGuruBox` (digunakan dalam dunia 3D dan Ruang Guru) menjadi wizard 4 langkah bertema cerah:

@@ -2465,7 +2465,7 @@ function lmSweep(pts, cum, prof, vScale, skip) {
 /* portal terowong konkrit */
 function lmPortal() {
   const g = new T.Group(), c = lmMat("#b9b4aa"), d = lmMat("#1b1a19");
-  g.add(lmMesh(lmBox(1.6, 9, 12), c, 0, 4.5, 0)); g.add(lmMesh(lmBox(1.7, 6.2, 6.4), d, 0.05, 3.1, 0));
+  g.add(lmMesh(lmBox(1.6, 9, 12), c, 0, 4.5, 0)); const gl = lmMesh(lmBox(1.7, 6.2, 6.4), d, 0.05, 3.1, 0); gl.name = "gelap"; g.add(gl); g.userData.portal = 1;
   g.add(lmMesh(lmBox(2.4, 1.2, 13), c, 0, 9.4, 0));
   return g;
 }
@@ -2945,7 +2945,86 @@ function lmTunBuild(g) {
     const e0 = ends[0], lb = lmLabel("🚇 " + t.n + " · " + (t.km >= 1 ? t.km + " km" : Math.round(t.km * 1000) + " m"), { fs: 26, k: 0.03, bg: "rgba(40,40,46,.85)", bd: "#ffd45a" });
     lb.position.set(e0.x, e0.y + 13, e0.z); g.scene.add(lb);
     g.items.push({ kind: "tn", id: "tn-" + t.id, n: t.n, x: e0.x, z: e0.z, r: 0, ir: 16, t: t, lb: lb });
+    try { lmTunTiub(g, t); } catch (e) { console.warn("terowong boleh dilalui", t.id, e); }
   }
+}
+/* ---------- v18.63: terowong boleh dilalui ----------
+   Tiub konkrit berlengkung (dinding, jalan, lampu siling) dibina di sepanjang jajaran sebenar terowong dari mulut ke mulut,
+   di bawah bukit. Avatar yang berjalan masuk ke mulut terowong beralih ke mod terowong: mengikut lantai terowong, dihadkan
+   oleh dinding, kamera kekal di dalam; keluar di mulut sebelah sana. */
+function lmTunLaluan(t) {
+  let src = null, s0 = 0, s1 = 0;
+  if (t.R) { src = t.R; s0 = Math.max(0, t.s0 - t.half - TUN_RAMP); s1 = Math.min(t.R.len, t.s0 + t.half + TUN_RAMP); }
+  else if (t.e) { src = t.e; s0 = 0; s1 = t.e.len; }
+  if (!src || s1 - s0 < 10) return null;
+  const n = Math.max(4, Math.ceil((s1 - s0) / 2)), pts = [], cum = [0];
+  for (let i = 0; i <= n; i++) { const a = lmRailAt(src, s0 + (s1 - s0) * i / n); pts.push({ x: a.x, y: a.y, z: a.z }); if (i) cum.push(cum[i - 1] + Math.hypot(a.x - pts[i - 1].x, a.z - pts[i - 1].z)); }
+  return { pts: pts, cum: cum, len: cum[cum.length - 1] };
+}
+function lmTunTiub(g, t) {
+  const w = lmTunLaluan(t); if (!w) return;
+  const rel = t.R && !t.R.L.road, W = rel ? 4.6 : 7, H = rel ? 7 : 7.6, q = lmQ();
+  /* lantai: seluruh tiub sekurang-kurangnya 2 unit di bawah permukaan bukit; di mulut bermula pada paras jalan dan menurun
+     dengan kecerunan maksimum 0.45 (bahagian awal menjadi laluan berbumbung yang masuk ke dalam bukit) */
+  { const P = w.pts, n = P.length, m = 1.0, raw = P.map((q2) => Math.min(q2.y, lmHRaw(q2.x, q2.z) - H - 1.2));
+    /* penapis minimum (kekal di bawah bukit) kemudian purata (licin), kemudian cerun maksimum dari kedua-dua mulut */
+    const mn = raw.map((_, i) => { let v = 1e9; for (let j = Math.max(0, i - 4); j <= Math.min(n - 1, i + 4); j++) v = Math.min(v, raw[j]); return v; });
+    const f = mn.map((_, i) => { let a = 0, c = 0; for (let j = Math.max(0, i - 3); j <= Math.min(n - 1, i + 3); j++) { a += mn[j]; c++; } return a / c; });
+    for (let i = 0; i < n; i++) f[i] = Math.max(f[i], P[0].y - m * w.cum[i], P[n - 1].y - m * (w.len - w.cum[i]));
+    f[0] = P[0].y; f[n - 1] = P[n - 1].y; P.forEach((q2, i) => { q2.y = f[i]; }); }
+  const arch = [[W, 0]]; for (let i = 0; i <= 12; i++) { const a = i / 12 * Math.PI; arch.push([Math.cos(a) * W, H * 0.55 + Math.sin(a) * H * 0.45]); } arch.push([-W, 0]);
+  const dinding = GEO.tunDinding || (GEO.tunDinding = new T.MeshLambertMaterial({ color: 0xa9a49a, emissive: 0x2e2b27, side: T.DoubleSide }));
+  const lantai = GEO.tunLantai || (GEO.tunLantai = new T.MeshLambertMaterial({ color: rel ? 0x6b5f52 : 0x3b3d42, emissive: 0x141414, side: T.DoubleSide }));
+  const tiub = new T.Mesh(lmSweep(w.pts, w.cum, arch, 8), dinding); tiub.receiveShadow = false; tiub.castShadow = false; g.scene.add(tiub);
+  const lt = new T.Mesh(lmSweep(w.pts, w.cum, [[-W + 0.2, 0.06], [W - 0.2, 0.06]], 8), lantai); g.scene.add(lt);
+  /* garisan tengah (jalan) atau landasan (rel) dan kerb pejalan kaki */
+  const kuning = GEO.tunGaris || (GEO.tunGaris = new T.MeshBasicMaterial({ color: rel ? 0x9aa0a8 : 0xffd45a }));
+  for (const o of rel ? [-0.75, 0.75] : [0]) g.scene.add(new T.Mesh(lmSweep(w.pts, w.cum, [[o - 0.12, 0.09], [o + 0.12, 0.09]], 8), kuning));
+  const kerb = GEO.tunKerb || (GEO.tunKerb = new T.MeshLambertMaterial({ color: 0xbdb6a8, emissive: 0x222018, side: T.DoubleSide }));
+  for (const sg of [-1, 1]) g.scene.add(new T.Mesh(lmSweep(w.pts, w.cum, [[sg * (W - 0.15), 0.06], [sg * (W - 0.15), 0.45], [sg * (W - 1.3), 0.45], [sg * (W - 1.3), 0.06]], 8), kerb));
+  /* lampu siling setiap ~5 unit */
+  const lampu = GEO.tunLampu || (GEO.tunLampu = new T.MeshBasicMaterial({ color: 0xfff1c4 })), gl = GEO.tunLampuG || (GEO.tunLampuG = new T.BoxGeometry(0.5, 0.18, 1.8));
+  const nl = Math.floor(w.len / (q ? 5 : 8)), im = new T.InstancedMesh(gl, lampu, Math.max(1, nl)), M = new T.Matrix4(), Q = new T.Quaternion(), Y = new T.Vector3(0, 1, 0), S1 = new T.Vector3(1, 1, 1);
+  for (let i = 0; i < nl; i++) { const a = lmRailAt(w, (i + 0.5) * w.len / nl); Q.setFromAxisAngle(Y, Math.atan2(a.tx, a.tz)); M.compose(new T.Vector3(a.x, a.y + H - 0.25, a.z), Q, S1); im.setMatrixAt(i, M); }
+  im.count = nl; g.scene.add(im);
+  /* bingkai mulut di kedua-dua hujung (tanpa pintu gelap) */
+  const kon = lmMat("#b9b4aa"), kon2 = lmMat("#8f8a80");
+  for (const s of [0, w.len]) { const a = lmRailAt(w, s), po = new T.Group();
+    for (const sg of [-1, 1]) po.add(lmMesh(lmBox(1.4, H + 1.2, 1.3), kon, 0, (H + 1.2) / 2 - 0.3, sg * (W + 0.6)));
+    po.add(lmMesh(lmBox(1.5, 1.4, 2 * W + 2.6), kon, 0, H + 0.9, 0)); po.add(lmMesh(lmBox(1.6, 0.35, 2 * W + 2.8), kon2, 0, H + 1.7, 0));
+    po.position.set(a.x, a.y, a.z); po.rotation.y = Math.atan2(-a.tz, a.tx); g.scene.add(po); }
+  /* sembunyikan pintu gelap portal lama di sepanjang tiub supaya tidak menghalang */
+  g.scene.children.forEach((o) => { if (!o.userData || !o.userData.portal) return; const d = o.getObjectByName("gelap"); if (!d) return; for (let i = 0; i < w.pts.length; i += 2) if (Math.hypot(w.pts[i].x - o.position.x, w.pts[i].z - o.position.z) < 9) { d.visible = false; break; } });
+  (g.tunW || (g.tunW = [])).push({ t: t, w: w, W: W, H: H });
+}
+function lmTunMasuk(g, p) {
+  if (!g.tunW || (g.tunOut || 0) > g.T) return false;
+  for (const U of g.tunW) for (const [s, sg] of [[0, 1], [U.w.len, -1]]) {
+    const a = lmRailAt(U.w, s), dx = p.x - a.x, dz = p.z - a.z;
+    if (dx * dx + dz * dz > 42) continue;
+    if ((p.vx * a.tx + p.vz * a.tz) * sg < 1.5) continue; /* mesti bergerak ke arah dalam terowong */
+    const off = clamp(dx * -a.tz + dz * a.tx, -(U.W - 1.4), U.W - 1.4);
+    g.tun = { U: U, s: s + sg * 1.2, off: off, dir: sg }; g.tunCam = null; lmPop("🚇 Masuk " + U.t.n); return true;
+  }
+  return false;
+}
+/* jika avatar dipindahkan oleh sistem lain (teksi, penerbangan, lompat ke destinasi), keluar mod terowong */
+function lmTunSah(g, p) { const Z = g.tun, b = lmRailAt(Z.U.w, clamp(Z.s, 0, Z.U.w.len)), ex = b.x - b.tz * Z.off, ez = b.z + b.tx * Z.off; if (Math.hypot(p.x - ex, p.z - ez) > 6) { g.tun = null; return false; } return true; }
+function lmTunGerak(g, p, dx, dz, dt, il, run) {
+  const Z = g.tun, U = Z.U, a = lmRailAt(U.w, clamp(Z.s, 0, U.w.len));
+  p.vx += (dx - p.vx) * Math.min(1, dt * 10); p.vz += (dz - p.vz) * Math.min(1, dt * 10);
+  const along = p.vx * a.tx + p.vz * a.tz, lat = p.vx * -a.tz + p.vz * a.tx;
+  Z.s += along * dt; Z.off = clamp(Z.off + lat * dt, -(U.W - 1.4), U.W - 1.4);
+  if (Math.abs(along) > 2) Z.dir = along > 0 ? 1 : -1;
+  if (Z.s < -0.3 || Z.s > U.w.len + 0.3) {
+    const sg = Z.s < 0 ? -1 : 1, b = lmRailAt(U.w, sg < 0 ? 0 : U.w.len);
+    p.x = b.x + b.tx * sg * 3 - b.tz * Z.off; p.z = b.z + b.tz * sg * 3 + b.tx * Z.off; p.y = lmGround(p.x, p.z);
+    g.tun = null; g.tunOut = g.T + 1.2; g.tunCam = { x: b.x, z: b.z }; lmPop("☀️ Keluar " + U.t.n);
+  } else { const b = lmRailAt(U.w, Z.s); p.x = b.x - b.tz * Z.off; p.z = b.z + b.tx * Z.off; p.y = b.y; }
+  if (il > 0.1) { let da = Math.atan2(p.vx, p.vz) - p.yaw; while (da > Math.PI) da -= 6.2832; while (da < -Math.PI) da += 6.2832; p.yaw += da * Math.min(1, dt * 12); }
+  p.moving = Math.hypot(p.vx, p.vz) > 1.5; p.swim = false; p.vy = 0; p.on = true; LM.jump = false;
+  g.me.g.position.set(p.x, p.y, p.z); g.me.g.rotation.y = p.yaw; g.me.swim = 0;
+  lmAnim(g.me, p.moving, false, dt, run ? 1.4 : 1);
 }
 function lmTunJalan(g, t) {
   const J = g.jl, W = t.jl.map((q) => ll(q[0], q[1]));
@@ -2955,7 +3034,7 @@ function lmTunJalan(g, t) {
   pts.forEach((p, i) => { const gy = Math.max(lmHRaw(p.x, p.z), 1.2), d = Math.min(cum[i], L - cum[i]), k = clamp(d / TUN_RAMP, 0, 1); p.y = gy + 0.38 - (TUN_DEPTH + 0.4) * k; p.ug = k > 0.55; });
   const node = (p) => { const n = { i: J.nodes.length, x: p.x, z: p.z, e: [], cc: null }; J.nodes.push(n); return n; };
   const a = node(pts[0]), b = node(pts[pts.length - 1]);
-  const e = { i: J.edges.length, a: a, b: b, c: 1, pts: pts, cum: cum, len: L, hw: false, lane: 2.8, tun: true };
+  const e = { i: J.edges.length, a: a, b: b, c: 1, pts: pts, cum: cum, len: L, hw: false, lane: 2.8, tun: true }; t.e = e;
   J.edges.push(e); a.e.push(e); b.e.push(e);
   /* sambung kedua-dua hujung ke nod jalan terdekat */
   for (const n of [a, b]) {
@@ -4298,6 +4377,10 @@ function lmStnOpen(it) {
     }
     b.append(el("p", { class: "lm-ex" }, "Oleh " + d.n + (d.sk ? " · " + d.sk : "") + ((d.hg | 0) ? " · Harga guna: " + d.hg + " MD sehari (MD anda: " + (P.coin | 0) + ")" : " · Percuma")), el("p", null, d.ds));
     if (d.yt && /^[\w-]{11}$/.test(d.yt)) { const f = el("iframe", { src: "https://www.youtube-nocookie.com/embed/" + d.yt + "?rel=0", title: "Video inovasi", allow: "encrypted-media; picture-in-picture", allowfullscreen: "", loading: "lazy", style: "width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000" }); b.appendChild(f); }
+    if (lmPelawat()) { /* v18.64: pelawat melihat papan pengenalan inovasi sahaja */
+      b.append(el("p", { class: "lm-ex" }, "👀 Mod pelawat: anda boleh melihat pengenalan inovasi ini. Penggunaan inovasi, penilaian dan komen untuk murid dan guru berdaftar."), el("div", { class: "lm-row" }, lmBtn("Tutup", "pri", lmCardClose)));
+      return;
+    }
     const st = el("p", { class: "lm-ex" }, "Memuat statistik...");
     b.appendChild(st);
     const row = el("div", { class: "lm-row" });
@@ -4833,6 +4916,10 @@ function lmTowerState(o) {
 function lmMyCode() { return window.AV3 ? AV3.code() : "L|1|ou_sc|oc_gn|hd_no|hc_w"; }
 /* v18.26: guru ditanda "🎓 Cikgu" pada nama (label, chat, peta) supaya murid menghormati guru */
 /* v18.28: hanya guru disahkan DELIMa (atau pentadbir); v18.29: dengan gelaran pilihan (Ustaz, Ustazah, Cikgu, Sir...) */
+/* v18.64: pelawat = lihat sahaja (booth, tempat, pengangkutan); tiada kuiz, permainan, guna inovasi atau interaksi dengan murid */
+function lmPelawat() { try { return typeof mdPelawat === "function" && mdPelawat(); } catch (e) { return false; } }
+const LM_PELAWAT_OK = { tn: 1, tl: 1, bt: 1, tx: 1, pu: 1, sn: 1, pl: 1, ap: 1, jt: 1, st: 1, ip: 1, fd: 1, pj: 1 };
+function lmPelawatTolak() { lmPop("👀 Mod pelawat: lihat sahaja"); toast("Pelawat boleh meneroka dan melihat booth inovasi sahaja. Kuiz, permainan dan interaksi dengan murid untuk murid dan guru berdaftar.", "warn"); }
 function lmIsGuru() { try { return typeof guruOk === "function" && guruOk() ? myGel() : false; } catch (e) { return false; } }
 function lmGuruName(n, gr) { return gr ? "🎓 " + gelName(typeof gr === "string" ? gr : "Cikgu", n) : n; }
 function lmAvatar(code, name, me, gr) {
@@ -4890,6 +4977,7 @@ function lmUpdatePlayer(g, dt) {
   }
   /* arah relatif kamera */
   const dx = (ix * cy + iz * sy) * sp, dz = (-ix * sy + iz * cy) * sp;
+  if (g.tun && lmTunSah(g, p)) { lmTunGerak(g, p, dx, dz, dt, il, run); return; } /* v18.63: dalam terowong */
   p.vx += (dx - p.vx) * Math.min(1, dt * 10); p.vz += (dz - p.vz) * Math.min(1, dt * 10);
   let nx = p.x + p.vx * dt, nz = p.z + p.vz * dt;
   /* tidak boleh berjalan di atas laut: cuba gelincir pada satu paksi */
@@ -4904,6 +4992,7 @@ function lmUpdatePlayer(g, dt) {
   /* cerun terlalu curam tidak boleh didaki */
   const g0 = p.swim ? Math.min(lmGround(nx, nz), 0) : lmGround(p.x, p.z), stepL = Math.hypot(nx - p.x, nz - p.z);
   if (lmSwimOk(nx, nz) || (lmCanStand(nx, nz) && !(stepL > 0.001 && (lmGround(nx, nz) - g0) / stepL > 2.2))) { p.x = nx; p.z = nz; }
+  if (!p.swim && il > 0.1 && lmTunMasuk(g, p)) return;
   if (il > 0.1) { let da = Math.atan2(p.vx, p.vz) - p.yaw; while (da > Math.PI) da -= 6.2832; while (da < -Math.PI) da += 6.2832; p.yaw += da * Math.min(1, dt * 12); }
   p.moving = Math.hypot(p.vx, p.vz) > 1.5;
   const wasSwim = p.swim; p.swim = lmSwimOk(p.x, p.z) && p.y < 1.5;
@@ -4929,6 +5018,14 @@ function lmUpdateCam(g, dt) {
   if (LM.camIn) { c.yaw -= LM.camIn[0]; c.pitch = clamp(c.pitch + LM.camIn[1], 0.08, 1.25); LM.camIn = null; }
   const tx = p.x, ty = p.y + 4.5, tz = p.z;
   let d = c.dist;
+  if (g.sea) { const v = !g.tun; if (g.sea.visible !== v) g.sea.visible = v; } /* v18.63: lantai terowong boleh berada di bawah paras laut */
+  if (g.tun) { /* v18.63: kamera di belakang avatar, sejajar terowong, kekal di dalam tiub */
+    const a = lmRailAt(g.tun.U.w, clamp(g.tun.s, 0, g.tun.U.w.len)), sg = g.tun.dir || 1, want = Math.atan2(-a.tx * sg, -a.tz * sg);
+    let dy = want - c.yaw; while (dy > Math.PI) dy -= 6.2832; while (dy < -Math.PI) dy += 6.2832; c.yaw += dy * Math.min(1, dt * 4);
+    c.pitch = clamp(c.pitch, 0.04, 0.2); d = Math.min(d, 7);
+  } else if (g.tunCam) { /* baru keluar: kamera kekal dekat sehingga avatar jauh dari mulut (bahagian berbumbung) */
+    if (Math.hypot(p.x - g.tunCam.x, p.z - g.tunCam.z) < 16) { d = Math.min(d, 7); c.pitch = Math.min(c.pitch, 0.2); } else g.tunCam = null;
+  }
   const ux = Math.sin(c.yaw) * Math.cos(c.pitch), uy = Math.sin(c.pitch), uz = Math.cos(c.yaw) * Math.cos(c.pitch);
   for (const cl of g.cols) {
     if (Math.abs(cl.x - tx) > d + cl.r + 2 || Math.abs(cl.z - tz) > d + cl.r + 2) continue;
@@ -4941,7 +5038,10 @@ function lmUpdateCam(g, dt) {
   /* keraian: kamera berpindah ke hadapan avatar */
   if (g.rai) want.set(tx + Math.sin(p.yaw) * 13, p.y + 5.5, tz + Math.cos(p.yaw) * 13);
   g.camera.position.lerp(want, 1 - Math.exp(-dt * (g.rai ? 3.5 : 9))); /* v18.35: bebas kadar bingkai */
-  { const cp = g.camera.position, gy = Math.max(lmGround(cp.x, cp.z), 0.3) + 1.6; if (cp.y < gy) cp.y = gy; }
+  if (g.tun) { /* had ketinggian ikut lantai DI KEDUDUKAN KAMERA (lantai mendaki/menurun), supaya kamera tidak menembusi bumbung */
+    const cp = g.camera.position, Z = g.tun, a = lmRailAt(Z.U.w, clamp(Z.s, 0, Z.U.w.len)), sc = Z.s + (cp.x - a.x) * a.tx + (cp.z - a.z) * a.tz;
+    const fc = lmRailAt(Z.U.w, clamp(sc, 0, Z.U.w.len)).y, lo = Math.max(fc, p.y) + 1.4, hi = Math.min(fc, p.y) + Z.U.H - 1.3; cp.y = clamp(cp.y, Math.min(lo, hi), hi); }
+  else { const cp = g.camera.position, gy = Math.max(lmGround(cp.x, cp.z), 0.3) + 1.6; if (cp.y < gy) cp.y = gy; }
   if (g.rai) g.camera.lookAt(tx, p.y + 3.2, tz); else g.camera.lookAt(tx, ty, tz);
   if (g.dome) g.dome.position.copy(g.camera.position);
   lmSkyPlace(g);
@@ -5491,6 +5591,10 @@ const LM_CSS = `
 #lmOv .lm-mu .lm-tile{background:#fff;color:#17324D;border:2px solid #d7e6f3}
 #lmOv .lm-mu .lm-tile.pri{background:#FFC857;border-color:#FFC857;color:#17324D}
 #lmOv .lm-pk .lm-box{width:min(440px,100%)}
+#lmOv .lm-tambah{display:flex;align-items:center;gap:12px;width:100%;margin-top:10px;padding:12px 14px;border-radius:18px;background:#9474E8;border:0;color:#fff;text-align:left;box-shadow:0 4px 0 #6f53c4}
+#lmOv .lm-tambah i{font-style:normal;font-size:30px}#lmOv .lm-tambah b{display:block;font:700 18px Fredoka,Nunito,sans-serif}#lmOv .lm-tambah small{display:block;font:700 12.5px Nunito,sans-serif;opacity:.9}
+#lmOv .lm-tambah:hover{background:#8563e0}#lmOv .lm-tambah:active{transform:translateY(3px);box-shadow:0 1px 0 #6f53c4}
+body.pelawat #lmOv .lm-guide{display:none}
 #lmOv .lm-pk .lm-qk button{white-space:normal}
 @media (max-width:560px),(max-height:430px){#lmOv .lm-mk{min-height:96px;padding:8px 4px;border-radius:16px}#lmOv .lm-mk i{font-size:28px}#lmOv .lm-mk b{font-size:15px}#lmOv .lm-mk span{display:none}}
 @media (max-width:560px){#lmOv .lm-mk4{grid-template-columns:repeat(2,1fr)}#lmOv .lm-ut{display:grid;grid-template-columns:repeat(4,1fr)}#lmOv .lm-tl{max-width:calc(100% - 132px)}#lmOv .lm-tl .lm-state{max-width:calc(100vw - 250px)}#lmOv .lm-guide,#lmOv.touch .lm-guide{top:calc(max(10px,env(safe-area-inset-top)) + 112px)!important;width:min(340px,calc(100vw - 24px))}#lmOv .lm-hud{max-width:calc(100% - 24px)}#lmOv .lm-prompt{max-width:calc(100vw - 150px);font-size:15px}#lmOv .lm-top{top:calc(max(10px,env(safe-area-inset-top)) + 72px)!important}#lmOv .lm-mm,#lmOv.touch .lm-mm{width:110px;height:56px}}
@@ -5545,8 +5649,10 @@ function lmMenu(sub) {
     if (!sub) {
       b.append(el("div", { class: "lm-mhd" }, el("h2", null, "Menu Utama"), lmBtn("✕", "lm-x", lmCardClose)));
       const grid = el("div", { class: "lm-mk4" });
-      Object.keys(LM_MK).forEach((k) => { const [ic, n, d, c] = LM_MK[k]; const t = el("button", { type: "button", class: "lm-mk", style: "--c:" + c }, el("i", { "aria-hidden": "true" }, ic), el("b", null, n), el("span", null, d)); t.addEventListener("click", () => lmMenu(k)); grid.appendChild(t); });
+      Object.keys(LM_MK).filter((k) => !(k === "kawan" && lmPelawat())).forEach((k) => { const [ic, n, d, c] = LM_MK[k]; const t = el("button", { type: "button", class: "lm-mk", style: "--c:" + c }, el("i", { "aria-hidden": "true" }, ic), el("b", null, n), el("span", null, d)); t.addEventListener("click", () => lmMenu(k)); grid.appendChild(t); });
       b.append(grid);
+      if (lmIsGuru()) { const tb = el("button", { type: "button", class: "lm-tambah" }, el("i", { "aria-hidden": "true" }, "📌"), el("span", null, el("b", null, "Tambah Inovasi"), el("small", null, "Pasang booth inovasi di tempat anda berdiri sekarang"))); tb.addEventListener("click", go(lmPacak)); b.append(tb); }
+      if (lmPelawat()) b.append(el("p", { class: "lm-ex" }, "👀 Mod pelawat: teroka Malaysia dan lihat booth inovasi guru. Daftar sebagai murid atau guru untuk kuiz, permainan dan main bersama."));
       const sm = LM_SMN[LM.st.sm] || ["🕒", "Ikut masa"], sky = !(g && g.sky5 && !g.sky5.sp.visible) && LM.st.sky !== 0;
       const ut = el("div", { class: "lm-ut" });
       const u = (ic, n, fn, on) => { const x = el("button", { type: "button", class: on ? "on" : "" }, el("i", { "aria-hidden": "true" }, ic), el("span", null, n)); x.addEventListener("click", fn); ut.appendChild(x); };
@@ -5569,12 +5675,12 @@ function lmMenu(sub) {
       lmTile("🛂", "Pasport", go(() => lmPassport())),
       lmTile("🎯", "Misi hari ini", go(() => lmPassport("ilmu"))));
     if (sub === "belajar") {
-      grid.append(
+      grid.append(...[
         lmTile(SJ_ICO && SJ_ICO[SUBJ] || "📚", "Subjek", go(() => { if (typeof mdPick === "function") mdPick(); }), "pri"),
         lmTile("📖", "Tajuk", go(() => lmPassport("tajuk"))),
-        lmTile("❓", "Kuiz", go(() => lmPassport("ilmu"))),
-        lmTile("🏛", "Inovasi Guru", go(lmBigMap)));
-      if (lmIsGuru()) grid.append(lmTile("📌", "Pacak inovasi", go(lmPacak)));
+        lmPelawat() ? null : lmTile("❓", "Kuiz", go(() => lmPassport("ilmu"))),
+        lmTile("🏛", "Inovasi Guru", go(lmBigMap))].filter(Boolean));
+      if (lmIsGuru()) grid.append(lmTile("📌", "Tambah Inovasi", go(lmPacak)));
     }
     if (sub === "kawan") {
       grid.append(
@@ -5584,11 +5690,11 @@ function lmMenu(sub) {
         lmTile("📸", "Swafoto", go(() => lmSelfie(null))));
       if (lmVoiceOk()) grid.append(lmTile("🎙", LM.vc ? "Suara: buka" : "Suara: tutup", go(() => { if (LM.vc) lmVoiceOff(); else lmVoiceOn(); })));
     }
-    if (sub === "profil") grid.append(
+    if (sub === "profil") grid.append(...[
       lmTile("🧑", "Avatar & Profil", go(lmProfil), "pri"),
       lmTile("🏅", "Pencapaian", go(() => lmPassport("lencana"))),
-      lmTile("🔐", "Ruang Privasi", go(lmPrivPanel)),
-      lmTile("⚙️", "Tetapan", go(lmTetapan)));
+      lmPelawat() ? null : lmTile("🔐", "Ruang Privasi", go(lmPrivPanel)),
+      lmTile("⚙️", "Tetapan", go(lmTetapan))].filter(Boolean));
     b.append(grid);
     if (sub === "belajar") b.append(el("p", { class: "lm-ex" }, "Inovasi Guru: buka Peta Malaysia untuk melihat Stesen Inovasi guru di seluruh negara. Booth juga boleh ditemui semasa meneroka."));
   }, "lm-menu lm-mu");
@@ -5671,7 +5777,7 @@ function lmPacak() {
   if (!k || !DATA.negeri[k]) { toast("Pergi ke daratan dalam Malaysia dahulu, kemudian cuba lagi.", "warn"); return; }
   const c = lmLatLon(g.p.x, g.p.z), loc = { la: Math.round(c.lat * 1e5) / 1e5, lo: Math.round(c.lon * 1e5) / 1e5, pn: k };
   lmCard((b) => { /* v18.62: kad cerah, borang wizard 4 langkah */
-    b.append(el("div", { class: "lm-mhd" }, el("h2", null, "📌 Pacak Inovasi"), lmBtn("✕", "lm-x", lmCardClose)));
+    b.append(el("div", { class: "lm-mhd" }, el("h2", null, "📌 Tambah Inovasi"), lmBtn("✕", "lm-x", lmCardClose)));
     const host = el("div", { class: "lm-stnform" }); b.appendChild(host);
     try { stnGuruBox(host, { loc: loc, rr: () => { if (LM.ui.card) lmPacakLukis(host, loc); lmStnFetch(LM.g); } }); } catch (e) { host.textContent = "Borang tidak dapat dibuka."; }
   }, "lm-mu lm-pc");
@@ -6010,9 +6116,12 @@ function lmPlaceKad(pl, kenali) {
     b.append(el("div", { class: "lm-mhd" }, el("div", { class: "lm-kick" }, "📍 " + (ng.nama || "") + (seen ? " · ✔ cop diperoleh" : "")), lmBtn("✕", "lm-x", lmCardClose)), el("h2", null, "🏛 " + pl.n));
     if (kenali) b.append(el("p", null, pl.fakta));
     const row = el("div", { class: "lm-qk" });
-    row.append(lmBtn("📖 Jawab Kuiz", "pri", () => lmPlaceOpen(pl)), kenali ? lmBtn("📸 Swafoto", "", () => { lmCardClose(); setTimeout(() => lmSelfie(pl), 60); }) : lmBtn("🔎 Kenali Tempat", "", () => lmPlaceKad(pl, true)), lmBtn("Teruskan jelajah", "", lmCardClose));
+    const pw = lmPelawat();
+    if (!pw) row.append(lmBtn("📖 Jawab Kuiz", "pri", () => lmPlaceOpen(pl)));
+    if (pw && !kenali) b.append(el("p", null, pl.fakta));
+    row.append(kenali ? lmBtn("📸 Swafoto", "", () => { lmCardClose(); setTimeout(() => lmSelfie(pl), 60); }) : lmBtn("🔎 Kenali Tempat", "", () => lmPlaceKad(pl, true)), lmBtn("Teruskan jelajah", "", lmCardClose));
     b.append(row);
-    if (!kenali) b.append(el("p", { class: "lm-ex" }, "Jawab 5 soalan (3 betul) untuk cop pasport" + (seen ? " sekali lagi." : ".")));
+    if (!kenali && !pw) b.append(el("p", { class: "lm-ex" }, "Jawab 5 soalan (3 betul) untuk cop pasport" + (seen ? " sekali lagi." : ".")));
   }, "lm-menu lm-pk");
 }
 function lmPlaceOpen(pl) {
@@ -6768,7 +6877,7 @@ function lmHud() {
 }
 function lmHudTick(g) {
   const ui = LM.ui, k = lmAt(g.p.x, g.p.z), s = lmSummary();
-  const nm = g.flight && g.flight.ph === "air" ? "Di udara ✈ " + (k ? lmPlaceShort(k) : "Laut China Selatan") : g.sail ? "⛴ Di laut" : g.ride ? lmIc(g.ride.R.L) + " " + g.ride.R.L.n + " ke " + g.ride.b.nm : g.p.swim ? "🏊 Berenang" : lmPlaceName(k);
+  const nm = g.tun ? "🚇 " + g.tun.U.t.n : g.flight && g.flight.ph === "air" ? "Di udara ✈ " + (k ? lmPlaceShort(k) : "Laut China Selatan") : g.sail ? "⛴ Di laut" : g.ride ? lmIc(g.ride.R.L) + " " + g.ride.R.L.n + " ke " + g.ride.b.nm : g.p.swim ? "🏊 Berenang" : lmPlaceName(k);
   if (ui.state.textContent !== nm) { ui.state.textContent = nm; if ((DATA.negeri[k] || ISL_BY[k]) && g.lastK && g.lastK !== k) lmPop(lmPlaceShort(k)); }
   if (DATA.negeri[k] || ISL_BY[k]) g.lastK = k;
   ui.coin.innerHTML = ""; ui.coin.append("🪙 ", el("b", null, String(P.coin | 0)));
@@ -6838,6 +6947,7 @@ function lmInteract() {
   const g = LM.g; if (!g || g.ui || !g.near) return;
   lmSnd("open");
   const it = g.near;
+  if (lmPelawat() && !LM_PELAWAT_OK[it.kind]) { lmPelawatTolak(); return; }
   if (it.kind === "tn") lmTunOpen(it); else if (it.kind === "tl") lmTolOpen(it); else if (it.kind === "bt") lmTerminalOpen(it); else if (it.kind === "tx") lmTaksiOpen(it); else if (it.kind === "pu") lmPulauOpen(it); else if (it.kind === "sn") lmStnOpen(it); else if (it.kind === "tw") lmTowerOpen(it); else if (it.kind === "pl") lmPlaceKad(it); else if (it.kind === "ap") lmAirportOpen(it); else if (it.kind === "kh") lmKhasOpen(it); else if (it.kind === "jt") lmFerryOpen(it); else if (it.kind === "st") lmRailOpen(it); else if (it.kind === "si") lmIlmuOpen(it); else if (it.kind === "km") lmKemOpen(it); else if (it.kind === "ny") lmNelayanOpen(it); else if (it.kind === "vn") lmVenueOpen(it); else if (it.kind === "ip") lmKampusOpen(it); else if (it.kind === "sk") lmOwnSchoolOpen(it); else if (it.kind === "fd") lmFoodOpen(it); else if (it.kind === "ak") lmAkOpen(it); else if (it.kind === "pj") lmPjOpen(it);
 }
 /* ---------- input ---------- */
@@ -7068,7 +7178,7 @@ function lmOpen(tid) {
   if (!GEOD) {
     const r = lmRoot(); r.appendChild(el("div", { class: "lm-card" }, el("div", { class: "lm-box" }, el("div", { class: "lm-kick" }, "META DIDIK"), el("h2", null, "Memuat peta Malaysia sebenar..."), el("p", null, "Sempadan negeri dan ketinggian muka bumi (kali pertama sahaja)."))));
   }
-  lmGeoLoad().then(() => lmOwnSchool()).then((sk) => { LM.ownSk = sk; lmRaster(); lmStart("", Net.room ? "open" : ""); /* v18.39: terus masuk; subjek, tetapan dan Ruang Privasi dalam ☰ Menu */ }).catch(() => { toast("Peta META DIDIK tidak dapat dimuatkan. Semak sambungan internet dan cuba lagi.", "warn"); lmClose(); });
+  lmGeoLoad().then(() => lmOwnSchool()).then((sk) => { LM.ownSk = sk; lmRaster(); lmStart("", Net.room && !lmPelawat() ? "open" : ""); /* v18.64: pelawat tidak menyertai bilik (tiada interaksi dengan murid) */ /* v18.39: terus masuk; subjek, tetapan dan Ruang Privasi dalam ☰ Menu */ }).catch(() => { toast("Peta META DIDIK tidak dapat dimuatkan. Semak sambungan internet dan cuba lagi.", "warn"); lmClose(); });
 }
 /* v18.38: logo penaja Platinum pada skrin memuat */
 function lmPjMuatLogo() {
