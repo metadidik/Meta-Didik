@@ -156,3 +156,52 @@ Turutan ikut cadangan pemilik: pendaftaran dan modal iPhone dahulu, kemudian rua
 1. Ruangan komen "Suara Komuniti" (kad padat, Laporkan dalam menu ⋮).
 2. Borang penaja: wizard 4 langkah dalam Ruang Penaja; butiran akaun bank hanya selepas diluluskan.
 3. **Privasi murid (keputusan pemilik):** nama sekolah kini dipaparkan kepada pemain lain (papan kedudukan, bilik). Cadangan: sembunyikan sekolah secara lalai bagi murid, dengan tetapan untuk membukanya.
+
+---
+
+# Fasa 3 (v18.61): privasi sekolah murid dan Ruang Penaja (bayar dahulu)
+
+Keputusan pemilik (2026-11-01):
+- **setuju** nama sekolah murid disembunyikan secara lalai;
+- **penaja mesti membuat bayaran sebelum disahkan.**
+
+## Privasi sekolah murid
+- **Tetapan:** `P.psk`.
+  - Murid: **tertutup secara lalai**. Guru: dipaparkan secara lalai.
+  - Pilihan dalam langkah 2 pendaftaran: "Paparkan nama sekolah saya kepada pemain lain". Ringkasan langkah 3 menunjukkan "Dipaparkan" atau "Disembunyikan".
+- **Rekod:** setiap rekod pemain membawa `ps` (1 = dipaparkan). Rekod lama tanpa `ps` **dianggap tersembunyi**.
+- **Paparan** (`skPapar`): nama sekolah pemain lain disembunyikan dalam:
+  - papan kedudukan pemain;
+  - senarai pangkat;
+  - senarai rakan dalam bilik;
+  - senarai Battle;
+  - papan Top 5 dalam dunia 3D.
+- **Kehadiran masa nyata** (bilik dan Battle) tidak lagi menghantar nama sekolah apabila tetapan ditutup.
+- Papan kedudukan **sekolah** (agregat) tidak terjejas, dan markah murid tetap dikira untuk sekolahnya.
+- **Had yang diakui:** rekod `pemain/` dan `rkm_*` masih menyimpan `sk` dan `sid` kerana diperlukan untuk agregat sekolah, dan kedua-dua nod itu boleh dibaca umum. Ini privasi peringkat paparan, bukan perlindungan data penuh. Perlindungan data penuh memerlukan perubahan skema, iaitu memisahkan rekod peribadi daripada agregat sekolah yang dikira oleh fungsi pelayan. Ia dicadangkan sebagai fasa berasingan.
+
+## Ruang Penaja: wizard 4 langkah, bayar dahulu
+Butiran aliran dalam `docs/PENAJA.md`. Ringkasan:
+- Butiran → Pakej → Lokasi & organisasi → **Bayar & hantar**.
+- Rujukan transaksi bayaran **wajib di borang dan dalam Firebase Rules**; resit pilihan.
+- Pentadbir: **Bayaran disahkan → Luluskan**, dengan pengesahan jumlah dan rujukan.
+- Butiran akaun bank hanya dalam Ruang Penaja (langkah 4), bukan dalam dunia murid.
+- `ov()` tidak lagi menggunakan skrol bersarang (`max-height`/`overflow` dibuang; overlay sahaja yang diskrol).
+
+**Pemasangan:** peraturan Firebase baharu (`docs/firebase-rules-*.json`) perlu dipasang oleh pemilik di Firebase Console. Penjana peraturan ialah `tools/ujian/penaja-rules.py`.
+
+## Ujian
+- **Node:** 59/59, termasuk 2 semakan baharu bagi `rb` dalam Rules.
+- **Playwright 390×844, penaja** (Firebase disimulasikan):
+  - langkah 1 menolak jumlah kosong;
+  - hantar tanpa rujukan ditolak;
+  - hantar tanpa tanda bayaran ditolak;
+  - hantar lengkap menulis `penaja_mohon/…` dengan `rb`;
+  - skrin "Permohonan diterima" dipaparkan.
+- **Playwright, privasi:**
+  - lalai murid tutup, guru buka, pelawat tiada medan;
+  - ringkasan "Disembunyikan";
+  - `P.psk = 0`;
+  - `skPapar` menyembunyikan pemain `ps:0` dan rekod lama, memaparkan `ps:1` dan diri sendiri;
+  - kehadiran tidak menghantar `sk`.
+- Tiada `pageerror`.

@@ -1182,3 +1182,59 @@ body:has(.overlay:not([hidden])) #mdFsBtn { display: none; }
 #reg #linkBox .btn { background: #39BCEB !important; color: #fff !important; border: 0 !important; }
 #reg .rg-more .rg-danger .btn { border-color: #e0584d !important; color: #b3342b !important; background: #fff !important; }
 body.vmap .mcard:not(.rgw) { color: var(--ink); }
+/* v18.61: pilihan privasi sekolah */
+#reg .rg-chk { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 14px; background: #fff; border: 2px solid #d7e6f3; cursor: pointer; }
+#reg .rg-chk[hidden] { display: none; }
+#reg .rg-chk input { width: 24px; height: 24px; min-height: 0; margin: 0; flex: none; accent-color: #9474E8; }
+#reg .rg-chk b { display: block; font-size: 14px; color: #17324D; }
+#reg .rg-chk small { display: block; font-size: 12.5px; color: #4f6880; }
+/* ---------- v18.61: Ruang Penaja: wizard 4 langkah (bayar dahulu) ---------- */
+#pjOv { background: rgba(23, 50, 77, .55); backdrop-filter: blur(4px); }
+#pjOv .mcard.pjw { background: #F4FAFF; color: #17324D; border: 0; border-radius: 24px; padding: 16px 18px; gap: 12px; font-family: "Nunito", var(--font-body); box-shadow: 0 20px 50px rgba(0, 0, 0, .3); max-width: 600px !important; }
+#pjOv .pjw h1 { font: 700 clamp(22px, 5vw, 30px)/1.15 "Fredoka", sans-serif; color: #17324D; margin: 2px 0; }
+#pjOv .pjw .tagline { color: #9474E8; letter-spacing: .14em; font: 800 12px "Nunito", sans-serif; }
+#pjOv .pjw .muted, #pjOv .pjw small { color: #4f6880; }
+#pjOv .pjw > .btn.alt.sm { float: none !important; justify-self: end; background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; border-radius: 999px; text-transform: none; letter-spacing: 0; min-height: 40px; }
+.pjw-hd p { margin: 0; }
+.pjw-prog { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
+.pjw-prog:before { content: ""; position: absolute; left: 12%; right: 12%; top: 15px; height: 4px; border-radius: 4px; background: #d7e6f3; }
+.pjw-prog li { position: relative; display: grid; justify-items: center; gap: 2px; text-align: center; }
+.pjw-prog b { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #d7e6f3; color: #4f6880; font: 800 15px "Nunito", sans-serif; border: 3px solid #F4FAFF; }
+.pjw-prog span { font: 700 12px "Nunito", sans-serif; color: #4f6880; }
+.pjw-prog li.on b { background: #9474E8; color: #fff; }
+.pjw-prog li.on span { color: #17324D; font-weight: 800; }
+.pjw-prog li.ok b { background: #65D6A0; color: #fff; }
+.pjw-no { margin: -4px 0 0; text-align: center; font-size: 12px; color: #4f6880; }
+.pjw-s { display: grid; gap: 10px; }
+.pjw-s[hidden] { display: none !important; }
+#pjOv .pjw .field { display: grid; gap: 4px; }
+#pjOv .pjw .field label { font: 800 14px "Nunito", sans-serif; color: #17324D; text-transform: none; letter-spacing: 0; }
+#pjOv .pjw input:not([type=radio]):not([type=checkbox]):not([type=color]), #pjOv .pjw select, #pjOv .pjw textarea { min-height: 46px; padding: 10px 12px; border-radius: 14px; border: 2px solid #d7e6f3; background: #fff; color: #17324D; font: 700 16px "Nunito", sans-serif; width: 100%; box-sizing: border-box; }
+#pjOv .pjw input:focus, #pjOv .pjw select:focus, #pjOv .pjw textarea:focus { outline: none; border-color: #39BCEB; box-shadow: 0 0 0 3px rgba(57, 188, 235, .25); }
+.pjw-pk { display: grid; gap: 10px; }
+.pjw-pkc { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; background: #fff; border: 3px solid #d7e6f3; cursor: pointer; position: relative; }
+.pjw-pkc input { position: absolute; opacity: 0; }
+.pjw-pkc i { grid-row: span 2; font-style: normal; font-size: 34px; }
+.pjw-pkc b { font: 700 18px "Fredoka", sans-serif; color: #17324D; }
+.pjw-pkc details summary { cursor: pointer; font-size: 13px; color: #9474E8; font-weight: 800; }
+.pjw-pkc details small { display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; }
+.pjw-pkc:has(input:checked) { border-color: #FFC857; background: #fffaeb; }
+.pjw-pkc:has(input:checked):after { content: "✓"; position: absolute; top: -8px; right: -8px; width: 26px; height: 26px; border-radius: 50%; background: #65D6A0; color: #fff; font: 800 15px/26px "Nunito", sans-serif; text-align: center; }
+.pjw-pkc:has(input:focus-visible) { outline: 3px solid #9474E8; outline-offset: 2px; }
+.pjw-bayar { display: grid; gap: 6px; padding: 12px; border-radius: 16px; background: #fff; border: 2px dashed #FFC857; }
+.pjw-bayar p { margin: 0; font-size: 14px; }
+.pjw-bayar .notice { background: #F4FAFF; color: #17324D; border-color: #d7e6f3; }
+.pjw-chk { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; padding: 10px 12px; border-radius: 14px; background: #fff; border: 2px solid #d7e6f3; cursor: pointer; }
+.pjw-chk input { width: 22px; height: 22px; flex: none; margin: 0; accent-color: #9474E8; }
+.pjw-err { margin: 0; color: #b3342b; font-weight: 800; font-size: 14px; min-height: 0; }
+.pjw-err:empty { display: none; }
+.pjw-ft { position: sticky; bottom: calc(-16px - env(safe-area-inset-bottom, 0px)); display: flex; gap: 10px; padding: 10px 0 2px; background: linear-gradient(rgba(244, 250, 255, 0), #F4FAFF 30%); }
+.pjw-ft .btn { flex: 1; min-height: 50px; border-radius: 999px !important; font: 800 17px "Nunito", sans-serif !important; text-transform: none !important; letter-spacing: 0 !important; background-image: none !important; box-shadow: none !important; }
+.pjw-ft .btn:not(.alt) { background: #9474E8 !important; color: #fff !important; border: 0 !important; }
+.pjw-ft .btn.pjw-go { background: #65D6A0 !important; color: #0f3a28 !important; }
+.pjw-ft .btn.alt { flex: 0 0 auto; background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; padding-inline: 18px; }
+.pjw-ft .btn[hidden] { display: none; }
+.pjw-ok { display: grid; gap: 8px; justify-items: center; text-align: center; padding: 10px 0; }
+.pjw-ok i { font-style: normal; font-size: 48px; }
+.pjw-ok p { margin: 0; }
+#pjOv .pjw > .btn:not(.alt) { background: #9474E8 !important; background-image: none !important; color: #fff !important; border-radius: 999px; text-transform: none; }

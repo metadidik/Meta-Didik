@@ -11,6 +11,21 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.61 · Privasi sekolah murid dan Ruang Penaja (bayar dahulu)
+
+- **Privasi sekolah** (`skPaparSaya`, `skPapar`, `P.psk`, medan `ps`):
+  - murid tersembunyi secara lalai, guru dipaparkan;
+  - pilihan dalam pendaftaran;
+  - semua paparan pemain lain disembunyikan (papan kedudukan, pangkat, bilik, Battle, Top 5 dunia);
+  - kehadiran tidak menghantar sekolah.
+  - Agregat sekolah kekal. Had: rekod `pemain/` dan `rkm_*` masih menyimpan sekolah (didokumenkan).
+- **Ruang Penaja:** wizard 4 langkah. Rujukan bayaran wajib di borang dan dalam Firebase Rules (`rb`), resit pilihan (`bukti`). Pentadbir "Bayaran disahkan → Luluskan".
+- `tools/ujian/penaja-rules.py` dikemas kini dan Rules dijana semula. `docs/PENAJA.md` dikemas kini.
+- **Ujian:**
+  - Node 59/59, termasuk semakan `rb`;
+  - Playwright untuk aliran penaja (Firebase disimulasikan) dan privasi;
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.60 · Meta Didik 2.0 fasa 2: wizard pendaftaran dan pembaikan modal iPhone
 
 - **Punca pertindihan dengan status bar:**

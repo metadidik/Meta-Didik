@@ -1,22 +1,28 @@
 # Penaja Meta Didik (v18.38)
 
-## Ringkasan
+## Ringkasan (v18.61: bayar dahulu, baru disahkan)
 
-1. Paparan utama ada **jalur logo penaja** di bawah tajuk Meta Didik, dengan butang **🤝 Jadi Penaja**.
-2. Penaja mengisi borang:
-   - **jumlah tajaan (RM) yang ingin diberikan**;
-   - tempoh paparan logo (3, 6 atau 12 bulan);
-   - paparan yang diingini;
-   - lokasi dalam Meta Didik;
-   - maklumat penaja, logo dan pegawai untuk dihubungi.
-3. Pentadbir menyemak permohonan dalam **Dashboard Pentadbir → Pentadbir: penaja Meta Didik**:
-   - urus sumbangan di luar aplikasi;
-   - pilih jenis paparan;
-   - tekan **Luluskan (sumbangan diterima)**.
-4. Selepas diluluskan:
+1. Paparan utama ada **jalur logo penaja** dengan butang **🤝 Jadi Penaja**. Butang ini membuka **Ruang Penaja**.
+2. Penaja mengisi **wizard 4 langkah**:
+   1. **Butiran:** jumlah tajaan (RM), tempoh paparan (3, 6 atau 12 bulan), jenis penaja.
+   2. **Pakej:** Rakan Pendidikan, Emas atau Platinum. Kad ringkas dengan butiran yang boleh dikembangkan.
+   3. **Lokasi & organisasi:** lokasi dalam Meta Didik, nama, no. pendaftaran, slogan, laman web, warna dan logo (dengan pratonton).
+   4. **Bayar & hantar:**
+      - maklumat pegawai;
+      - **akaun rasmi untuk bayaran**;
+      - **no. rujukan transaksi bayaran (wajib)**;
+      - resit (pilihan);
+      - tanda "Saya telah membuat bayaran";
+      - pengesahan kelayakan.
+3. **Bayar dahulu.** Permohonan tanpa rujukan bayaran **ditolak oleh Firebase Rules** (`rb` wajib, 4–40 aksara; `bukti` pilihan, imej ≤160 KB). Ini bukan sekadar semakan borang.
+4. Pentadbir menyemak dalam **Dashboard Pentadbir → Pentadbir: penaja Meta Didik**:
+   - rujukan bayaran dan resit dipaparkan;
+   - semak penerimaan dalam akaun bank;
+   - pilih paparan, kemudian tekan **Bayaran disahkan → Luluskan**. Pentadbir diminta mengesahkan jumlah dan rujukan sebelum kelulusan.
+5. Selepas diluluskan:
    - logo dipaparkan di paparan utama;
    - kedai, bangunan atau papan iklan berjenama dibina di lokasi pilihan dalam Meta Didik.
-5. Tajaan tamat secara automatik pada tarikh tamat. Pentadbir boleh **Lanjut 3 bulan** atau **Tarik balik**.
+6. Tajaan tamat secara automatik pada tarikh tamat. Pentadbir boleh **Lanjut 3 bulan** atau **Tarik balik**.
 
 ## Akaun rasmi untuk tajaan dan pembayaran
 
@@ -26,7 +32,7 @@
 | Nama akaun | **DIM HOLDINGS SDN. BHD.** |
 | No. akaun | **5560 5751 6022** |
 
-- Dipaparkan dalam borang penaja (bahagian "Cara sumbangan") dan dalam mesej selepas borang dihantar, dengan butang **Salin no. akaun** dan rujukan pindahan (nama penaja).
+- Dipaparkan dalam langkah 4 Ruang Penaja ("Langkah bayaran"), dengan butang **Salin no. akaun** dan rujukan pindahan (nama penaja).
 - Disimpan di **satu tempat sahaja**: `MD_BAYAR` dalam `app.js`. Ubah di situ jika akaun bertukar.
 - Tidak dipaparkan dalam dunia 3D murid.
 

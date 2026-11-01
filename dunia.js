@@ -6255,7 +6255,7 @@ function lmSkyDraw(sk) {
       const rk = r.rank || i + 1, mc = med[Math.min(rk, 5) - 1];
       x.fillStyle = mc; x.font = "900 48px Fredoka, Nunito, sans-serif"; x.textAlign = "left"; x.fillText((rk === 1 ? "👑" : "#" + rk), 62, y + 52);
       x.fillStyle = "#fff"; x.font = "900 40px Nunito, sans-serif"; x.fillText(String(r.n || "").slice(0, 16) + (r.me ? " (anda)" : ""), 170, y + 40);
-      x.fillStyle = "#b9cde0"; x.font = "700 24px Nunito, sans-serif"; x.fillText([r.k, String(r.sk || "").slice(0, 30)].filter(Boolean).join(" · "), 170, y + 64);
+      x.fillStyle = "#b9cde0"; x.font = "700 24px Nunito, sans-serif"; x.fillText([r.k, (typeof skPapar === "function" ? skPapar(r) : "").slice(0, 30)].filter(Boolean).join(" · "), 170, y + 64);
       x.textAlign = "right"; x.fillStyle = mc; x.font = "900 42px Fredoka, Nunito, sans-serif"; x.fillText(String(r.v), w - 66, y + 50);
     });
   };
@@ -6271,7 +6271,7 @@ async function lmSkyLoad(g) {
   const sk = g.sky5; if (!sk) return; sk.at = Date.now(); sk.busy = true;
   try {
     if (Net.db && Net.uid && (!RK.at || Date.now() - RK.at > 60000)) await rkPull();
-    const all = rkAllRows().map((r) => ({ n: r.n, k: r.k, sk: r.sk, me: r.me, v: rkVal(r.m, "all", "hari", "jumlah", "") })).filter((r) => r.v > 0).sort((a, b) => b.v - a.v);
+    const all = rkAllRows().map((r) => ({ n: r.n, k: r.k, sk: r.sk, ps: r.ps | 0, me: r.me, v: rkVal(r.m, "all", "hari", "jumlah", "") })).filter((r) => r.v > 0).sort((a, b) => b.v - a.v);
     all.forEach((r, i) => (r.rank = i + 1));
     const mi = all.findIndex((r) => r.me);
     /* murid di luar Top 5 tetap nampak kedudukannya sendiri pada baris terakhir */
