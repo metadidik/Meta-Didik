@@ -1,5 +1,5 @@
 {
- "versi": "202610281200",
+ "versi": "202611012209",
  "dikemas": "2026-10-28T12:00:00",
  "nota": "Fail ini diurus melalui bank.html. Jangan ubah nama medan. a = indeks jawapan betul (0=A, 1=B, 2=C, 3=D). d = aras (1 mudah, 2 sederhana, 3 sukar). status: aktif atau gantung. Soalan Pendidikan Islam ini perlu disemak oleh guru mata pelajaran.",
  "topik": [
@@ -11274,6 +11274,2301 @@
    "e": "Riak ialah syirik kecil.",
    "s": "Buku Teks PI Tingkatan 5, Pelajaran 21: Sifat Mazmumah Meracuni Hati",
    "status": "aktif"
+  },
+  {
+   "t": "PI-D1-1",
+   "d": 1,
+   "q": "Berapakah bilangan rukun Islam?",
+   "o": [
+    "4",
+    "6",
+    "5",
+    "3"
+   ],
+   "a": 2,
+   "e": "Rukun Islam terdiri daripada lima perkara.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Akidah: mengenal rukun Islam dan rukun iman",
+   "status": "aktif",
+   "draf": 1,
+   "id": 690
+  },
+  {
+   "t": "PI-D1-1",
+   "d": 1,
+   "q": "Apakah rukun Islam yang pertama?",
+   "o": [
+    "Mengucap dua kalimah syahadah",
+    "Menunaikan haji",
+    "Berpuasa pada bulan Ramadan",
+    "Menunaikan zakat"
+   ],
+   "a": 0,
+   "e": "Seseorang memeluk Islam dengan mengucap dua kalimah syahadah, iaitu rukun Islam pertama.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Akidah: mengenal rukun Islam dan rukun iman",
+   "status": "aktif",
+   "draf": 1,
+   "id": 691
+  },
+  {
+   "t": "PI-D1-1",
+   "d": 1,
+   "q": "Berapakah bilangan rukun iman?",
+   "o": [
+    "5",
+    "4",
+    "7",
+    "6"
+   ],
+   "a": 3,
+   "e": "Rukun iman terdiri daripada enam perkara yang wajib dipercayai.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Akidah: mengenal rukun Islam dan rukun iman",
+   "status": "aktif",
+   "draf": 1,
+   "id": 692
+  },
+  {
+   "t": "PI-D1-1",
+   "d": 1,
+   "q": "Apakah rukun iman yang pertama?",
+   "o": [
+    "Beriman kepada hari akhirat",
+    "Beriman kepada Allah SWT",
+    "Beriman kepada kitab",
+    "Beriman kepada malaikat"
+   ],
+   "a": 1,
+   "e": "Rukun iman pertama ialah beriman kepada Allah SWT.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Akidah: mengenal rukun Islam dan rukun iman",
+   "status": "aktif",
+   "draf": 1,
+   "id": 693
+  },
+  {
+   "t": "PI-D1-1",
+   "d": 1,
+   "q": "Siapakah yang mencipta langit, bumi dan seluruh alam?",
+   "o": [
+    "Malaikat",
+    "Allah SWT",
+    "Manusia",
+    "Nabi Adam AS"
+   ],
+   "a": 1,
+   "e": "Allah SWT ialah Pencipta seluruh alam.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Akidah: mengenal rukun Islam dan rukun iman",
+   "status": "aktif",
+   "draf": 1,
+   "id": 694
+  },
+  {
+   "t": "PI-D1-2",
+   "d": 1,
+   "q": "Apakah rukun wuduk yang pertama?",
+   "o": [
+    "Membasuh kaki",
+    "Menyapu kepala",
+    "Membasuh tangan",
+    "Niat"
+   ],
+   "a": 3,
+   "e": "Wuduk bermula dengan niat di dalam hati ketika membasuh muka.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Ibadah: taharah dan rukun wuduk",
+   "status": "aktif",
+   "draf": 1,
+   "id": 695
+  },
+  {
+   "t": "PI-D1-2",
+   "d": 2,
+   "q": "Anggota manakah yang dibasuh semasa berniat wuduk?",
+   "o": [
+    "Muka",
+    "Kaki",
+    "Telinga",
+    "Kepala"
+   ],
+   "a": 0,
+   "e": "Niat wuduk dilakukan ketika air mula mengenai muka.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Ibadah: taharah dan rukun wuduk",
+   "status": "aktif",
+   "draf": 1,
+   "id": 696
+  },
+  {
+   "t": "PI-D1-2",
+   "d": 1,
+   "q": "Ketika berwuduk, tangan dibasuh hingga ke ...",
+   "o": [
+    "pergelangan tangan",
+    "bahu",
+    "siku",
+    "hujung jari sahaja"
+   ],
+   "a": 2,
+   "e": "Rukun wuduk ialah membasuh kedua-dua tangan hingga ke siku.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Ibadah: taharah dan rukun wuduk",
+   "status": "aktif",
+   "draf": 1,
+   "id": 697
+  },
+  {
+   "t": "PI-D1-2",
+   "d": 1,
+   "q": "Ketika berwuduk, kaki dibasuh hingga ke ...",
+   "o": [
+    "buku lali",
+    "lutut",
+    "betis",
+    "hujung jari kaki sahaja"
+   ],
+   "a": 0,
+   "e": "Rukun wuduk ialah membasuh kedua-dua kaki hingga ke buku lali.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Ibadah: taharah dan rukun wuduk",
+   "status": "aktif",
+   "draf": 1,
+   "id": 698
+  },
+  {
+   "t": "PI-D1-2",
+   "d": 1,
+   "q": "Air manakah yang boleh digunakan untuk berwuduk?",
+   "o": [
+    "Air teh",
+    "Air sirap",
+    "Air paip yang bersih",
+    "Air kopi"
+   ],
+   "a": 2,
+   "e": "Wuduk mesti menggunakan air mutlak, iaitu air yang suci lagi menyucikan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Ibadah: taharah dan rukun wuduk",
+   "status": "aktif",
+   "draf": 1,
+   "id": 699
+  },
+  {
+   "t": "PI-D1-3",
+   "d": 1,
+   "q": "Apakah yang kita baca sebelum mula makan?",
+   "o": [
+    "Alhamdulillah",
+    "Bismillah",
+    "Waalaikumussalam",
+    "Amin"
+   ],
+   "a": 1,
+   "e": "Kita memulakan makan dengan menyebut nama Allah, iaitu Bismillah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Adab: adab makan, minum dan memberi salam",
+   "status": "aktif",
+   "draf": 1,
+   "id": 700
+  },
+  {
+   "t": "PI-D1-3",
+   "d": 1,
+   "q": "Apakah yang kita ucapkan selepas selesai makan?",
+   "o": [
+    "Bismillah",
+    "Assalamualaikum",
+    "Astaghfirullah",
+    "Alhamdulillah"
+   ],
+   "a": 3,
+   "e": "Alhamdulillah ialah ucapan syukur kepada Allah atas rezeki makanan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Adab: adab makan, minum dan memberi salam",
+   "status": "aktif",
+   "draf": 1,
+   "id": 701
+  },
+  {
+   "t": "PI-D1-3",
+   "d": 1,
+   "q": "Tangan manakah yang digunakan untuk makan?",
+   "o": [
+    "Tangan kiri",
+    "Kedua-dua tangan",
+    "Tangan kanan",
+    "Mana-mana tangan"
+   ],
+   "a": 2,
+   "e": "Islam mengajar kita makan dan minum dengan tangan kanan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Adab: adab makan, minum dan memberi salam",
+   "status": "aktif",
+   "draf": 1,
+   "id": 702
+  },
+  {
+   "t": "PI-D1-3",
+   "d": 1,
+   "q": "Apakah yang kita ucapkan apabila bertemu rakan Muslim?",
+   "o": [
+    "Assalamualaikum",
+    "Selamat tinggal",
+    "Alhamdulillah",
+    "Bismillah"
+   ],
+   "a": 0,
+   "e": "Memberi salam ialah amalan mulia apabila bertemu sesama Muslim.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Adab: adab makan, minum dan memberi salam",
+   "status": "aktif",
+   "draf": 1,
+   "id": 703
+  },
+  {
+   "t": "PI-D1-3",
+   "d": 1,
+   "q": "Bagaimanakah cara menjawab salam?",
+   "o": [
+    "Assalamualaikum",
+    "Insya-Allah",
+    "Subhanallah",
+    "Waalaikumussalam"
+   ],
+   "a": 3,
+   "e": "Salam dijawab dengan ucapan Waalaikumussalam.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 1 (draf): Adab: adab makan, minum dan memberi salam",
+   "status": "aktif",
+   "draf": 1,
+   "id": 704
+  },
+  {
+   "t": "PI-D2-1",
+   "d": 1,
+   "q": "Malaikat dicipta oleh Allah SWT daripada ...",
+   "o": [
+    "tanah",
+    "cahaya",
+    "api",
+    "air"
+   ],
+   "a": 1,
+   "e": "Malaikat dicipta daripada cahaya (nur).",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Akidah: mengenal malaikat dan tugasnya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 705
+  },
+  {
+   "t": "PI-D2-1",
+   "d": 1,
+   "q": "Malaikat manakah yang bertugas menyampaikan wahyu?",
+   "o": [
+    "Mikail",
+    "Jibril",
+    "Israfil",
+    "Malik"
+   ],
+   "a": 1,
+   "e": "Malaikat Jibril menyampaikan wahyu kepada para nabi dan rasul.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Akidah: mengenal malaikat dan tugasnya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 706
+  },
+  {
+   "t": "PI-D2-1",
+   "d": 2,
+   "q": "Malaikat manakah yang bertugas menjaga pintu syurga?",
+   "o": [
+    "Malik",
+    "Raqib",
+    "Munkar",
+    "Ridwan"
+   ],
+   "a": 3,
+   "e": "Malaikat Ridwan ialah penjaga syurga.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Akidah: mengenal malaikat dan tugasnya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 707
+  },
+  {
+   "t": "PI-D2-1",
+   "d": 2,
+   "q": "Malaikat Raqib dan Atid bertugas ...",
+   "o": [
+    "mencatat amalan manusia",
+    "menurunkan hujan",
+    "menjaga neraka",
+    "meniup sangkakala"
+   ],
+   "a": 0,
+   "e": "Raqib dan Atid mencatat amalan baik dan buruk manusia.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Akidah: mengenal malaikat dan tugasnya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 708
+  },
+  {
+   "t": "PI-D2-1",
+   "d": 2,
+   "q": "Malaikat manakah yang akan meniup sangkakala?",
+   "o": [
+    "Jibril",
+    "Ridwan",
+    "Israfil",
+    "Atid"
+   ],
+   "a": 2,
+   "e": "Malaikat Israfil bertugas meniup sangkakala pada hari kiamat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Akidah: mengenal malaikat dan tugasnya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 709
+  },
+  {
+   "t": "PI-D2-2",
+   "d": 1,
+   "q": "Berapakah waktu solat fardu dalam sehari semalam?",
+   "o": [
+    "5",
+    "3",
+    "4",
+    "6"
+   ],
+   "a": 0,
+   "e": "Solat fardu ialah Subuh, Zohor, Asar, Maghrib dan Isyak.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Ibadah: waktu dan bilangan rakaat solat fardu",
+   "status": "aktif",
+   "draf": 1,
+   "id": 710
+  },
+  {
+   "t": "PI-D2-2",
+   "d": 1,
+   "q": "Berapakah rakaat solat Subuh?",
+   "o": [
+    "3",
+    "4",
+    "2",
+    "1"
+   ],
+   "a": 2,
+   "e": "Solat Subuh mempunyai dua rakaat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Ibadah: waktu dan bilangan rakaat solat fardu",
+   "status": "aktif",
+   "draf": 1,
+   "id": 711
+  },
+  {
+   "t": "PI-D2-2",
+   "d": 1,
+   "q": "Berapakah rakaat solat Maghrib?",
+   "o": [
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "a": 1,
+   "e": "Solat Maghrib mempunyai tiga rakaat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Ibadah: waktu dan bilangan rakaat solat fardu",
+   "status": "aktif",
+   "draf": 1,
+   "id": 712
+  },
+  {
+   "t": "PI-D2-2",
+   "d": 2,
+   "q": "Solat fardu yang manakah mempunyai empat rakaat?",
+   "o": [
+    "Subuh",
+    "Maghrib",
+    "Tiada",
+    "Zohor"
+   ],
+   "a": 3,
+   "e": "Zohor, Asar dan Isyak masing-masing empat rakaat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Ibadah: waktu dan bilangan rakaat solat fardu",
+   "status": "aktif",
+   "draf": 1,
+   "id": 713
+  },
+  {
+   "t": "PI-D2-2",
+   "d": 2,
+   "q": "Solat fardu manakah yang dikerjakan selepas matahari terbenam?",
+   "o": [
+    "Subuh",
+    "Zohor",
+    "Maghrib",
+    "Asar"
+   ],
+   "a": 2,
+   "e": "Waktu Maghrib masuk apabila matahari terbenam.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Ibadah: waktu dan bilangan rakaat solat fardu",
+   "status": "aktif",
+   "draf": 1,
+   "id": 714
+  },
+  {
+   "t": "PI-D2-3",
+   "d": 1,
+   "q": "Di manakah Nabi Muhammad SAW dilahirkan?",
+   "o": [
+    "Makkah",
+    "Madinah",
+    "Taif",
+    "Baitulmaqdis"
+   ],
+   "a": 0,
+   "e": "Nabi Muhammad SAW dilahirkan di kota Makkah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Sirah: kelahiran dan keluarga Nabi Muhammad SAW",
+   "status": "aktif",
+   "draf": 1,
+   "id": 715
+  },
+  {
+   "t": "PI-D2-3",
+   "d": 1,
+   "q": "Siapakah nama ibu Nabi Muhammad SAW?",
+   "o": [
+    "Khadijah",
+    "Halimatus Saadiah",
+    "Fatimah",
+    "Aminah"
+   ],
+   "a": 3,
+   "e": "Ibu Nabi Muhammad SAW bernama Aminah binti Wahab.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Sirah: kelahiran dan keluarga Nabi Muhammad SAW",
+   "status": "aktif",
+   "draf": 1,
+   "id": 716
+  },
+  {
+   "t": "PI-D2-3",
+   "d": 1,
+   "q": "Siapakah nama bapa Nabi Muhammad SAW?",
+   "o": [
+    "Abu Talib",
+    "Abdullah",
+    "Abdul Muttalib",
+    "Abu Bakar"
+   ],
+   "a": 1,
+   "e": "Bapa Nabi Muhammad SAW bernama Abdullah bin Abdul Muttalib.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Sirah: kelahiran dan keluarga Nabi Muhammad SAW",
+   "status": "aktif",
+   "draf": 1,
+   "id": 717
+  },
+  {
+   "t": "PI-D2-3",
+   "d": 2,
+   "q": "Tahun kelahiran Nabi Muhammad SAW dikenali sebagai ...",
+   "o": [
+    "Tahun Hijrah",
+    "Tahun Gajah",
+    "Tahun Kesedihan",
+    "Tahun Perwakilan"
+   ],
+   "a": 1,
+   "e": "Baginda lahir pada tahun tentera bergajah Abrahah cuba menyerang Kaabah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Sirah: kelahiran dan keluarga Nabi Muhammad SAW",
+   "status": "aktif",
+   "draf": 1,
+   "id": 718
+  },
+  {
+   "t": "PI-D2-3",
+   "d": 2,
+   "q": "Siapakah ibu susuan Nabi Muhammad SAW?",
+   "o": [
+    "Aminah",
+    "Khadijah",
+    "Aisyah",
+    "Halimatus Saadiah"
+   ],
+   "a": 3,
+   "e": "Halimatus Saadiah menyusukan dan menjaga baginda semasa kecil.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 2 (draf): Sirah: kelahiran dan keluarga Nabi Muhammad SAW",
+   "status": "aktif",
+   "draf": 1,
+   "id": 719
+  },
+  {
+   "t": "PI-D3-1",
+   "d": 1,
+   "q": "Kitab Taurat diturunkan kepada ...",
+   "o": [
+    "Nabi Musa AS",
+    "Nabi Isa AS",
+    "Nabi Daud AS",
+    "Nabi Muhammad SAW"
+   ],
+   "a": 0,
+   "e": "Kitab Taurat diturunkan kepada Nabi Musa AS.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Akidah: kitab yang diturunkan kepada rasul",
+   "status": "aktif",
+   "draf": 1,
+   "id": 720
+  },
+  {
+   "t": "PI-D3-1",
+   "d": 1,
+   "q": "Kitab Zabur diturunkan kepada ...",
+   "o": [
+    "Nabi Musa AS",
+    "Nabi Ibrahim AS",
+    "Nabi Daud AS",
+    "Nabi Isa AS"
+   ],
+   "a": 2,
+   "e": "Kitab Zabur diturunkan kepada Nabi Daud AS.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Akidah: kitab yang diturunkan kepada rasul",
+   "status": "aktif",
+   "draf": 1,
+   "id": 721
+  },
+  {
+   "t": "PI-D3-1",
+   "d": 1,
+   "q": "Kitab Injil diturunkan kepada ...",
+   "o": [
+    "Nabi Isa AS",
+    "Nabi Daud AS",
+    "Nabi Musa AS",
+    "Nabi Nuh AS"
+   ],
+   "a": 0,
+   "e": "Kitab Injil diturunkan kepada Nabi Isa AS.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Akidah: kitab yang diturunkan kepada rasul",
+   "status": "aktif",
+   "draf": 1,
+   "id": 722
+  },
+  {
+   "t": "PI-D3-1",
+   "d": 1,
+   "q": "Kitab manakah yang terakhir diturunkan oleh Allah SWT?",
+   "o": [
+    "Taurat",
+    "Zabur",
+    "Al-Quran",
+    "Injil"
+   ],
+   "a": 2,
+   "e": "Al-Quran ialah kitab terakhir, diturunkan kepada Nabi Muhammad SAW.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Akidah: kitab yang diturunkan kepada rasul",
+   "status": "aktif",
+   "draf": 1,
+   "id": 723
+  },
+  {
+   "t": "PI-D3-1",
+   "d": 2,
+   "q": "Berapakah kitab yang wajib kita ketahui namanya?",
+   "o": [
+    "3",
+    "4",
+    "5",
+    "25"
+   ],
+   "a": 1,
+   "e": "Empat kitab wajib diketahui ialah Taurat, Zabur, Injil dan al-Quran.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Akidah: kitab yang diturunkan kepada rasul",
+   "status": "aktif",
+   "draf": 1,
+   "id": 724
+  },
+  {
+   "t": "PI-D3-2",
+   "d": 1,
+   "q": "Puasa wajib dilakukan pada bulan ...",
+   "o": [
+    "Syawal",
+    "Muharam",
+    "Zulhijjah",
+    "Ramadan"
+   ],
+   "a": 3,
+   "e": "Puasa fardu dilakukan sebulan pada bulan Ramadan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Ibadah: puasa Ramadan dan perkara yang membatalkannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 725
+  },
+  {
+   "t": "PI-D3-2",
+   "d": 1,
+   "q": "Puasa bermula dari terbit fajar hingga ...",
+   "o": [
+    "tengah hari",
+    "waktu Asar",
+    "terbenam matahari",
+    "tengah malam"
+   ],
+   "a": 2,
+   "e": "Orang berpuasa menahan diri dari terbit fajar hingga terbenam matahari.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Ibadah: puasa Ramadan dan perkara yang membatalkannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 726
+  },
+  {
+   "t": "PI-D3-2",
+   "d": 1,
+   "q": "Makan sebelum terbit fajar pada bulan Ramadan dinamakan ...",
+   "o": [
+    "sahur",
+    "berbuka",
+    "moreh",
+    "iftar"
+   ],
+   "a": 0,
+   "e": "Bersahur ialah makan sebelum fajar dan ia digalakkan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Ibadah: puasa Ramadan dan perkara yang membatalkannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 727
+  },
+  {
+   "t": "PI-D3-2",
+   "d": 2,
+   "q": "Perbuatan manakah yang membatalkan puasa?",
+   "o": [
+    "Mandi",
+    "Tidur",
+    "Membaca al-Quran",
+    "Makan dengan sengaja"
+   ],
+   "a": 3,
+   "e": "Makan atau minum dengan sengaja membatalkan puasa.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Ibadah: puasa Ramadan dan perkara yang membatalkannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 728
+  },
+  {
+   "t": "PI-D3-2",
+   "d": 1,
+   "q": "Hari Raya Aidilfitri disambut pada ...",
+   "o": [
+    "1 Ramadan",
+    "1 Syawal",
+    "10 Zulhijjah",
+    "1 Muharam"
+   ],
+   "a": 1,
+   "e": "Aidilfitri disambut pada 1 Syawal selepas tamat Ramadan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Ibadah: puasa Ramadan dan perkara yang membatalkannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 729
+  },
+  {
+   "t": "PI-D3-3",
+   "d": 1,
+   "q": "Apakah surah pertama dalam susunan al-Quran?",
+   "o": [
+    "Al-Baqarah",
+    "Al-Fatihah",
+    "An-Nas",
+    "Al-Ikhlas"
+   ],
+   "a": 1,
+   "e": "Surah al-Fatihah ialah surah pembuka al-Quran.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Al-Quran: bacaan dan kefahaman surah al-Fatihah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 730
+  },
+  {
+   "t": "PI-D3-3",
+   "d": 1,
+   "q": "Berapakah bilangan ayat surah al-Fatihah?",
+   "o": [
+    "5",
+    "6",
+    "4",
+    "7"
+   ],
+   "a": 3,
+   "e": "Surah al-Fatihah mengandungi tujuh ayat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Al-Quran: bacaan dan kefahaman surah al-Fatihah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 731
+  },
+  {
+   "t": "PI-D3-3",
+   "d": 2,
+   "q": "Bilakah surah al-Fatihah wajib dibaca?",
+   "o": [
+    "Dalam setiap rakaat solat",
+    "Hanya ketika makan",
+    "Hanya pada hari Jumaat",
+    "Hanya pada bulan Ramadan"
+   ],
+   "a": 0,
+   "e": "Membaca al-Fatihah ialah rukun dalam setiap rakaat solat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Al-Quran: bacaan dan kefahaman surah al-Fatihah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 732
+  },
+  {
+   "t": "PI-D3-3",
+   "d": 2,
+   "q": "Surah al-Fatihah dimulakan dengan pujian kepada ...",
+   "o": [
+    "para malaikat",
+    "para nabi",
+    "Allah, Tuhan sekalian alam",
+    "ibu bapa"
+   ],
+   "a": 2,
+   "e": "Al-Fatihah memuji Allah sebagai Tuhan sekalian alam.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Al-Quran: bacaan dan kefahaman surah al-Fatihah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 733
+  },
+  {
+   "t": "PI-D3-3",
+   "d": 2,
+   "q": "Apakah maksud nama 'al-Fatihah'?",
+   "o": [
+    "Pembukaan",
+    "Penutup",
+    "Cahaya",
+    "Manusia"
+   ],
+   "a": 0,
+   "e": "Al-Fatihah bermaksud pembukaan kerana ia membuka al-Quran.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 3 (draf): Al-Quran: bacaan dan kefahaman surah al-Fatihah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 734
+  },
+  {
+   "t": "PI-D4-1",
+   "d": 1,
+   "q": "Berapakah bilangan rasul yang wajib diketahui?",
+   "o": [
+    "20",
+    "10",
+    "25",
+    "40"
+   ],
+   "a": 2,
+   "e": "Terdapat 25 orang rasul yang namanya wajib diketahui.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Akidah: rasul, sifat wajib rasul dan rasul Ulul Azmi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 735
+  },
+  {
+   "t": "PI-D4-1",
+   "d": 2,
+   "q": "Sifat wajib rasul 'siddiq' bermaksud ...",
+   "o": [
+    "bijaksana",
+    "benar",
+    "menyampaikan",
+    "dipercayai"
+   ],
+   "a": 1,
+   "e": "Siddiq bermaksud rasul sentiasa bercakap benar.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Akidah: rasul, sifat wajib rasul dan rasul Ulul Azmi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 736
+  },
+  {
+   "t": "PI-D4-1",
+   "d": 2,
+   "q": "Sifat 'tabligh' bermaksud rasul ...",
+   "o": [
+    "sangat kaya",
+    "tidak pernah sakit",
+    "tinggal di gua",
+    "menyampaikan wahyu"
+   ],
+   "a": 3,
+   "e": "Tabligh bermaksud rasul menyampaikan segala ajaran daripada Allah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Akidah: rasul, sifat wajib rasul dan rasul Ulul Azmi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 737
+  },
+  {
+   "t": "PI-D4-1",
+   "d": 1,
+   "q": "Siapakah rasul terakhir?",
+   "o": [
+    "Nabi Isa AS",
+    "Nabi Musa AS",
+    "Nabi Muhammad SAW",
+    "Nabi Ibrahim AS"
+   ],
+   "a": 2,
+   "e": "Nabi Muhammad SAW ialah penutup segala nabi dan rasul.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Akidah: rasul, sifat wajib rasul dan rasul Ulul Azmi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 738
+  },
+  {
+   "t": "PI-D4-1",
+   "d": 3,
+   "q": "Manakah antara berikut termasuk rasul Ulul Azmi?",
+   "o": [
+    "Nabi Nuh AS",
+    "Nabi Yunus AS",
+    "Nabi Yusuf AS",
+    "Nabi Sulaiman AS"
+   ],
+   "a": 0,
+   "e": "Ulul Azmi ialah Nabi Nuh, Ibrahim, Musa, Isa dan Muhammad.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Akidah: rasul, sifat wajib rasul dan rasul Ulul Azmi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 739
+  },
+  {
+   "t": "PI-D4-2",
+   "d": 1,
+   "q": "Berapakah jenis najis?",
+   "o": [
+    "2",
+    "4",
+    "5",
+    "3"
+   ],
+   "a": 3,
+   "e": "Najis terbahagi kepada ringan, pertengahan dan berat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Ibadah: taharah, jenis najis dan cara menyucikannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 740
+  },
+  {
+   "t": "PI-D4-2",
+   "d": 1,
+   "q": "Najis mughallazah dikenali juga sebagai najis ...",
+   "o": [
+    "ringan",
+    "berat",
+    "pertengahan",
+    "kering"
+   ],
+   "a": 1,
+   "e": "Mughallazah ialah najis berat seperti anjing dan babi.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Ibadah: taharah, jenis najis dan cara menyucikannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 741
+  },
+  {
+   "t": "PI-D4-2",
+   "d": 2,
+   "q": "Air kencing bayi lelaki di bawah dua tahun yang hanya minum susu ibu ialah najis ...",
+   "o": [
+    "mughallazah",
+    "mukhaffafah",
+    "mutawassitah",
+    "hukmiah"
+   ],
+   "a": 1,
+   "e": "Ia najis ringan dan disucikan dengan merenjis air.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Ibadah: taharah, jenis najis dan cara menyucikannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 742
+  },
+  {
+   "t": "PI-D4-2",
+   "d": 2,
+   "q": "Berapa kalikah najis mughallazah perlu dibasuh semasa sertu?",
+   "o": [
+    "3 kali",
+    "1 kali",
+    "5 kali",
+    "7 kali"
+   ],
+   "a": 3,
+   "e": "Sertu dilakukan tujuh kali basuhan, salah satunya dengan air bercampur tanah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Ibadah: taharah, jenis najis dan cara menyucikannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 743
+  },
+  {
+   "t": "PI-D4-2",
+   "d": 2,
+   "q": "Darah dan nanah tergolong dalam najis ...",
+   "o": [
+    "mutawassitah",
+    "mukhaffafah",
+    "mughallazah",
+    "bukan najis"
+   ],
+   "a": 0,
+   "e": "Darah dan nanah ialah najis pertengahan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Ibadah: taharah, jenis najis dan cara menyucikannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 744
+  },
+  {
+   "t": "PI-D4-3",
+   "d": 1,
+   "q": "Di manakah Nabi Muhammad SAW menerima wahyu pertama?",
+   "o": [
+    "Gua Thur",
+    "Masjid Quba",
+    "Gua Hira'",
+    "Bukit Uhud"
+   ],
+   "a": 2,
+   "e": "Baginda menerima wahyu pertama ketika beribadat di Gua Hira'.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Sirah: Nabi Muhammad SAW menerima wahyu pertama",
+   "status": "aktif",
+   "draf": 1,
+   "id": 745
+  },
+  {
+   "t": "PI-D4-3",
+   "d": 1,
+   "q": "Siapakah yang menyampaikan wahyu pertama kepada baginda?",
+   "o": [
+    "Malaikat Jibril",
+    "Malaikat Mikail",
+    "Malaikat Israfil",
+    "Malaikat Ridwan"
+   ],
+   "a": 0,
+   "e": "Malaikat Jibril membawa wahyu daripada Allah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Sirah: Nabi Muhammad SAW menerima wahyu pertama",
+   "status": "aktif",
+   "draf": 1,
+   "id": 746
+  },
+  {
+   "t": "PI-D4-3",
+   "d": 2,
+   "q": "Wahyu pertama ialah ayat awal daripada surah ...",
+   "o": [
+    "al-Fatihah",
+    "al-Ikhlas",
+    "al-Alaq",
+    "an-Nas"
+   ],
+   "a": 2,
+   "e": "Wahyu pertama ialah lima ayat awal surah al-Alaq.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Sirah: Nabi Muhammad SAW menerima wahyu pertama",
+   "status": "aktif",
+   "draf": 1,
+   "id": 747
+  },
+  {
+   "t": "PI-D4-3",
+   "d": 2,
+   "q": "Pada umur berapakah Nabi Muhammad SAW diangkat menjadi rasul?",
+   "o": [
+    "25 tahun",
+    "40 tahun",
+    "30 tahun",
+    "63 tahun"
+   ],
+   "a": 1,
+   "e": "Baginda menerima wahyu pertama ketika berumur 40 tahun.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Sirah: Nabi Muhammad SAW menerima wahyu pertama",
+   "status": "aktif",
+   "draf": 1,
+   "id": 748
+  },
+  {
+   "t": "PI-D4-3",
+   "d": 2,
+   "q": "Siapakah isteri baginda yang menenangkan baginda selepas menerima wahyu pertama?",
+   "o": [
+    "Saidatina Aisyah RA",
+    "Saidatina Fatimah RA",
+    "Halimatus Saadiah",
+    "Saidatina Khadijah RA"
+   ],
+   "a": 3,
+   "e": "Saidatina Khadijah RA menenangkan dan menyokong baginda.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 4 (draf): Sirah: Nabi Muhammad SAW menerima wahyu pertama",
+   "status": "aktif",
+   "draf": 1,
+   "id": 749
+  },
+  {
+   "t": "PI-D5-1",
+   "d": 2,
+   "q": "Zakat fitrah wajib dikeluarkan sebelum ...",
+   "o": [
+    "awal Ramadan",
+    "solat Aidiladha",
+    "solat Hari Raya Aidilfitri",
+    "1 Muharam"
+   ],
+   "a": 2,
+   "e": "Zakat fitrah sebaiknya ditunaikan sebelum solat sunat Aidilfitri.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Ibadah: zakat fitrah dan golongan asnaf",
+   "status": "aktif",
+   "draf": 1,
+   "id": 750
+  },
+  {
+   "t": "PI-D5-1",
+   "d": 2,
+   "q": "Berapakah golongan asnaf yang berhak menerima zakat?",
+   "o": [
+    "8",
+    "5",
+    "6",
+    "10"
+   ],
+   "a": 0,
+   "e": "Terdapat lapan golongan asnaf penerima zakat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Ibadah: zakat fitrah dan golongan asnaf",
+   "status": "aktif",
+   "draf": 1,
+   "id": 751
+  },
+  {
+   "t": "PI-D5-1",
+   "d": 2,
+   "q": "Orang yang dilantik untuk memungut zakat dipanggil ...",
+   "o": [
+    "imam",
+    "bilal",
+    "muazzin",
+    "amil"
+   ],
+   "a": 3,
+   "e": "Amil ialah petugas yang mengurus pungutan dan agihan zakat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Ibadah: zakat fitrah dan golongan asnaf",
+   "status": "aktif",
+   "draf": 1,
+   "id": 752
+  },
+  {
+   "t": "PI-D5-1",
+   "d": 1,
+   "q": "Di Malaysia, zakat fitrah dikira berdasarkan makanan asasi iaitu ...",
+   "o": [
+    "gandum",
+    "beras",
+    "kurma",
+    "jagung"
+   ],
+   "a": 1,
+   "e": "Kadar zakat fitrah di Malaysia berdasarkan harga beras.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Ibadah: zakat fitrah dan golongan asnaf",
+   "status": "aktif",
+   "draf": 1,
+   "id": 753
+  },
+  {
+   "t": "PI-D5-1",
+   "d": 1,
+   "q": "Zakat termasuk dalam rukun ...",
+   "o": [
+    "iman",
+    "Islam",
+    "solat",
+    "wuduk"
+   ],
+   "a": 1,
+   "e": "Menunaikan zakat ialah salah satu rukun Islam.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Ibadah: zakat fitrah dan golongan asnaf",
+   "status": "aktif",
+   "draf": 1,
+   "id": 754
+  },
+  {
+   "t": "PI-D5-2",
+   "d": 1,
+   "q": "Ke manakah Nabi Muhammad SAW berhijrah?",
+   "o": [
+    "Taif",
+    "Habsyah",
+    "Syam",
+    "Madinah"
+   ],
+   "a": 3,
+   "e": "Baginda berhijrah dari Makkah ke Madinah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Sirah: hijrah Nabi Muhammad SAW ke Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 755
+  },
+  {
+   "t": "PI-D5-2",
+   "d": 1,
+   "q": "Siapakah sahabat yang menemani baginda semasa hijrah?",
+   "o": [
+    "Saidina Abu Bakar RA",
+    "Saidina Umar RA",
+    "Saidina Uthman RA",
+    "Saidina Hamzah RA"
+   ],
+   "a": 0,
+   "e": "Saidina Abu Bakar RA menemani baginda sepanjang perjalanan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Sirah: hijrah Nabi Muhammad SAW ke Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 756
+  },
+  {
+   "t": "PI-D5-2",
+   "d": 2,
+   "q": "Di gua manakah baginda bersembunyi semasa hijrah?",
+   "o": [
+    "Gua Hira'",
+    "Gua Niah",
+    "Gua Thur",
+    "Gua Kahfi"
+   ],
+   "a": 2,
+   "e": "Baginda dan Abu Bakar RA bersembunyi di Gua Thur.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Sirah: hijrah Nabi Muhammad SAW ke Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 757
+  },
+  {
+   "t": "PI-D5-2",
+   "d": 2,
+   "q": "Siapakah yang tidur di tempat tidur baginda pada malam hijrah?",
+   "o": [
+    "Saidina Ali RA",
+    "Saidina Abu Bakar RA",
+    "Saidina Umar RA",
+    "Saidina Bilal RA"
+   ],
+   "a": 0,
+   "e": "Saidina Ali RA berani menggantikan tempat tidur baginda.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Sirah: hijrah Nabi Muhammad SAW ke Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 758
+  },
+  {
+   "t": "PI-D5-2",
+   "d": 3,
+   "q": "Apakah masjid pertama yang dibina oleh baginda?",
+   "o": [
+    "Masjidil Haram",
+    "Masjid Nabawi",
+    "Masjid Quba",
+    "Masjidil Aqsa"
+   ],
+   "a": 2,
+   "e": "Masjid Quba dibina dalam perjalanan hijrah sebelum tiba di Madinah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Sirah: hijrah Nabi Muhammad SAW ke Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 759
+  },
+  {
+   "t": "PI-D5-3",
+   "d": 1,
+   "q": "Apakah sikap yang betul apabila ibu memanggil?",
+   "o": [
+    "Buat-buat tidak dengar",
+    "Segera menyahut dengan sopan",
+    "Menjawab dengan marah",
+    "Lari keluar rumah"
+   ],
+   "a": 1,
+   "e": "Anak yang baik menyahut panggilan ibu bapa dengan segera dan sopan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Adab dan Akhlak: menghormati ibu bapa dan jiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 760
+  },
+  {
+   "t": "PI-D5-3",
+   "d": 1,
+   "q": "Bagaimanakah cara bercakap dengan ibu bapa?",
+   "o": [
+    "Meninggikan suara",
+    "Kasar",
+    "Menyindir",
+    "Lemah lembut"
+   ],
+   "a": 3,
+   "e": "Islam melarang kita berkata kasar kepada ibu bapa.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Adab dan Akhlak: menghormati ibu bapa dan jiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 761
+  },
+  {
+   "t": "PI-D5-3",
+   "d": 1,
+   "q": "Apakah yang wajar dilakukan apabila jiran sakit?",
+   "o": [
+    "Tidak peduli",
+    "Membuat bising",
+    "Menziarahi dan mendoakannya",
+    "Mengejeknya"
+   ],
+   "a": 2,
+   "e": "Menziarahi jiran yang sakit ialah akhlak mulia.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Adab dan Akhlak: menghormati ibu bapa dan jiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 762
+  },
+  {
+   "t": "PI-D5-3",
+   "d": 2,
+   "q": "Antara berikut, perbuatan manakah menyakiti jiran?",
+   "o": [
+    "Membakar sampah sehingga asap masuk ke rumah jiran",
+    "Memberi juadah",
+    "Memberi salam",
+    "Menjaga kebersihan kawasan"
+   ],
+   "a": 0,
+   "e": "Islam melarang perbuatan yang mengganggu jiran.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Adab dan Akhlak: menghormati ibu bapa dan jiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 763
+  },
+  {
+   "t": "PI-D5-3",
+   "d": 1,
+   "q": "Apakah doa yang sesuai untuk ibu bapa?",
+   "o": [
+    "Memohon mereka dimarahi",
+    "Tidak perlu berdoa",
+    "Memohon mereka susah",
+    "Memohon Allah mengasihi mereka"
+   ],
+   "a": 3,
+   "e": "Anak dituntut sentiasa mendoakan ibu bapa agar dikasihi Allah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 5 (draf): Adab dan Akhlak: menghormati ibu bapa dan jiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 764
+  },
+  {
+   "t": "PI-D6-1",
+   "d": 1,
+   "q": "Haji wajib ke atas orang Islam yang ...",
+   "o": [
+    "kaya sahaja",
+    "berkemampuan",
+    "tinggal di Makkah",
+    "berumur 60 tahun"
+   ],
+   "a": 1,
+   "e": "Haji wajib sekali seumur hidup bagi yang mampu dari segi fizikal dan kewangan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Ibadah: haji, umrah dan amalannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 765
+  },
+  {
+   "t": "PI-D6-1",
+   "d": 2,
+   "q": "Wukuf di Arafah berlaku pada ...",
+   "o": [
+    "1 Syawal",
+    "9 Zulhijjah",
+    "10 Muharam",
+    "27 Ramadan"
+   ],
+   "a": 1,
+   "e": "Wukuf di Padang Arafah dilakukan pada 9 Zulhijjah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Ibadah: haji, umrah dan amalannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 766
+  },
+  {
+   "t": "PI-D6-1",
+   "d": 1,
+   "q": "Berapakah pusingan tawaf mengelilingi Kaabah?",
+   "o": [
+    "5",
+    "3",
+    "9",
+    "7"
+   ],
+   "a": 3,
+   "e": "Tawaf dilakukan sebanyak tujuh pusingan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Ibadah: haji, umrah dan amalannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 767
+  },
+  {
+   "t": "PI-D6-1",
+   "d": 2,
+   "q": "Saie dilakukan antara bukit ...",
+   "o": [
+    "Safa dan Marwah",
+    "Uhud dan Thur",
+    "Arafah dan Mina",
+    "Hira' dan Thur"
+   ],
+   "a": 0,
+   "e": "Saie ialah berjalan tujuh kali antara Bukit Safa dan Marwah.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Ibadah: haji, umrah dan amalannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 768
+  },
+  {
+   "t": "PI-D6-1",
+   "d": 3,
+   "q": "Rukun haji yang tidak terdapat dalam ibadah umrah ialah ...",
+   "o": [
+    "ihram",
+    "tawaf",
+    "wukuf di Arafah",
+    "saie"
+   ],
+   "a": 2,
+   "e": "Wukuf di Arafah hanya ada dalam ibadah haji.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Ibadah: haji, umrah dan amalannya",
+   "status": "aktif",
+   "draf": 1,
+   "id": 769
+  },
+  {
+   "t": "PI-D6-2",
+   "d": 1,
+   "q": "Sifat 'Wujud' bermaksud Allah SWT ...",
+   "o": [
+    "ada",
+    "kekal",
+    "esa",
+    "mendengar"
+   ],
+   "a": 0,
+   "e": "Wujud bermaksud Allah itu ada.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Akidah: mengenal sifat-sifat wajib bagi Allah SWT",
+   "status": "aktif",
+   "draf": 1,
+   "id": 770
+  },
+  {
+   "t": "PI-D6-2",
+   "d": 2,
+   "q": "Sifat 'Qidam' bermaksud Allah SWT ...",
+   "o": [
+    "kekal tanpa akhir",
+    "berdiri dengan sendiri",
+    "sedia ada tanpa permulaan",
+    "berkuasa"
+   ],
+   "a": 2,
+   "e": "Qidam bermaksud kewujudan Allah tiada permulaan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Akidah: mengenal sifat-sifat wajib bagi Allah SWT",
+   "status": "aktif",
+   "draf": 1,
+   "id": 771
+  },
+  {
+   "t": "PI-D6-2",
+   "d": 2,
+   "q": "Sifat 'Baqa'' bermaksud Allah SWT ...",
+   "o": [
+    "sedia ada",
+    "kekal tanpa akhir",
+    "mengetahui",
+    "melihat"
+   ],
+   "a": 1,
+   "e": "Baqa' bermaksud Allah kekal dan tidak akan binasa.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Akidah: mengenal sifat-sifat wajib bagi Allah SWT",
+   "status": "aktif",
+   "draf": 1,
+   "id": 772
+  },
+  {
+   "t": "PI-D6-2",
+   "d": 2,
+   "q": "Sifat 'Wahdaniyah' bermaksud Allah SWT ...",
+   "o": [
+    "Maha Mendengar",
+    "Maha Melihat",
+    "Maha Hidup",
+    "Maha Esa"
+   ],
+   "a": 3,
+   "e": "Wahdaniyah bermaksud Allah Esa pada zat, sifat dan perbuatan.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Akidah: mengenal sifat-sifat wajib bagi Allah SWT",
+   "status": "aktif",
+   "draf": 1,
+   "id": 773
+  },
+  {
+   "t": "PI-D6-2",
+   "d": 3,
+   "q": "Sifat 'Mukhalafatuhu lil hawadith' bermaksud Allah SWT ...",
+   "o": [
+    "sama seperti manusia",
+    "memerlukan pertolongan",
+    "berbeza dengan segala makhluk",
+    "mempunyai permulaan"
+   ],
+   "a": 2,
+   "e": "Allah tidak menyerupai sesuatu pun daripada makhluk-Nya.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Akidah: mengenal sifat-sifat wajib bagi Allah SWT",
+   "status": "aktif",
+   "draf": 1,
+   "id": 774
+  },
+  {
+   "t": "PI-D6-3",
+   "d": 1,
+   "q": "Siapakah khalifah pertama selepas wafat Nabi Muhammad SAW?",
+   "o": [
+    "Saidina Abu Bakar RA",
+    "Saidina Umar RA",
+    "Saidina Ali RA",
+    "Saidina Uthman RA"
+   ],
+   "a": 0,
+   "e": "Saidina Abu Bakar as-Siddiq RA ialah khalifah pertama.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Sirah: sahabat dan Khulafa' al-Rasyidin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 775
+  },
+  {
+   "t": "PI-D6-3",
+   "d": 2,
+   "q": "Saidina Umar bin al-Khattab RA digelar ...",
+   "o": [
+    "as-Siddiq",
+    "Zun Nurain",
+    "Asadullah",
+    "al-Faruq"
+   ],
+   "a": 3,
+   "e": "Al-Faruq bermaksud pembeza antara yang benar dan yang batil.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Sirah: sahabat dan Khulafa' al-Rasyidin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 776
+  },
+  {
+   "t": "PI-D6-3",
+   "d": 3,
+   "q": "Siapakah yang digelar 'Zun Nurain'?",
+   "o": [
+    "Saidina Ali RA",
+    "Saidina Uthman RA",
+    "Saidina Abu Bakar RA",
+    "Saidina Umar RA"
+   ],
+   "a": 1,
+   "e": "Saidina Uthman RA berkahwin dengan dua puteri Nabi, lalu digelar Zun Nurain.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Sirah: sahabat dan Khulafa' al-Rasyidin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 777
+  },
+  {
+   "t": "PI-D6-3",
+   "d": 2,
+   "q": "Khalifah yang menyeragamkan penulisan mushaf al-Quran ialah ...",
+   "o": [
+    "Saidina Ali RA",
+    "Saidina Uthman RA",
+    "Saidina Umar RA",
+    "Saidina Abu Bakar RA"
+   ],
+   "a": 1,
+   "e": "Mushaf Uthmani disusun pada zaman Saidina Uthman RA.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Sirah: sahabat dan Khulafa' al-Rasyidin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 778
+  },
+  {
+   "t": "PI-D6-3",
+   "d": 2,
+   "q": "Siapakah sepupu dan menantu Nabi Muhammad SAW yang menjadi khalifah keempat?",
+   "o": [
+    "Saidina Uthman RA",
+    "Saidina Umar RA",
+    "Saidina Hamzah RA",
+    "Saidina Ali RA"
+   ],
+   "a": 3,
+   "e": "Saidina Ali bin Abi Talib RA ialah khalifah keempat.",
+   "s": "Draf Meta Didik: DSKP KSSR Pendidikan Islam Tahun 6 (draf): Sirah: sahabat dan Khulafa' al-Rasyidin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 779
+  },
+  {
+   "t": "PI-T1-1",
+   "d": 2,
+   "q": "Berapakah hukum nun mati dan tanwin?",
+   "o": [
+    "4",
+    "3",
+    "5",
+    "6"
+   ],
+   "a": 0,
+   "e": "Hukumnya ialah izhar halqi, idgham, iqlab dan ikhfa' haqiqi.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Al-Quran: tilawah dan hukum tajwid nun mati dan tanwin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 780
+  },
+  {
+   "t": "PI-T1-1",
+   "d": 2,
+   "q": "Nun mati atau tanwin bertemu huruf ba dibaca dengan hukum ...",
+   "o": [
+    "izhar halqi",
+    "idgham",
+    "iqlab",
+    "ikhfa' haqiqi"
+   ],
+   "a": 2,
+   "e": "Iqlab menukar bunyi nun mati atau tanwin kepada mim dengan dengung.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Al-Quran: tilawah dan hukum tajwid nun mati dan tanwin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 781
+  },
+  {
+   "t": "PI-T1-1",
+   "d": 2,
+   "q": "Berapakah bilangan huruf izhar halqi?",
+   "o": [
+    "6",
+    "4",
+    "15",
+    "2"
+   ],
+   "a": 0,
+   "e": "Huruf izhar halqi ada enam dan semuanya keluar dari kerongkong.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Al-Quran: tilawah dan hukum tajwid nun mati dan tanwin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 782
+  },
+  {
+   "t": "PI-T1-1",
+   "d": 3,
+   "q": "Berapakah bilangan huruf ikhfa' haqiqi?",
+   "o": [
+    "6",
+    "4",
+    "15",
+    "1"
+   ],
+   "a": 2,
+   "e": "Ikhfa' haqiqi mempunyai lima belas huruf.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Al-Quran: tilawah dan hukum tajwid nun mati dan tanwin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 783
+  },
+  {
+   "t": "PI-T1-1",
+   "d": 3,
+   "q": "Idgham bila ghunnah berlaku apabila nun mati atau tanwin bertemu huruf ...",
+   "o": [
+    "ya dan wau",
+    "lam dan ra",
+    "mim dan nun",
+    "ba dan ta"
+   ],
+   "a": 1,
+   "e": "Idgham tanpa dengung berlaku pada huruf lam dan ra.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Al-Quran: tilawah dan hukum tajwid nun mati dan tanwin",
+   "status": "aktif",
+   "draf": 1,
+   "id": 784
+  },
+  {
+   "t": "PI-T1-2",
+   "d": 2,
+   "q": "Apakah rukun mandi wajib selain niat?",
+   "o": [
+    "Membaca al-Fatihah",
+    "Membasuh kaki sahaja",
+    "Berkumur sahaja",
+    "Meratakan air ke seluruh anggota badan"
+   ],
+   "a": 3,
+   "e": "Rukun mandi wajib ialah niat dan meratakan air ke seluruh badan.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Ibadah: taharah, mandi wajib dan tayammum",
+   "status": "aktif",
+   "draf": 1,
+   "id": 785
+  },
+  {
+   "t": "PI-T1-2",
+   "d": 1,
+   "q": "Manakah antara berikut mewajibkan mandi wajib?",
+   "o": [
+    "Tidur",
+    "Makan",
+    "Haid",
+    "Bersin"
+   ],
+   "a": 2,
+   "e": "Haid ialah salah satu sebab wajib mandi.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Ibadah: taharah, mandi wajib dan tayammum",
+   "status": "aktif",
+   "draf": 1,
+   "id": 786
+  },
+  {
+   "t": "PI-T1-2",
+   "d": 2,
+   "q": "Tayammum menggunakan ...",
+   "o": [
+    "debu tanah yang suci",
+    "pasir bercampur najis",
+    "air laut",
+    "abu kayu"
+   ],
+   "a": 0,
+   "e": "Tayammum dilakukan dengan debu tanah yang suci.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Ibadah: taharah, mandi wajib dan tayammum",
+   "status": "aktif",
+   "draf": 1,
+   "id": 787
+  },
+  {
+   "t": "PI-T1-2",
+   "d": 3,
+   "q": "Menurut mazhab Syafie, anggota yang disapu ketika tayammum ialah ...",
+   "o": [
+    "kepala dan kaki",
+    "seluruh badan",
+    "telinga dan leher",
+    "muka dan kedua-dua tangan hingga siku"
+   ],
+   "a": 3,
+   "e": "Tayammum hanya melibatkan muka dan dua tangan hingga siku.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Ibadah: taharah, mandi wajib dan tayammum",
+   "status": "aktif",
+   "draf": 1,
+   "id": 788
+  },
+  {
+   "t": "PI-T1-2",
+   "d": 2,
+   "q": "Bilakah seseorang dibenarkan bertayammum?",
+   "o": [
+    "Apabila malas berwuduk",
+    "Apabila tiada air atau sakit yang tidak boleh terkena air",
+    "Apabila cuaca sejuk sedikit",
+    "Apabila tergesa-gesa"
+   ],
+   "a": 1,
+   "e": "Tayammum diharuskan ketika ada keuzuran yang diiktiraf syarak.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Ibadah: taharah, mandi wajib dan tayammum",
+   "status": "aktif",
+   "draf": 1,
+   "id": 789
+  },
+  {
+   "t": "PI-T1-3",
+   "d": 1,
+   "q": "Golongan yang berhijrah dari Makkah ke Madinah dipanggil ...",
+   "o": [
+    "Ansar",
+    "Muhajirin",
+    "Quraisy",
+    "Badwi"
+   ],
+   "a": 1,
+   "e": "Muhajirin bermaksud orang yang berhijrah.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Sirah: pembinaan masyarakat dan negara Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 790
+  },
+  {
+   "t": "PI-T1-3",
+   "d": 1,
+   "q": "Penduduk Madinah yang menolong kaum Muhajirin dipanggil ...",
+   "o": [
+    "Muhajirin",
+    "Tabiin",
+    "Khawarij",
+    "Ansar"
+   ],
+   "a": 3,
+   "e": "Ansar bermaksud penolong.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Sirah: pembinaan masyarakat dan negara Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 791
+  },
+  {
+   "t": "PI-T1-3",
+   "d": 2,
+   "q": "Apakah langkah pertama baginda sebaik tiba di Madinah?",
+   "o": [
+    "Membina Masjid Nabawi",
+    "Membina istana",
+    "Membina pasar",
+    "Membina kubu"
+   ],
+   "a": 0,
+   "e": "Masjid Nabawi menjadi pusat ibadah, ilmu dan pentadbiran.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Sirah: pembinaan masyarakat dan negara Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 792
+  },
+  {
+   "t": "PI-T1-3",
+   "d": 2,
+   "q": "Dokumen yang mengatur hubungan antara penduduk Madinah ialah ...",
+   "o": [
+    "Perjanjian Hudaibiyah",
+    "Perjanjian Aqabah",
+    "Piagam Madinah",
+    "Surat Kebenaran"
+   ],
+   "a": 2,
+   "e": "Piagam Madinah menyusun hak dan tanggungjawab penduduk Madinah.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Sirah: pembinaan masyarakat dan negara Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 793
+  },
+  {
+   "t": "PI-T1-3",
+   "d": 3,
+   "q": "Mengapakah Nabi mempersaudarakan Muhajirin dan Ansar?",
+   "o": [
+    "Untuk mengukuhkan perpaduan umat",
+    "Untuk mengutip cukai",
+    "Untuk memulakan perang",
+    "Untuk memisahkan mereka"
+   ],
+   "a": 0,
+   "e": "Persaudaraan ini mengeratkan ukhuwah dan membantu Muhajirin memulakan hidup baharu.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 1 (draf): Sirah: pembinaan masyarakat dan negara Madinah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 794
+  },
+  {
+   "t": "PI-T2-1",
+   "d": 1,
+   "q": "Syirik bermaksud ...",
+   "o": [
+    "mengesakan Allah",
+    "bersedekah",
+    "menyekutukan Allah SWT",
+    "berpuasa sunat"
+   ],
+   "a": 2,
+   "e": "Syirik ialah menjadikan sesuatu sebagai sekutu bagi Allah.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Akidah: perkara yang merosakkan akidah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 795
+  },
+  {
+   "t": "PI-T2-1",
+   "d": 2,
+   "q": "Khurafat bermaksud ...",
+   "o": [
+    "ilmu sains",
+    "kepercayaan karut yang bercanggah dengan ajaran Islam",
+    "adat yang baik",
+    "amalan sunat"
+   ],
+   "a": 1,
+   "e": "Khurafat ialah cerita dan kepercayaan karut tanpa asas syarak.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Akidah: perkara yang merosakkan akidah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 796
+  },
+  {
+   "t": "PI-T2-1",
+   "d": 2,
+   "q": "Manakah antara berikut termasuk amalan khurafat?",
+   "o": [
+    "Berdoa kepada Allah",
+    "Berubat di klinik",
+    "Bertawakal selepas berusaha",
+    "Percaya tangkal boleh menolak bala"
+   ],
+   "a": 3,
+   "e": "Hanya Allah yang menolak bala, bukan tangkal.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Akidah: perkara yang merosakkan akidah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 797
+  },
+  {
+   "t": "PI-T2-1",
+   "d": 2,
+   "q": "Syirik dikira sebagai dosa yang ...",
+   "o": [
+    "kecil",
+    "tidak berdosa",
+    "paling besar",
+    "makruh"
+   ],
+   "a": 2,
+   "e": "Syirik ialah dosa paling besar dan tidak diampunkan jika mati tanpa taubat.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Akidah: perkara yang merosakkan akidah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 798
+  },
+  {
+   "t": "PI-T2-1",
+   "d": 3,
+   "q": "Cara terbaik menghindari syirik ialah ...",
+   "o": [
+    "mendalami ilmu akidah yang sahih",
+    "mengikut kepercayaan karut",
+    "memakai azimat",
+    "menilik nasib"
+   ],
+   "a": 0,
+   "e": "Ilmu akidah yang betul menjaga diri daripada syirik.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Akidah: perkara yang merosakkan akidah",
+   "status": "aktif",
+   "draf": 1,
+   "id": 799
+  },
+  {
+   "t": "PI-T2-2",
+   "d": 2,
+   "q": "Solat qasar bermaksud ...",
+   "o": [
+    "menghimpunkan dua solat",
+    "solat secara berjemaah",
+    "solat sambil duduk",
+    "memendekkan solat empat rakaat kepada dua"
+   ],
+   "a": 3,
+   "e": "Qasar ialah memendekkan Zohor, Asar dan Isyak kepada dua rakaat.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Ibadah: rukhsah solat bagi musafir",
+   "status": "aktif",
+   "draf": 1,
+   "id": 800
+  },
+  {
+   "t": "PI-T2-2",
+   "d": 2,
+   "q": "Solat manakah yang tidak boleh diqasarkan?",
+   "o": [
+    "Zohor",
+    "Maghrib",
+    "Asar",
+    "Isyak"
+   ],
+   "a": 1,
+   "e": "Hanya solat empat rakaat boleh diqasarkan; Maghrib dan Subuh tidak.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Ibadah: rukhsah solat bagi musafir",
+   "status": "aktif",
+   "draf": 1,
+   "id": 801
+  },
+  {
+   "t": "PI-T2-2",
+   "d": 2,
+   "q": "Jamak taqdim bermaksud menghimpunkan dua solat dalam waktu ...",
+   "o": [
+    "solat yang kedua",
+    "solat yang pertama",
+    "tengah malam",
+    "Subuh"
+   ],
+   "a": 1,
+   "e": "Contohnya Zohor dan Asar dikerjakan dalam waktu Zohor.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Ibadah: rukhsah solat bagi musafir",
+   "status": "aktif",
+   "draf": 1,
+   "id": 802
+  },
+  {
+   "t": "PI-T2-2",
+   "d": 2,
+   "q": "Solat Zohor boleh dijamakkan dengan solat ...",
+   "o": [
+    "Subuh",
+    "Maghrib",
+    "Isyak",
+    "Asar"
+   ],
+   "a": 3,
+   "e": "Pasangan jamak ialah Zohor dengan Asar, dan Maghrib dengan Isyak.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Ibadah: rukhsah solat bagi musafir",
+   "status": "aktif",
+   "draf": 1,
+   "id": 803
+  },
+  {
+   "t": "PI-T2-2",
+   "d": 3,
+   "q": "Menurut mazhab Syafie, jarak minimum perjalanan untuk qasar ialah ...",
+   "o": [
+    "dua marhalah",
+    "satu kilometer",
+    "satu marhalah",
+    "tiada had"
+   ],
+   "a": 0,
+   "e": "Musafir yang mencapai dua marhalah dan bukan maksiat boleh mengqasar solat.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Ibadah: rukhsah solat bagi musafir",
+   "status": "aktif",
+   "draf": 1,
+   "id": 804
+  },
+  {
+   "t": "PI-T2-3",
+   "d": 1,
+   "q": "Apakah hukum riba dalam Islam?",
+   "o": [
+    "Harus",
+    "Sunat",
+    "Haram",
+    "Makruh"
+   ],
+   "a": 2,
+   "e": "Islam mengharamkan riba dan menghalalkan jual beli.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Muamalat: rukun jual beli dan larangan riba",
+   "status": "aktif",
+   "draf": 1,
+   "id": 805
+  },
+  {
+   "t": "PI-T2-3",
+   "d": 3,
+   "q": "Lafaz 'ijab dan qabul' dalam jual beli dikenali sebagai ...",
+   "o": [
+    "sighah",
+    "aqid",
+    "harga",
+    "riba"
+   ],
+   "a": 0,
+   "e": "Sighah ialah lafaz akad antara penjual dan pembeli.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Muamalat: rukun jual beli dan larangan riba",
+   "status": "aktif",
+   "draf": 1,
+   "id": 806
+  },
+  {
+   "t": "PI-T2-3",
+   "d": 3,
+   "q": "Manakah antara berikut BUKAN rukun jual beli?",
+   "o": [
+    "Penjual dan pembeli",
+    "Barang dan harga",
+    "Saksi wajib hadir",
+    "Ijab dan qabul"
+   ],
+   "a": 2,
+   "e": "Kehadiran saksi bukan rukun jual beli.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Muamalat: rukun jual beli dan larangan riba",
+   "status": "aktif",
+   "draf": 1,
+   "id": 807
+  },
+  {
+   "t": "PI-T2-3",
+   "d": 2,
+   "q": "Menyembunyikan kecacatan barang ketika menjual ialah perbuatan ...",
+   "o": [
+    "dibolehkan",
+    "menipu dan dilarang",
+    "digalakkan",
+    "wajib"
+   ],
+   "a": 1,
+   "e": "Peniaga Muslim wajib jujur tentang keadaan barang.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Muamalat: rukun jual beli dan larangan riba",
+   "status": "aktif",
+   "draf": 1,
+   "id": 808
+  },
+  {
+   "t": "PI-T2-3",
+   "d": 1,
+   "q": "Mengurangkan timbangan ketika berniaga hukumnya ...",
+   "o": [
+    "harus",
+    "sunat",
+    "makruh",
+    "haram"
+   ],
+   "a": 3,
+   "e": "Mengurangkan sukatan dan timbangan ialah penipuan yang diharamkan.",
+   "s": "Draf Meta Didik: DSKP KSSM Pendidikan Islam Tingkatan 2 (draf): Muamalat: rukun jual beli dan larangan riba",
+   "status": "aktif",
+   "draf": 1,
+   "id": 809
+  },
+  {
+   "t": "PI-T6-1",
+   "d": 2,
+   "q": "Manakah susunan sumber hukum syarak yang disepakati?",
+   "o": [
+    "Qiyas, ijmak, sunnah, al-Quran",
+    "Sunnah, al-Quran, qiyas, ijmak",
+    "Al-Quran, sunnah, ijmak, qiyas",
+    "Ijmak, al-Quran, qiyas, sunnah"
+   ],
+   "a": 2,
+   "e": "Al-Quran sumber utama, diikuti sunnah, ijmak dan qiyas.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: sumber hukum dan hukum taklifi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 810
+  },
+  {
+   "t": "PI-T6-1",
+   "d": 2,
+   "q": "Ijmak bermaksud ...",
+   "o": [
+    "kesepakatan para mujtahid selepas wafat Nabi tentang sesuatu hukum",
+    "pendapat seorang ulama",
+    "adat setempat",
+    "undang-undang negara"
+   ],
+   "a": 0,
+   "e": "Ijmak ialah persepakatan mujtahid umat pada satu zaman atas hukum syarak.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: sumber hukum dan hukum taklifi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 811
+  },
+  {
+   "t": "PI-T6-1",
+   "d": 3,
+   "q": "Sebab yang menghubungkan hukum asal dengan cabang dalam qiyas dinamakan ...",
+   "o": [
+    "furu'",
+    "asal",
+    "ijmak",
+    "illah"
+   ],
+   "a": 3,
+   "e": "Illah ialah sifat yang menjadi asas penyamaan hukum dalam qiyas.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: sumber hukum dan hukum taklifi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 812
+  },
+  {
+   "t": "PI-T6-1",
+   "d": 1,
+   "q": "Berapakah bahagian hukum taklifi?",
+   "o": [
+    "3",
+    "5",
+    "4",
+    "6"
+   ],
+   "a": 1,
+   "e": "Hukum taklifi ialah wajib, sunat, harus, makruh dan haram.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: sumber hukum dan hukum taklifi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 813
+  },
+  {
+   "t": "PI-T6-1",
+   "d": 2,
+   "q": "Perbuatan yang diberi pahala jika dilakukan dan tidak berdosa jika ditinggalkan ialah ...",
+   "o": [
+    "wajib",
+    "sunat",
+    "haram",
+    "makruh"
+   ],
+   "a": 1,
+   "e": "Sunat ialah tuntutan yang tidak tegas.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: sumber hukum dan hukum taklifi",
+   "status": "aktif",
+   "draf": 1,
+   "id": 814
+  },
+  {
+   "t": "PI-T6-2",
+   "d": 2,
+   "q": "Tokoh utama akidah Ahli Sunnah Wal Jamaah ialah ...",
+   "o": [
+    "Wasil bin Ata'",
+    "Jahm bin Safwan",
+    "Ibnu Sina",
+    "Imam Abu Hasan al-Asy'ari"
+   ],
+   "a": 3,
+   "e": "Imam al-Asy'ari dan Imam al-Maturidi ialah tokoh utama akidah ASWJ.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Usuluddin: akidah Ahli Sunnah Wal Jamaah dan aliran pemikiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 815
+  },
+  {
+   "t": "PI-T6-2",
+   "d": 3,
+   "q": "Siapakah pengasas aliran Muktazilah?",
+   "o": [
+    "Wasil bin Ata'",
+    "Imam al-Maturidi",
+    "Imam al-Ghazali",
+    "Imam Malik"
+   ],
+   "a": 0,
+   "e": "Muktazilah muncul apabila Wasil bin Ata' memisahkan diri daripada majlis Hasan al-Basri.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Usuluddin: akidah Ahli Sunnah Wal Jamaah dan aliran pemikiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 816
+  },
+  {
+   "t": "PI-T6-2",
+   "d": 3,
+   "q": "Menurut ASWJ, iman meliputi ...",
+   "o": [
+    "amalan anggota sahaja",
+    "ikrar lidah sahaja",
+    "pembenaran hati, ikrar lidah dan amalan anggota",
+    "keturunan semata-mata"
+   ],
+   "a": 2,
+   "e": "Iman dibenarkan di hati, dilafazkan dengan lidah dan dibuktikan dengan amalan.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Usuluddin: akidah Ahli Sunnah Wal Jamaah dan aliran pemikiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 817
+  },
+  {
+   "t": "PI-T6-2",
+   "d": 2,
+   "q": "Nama sebenar Imam Syafie ialah ...",
+   "o": [
+    "Muhammad bin Idris",
+    "Ahmad bin Hanbal",
+    "Nu'man bin Thabit",
+    "Malik bin Anas"
+   ],
+   "a": 0,
+   "e": "Imam Syafie bernama Muhammad bin Idris al-Syafie.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Usuluddin: akidah Ahli Sunnah Wal Jamaah dan aliran pemikiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 818
+  },
+  {
+   "t": "PI-T6-2",
+   "d": 1,
+   "q": "Manakah antara berikut termasuk empat mazhab fiqh ASWJ?",
+   "o": [
+    "Muktazilah",
+    "Jabariyah",
+    "Hanafi",
+    "Qadariyah"
+   ],
+   "a": 2,
+   "e": "Empat mazhab fiqh ialah Hanafi, Maliki, Syafie dan Hanbali.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Usuluddin: akidah Ahli Sunnah Wal Jamaah dan aliran pemikiran",
+   "status": "aktif",
+   "draf": 1,
+   "id": 819
+  },
+  {
+   "t": "PI-T6-3",
+   "d": 2,
+   "q": "Berapakah perkara asas (daruriyyat) dalam maqasid syariah?",
+   "o": [
+    "3",
+    "5",
+    "4",
+    "7"
+   ],
+   "a": 1,
+   "e": "Lima perkara asas ialah agama, nyawa, akal, keturunan dan harta.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: maqasid syariah dan kaedah fiqh asas",
+   "status": "aktif",
+   "draf": 1,
+   "id": 820
+  },
+  {
+   "t": "PI-T6-3",
+   "d": 2,
+   "q": "Pengharaman arak bertujuan utama menjaga ...",
+   "o": [
+    "harta",
+    "keturunan",
+    "kehormatan bangunan",
+    "akal"
+   ],
+   "a": 3,
+   "e": "Arak merosakkan akal, maka pengharamannya menjaga akal.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: maqasid syariah dan kaedah fiqh asas",
+   "status": "aktif",
+   "draf": 1,
+   "id": 821
+  },
+  {
+   "t": "PI-T6-3",
+   "d": 3,
+   "q": "Keperluan yang jika tiada akan menyebabkan kesukaran tetapi tidak membinasakan dinamakan ...",
+   "o": [
+    "daruriyyat",
+    "tahsiniyyat",
+    "hajiyyat",
+    "taabbudiyyat"
+   ],
+   "a": 2,
+   "e": "Hajiyyat menghilangkan kesukaran, seperti rukhsah qasar bagi musafir.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: maqasid syariah dan kaedah fiqh asas",
+   "status": "aktif",
+   "draf": 1,
+   "id": 822
+  },
+  {
+   "t": "PI-T6-3",
+   "d": 3,
+   "q": "Kaedah fiqh 'keyakinan tidak hilang dengan syak' bermaksud ...",
+   "o": [
+    "hukum asal yang yakin kekal walaupun timbul keraguan",
+    "keraguan membatalkan semua amalan",
+    "syak lebih kuat daripada yakin",
+    "semua perkara diragui hukumnya haram"
+   ],
+   "a": 0,
+   "e": "Contohnya, orang yang yakin berwuduk tetapi ragu batal masih dikira berwuduk.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: maqasid syariah dan kaedah fiqh asas",
+   "status": "aktif",
+   "draf": 1,
+   "id": 823
+  },
+  {
+   "t": "PI-T6-3",
+   "d": 3,
+   "q": "Kaedah 'adat boleh dijadikan hukum' merujuk kepada ...",
+   "o": [
+    "semua adat tanpa syarat",
+    "adat yang bertentangan dengan nas",
+    "undang-undang asing",
+    "uruf yang tidak bercanggah dengan syarak"
+   ],
+   "a": 3,
+   "e": "Adat yang baik dan tidak menyalahi syarak boleh menjadi rujukan hukum.",
+   "s": "Draf Meta Didik: Sukatan STPM Pengajian Syariah/Usuluddin (draf): Pengajian Syariah: maqasid syariah dan kaedah fiqh asas",
+   "status": "aktif",
+   "draf": 1,
+   "id": 824
   }
  ]
 }

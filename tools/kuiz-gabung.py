@@ -66,7 +66,8 @@ def main():
                 guna[ng] = n + 1
                 p = pins[ng][n % len(pins[ng])]
                 dx, dy = OFF[(n // len(pins[ng])) % len(OFF)]
-                topik_baru.append({"id": t["id"], "tema": tm["id"], "nama": t["nama"], "dskp": t["dskp"],
+                kod = (str(tm["darjah"]) if tm.get("darjah") else "T" + str(tm["tingkatan"])) + "." + str(i + 1)
+                topik_baru.append({"id": t["id"], "kod": kod, "tema": tm["id"], "nama": t["nama"], "dskp": t["dskp"],
                                    "buku": "Draf Meta Didik (perlu semakan guru)", "negeri": ng, "pin": 0,
                                    "xy": [round(p[0] + dx, 1), round(p[1] + dy, 1)], "nota": t["nota"][:3], "draf": 1})
                 peta[sj][t["id"]] = t["stesen"]
@@ -84,9 +85,11 @@ def main():
         # bank soalan
         Q = json.load(open(os.path.join(ROOT, qfile), encoding="utf-8"))
         Q["soalan"] = [x for x in Q["soalan"] if x.get("t") not in ids_tp]
-        nx = max([int(x.get("i", 0)) for x in Q["soalan"]] + [0]) + 1
+        kunci = "id" if any("id" in x for x in Q["soalan"]) else "i"  # bank PI guna "id", yang lain "i"
+        lama = [x for x in Q["soalan"] if not x.get("draf")]
+        nx = max([int(x.get("id", x.get("i", 0)) or 0) for x in lama] + [0]) + 1
         for q in soalan_baru:
-            q["i"] = nx
+            q[kunci] = nx
             nx += 1
             Q["soalan"].append(q)
         Q["versi"] = ver

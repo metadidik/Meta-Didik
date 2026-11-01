@@ -1,0 +1,2286 @@
+{
+ "subjek": "bm",
+ "draf": "Draf disediakan tanpa akses kepada DSKP rasmi; perlu semakan guru.",
+ "tahap": [
+  {
+   "tema": {
+    "id": "BM-D1",
+    "nama": "Bahasa Melayu Tahun 1",
+    "darjah": 1
+   },
+   "topik": [
+    {
+     "id": "BM-D1-1",
+     "nama": "Sapaan dan Ucapan Sopan",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 1 (draf): Kemahiran mendengar dan bertutur: menggunakan kata sapaan dan ucapan bertatasusila dalam situasi harian",
+     "stesen": "Kampung Baru",
+     "nota": [
+      "Ucapkan 'Selamat pagi' apabila berjumpa seseorang pada waktu pagi.",
+      "Ucapkan 'Terima kasih' apabila menerima sesuatu.",
+      "Ucapkan 'Maafkan saya' apabila melakukan kesilapan."
+     ],
+     "soalan": [
+      {
+       "q": "Apakah yang kamu ucapkan apabila menerima hadiah?",
+       "o": [
+        "Selamat tinggal.",
+        "Selamat malam.",
+        "Jemput masuk.",
+        "Terima kasih."
+       ],
+       "a": 3,
+       "e": "Kita mengucapkan 'terima kasih' apabila menerima sesuatu daripada orang lain.",
+       "d": 1
+      },
+      {
+       "q": "Kamu berjumpa guru pada waktu pagi. Apakah ucapan yang sesuai?",
+       "o": [
+        "Selamat pagi, cikgu.",
+        "Selamat malam, cikgu.",
+        "Selamat jalan, cikgu.",
+        "Selamat tidur, cikgu."
+       ],
+       "a": 0,
+       "e": "Ucapan 'selamat pagi' digunakan apabila berjumpa seseorang pada waktu pagi.",
+       "d": 1
+      },
+      {
+       "q": "Kamu terlanggar kawan. Apakah yang patut kamu katakan?",
+       "o": [
+        "Terima kasih.",
+        "Sama-sama.",
+        "Maafkan saya.",
+        "Selamat datang."
+       ],
+       "a": 2,
+       "e": "Kita memohon maaf apabila tersilap atau menyusahkan orang lain.",
+       "d": 1
+      },
+      {
+       "q": "Kawan berkata 'Terima kasih' kepada kamu. Apakah balasan yang sesuai?",
+       "o": [
+        "Maafkan saya.",
+        "Selamat pagi.",
+        "Selamat datang.",
+        "Sama-sama."
+       ],
+       "a": 3,
+       "e": "Ucapan 'sama-sama' ialah balasan yang sopan bagi ucapan terima kasih.",
+       "d": 1
+      },
+      {
+       "q": "Kamu mahu pulang dari rumah kawan. Apakah ucapan kamu kepada kawan itu?",
+       "o": [
+        "Selamat tinggal.",
+        "Selamat datang.",
+        "Selamat jalan.",
+        "Selamat menjamu selera."
+       ],
+       "a": 0,
+       "e": "Orang yang pergi mengucapkan 'selamat tinggal' kepada orang yang tinggal.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-D1-2",
+     "nama": "Huruf, Suku Kata dan Perkataan",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 1 (draf): Kemahiran membaca: mengenal huruf vokal dan konsonan, membatangkan suku kata dan membaca perkataan",
+     "stesen": "Pasar Siti Khadijah",
+     "nota": [
+      "Huruf vokal ialah a, e, i, o dan u.",
+      "Suku kata dibina daripada gabungan huruf vokal dan konsonan.",
+      "Perkataan 'bola' mempunyai dua suku kata, iaitu bo-la."
+     ],
+     "soalan": [
+      {
+       "q": "Yang manakah huruf vokal?",
+       "o": [
+        "b",
+        "k",
+        "m",
+        "a"
+       ],
+       "a": 3,
+       "e": "Huruf vokal ialah a, e, i, o dan u.",
+       "d": 1
+      },
+      {
+       "q": "Berapakah suku kata dalam perkataan 'buku'?",
+       "o": [
+        "Dua",
+        "Satu",
+        "Tiga",
+        "Empat"
+       ],
+       "a": 0,
+       "e": "Perkataan 'buku' dibaca bu-ku, iaitu dua suku kata.",
+       "d": 1
+      },
+      {
+       "q": "Gabungkan suku kata 'ku' dan 'da'. Apakah perkataan yang terbentuk?",
+       "o": [
+        "kada",
+        "duku",
+        "kuda",
+        "kuku"
+       ],
+       "a": 2,
+       "e": "Suku kata ku + da menjadi perkataan 'kuda'.",
+       "d": 1
+      },
+      {
+       "q": "Perkataan manakah yang mempunyai tiga suku kata?",
+       "o": [
+        "bola",
+        "ikan",
+        "kereta",
+        "buku"
+       ],
+       "a": 2,
+       "e": "Perkataan 'kereta' dibaca ke-re-ta, iaitu tiga suku kata.",
+       "d": 2
+      },
+      {
+       "q": "Pilih ejaan yang betul bagi haiwan yang mengiau.",
+       "o": [
+        "kuching",
+        "kucing",
+        "kocing",
+        "kucin"
+       ],
+       "a": 1,
+       "e": "Haiwan yang mengiau ialah kucing, dieja k-u-c-i-n-g.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-D1-3",
+     "nama": "Kata Nama Am dan Khas",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 1 (draf): Aspek tatabahasa: mengenal dan menggunakan kata nama am dan kata nama khas",
+     "stesen": "Istana Budaya",
+     "nota": [
+      "Kata nama ialah perkataan bagi nama orang, haiwan, benda dan tempat.",
+      "Kata nama khas seperti Ali dan Melaka dimulakan dengan huruf besar.",
+      "Kata nama am seperti kucing dan meja ditulis dengan huruf kecil."
+     ],
+     "soalan": [
+      {
+       "q": "Yang manakah nama haiwan?",
+       "o": [
+        "arnab",
+        "makan",
+        "cantik",
+        "lari"
+       ],
+       "a": 0,
+       "e": "Arnab ialah kata nama bagi seekor haiwan.",
+       "d": 1
+      },
+      {
+       "q": "Yang manakah kata nama khas?",
+       "o": [
+        "budak",
+        "Aminah",
+        "sekolah",
+        "pokok"
+       ],
+       "a": 1,
+       "e": "Aminah ialah nama khusus seseorang, jadi ia kata nama khas.",
+       "d": 1
+      },
+      {
+       "q": "Pilih ayat yang betul penggunaan huruf besarnya.",
+       "o": [
+        "ali pergi ke Ipoh.",
+        "Ali pergi ke ipoh.",
+        "ali pergi ke ipoh.",
+        "Ali pergi ke Ipoh."
+       ],
+       "a": 3,
+       "e": "Nama orang dan nama tempat dimulakan dengan huruf besar.",
+       "d": 2
+      },
+      {
+       "q": "Ibu membeli ___ di kedai.",
+       "o": [
+        "roti",
+        "tidur",
+        "besar",
+        "berlari"
+       ],
+       "a": 0,
+       "e": "Roti ialah kata nama benda yang boleh dibeli di kedai.",
+       "d": 1
+      },
+      {
+       "q": "Perkataan manakah nama tempat?",
+       "o": [
+        "taman",
+        "ayam",
+        "pensel",
+        "baju"
+       ],
+       "a": 0,
+       "e": "Taman ialah tempat, manakala yang lain ialah haiwan dan benda.",
+       "d": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-D2",
+    "nama": "Bahasa Melayu Tahun 2",
+    "darjah": 2
+   },
+   "topik": [
+    {
+     "id": "BM-D2-1",
+     "nama": "Bertutur dengan Sopan",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 2 (draf): Kemahiran mendengar dan bertutur: bertutur dengan sopan, meminta izin dan bertanya dalam situasi harian",
+     "stesen": "Kampung Budaya Sarawak",
+     "nota": [
+      "Gunakan perkataan 'boleh', 'tolong' dan 'maaf' supaya pertuturan menjadi sopan.",
+      "Gunakan panggilan hormat seperti cikgu, pak cik dan mak cik.",
+      "Cerita yang baik mempunyai permulaan, perkembangan dan pengakhiran."
+     ],
+     "soalan": [
+      {
+       "q": "Kamu ingin meminjam pensel kawan. Ayat manakah yang paling sopan?",
+       "o": [
+        "Bagi pensel itu!",
+        "Pensel awak saya ambil.",
+        "Cepat, beri saya pensel!",
+        "Boleh saya pinjam pensel awak?"
+       ],
+       "a": 3,
+       "e": "Meminta dengan perkataan 'boleh' menunjukkan kesopanan.",
+       "d": 1
+      },
+      {
+       "q": "Kamu terlambat masuk ke kelas. Apakah yang patut kamu katakan kepada guru?",
+       "o": [
+        "Saya mahu duduk.",
+        "Maafkan saya, cikgu, saya terlambat.",
+        "Cikgu, buka pintu.",
+        "Saya tidak mahu belajar."
+       ],
+       "a": 1,
+       "e": "Memohon maaf kepada guru apabila terlambat ialah tingkah laku yang sopan.",
+       "d": 1
+      },
+      {
+       "q": "Dengar ayat ini: 'Ibu sedang memasak di dapur.' Siapakah yang sedang memasak?",
+       "o": [
+        "Ayah",
+        "Kakak",
+        "Nenek",
+        "Ibu"
+       ],
+       "a": 3,
+       "e": "Ayat itu menyatakan bahawa ibu yang sedang memasak.",
+       "d": 1
+      },
+      {
+       "q": "Cerita yang baik mempunyai permulaan, perkembangan dan ___.",
+       "o": [
+        "tajuk sahaja",
+        "pengakhiran",
+        "gambar",
+        "nombor"
+       ],
+       "a": 1,
+       "e": "Sesebuah cerita lengkap mempunyai permulaan, perkembangan dan pengakhiran.",
+       "d": 2
+      },
+      {
+       "q": "Kamu ingin bertanya arah ke perpustakaan. Ayat manakah yang sesuai?",
+       "o": [
+        "Perpustakaan di mana, hah?",
+        "Tunjuk saya perpustakaan!",
+        "Maaf, cikgu, di manakah perpustakaan?",
+        "Perpustakaan itu jauh."
+       ],
+       "a": 2,
+       "e": "Pertanyaan yang sopan dimulakan dengan kata 'maaf' dan panggilan hormat.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-D2-2",
+     "nama": "Membaca dan Memahami Ayat",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 2 (draf): Kemahiran membaca: membaca dan memahami ayat mudah serta mengenal makna perkataan",
+     "stesen": "Pasar Payang",
+     "nota": [
+      "Baca ayat dengan teliti sebelum menjawab soalan.",
+      "Cari kata kunci seperti siapa, di mana dan apa.",
+      "Tanda soal (?) digunakan di akhir ayat tanya."
+     ],
+     "soalan": [
+      {
+       "q": "Baca: 'Siti pergi ke pasar bersama ibu. Mereka membeli ikan dan sayur.' Ke manakah Siti pergi?",
+       "o": [
+        "Pasar",
+        "Sekolah",
+        "Pantai",
+        "Masjid"
+       ],
+       "a": 0,
+       "e": "Ayat itu menyatakan Siti pergi ke pasar bersama ibu.",
+       "d": 1
+      },
+      {
+       "q": "Baca: 'Siti pergi ke pasar bersama ibu. Mereka membeli ikan dan sayur.' Apakah yang mereka beli?",
+       "o": [
+        "Ayam dan telur",
+        "Buah dan roti",
+        "Ikan dan sayur",
+        "Kuih dan gula"
+       ],
+       "a": 2,
+       "e": "Ayat kedua menyatakan mereka membeli ikan dan sayur.",
+       "d": 1
+      },
+      {
+       "q": "Tanda baca apakah yang sesuai di akhir ayat 'Di manakah rumah kamu'?",
+       "o": [
+        "Tanda soal (?)",
+        "Tanda noktah (.)",
+        "Tanda koma (,)",
+        "Tanda seru (!)"
+       ],
+       "a": 0,
+       "e": "Ayat tanya diakhiri dengan tanda soal.",
+       "d": 1
+      },
+      {
+       "q": "Perkataan manakah yang sama maksud dengan 'gembira'?",
+       "o": [
+        "sedih",
+        "marah",
+        "riang",
+        "takut"
+       ],
+       "a": 2,
+       "e": "Gembira dan riang membawa maksud yang sama, iaitu berasa suka hati.",
+       "d": 2
+      },
+      {
+       "q": "Perkataan manakah yang berlawanan maksud dengan 'tinggi'?",
+       "o": [
+        "panjang",
+        "rendah",
+        "besar",
+        "lebar"
+       ],
+       "a": 1,
+       "e": "Lawan bagi 'tinggi' ialah 'rendah'.",
+       "d": 1
+      }
+     ]
+    },
+    {
+     "id": "BM-D2-3",
+     "nama": "Kata Ganti Nama Diri",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 2 (draf): Aspek tatabahasa: menggunakan kata ganti nama diri pertama, kedua dan ketiga",
+     "stesen": "Istana Lama Seri Menanti",
+     "nota": [
+      "Kata ganti nama diri pertama: saya, aku, kami dan kita.",
+      "Kata ganti nama diri kedua: awak, kamu, engkau dan anda.",
+      "Kata ganti nama diri ketiga: dia, beliau dan mereka."
+     ],
+     "soalan": [
+      {
+       "q": "'___ suka makan nasi lemak,' kata Ali tentang dirinya.",
+       "o": [
+        "Dia",
+        "Mereka",
+        "Saya",
+        "Kamu"
+       ],
+       "a": 2,
+       "e": "Ali bercakap tentang dirinya sendiri, jadi dia menggunakan 'saya'.",
+       "d": 1
+      },
+      {
+       "q": "Yang manakah kata ganti nama diri ketiga?",
+       "o": [
+        "kami",
+        "mereka",
+        "saya",
+        "kamu"
+       ],
+       "a": 1,
+       "e": "'Mereka' merujuk kepada orang yang dibicarakan, iaitu orang ketiga.",
+       "d": 2
+      },
+      {
+       "q": "Ayah dan ibu pergi ke kedai. ___ membeli beras.",
+       "o": [
+        "Saya",
+        "Mereka",
+        "Aku",
+        "Kamu"
+       ],
+       "a": 1,
+       "e": "'Mereka' menggantikan ayah dan ibu yang lebih daripada seorang.",
+       "d": 1
+      },
+      {
+       "q": "Perkataan 'beliau' digunakan untuk merujuk kepada orang yang ___.",
+       "o": [
+        "lebih muda daripada kita",
+        "dihormati",
+        "sedang kita marahi",
+        "sedang bercakap"
+       ],
+       "a": 1,
+       "e": "'Beliau' ialah kata ganti nama diri ketiga bagi orang yang dihormati.",
+       "d": 2
+      },
+      {
+       "q": "Kata ganti nama manakah yang merangkumi orang yang bercakap dan orang yang mendengar?",
+       "o": [
+        "kami",
+        "kita",
+        "mereka",
+        "dia"
+       ],
+       "a": 1,
+       "e": "'Kita' merangkumi penutur dan pendengar, manakala 'kami' tidak merangkumi pendengar.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-D3",
+    "nama": "Bahasa Melayu Tahun 3",
+    "darjah": 3
+   },
+   "topik": [
+    {
+     "id": "BM-D3-1",
+     "nama": "Kata Kerja dan Kata Adjektif",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 3 (draf): Aspek tatabahasa: mengenal dan menggunakan kata kerja dan kata adjektif dalam ayat",
+     "stesen": "Kuching Waterfront",
+     "nota": [
+      "Kata kerja menunjukkan perbuatan, contohnya makan dan berlari.",
+      "Kata adjektif menerangkan sifat, contohnya cantik dan besar.",
+      "Kata adjektif rasa termasuk manis, masam dan masin."
+     ],
+     "soalan": [
+      {
+       "q": "Yang manakah kata kerja?",
+       "o": [
+        "melompat",
+        "comel",
+        "meja",
+        "hijau"
+       ],
+       "a": 0,
+       "e": "Melompat ialah perbuatan, jadi ia kata kerja.",
+       "d": 1
+      },
+      {
+       "q": "Bunga itu sangat ___.",
+       "o": [
+        "menyiram",
+        "pasu",
+        "harum",
+        "tanam"
+       ],
+       "a": 2,
+       "e": "Harum ialah kata adjektif yang menerangkan sifat bunga.",
+       "d": 1
+      },
+      {
+       "q": "Dalam ayat 'Kucing itu gemuk.', perkataan 'gemuk' ialah ___.",
+       "o": [
+        "kata kerja",
+        "kata adjektif",
+        "kata nama",
+        "kata ganti nama"
+       ],
+       "a": 1,
+       "e": "'Gemuk' menerangkan sifat kucing, jadi ia kata adjektif.",
+       "d": 2
+      },
+      {
+       "q": "Pilih kata adjektif yang menerangkan rasa.",
+       "o": [
+        "bulat",
+        "laju",
+        "tinggi",
+        "masam"
+       ],
+       "a": 3,
+       "e": "Masam ialah rasa, manakala yang lain menerangkan bentuk, kelajuan dan ukuran.",
+       "d": 2
+      },
+      {
+       "q": "Ahmad ___ bola di padang.",
+       "o": [
+        "menyepak",
+        "sepakan",
+        "penyepak",
+        "kesepakan"
+       ],
+       "a": 0,
+       "e": "Kata kerja 'menyepak' menunjukkan perbuatan Ahmad terhadap bola.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-D3-2",
+     "nama": "Imbuhan Awalan ber- dan meN-",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 3 (draf): Aspek tatabahasa: membentuk dan menggunakan kata berimbuhan awalan ber- dan meN-",
+     "stesen": "Menara Alor Setar",
+     "nota": [
+      "Awalan ber- membentuk kata seperti berjalan dan bermain.",
+      "Awalan meN- berubah menjadi me-, mem-, men-, meng- atau meny- mengikut huruf awal kata dasar.",
+      "Contohnya, meN- + tulis menjadi menulis, dan meN- + baca menjadi membaca."
+     ],
+     "soalan": [
+      {
+       "q": "meN- + baca = ?",
+       "o": [
+        "mebaca",
+        "menbaca",
+        "membaca",
+        "mengbaca"
+       ],
+       "a": 2,
+       "e": "Kata dasar bermula dengan huruf 'b' menerima bentuk 'mem-'.",
+       "d": 1
+      },
+      {
+       "q": "meN- + sapu = ?",
+       "o": [
+        "mensapu",
+        "mesapu",
+        "mengsapu",
+        "menyapu"
+       ],
+       "a": 3,
+       "e": "Huruf 's' pada kata dasar digugurkan dan diganti dengan 'meny-'.",
+       "d": 2
+      },
+      {
+       "q": "Kakak ___ basikal ke sekolah.",
+       "o": [
+        "tunggangan",
+        "menunggang",
+        "penunggang",
+        "tunggangkan"
+       ],
+       "a": 1,
+       "e": "'Menunggang' ialah kata kerja yang sesuai bagi perbuatan kakak.",
+       "d": 2
+      },
+      {
+       "q": "Kami ___ bola di taman.",
+       "o": [
+        "memain",
+        "mainan",
+        "pemain",
+        "bermain"
+       ],
+       "a": 3,
+       "e": "Kata kerja 'bermain' dibentuk daripada ber- + main.",
+       "d": 1
+      },
+      {
+       "q": "Apakah kata dasar bagi perkataan 'mengambil'?",
+       "o": [
+        "gambil",
+        "mambil",
+        "ngambil",
+        "ambil"
+       ],
+       "a": 3,
+       "e": "Awalan meng- digunakan untuk kata dasar yang bermula dengan huruf vokal seperti 'ambil'.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-D3-3",
+     "nama": "Menulis Ayat dan Tanda Baca",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 3 (draf): Kemahiran menulis: membina ayat mudah dengan ejaan, huruf besar dan tanda baca yang betul",
+     "stesen": "Bangunan Sultan Abdul Samad",
+     "nota": [
+      "Ayat dimulakan dengan huruf besar dan diakhiri dengan tanda noktah, tanda soal atau tanda seru.",
+      "Tanda koma (,) digunakan untuk memisahkan senarai benda.",
+      "Ayat lengkap mempunyai subjek dan predikat."
+     ],
+     "soalan": [
+      {
+       "q": "Ayat manakah yang ditulis dengan betul?",
+       "o": [
+        "Saya suka membaca buku.",
+        "saya suka membaca buku.",
+        "Saya suka membaca buku",
+        "saya suka membaca buku"
+       ],
+       "a": 0,
+       "e": "Ayat mesti dimulakan dengan huruf besar dan diakhiri dengan tanda noktah.",
+       "d": 1
+      },
+      {
+       "q": "Tanda baca apakah yang sesuai di akhir ayat 'Wah, cantiknya pemandangan itu'?",
+       "o": [
+        "Tanda soal (?)",
+        "Tanda seru (!)",
+        "Tanda koma (,)",
+        "Tanda sempang (-)"
+       ],
+       "a": 1,
+       "e": "Ayat yang menyatakan perasaan kagum diakhiri dengan tanda seru.",
+       "d": 2
+      },
+      {
+       "q": "Pilih ayat yang menggunakan tanda koma dengan betul.",
+       "o": [
+        "Ibu, membeli ikan sayur dan buah.",
+        "Ibu membeli, ikan sayur dan buah.",
+        "Ibu membeli ikan, sayur dan buah.",
+        "Ibu membeli ikan sayur, dan buah."
+       ],
+       "a": 2,
+       "e": "Tanda koma memisahkan benda dalam senarai dan tidak diletakkan sebelum 'dan'.",
+       "d": 2
+      },
+      {
+       "q": "Susun perkataan ini menjadi ayat: ke / sekolah / Amin / pergi",
+       "o": [
+        "Amin pergi ke sekolah.",
+        "Sekolah pergi ke Amin.",
+        "Pergi Amin sekolah ke.",
+        "Amin sekolah pergi ke."
+       ],
+       "a": 0,
+       "e": "Ayat yang betul ialah subjek 'Amin' diikuti predikat 'pergi ke sekolah'.",
+       "d": 1
+      },
+      {
+       "q": "Dalam ayat 'Adik tidur.', perkataan 'Adik' ialah ___ ayat.",
+       "o": [
+        "predikat",
+        "subjek",
+        "objek",
+        "keterangan"
+       ],
+       "a": 1,
+       "e": "Subjek ialah perkara yang diceritakan, iaitu 'Adik'.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-D4",
+    "nama": "Bahasa Melayu Tahun 4",
+    "darjah": 4
+   },
+   "topik": [
+    {
+     "id": "BM-D4-1",
+     "nama": "Kata Ganda",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 4 (draf): Aspek tatabahasa: mengenal dan menggunakan kata ganda penuh, separa dan berentak",
+     "stesen": "Lembah Bujang",
+     "nota": [
+      "Kata ganda penuh mengulang seluruh kata dasar, contohnya rumah-rumah.",
+      "Kata ganda separa mengulang sebahagian kata dasar, contohnya lelaki.",
+      "Kata ganda berentak mengubah bunyi, contohnya sayur-mayur dan kuih-muih."
+     ],
+     "soalan": [
+      {
+       "q": "Yang manakah kata ganda penuh?",
+       "o": [
+        "sayur-mayur",
+        "lauk-pauk",
+        "kawan-kawan",
+        "bolak-balik"
+       ],
+       "a": 2,
+       "e": "Kata dasar 'kawan' diulang sepenuhnya.",
+       "d": 1
+      },
+      {
+       "q": "'Sayur-mayur' ialah kata ganda ___.",
+       "o": [
+        "penuh",
+        "berentak",
+        "separa",
+        "berimbuhan"
+       ],
+       "a": 1,
+       "e": "Unsur kedua 'mayur' berubah bunyi, jadi ia kata ganda berentak.",
+       "d": 2
+      },
+      {
+       "q": "Perkataan manakah kata ganda separa?",
+       "o": [
+        "kanak-kanak",
+        "lelaki",
+        "gunung-ganang",
+        "anak-anak"
+       ],
+       "a": 1,
+       "e": "'Lelaki' terbentuk daripada pengulangan suku kata awal 'laki'.",
+       "d": 2
+      },
+      {
+       "q": "Di gerai itu terdapat pelbagai ___ seperti betik dan pisang.",
+       "o": [
+        "kuih-muih",
+        "buah-buahan",
+        "lauk-pauk",
+        "sayur-mayur"
+       ],
+       "a": 1,
+       "e": "Betik dan pisang tergolong dalam buah-buahan.",
+       "d": 1
+      },
+      {
+       "q": "Ayat manakah yang betul penggunaan kata gandanya?",
+       "o": [
+        "Banyak buku di atas meja.",
+        "Banyak buku-buku di atas meja.",
+        "Para murid-murid berbaris.",
+        "Semua pelajar-pelajar hadir."
+       ],
+       "a": 0,
+       "e": "Kata ganda tidak digunakan bersama penanda jamak seperti banyak, para dan semua.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "BM-D4-2",
+     "nama": "Simpulan Bahasa dan Peribahasa",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 4 (draf): Aspek seni bahasa: memahami dan menggunakan simpulan bahasa dan peribahasa yang mudah",
+     "stesen": "Gunung Ledang",
+     "nota": [
+      "Simpulan bahasa ialah gabungan dua perkataan yang membawa maksud tertentu, contohnya 'ringan tulang'.",
+      "Perumpamaan biasanya menggunakan perkataan seperti, bagai atau umpama.",
+      "'Bagai aur dengan tebing' bermaksud saling membantu."
+     ],
+     "soalan": [
+      {
+       "q": "Apakah maksud simpulan bahasa 'buah tangan'?",
+       "o": [
+        "Buah di atas tangan",
+        "Tangan yang kuat",
+        "Buah-buahan segar",
+        "Hadiah atau oleh-oleh"
+       ],
+       "a": 3,
+       "e": "'Buah tangan' bermaksud hadiah atau oleh-oleh untuk seseorang.",
+       "d": 1
+      },
+      {
+       "q": "Apakah maksud simpulan bahasa 'ringan tulang'?",
+       "o": [
+        "Malas",
+        "Kurus",
+        "Lemah",
+        "Rajin"
+       ],
+       "a": 3,
+       "e": "Orang yang ringan tulang rajin membuat kerja.",
+       "d": 1
+      },
+      {
+       "q": "Apakah maksud 'bagai aur dengan tebing'?",
+       "o": [
+        "Saling membantu",
+        "Selalu bergaduh",
+        "Hidup bersendirian",
+        "Sangat sombong"
+       ],
+       "a": 0,
+       "e": "Aur dan tebing saling menyokong, jadi peribahasa ini bermaksud saling membantu.",
+       "d": 2
+      },
+      {
+       "q": "Murid kelas 4 Bestari bergotong-royong membersihkan kelas. Peribahasa manakah yang sesuai?",
+       "o": [
+        "Seperti katak di bawah tempurung.",
+        "Berat sama dipikul, ringan sama dijinjing.",
+        "Bagai melepaskan anjing tersepit.",
+        "Seperti kacang lupakan kulit."
+       ],
+       "a": 1,
+       "e": "Peribahasa ini bermaksud bekerjasama dalam semua keadaan.",
+       "d": 2
+      },
+      {
+       "q": "Apakah maksud simpulan bahasa 'kaki bangku'?",
+       "o": [
+        "Kaki meja yang patah",
+        "Orang yang suka duduk",
+        "Tidak pandai bermain bola sepak",
+        "Orang yang rajin berjalan"
+       ],
+       "a": 2,
+       "e": "'Kaki bangku' digunakan untuk orang yang tidak pandai bermain bola.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-D4-3",
+     "nama": "Kata Hubung dan Ayat Majmuk",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 4 (draf): Aspek tatabahasa: menggunakan kata hubung untuk membina ayat majmuk",
+     "stesen": "Istana Kellie",
+     "nota": [
+      "Kata hubung menyambungkan perkataan, frasa atau ayat.",
+      "'Tetapi' menunjukkan perbezaan, manakala 'kerana' menunjukkan sebab.",
+      "'Supaya' menunjukkan tujuan dan 'walaupun' menunjukkan pertentangan."
+     ],
+     "soalan": [
+      {
+       "q": "Ali rajin ___ adiknya malas.",
+       "o": [
+        "tetapi",
+        "kerana",
+        "atau",
+        "supaya"
+       ],
+       "a": 0,
+       "e": "'Tetapi' menghubungkan dua keadaan yang berbeza.",
+       "d": 1
+      },
+      {
+       "q": "Dia tidak hadir ke sekolah ___ demam.",
+       "o": [
+        "tetapi",
+        "kerana",
+        "atau",
+        "lalu"
+       ],
+       "a": 1,
+       "e": "'Kerana' menunjukkan sebab dia tidak hadir.",
+       "d": 1
+      },
+      {
+       "q": "Kamu mahu minum teh ___ kopi?",
+       "o": [
+        "atau",
+        "tetapi",
+        "kerana",
+        "supaya"
+       ],
+       "a": 0,
+       "e": "'Atau' digunakan untuk memberi pilihan.",
+       "d": 1
+      },
+      {
+       "q": "Belajarlah bersungguh-sungguh ___ kamu lulus dalam peperiksaan.",
+       "o": [
+        "walaupun",
+        "tetapi",
+        "atau",
+        "supaya"
+       ],
+       "a": 3,
+       "e": "'Supaya' menunjukkan tujuan sesuatu perbuatan.",
+       "d": 2
+      },
+      {
+       "q": "___ hujan lebat, mereka tetap bermain di padang.",
+       "o": [
+        "Kerana",
+        "Supaya",
+        "Lalu",
+        "Walaupun"
+       ],
+       "a": 3,
+       "e": "'Walaupun' menunjukkan keadaan yang bertentangan dengan tindakan mereka.",
+       "d": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-D5",
+    "nama": "Bahasa Melayu Tahun 5",
+    "darjah": 5
+   },
+   "topik": [
+    {
+     "id": "BM-D5-1",
+     "nama": "Imbuhan Apitan",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 5 (draf): Aspek tatabahasa: membentuk dan menggunakan kata berimbuhan apitan dan akhiran",
+     "stesen": "Bukit Melawati",
+     "nota": [
+      "Apitan ke-...-an membentuk kata nama seperti kebersihan.",
+      "Apitan peN-...-an membentuk kata nama seperti pembinaan.",
+      "Akhiran -kan dan -i membentuk kata kerja seperti menghadiahkan dan menghadiahi."
+     ],
+     "soalan": [
+      {
+       "q": "Apitan ke-...-an + bersih menjadi ___.",
+       "o": [
+        "kebersihkan",
+        "berbersihan",
+        "kebersihan",
+        "membersihan"
+       ],
+       "a": 2,
+       "e": "ke- + bersih + -an membentuk kata nama 'kebersihan'.",
+       "d": 1
+      },
+      {
+       "q": "Pihak majlis sedang menjalankan kerja-kerja ___ jalan raya baharu.",
+       "o": [
+        "kebinaan",
+        "pembinaan",
+        "berbinaan",
+        "membinakan"
+       ],
+       "a": 1,
+       "e": "Kata nama 'pembinaan' dibentuk daripada apitan peN-...-an + bina.",
+       "d": 2
+      },
+      {
+       "q": "Guru ___ kertas ujian kepada murid.",
+       "o": [
+        "membahagian",
+        "pembahagian",
+        "kebahagiaan",
+        "membahagikan"
+       ],
+       "a": 3,
+       "e": "Kata kerja 'membahagikan' sesuai kerana ada objek 'kertas ujian'.",
+       "d": 2
+      },
+      {
+       "q": "Pilih ayat yang betul.",
+       "o": [
+        "Ibu menghadiahkan saya sebuah jam.",
+        "Ibu menghadiahi sebuah jam kepada saya.",
+        "Ibu menghadiahi saya sebuah jam.",
+        "Ibu menghadiah saya sebuah jam."
+       ],
+       "a": 2,
+       "e": "Akhiran -i diikuti penerima (saya), manakala -kan diikuti benda yang diberikan.",
+       "d": 3
+      },
+      {
+       "q": "Apakah kata dasar bagi 'pertandingan'?",
+       "o": [
+        "bertanding",
+        "tanding",
+        "andingan",
+        "tandingan"
+       ],
+       "a": 1,
+       "e": "'Pertandingan' terbentuk daripada apitan per-...-an + tanding.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-D5-2",
+     "nama": "Pantun dan Perumpamaan",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 5 (draf): Aspek seni bahasa: memahami dan melengkapkan pantun serta menggunakan perumpamaan",
+     "stesen": "Istana Budaya",
+     "nota": [
+      "Pantun empat kerat mempunyai dua baris pembayang dan dua baris maksud.",
+      "Rima akhir pantun empat kerat ialah a-b-a-b.",
+      "'Seperti kacang lupakan kulit' bermaksud orang yang lupa asal usul."
+     ],
+     "soalan": [
+      {
+       "q": "Berapakah baris pembayang dalam pantun empat kerat?",
+       "o": [
+        "Satu",
+        "Dua",
+        "Tiga",
+        "Empat"
+       ],
+       "a": 1,
+       "e": "Dua baris pertama pantun empat kerat ialah pembayang.",
+       "d": 1
+      },
+      {
+       "q": "Pola rima akhir pantun empat kerat ialah ___.",
+       "o": [
+        "a-a-b-b",
+        "a-b-b-a",
+        "a-b-c-d",
+        "a-b-a-b"
+       ],
+       "a": 3,
+       "e": "Baris pertama berima dengan baris ketiga, dan baris kedua dengan baris keempat.",
+       "d": 2
+      },
+      {
+       "q": "Apakah maksud 'seperti kacang lupakan kulit'?",
+       "o": [
+        "Orang yang suka makan kacang",
+        "Orang yang lupa asal usul atau jasa orang",
+        "Orang yang sangat berjimat",
+        "Orang yang rajin berkebun"
+       ],
+       "a": 1,
+       "e": "Perumpamaan ini menggambarkan orang yang melupakan asal usul atau jasa orang lain.",
+       "d": 2
+      },
+      {
+       "q": "Apakah maksud 'seperti katak di bawah tempurung'?",
+       "o": [
+        "Orang yang sempit pengetahuan dan pengalamannya",
+        "Orang yang suka menyorok",
+        "Orang yang pandai melompat",
+        "Orang yang hidup mewah"
+       ],
+       "a": 0,
+       "e": "Katak di bawah tempurung tidak melihat dunia luar, sama seperti orang yang kurang pengetahuan.",
+       "d": 2
+      },
+      {
+       "q": "Lengkapkan pantun: 'Pisang emas dibawa belayar, / Masak sebiji di atas peti; / Hutang emas boleh dibayar, / ___'",
+       "o": [
+        "Hutang budi dibawa mati.",
+        "Hutang budi tidak dibayar.",
+        "Hutang budi dibawa lari.",
+        "Hutang budi lupa sekali."
+       ],
+       "a": 0,
+       "e": "Baris ini berima dengan 'peti' dan bermaksud budi dikenang sepanjang hayat.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-D5-3",
+     "nama": "Menulis Karangan dan Penanda Wacana",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 5 (draf): Kemahiran menulis: menghasilkan penulisan berstruktur dengan penanda wacana yang sesuai",
+     "stesen": "Padang Merdeka dan Muzium Perang",
+     "nota": [
+      "Karangan mempunyai pendahuluan, isi dan penutup.",
+      "Penanda wacana seperti 'selain itu' dan 'kesimpulannya' menghubungkan idea.",
+      "Setiap perenggan isi mengandungi satu isi utama beserta huraian."
+     ],
+     "soalan": [
+      {
+       "q": "Bahagian karangan yang memperkenalkan tajuk dinamakan ___.",
+       "o": [
+        "pendahuluan",
+        "penutup",
+        "isi kedua",
+        "huraian"
+       ],
+       "a": 0,
+       "e": "Pendahuluan ialah bahagian awal yang memperkenalkan tajuk karangan.",
+       "d": 1
+      },
+      {
+       "q": "Penanda wacana manakah yang sesuai untuk memulakan perenggan penutup?",
+       "o": [
+        "Selain itu,",
+        "Pertama sekali,",
+        "Di samping itu,",
+        "Kesimpulannya,"
+       ],
+       "a": 3,
+       "e": "'Kesimpulannya' menandakan rumusan di akhir karangan.",
+       "d": 1
+      },
+      {
+       "q": "Bersenam dapat menyihatkan badan. ___, bersenam juga dapat mengurangkan tekanan.",
+       "o": [
+        "Oleh itu",
+        "Selain itu",
+        "Walau bagaimanapun",
+        "Kesimpulannya"
+       ],
+       "a": 1,
+       "e": "'Selain itu' digunakan untuk menambah isi yang lain.",
+       "d": 2
+      },
+      {
+       "q": "Surat kiriman tidak rasmi biasanya ditulis kepada ___.",
+       "o": [
+        "pengetua sekolah",
+        "pejabat kerajaan",
+        "syarikat swasta",
+        "kawan atau ahli keluarga"
+       ],
+       "a": 3,
+       "e": "Surat tidak rasmi ditulis kepada orang yang rapat dengan kita.",
+       "d": 2
+      },
+      {
+       "q": "Ayat manakah yang paling sesuai sebagai isi bagi tajuk 'Kebaikan Membaca'?",
+       "o": [
+        "Saya suka bermain bola.",
+        "Harga buku semakin mahal.",
+        "Membaca dapat menambah ilmu pengetahuan.",
+        "Perpustakaan dibuka pada pukul 8 pagi."
+       ],
+       "a": 2,
+       "e": "Isi mesti berkaitan dengan kebaikan membaca.",
+       "d": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-D6",
+    "nama": "Bahasa Melayu Tahun 6",
+    "darjah": 6
+   },
+   "topik": [
+    {
+     "id": "BM-D6-1",
+     "nama": "Ayat Aktif dan Ayat Pasif",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 6 (draf): Aspek tatabahasa: membina dan menukar ayat aktif kepada ayat pasif",
+     "stesen": "Parlimen Malaysia",
+     "nota": [
+      "Dalam ayat aktif, subjek melakukan perbuatan: 'Ali menendang bola.'",
+      "Dalam ayat pasif, objek menjadi subjek: 'Bola ditendang oleh Ali.'",
+      "Ayat pasif dengan kata ganti nama diri pertama dan kedua tidak menggunakan di-: 'Buku itu saya baca.'"
+     ],
+     "soalan": [
+      {
+       "q": "Tukarkan ayat 'Ali menendang bola.' kepada ayat pasif.",
+       "o": [
+        "Bola ditendang oleh Ali.",
+        "Bola menendang Ali.",
+        "Ali ditendang oleh bola.",
+        "Bola itu menendang oleh Ali."
+       ],
+       "a": 0,
+       "e": "Objek 'bola' dikedepankan dan kata kerja menerima imbuhan di-.",
+       "d": 1
+      },
+      {
+       "q": "Pilih ayat pasif yang betul.",
+       "o": [
+        "Surat itu ditulis oleh saya.",
+        "Surat itu saya ditulis.",
+        "Surat itu ditulis saya.",
+        "Surat itu saya tulis."
+       ],
+       "a": 3,
+       "e": "Ayat pasif dengan kata ganti nama diri pertama tidak menggunakan imbuhan di-.",
+       "d": 3
+      },
+      {
+       "q": "Ayat manakah ialah ayat aktif?",
+       "o": [
+        "Kakak menjahit baju.",
+        "Baju dijahit oleh kakak.",
+        "Baju itu kakak jahit.",
+        "Baju itu telah dijahit."
+       ],
+       "a": 0,
+       "e": "Dalam ayat aktif, subjek 'kakak' melakukan perbuatan 'menjahit'.",
+       "d": 2
+      },
+      {
+       "q": "Kek itu ___ oleh ibu.",
+       "o": [
+        "membakar",
+        "terbakar",
+        "dibakar",
+        "pembakar"
+       ],
+       "a": 2,
+       "e": "Ayat pasif dengan pelaku 'oleh ibu' menggunakan kata kerja berimbuhan di-.",
+       "d": 1
+      },
+      {
+       "q": "Tukarkan ayat 'Kamu mesti menyiapkan kerja rumah.' kepada ayat pasif.",
+       "o": [
+        "Kerja rumah mesti kamu disiapkan.",
+        "Kamu mesti disiapkan kerja rumah.",
+        "Kerja rumah mesti kamu siapkan.",
+        "Kerja rumah kamu mesti menyiapkan."
+       ],
+       "a": 2,
+       "e": "Ayat pasif kata ganti nama diri kedua menggunakan kata kerja tanpa imbuhan di-.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "BM-D6-2",
+     "nama": "Bidalan dan Peribahasa",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 6 (draf): Aspek seni bahasa: memahami dan menggunakan bidalan, pepatah dan perumpamaan dalam konteks",
+     "stesen": "Kampung Baru",
+     "nota": [
+      "Bidalan mengandungi nasihat, contohnya 'Malu bertanya sesat jalan'.",
+      "'Di mana bumi dipijak, di situ langit dijunjung' bermaksud menghormati adat tempat kita berada.",
+      "'Melentur buluh biarlah dari rebungnya' bermaksud mendidik anak sejak kecil."
+     ],
+     "soalan": [
+      {
+       "q": "Apakah maksud 'malu bertanya sesat jalan'?",
+       "o": [
+        "Orang yang suka berjalan jauh",
+        "Orang yang selalu bertanya akan sesat",
+        "Orang yang pemalu tidak suka berjalan",
+        "Orang yang segan bertanya akan rugi atau tersalah"
+       ],
+       "a": 3,
+       "e": "Bidalan ini menasihati kita supaya bertanya apabila tidak tahu.",
+       "d": 1
+      },
+      {
+       "q": "Apakah maksud 'di mana bumi dipijak, di situ langit dijunjung'?",
+       "o": [
+        "Selalu melihat ke langit",
+        "Suka berpindah-randah",
+        "Menghormati adat resam tempat kita tinggal",
+        "Bekerja keras di ladang"
+       ],
+       "a": 2,
+       "e": "Peribahasa ini mengajar kita menghormati adat setempat.",
+       "d": 2
+      },
+      {
+       "q": "Apakah maksud 'melentur buluh biarlah dari rebungnya'?",
+       "o": [
+        "Mendidik anak biarlah sejak kecil",
+        "Menanam buluh di tanah subur",
+        "Membina rumah daripada buluh",
+        "Memasak rebung untuk keluarga"
+       ],
+       "a": 0,
+       "e": "Rebung ialah buluh muda, melambangkan anak yang masih kecil.",
+       "d": 2
+      },
+      {
+       "q": "Amin menabung sedikit demi sedikit setiap hari sehingga wangnya banyak. Peribahasa manakah yang sesuai?",
+       "o": [
+        "Bagai menatang minyak yang penuh.",
+        "Hangat-hangat tahi ayam.",
+        "Bagai mencurah air ke daun keladi.",
+        "Sedikit-sedikit, lama-lama menjadi bukit."
+       ],
+       "a": 3,
+       "e": "Peribahasa ini bermaksud usaha kecil yang berterusan akan menghasilkan sesuatu yang besar.",
+       "d": 2
+      },
+      {
+       "q": "Apakah maksud 'hangat-hangat tahi ayam'?",
+       "o": [
+        "Cuaca yang sangat panas",
+        "Semangat yang tidak kekal lama",
+        "Ayam yang sedang sakit",
+        "Orang yang cepat marah"
+       ],
+       "a": 1,
+       "e": "Peribahasa ini menggambarkan kesungguhan yang hanya seketika.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "BM-D6-3",
+     "nama": "Kata Sendi Nama",
+     "dskp": "DSKP KSSR Bahasa Melayu Tahun 6 (draf): Aspek tatabahasa: menggunakan kata sendi nama di, ke, dari, daripada, pada dan kepada dengan tepat",
+     "stesen": "Kota A Famosa",
+     "nota": [
+      "'Di' dan 'ke' digunakan untuk tempat, manakala 'pada' dan 'kepada' untuk orang dan masa.",
+      "'Dari' digunakan untuk tempat dan masa.",
+      "'Daripada' digunakan untuk orang, asal kejadian dan perbandingan."
+     ],
+     "soalan": [
+      {
+       "q": "Hadiah ini ___ ayah saya.",
+       "o": [
+        "dari",
+        "di",
+        "ke",
+        "daripada"
+       ],
+       "a": 3,
+       "e": "'Daripada' digunakan di hadapan kata nama orang.",
+       "d": 2
+      },
+      {
+       "q": "Kami bertolak ___ Kuala Lumpur pada pukul 8 pagi.",
+       "o": [
+        "daripada",
+        "kepada",
+        "dari",
+        "pada"
+       ],
+       "a": 2,
+       "e": "'Dari' digunakan untuk menunjukkan arah tempat asal.",
+       "d": 2
+      },
+      {
+       "q": "Surat itu dihantar ___ guru besar.",
+       "o": [
+        "ke",
+        "di",
+        "kepada",
+        "dari"
+       ],
+       "a": 2,
+       "e": "'Kepada' digunakan di hadapan kata nama orang sebagai penerima.",
+       "d": 1
+      },
+      {
+       "q": "Mesyuarat itu akan diadakan ___ hari Isnin.",
+       "o": [
+        "pada",
+        "di",
+        "dari",
+        "ke"
+       ],
+       "a": 0,
+       "e": "'Pada' digunakan di hadapan kata nama yang menunjukkan masa.",
+       "d": 1
+      },
+      {
+       "q": "Ali lebih tinggi ___ Ahmad.",
+       "o": [
+        "daripada",
+        "dari",
+        "pada",
+        "kepada"
+       ],
+       "a": 0,
+       "e": "'Daripada' digunakan untuk perbandingan.",
+       "d": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-T1",
+    "nama": "Bahasa Melayu Tingkatan 1",
+    "tingkatan": 1
+   },
+   "topik": [
+    {
+     "id": "BM-T1-1",
+     "nama": "Kata Tugas",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 1 (draf): Aspek tatabahasa: menggunakan kata tugas seperti kata nafi, kata penguat, kata tanya dan kata bantu",
+     "stesen": "Istana Balai Besar",
+     "nota": [
+      "Kata nafi 'tidak' menafikan kata kerja dan kata adjektif, manakala 'bukan' menafikan kata nama dan frasa sendi nama.",
+      "Kata penguat seperti sangat, amat dan sekali tidak digunakan serentak.",
+      "Kata bantu aspek seperti telah, sedang dan akan menunjukkan masa perbuatan."
+     ],
+     "soalan": [
+      {
+       "q": "Itu ___ buku saya.",
+       "o": [
+        "tidak",
+        "bukan",
+        "belum",
+        "jangan"
+       ],
+       "a": 1,
+       "e": "'Bukan' digunakan untuk menafikan kata nama.",
+       "d": 1
+      },
+      {
+       "q": "Ayat manakah yang betul penggunaan kata penguatnya?",
+       "o": [
+        "Gunung itu sangat tinggi sekali.",
+        "Gunung itu amat tinggi sekali.",
+        "Gunung itu sangat tinggi.",
+        "Gunung itu paling tinggi sekali."
+       ],
+       "a": 2,
+       "e": "Dua kata penguat tidak boleh digunakan serentak bagi satu kata adjektif.",
+       "d": 2
+      },
+      {
+       "q": "Kata tanya manakah yang digunakan untuk bertanya tentang sebab?",
+       "o": [
+        "Bila",
+        "Siapa",
+        "Berapa",
+        "Mengapa"
+       ],
+       "a": 3,
+       "e": "'Mengapa' digunakan untuk menanyakan sebab sesuatu berlaku.",
+       "d": 1
+      },
+      {
+       "q": "Dia ___ ke sekolah hari ini kerana sakit.",
+       "o": [
+        "bukan",
+        "jangan",
+        "tidak",
+        "usah"
+       ],
+       "a": 2,
+       "e": "'Tidak' menafikan frasa kerja 'ke sekolah' dalam ayat penyata.",
+       "d": 1
+      },
+      {
+       "q": "Perkataan 'telah', 'sedang' dan 'akan' tergolong dalam ___.",
+       "o": [
+        "kata penguat",
+        "kata nafi",
+        "kata bantu",
+        "kata hubung"
+       ],
+       "a": 2,
+       "e": "Kata-kata ini ialah kata bantu aspek yang menunjukkan masa perbuatan.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-T1-2",
+     "nama": "Puisi Tradisional",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 1 (draf): Aspek seni bahasa dan komponen sastera: memahami ciri pantun, syair dan gurindam",
+     "stesen": "Muzium Kesenian Islam Malaysia",
+     "nota": [
+      "Syair mempunyai empat baris serangkap dengan rima akhir a-a-a-a.",
+      "Pantun mempunyai pembayang dan maksud dengan rima akhir a-b-a-b.",
+      "Gurindam terdiri daripada dua baris serangkap: baris pertama syarat, baris kedua akibat."
+     ],
+     "soalan": [
+      {
+       "q": "Rima akhir syair lazimnya ialah ___.",
+       "o": [
+        "a-b-a-b",
+        "a-a-b-b",
+        "a-b-c-d",
+        "a-a-a-a"
+       ],
+       "a": 3,
+       "e": "Keempat-empat baris syair berakhir dengan bunyi yang sama.",
+       "d": 1
+      },
+      {
+       "q": "Setiap rangkap syair lazimnya mengandungi ___ baris.",
+       "o": [
+        "dua",
+        "tiga",
+        "empat",
+        "enam"
+       ],
+       "a": 2,
+       "e": "Syair terdiri daripada rangkap empat baris.",
+       "d": 1
+      },
+      {
+       "q": "Puisi tradisional dua baris serangkap yang baris pertamanya syarat dan baris keduanya akibat ialah ___.",
+       "o": [
+        "syair",
+        "seloka",
+        "gurindam",
+        "pantun"
+       ],
+       "a": 2,
+       "e": "Gurindam mempunyai dua baris serangkap yang berkaitan sebagai syarat dan jawapan.",
+       "d": 2
+      },
+      {
+       "q": "Bahagian pantun empat kerat yang mengandungi mesej sebenar ialah ___.",
+       "o": [
+        "dua baris pertama",
+        "baris pertama sahaja",
+        "tajuk pantun",
+        "dua baris terakhir"
+       ],
+       "a": 3,
+       "e": "Dua baris terakhir ialah maksud pantun.",
+       "d": 1
+      },
+      {
+       "q": "Jumlah suku kata sebaris pantun yang baik lazimnya antara ___.",
+       "o": [
+        "2 hingga 4",
+        "15 hingga 20",
+        "8 hingga 12",
+        "20 hingga 25"
+       ],
+       "a": 2,
+       "e": "Baris pantun lazimnya mengandungi 8 hingga 12 suku kata.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-T1-3",
+     "nama": "Ayat Tunggal dan Pola Ayat",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 1 (draf): Aspek tatabahasa: mengenal pasti pola ayat dasar, ayat tunggal, ayat majmuk dan ayat songsang",
+     "stesen": "Menara Alor Setar",
+     "nota": [
+      "Ayat tunggal mempunyai satu subjek dan satu predikat.",
+      "Pola ayat dasar ialah FN + FN, FN + FK, FN + FA dan FN + FS.",
+      "Ayat songsang terbentuk apabila predikat didahulukan sebelum subjek."
+     ],
+     "soalan": [
+      {
+       "q": "Ayat 'Ayahnya seorang doktor.' berpola ___.",
+       "o": [
+        "FN + FK",
+        "FN + FA",
+        "FN + FS",
+        "FN + FN"
+       ],
+       "a": 3,
+       "e": "Subjek 'ayahnya' dan predikat 'seorang doktor' kedua-duanya frasa nama.",
+       "d": 2
+      },
+      {
+       "q": "Ayat 'Mereka di perpustakaan.' berpola ___.",
+       "o": [
+        "FN + FN",
+        "FN + FK",
+        "FN + FS",
+        "FN + FA"
+       ],
+       "a": 2,
+       "e": "Predikat 'di perpustakaan' ialah frasa sendi nama.",
+       "d": 2
+      },
+      {
+       "q": "Yang manakah ayat majmuk?",
+       "o": [
+        "Adik menangis.",
+        "Mainan adik rosak.",
+        "Adik saya sangat comel.",
+        "Adik menangis kerana mainannya rosak."
+       ],
+       "a": 3,
+       "e": "Ayat ini menggabungkan dua ayat dengan kata hubung 'kerana'.",
+       "d": 1
+      },
+      {
+       "q": "Dalam ayat 'Pelajar itu sangat rajin.', predikatnya ialah ___.",
+       "o": [
+        "Pelajar itu",
+        "Pelajar",
+        "itu sangat",
+        "sangat rajin"
+       ],
+       "a": 3,
+       "e": "Predikat ialah bahagian yang menerangkan subjek 'pelajar itu'.",
+       "d": 2
+      },
+      {
+       "q": "Ayat manakah ialah ayat songsang?",
+       "o": [
+        "Lukisan itu cantik sungguh.",
+        "Lukisan itu dilukis oleh Ali.",
+        "Cantik sungguh lukisan itu.",
+        "Ali melukis lukisan itu."
+       ],
+       "a": 2,
+       "e": "Predikat 'cantik sungguh' didahulukan sebelum subjek 'lukisan itu'.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-T2",
+    "nama": "Bahasa Melayu Tingkatan 2",
+    "tingkatan": 2
+   },
+   "topik": [
+    {
+     "id": "BM-T2-1",
+     "nama": "Kata Majmuk",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 2 (draf): Aspek tatabahasa: mengenal, mengeja dan menggunakan kata majmuk mengikut sistem ejaan rasmi",
+     "stesen": "Kuching Waterfront",
+     "nota": [
+      "Kata majmuk ialah gabungan dua kata dasar atau lebih yang membawa makna tertentu, contohnya kapal terbang.",
+      "Kata majmuk yang telah mantap dieja bercantum, contohnya jawatankuasa dan kakitangan.",
+      "Kata majmuk yang menerima apitan dieja bercantum, contohnya dilipatgandakan."
+     ],
+     "soalan": [
+      {
+       "q": "Perkataan manakah ialah kata majmuk?",
+       "o": [
+        "berlari-lari",
+        "kebersihan",
+        "sayur-mayur",
+        "kapal terbang"
+       ],
+       "a": 3,
+       "e": "'Kapal terbang' terbentuk daripada gabungan dua kata dasar.",
+       "d": 1
+      },
+      {
+       "q": "Antara berikut, yang manakah ejaan yang betul?",
+       "o": [
+        "kapalterbang",
+        "rumahsakit",
+        "jawatankuasa",
+        "alattulis"
+       ],
+       "a": 2,
+       "e": "'Jawatankuasa' ialah kata majmuk mantap yang dieja bercantum.",
+       "d": 2
+      },
+      {
+       "q": "Apakah ejaan yang betul apabila 'lipat ganda' menerima apitan di-...-kan?",
+       "o": [
+        "dilipat gandakan",
+        "di lipat gandakan",
+        "dilipatgandakan",
+        "dilipat-gandakan"
+       ],
+       "a": 2,
+       "e": "Kata majmuk yang menerima apitan dieja bercantum.",
+       "d": 2
+      },
+      {
+       "q": "Semua ___ syarikat itu menerima bonus tahunan.",
+       "o": [
+        "kaki tangan",
+        "kaki-tangan",
+        "kakitangan",
+        "kakitangan-tangan"
+       ],
+       "a": 2,
+       "e": "'Kakitangan' (pekerja) ialah kata majmuk mantap yang dieja bercantum.",
+       "d": 3
+      },
+      {
+       "q": "Apakah ejaan yang betul bagi 'ambil alih' yang menerima awalan meN- sahaja?",
+       "o": [
+        "mengambilalih",
+        "meng-ambil alih",
+        "mengambil alih",
+        "mengambil-alih"
+       ],
+       "a": 2,
+       "e": "Kata majmuk yang menerima awalan atau akhiran sahaja tetap dieja terpisah.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "BM-T2-2",
+     "nama": "Penulisan Berformat",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 2 (draf): Kemahiran menulis: menghasilkan penulisan berformat seperti surat kiriman rasmi, ucapan dan laporan",
+     "stesen": "Parlimen Malaysia",
+     "nota": [
+      "Surat rasmi mengandungi alamat pengirim, alamat penerima, tarikh, sapaan, tajuk, isi dan tandatangan.",
+      "Teks ucapan dimulakan dengan sapaan mengikut kedudukan hadirin, daripada yang tertinggi.",
+      "Laporan ditulis dengan bahasa formal dan objektif."
+     ],
+     "soalan": [
+      {
+       "q": "Kata sapaan yang sesuai dalam surat kiriman rasmi ialah ___.",
+       "o": [
+        "Tuan,",
+        "Sahabatku yang dirindui,",
+        "Hai kawan,",
+        "Adikku sayang,"
+       ],
+       "a": 0,
+       "e": "Surat rasmi menggunakan sapaan formal seperti 'Tuan,' atau 'Puan,'.",
+       "d": 1
+      },
+      {
+       "q": "Dalam surat kiriman rasmi, tajuk surat ditulis ___.",
+       "o": [
+        "di bawah tandatangan",
+        "selepas kata sapaan",
+        "sebelum alamat pengirim",
+        "pada bahagian penutup surat"
+       ],
+       "a": 1,
+       "e": "Tajuk surat rasmi diletakkan selepas kata sapaan dan sebelum isi.",
+       "d": 2
+      },
+      {
+       "q": "Penutup yang lazim dalam surat kiriman rasmi ialah ___.",
+       "o": [
+        "Sekian, terima kasih.",
+        "Jumpa lagi, kawan.",
+        "Itu sahaja, bye.",
+        "Salam rindu selalu."
+       ],
+       "a": 0,
+       "e": "'Sekian, terima kasih.' ialah penutup formal surat rasmi.",
+       "d": 1
+      },
+      {
+       "q": "Dalam teks ucapan, sapaan yang disebut terlebih dahulu ditujukan kepada ___.",
+       "o": [
+        "rakan-rakan pelajar",
+        "hadirin yang duduk di belakang",
+        "pengacara majlis",
+        "orang yang paling tinggi kedudukannya dalam majlis"
+       ],
+       "a": 3,
+       "e": "Sapaan ucapan disusun mengikut kedudukan, bermula daripada yang tertinggi.",
+       "d": 2
+      },
+      {
+       "q": "Laras bahasa yang sesuai untuk menulis laporan ialah ___.",
+       "o": [
+        "santai dan berbunga-bunga",
+        "penuh bahasa slanga",
+        "bahasa pasar",
+        "formal dan objektif"
+       ],
+       "a": 3,
+       "e": "Laporan menyampaikan fakta, jadi bahasanya formal dan objektif.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-T2-3",
+     "nama": "Ejaan dan Kata Pinjaman",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 2 (draf): Aspek tatabahasa: mengeja perkataan dan kata pinjaman mengikut pedoman ejaan rumi bahasa Melayu",
+     "stesen": "Bangunan Sultan Abdul Samad",
+     "nota": [
+      "Ejaan perkataan bahasa Melayu mengikut pedoman ejaan rumi yang ditetapkan oleh Dewan Bahasa dan Pustaka.",
+      "Kata pinjaman bahasa Inggeris disesuaikan ejaannya, contohnya teksi, kualiti dan risiko.",
+      "Kata sendi nama 'di' dieja terpisah, manakala imbuhan 'di-' dieja bercantum."
+     ],
+     "soalan": [
+      {
+       "q": "Pilih ejaan baku bagi kenderaan sewa yang membawa penumpang.",
+       "o": [
+        "taksi",
+        "teksy",
+        "taxi",
+        "teksi"
+       ],
+       "a": 3,
+       "e": "Ejaan baku bahasa Melayu bagi kenderaan sewa ialah 'teksi'.",
+       "d": 1
+      },
+      {
+       "q": "Ayat manakah yang betul ejaannya?",
+       "o": [
+        "Buku itu diletakkan di atas meja.",
+        "Buku itu di letakkan diatas meja.",
+        "Buku itu diletakkan diatas meja.",
+        "Buku itu di letakkan di atas meja."
+       ],
+       "a": 0,
+       "e": "Imbuhan di- dieja bercantum, manakala kata sendi 'di' dieja terpisah.",
+       "d": 2
+      },
+      {
+       "q": "Pilih ejaan yang betul bagi perkataan yang bermaksud mutu.",
+       "o": [
+        "kwaliti",
+        "kualiti",
+        "kualitee",
+        "kwalitee"
+       ],
+       "a": 1,
+       "e": "Ejaan baku bahasa Melayu ialah 'kualiti'.",
+       "d": 1
+      },
+      {
+       "q": "Pilih ejaan yang betul bagi kata hubung yang menunjukkan sebab.",
+       "o": [
+        "kerana",
+        "kerna",
+        "karena",
+        "karana"
+       ],
+       "a": 0,
+       "e": "Ejaan baku kata hubung ini ialah 'kerana'.",
+       "d": 1
+      },
+      {
+       "q": "Pilih ejaan yang betul bagi perkataan yang bermaksud kemungkinan bahaya atau kerugian.",
+       "o": [
+        "resiko",
+        "risiko",
+        "risko",
+        "riskio"
+       ],
+       "a": 1,
+       "e": "Ejaan baku bahasa Melayu ialah 'risiko'.",
+       "d": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-T3",
+    "nama": "Bahasa Melayu Tingkatan 3",
+    "tingkatan": 3
+   },
+   "topik": [
+    {
+     "id": "BM-T3-1",
+     "nama": "Ayat Majmuk dan Ragam Ayat",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 3 (draf): Aspek tatabahasa: mengenal pasti jenis ayat majmuk dan ragam ayat",
+     "stesen": "Istana Kellie",
+     "nota": [
+      "Ayat majmuk pancangan relatif menggunakan kata hubung 'yang'.",
+      "Ayat majmuk pancangan komplemen menggunakan kata hubung 'bahawa' dan 'untuk'.",
+      "Ayat majmuk campuran mengandungi lebih daripada satu jenis ayat majmuk."
+     ],
+     "soalan": [
+      {
+       "q": "Ayat 'Budak yang memakai topi merah itu adik saya.' ialah ayat majmuk ___.",
+       "o": [
+        "gabungan",
+        "pancangan komplemen",
+        "pancangan keterangan",
+        "pancangan relatif"
+       ],
+       "a": 3,
+       "e": "Ayat kecil dipancangkan dengan kata hubung 'yang', jadi ia pancangan relatif.",
+       "d": 2
+      },
+      {
+       "q": "Kata hubung manakah yang membentuk ayat majmuk pancangan komplemen?",
+       "o": [
+        "bahawa",
+        "yang",
+        "tetapi",
+        "lalu"
+       ],
+       "a": 0,
+       "e": "'Bahawa' memancangkan ayat kecil sebagai pelengkap ayat induk.",
+       "d": 2
+      },
+      {
+       "q": "Ayat 'Abang membaca surat khabar dan ayah menonton televisyen.' ialah ___.",
+       "o": [
+        "ayat majmuk pancangan relatif",
+        "ayat majmuk pancangan keterangan",
+        "ayat tunggal",
+        "ayat majmuk gabungan"
+       ],
+       "a": 3,
+       "e": "Dua ayat yang setara digabungkan dengan kata hubung 'dan'.",
+       "d": 1
+      },
+      {
+       "q": "Ayat manakah ialah ayat perintah jenis larangan?",
+       "o": [
+        "Sila masuk.",
+        "Jangan buang sampah di sini.",
+        "Tolong tutup pintu itu.",
+        "Marilah kita ke kantin."
+       ],
+       "a": 1,
+       "e": "Ayat larangan menggunakan kata perintah seperti 'jangan'.",
+       "d": 1
+      },
+      {
+       "q": "Ayat yang mengandungi ayat majmuk gabungan dan ayat majmuk pancangan dinamakan ___.",
+       "o": [
+        "ayat songsang",
+        "ayat tunggal",
+        "ayat majmuk campuran",
+        "ayat pasif"
+       ],
+       "a": 2,
+       "e": "Ayat majmuk campuran terdiri daripada lebih daripada satu jenis ayat majmuk.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "BM-T3-2",
+     "nama": "Unsur Prosa dan Gaya Bahasa",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 3 (draf): Komponen sastera: memahami unsur prosa seperti tema, latar, plot, sudut pandangan dan gaya bahasa",
+     "stesen": "Istana Budaya",
+     "nota": [
+      "Unsur prosa termasuk tema, persoalan, plot, watak dan perwatakan, latar, sudut pandangan, gaya bahasa serta nilai dan pengajaran.",
+      "Latar terbahagi kepada latar tempat, latar masa dan latar masyarakat.",
+      "Imbas kembali ialah teknik plot yang mengisahkan peristiwa yang telah berlaku."
+     ],
+     "soalan": [
+      {
+       "q": "Persoalan utama yang mendasari keseluruhan cerita dinamakan ___.",
+       "o": [
+        "tema",
+        "latar",
+        "plot",
+        "watak"
+       ],
+       "a": 0,
+       "e": "Tema ialah persoalan pokok yang ingin disampaikan oleh pengarang.",
+       "d": 1
+      },
+      {
+       "q": "Frasa 'pada waktu subuh' dalam sebuah cerpen menggambarkan latar ___.",
+       "o": [
+        "masa",
+        "tempat",
+        "masyarakat",
+        "watak"
+       ],
+       "a": 0,
+       "e": "Waktu subuh menunjukkan bila peristiwa berlaku, iaitu latar masa.",
+       "d": 1
+      },
+      {
+       "q": "Teknik plot yang mengisahkan semula peristiwa yang telah lalu dinamakan ___.",
+       "o": [
+        "imbas muka",
+        "imbas kembali",
+        "dialog",
+        "monolog"
+       ],
+       "a": 1,
+       "e": "Imbas kembali membawa pembaca ke peristiwa masa lalu.",
+       "d": 2
+      },
+      {
+       "q": "Gaya bahasa dalam ayat 'Bulan tersenyum di langit.' ialah ___.",
+       "o": [
+        "simile",
+        "personifikasi",
+        "hiperbola",
+        "metafora"
+       ],
+       "a": 1,
+       "e": "Bulan diberi sifat manusia, iaitu tersenyum.",
+       "d": 2
+      },
+      {
+       "q": "Pengarang mengisahkan cerita dengan menggunakan kata ganti 'aku'. Sudut pandangan ini ialah ___.",
+       "o": [
+        "orang pertama",
+        "orang ketiga serba tahu",
+        "orang ketiga terbatas",
+        "orang kedua"
+       ],
+       "a": 0,
+       "e": "Penggunaan 'aku' menunjukkan pencerita ialah watak dalam cerita itu sendiri.",
+       "d": 2
+      }
+     ]
+    },
+    {
+     "id": "BM-T3-3",
+     "nama": "Imbuhan Sisipan dan Pinjaman",
+     "dskp": "DSKP KSSM Bahasa Melayu Tingkatan 3 (draf): Aspek tatabahasa: mengenal imbuhan sisipan, apitan memper-...-kan dan imbuhan pinjaman",
+     "stesen": "Kampung Budaya Sarawak",
+     "nota": [
+      "Sisipan -el-, -er-, -em- dan -in- diselitkan dalam kata dasar, contohnya telunjuk dan gemuruh.",
+      "Apitan memper-...-kan membentuk kata kerja seperti memperkenalkan.",
+      "Imbuhan pinjaman termasuk pra-, pasca-, -wan dan -isme."
+     ],
+     "soalan": [
+      {
+       "q": "Perkataan 'gemuruh' mengandungi sisipan ___.",
+       "o": [
+        "-el-",
+        "-em-",
+        "-er-",
+        "-in-"
+       ],
+       "a": 1,
+       "e": "Gemuruh terbentuk daripada kata dasar 'guruh' + sisipan -em-.",
+       "d": 2
+      },
+      {
+       "q": "Perkataan 'telunjuk' terbentuk daripada kata dasar 'tunjuk' dan sisipan ___.",
+       "o": [
+        "-em-",
+        "-er-",
+        "-el-",
+        "-in-"
+       ],
+       "a": 2,
+       "e": "Sisipan -el- diselitkan selepas huruf pertama 'tunjuk'.",
+       "d": 2
+      },
+      {
+       "q": "Pengetua ___ guru baharu kepada para pelajar.",
+       "o": [
+        "berkenalan",
+        "pengenalan",
+        "dikenali",
+        "memperkenalkan"
+       ],
+       "a": 3,
+       "e": "Kata kerja transitif 'memperkenalkan' sesuai dengan objek 'guru baharu'.",
+       "d": 1
+      },
+      {
+       "q": "Imbuhan pinjaman manakah yang bermaksud 'selepas'?",
+       "o": [
+        "pra-",
+        "pasca-",
+        "anti-",
+        "sub-"
+       ],
+       "a": 1,
+       "e": "Pasca- bermaksud selepas, contohnya pascamerdeka.",
+       "d": 2
+      },
+      {
+       "q": "Akhiran '-wan' dalam perkataan 'sasterawan' bermaksud ___.",
+       "o": [
+        "tempat menyimpan sesuatu",
+        "orang yang ahli dalam sesuatu bidang",
+        "alat untuk melakukan sesuatu",
+        "fahaman atau aliran"
+       ],
+       "a": 1,
+       "e": "Akhiran -wan menunjukkan orang yang ahli atau terlibat dalam sesuatu bidang.",
+       "d": 2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tema": {
+    "id": "BM-T6",
+    "nama": "Bahasa Melayu Tingkatan 6 (STPM)",
+    "tingkatan": 6
+   },
+   "topik": [
+    {
+     "id": "BM-T6-1",
+     "nama": "Sejarah Perkembangan Bahasa Melayu",
+     "dskp": "Sukatan Pelajaran STPM Bahasa Melayu (draf): Sejarah dan perkembangan bahasa Melayu: asal usul, bahasa Melayu kuno, klasik dan moden",
+     "stesen": "Lembah Bujang",
+     "nota": [
+      "Bahasa Melayu tergolong dalam rumpun bahasa Austronesia.",
+      "Batu bersurat Kedukan Bukit (683 Masihi) antara bukti terawal bahasa Melayu kuno dan ditulis dalam tulisan Pallava.",
+      "Batu Bersurat Terengganu (1303 Masihi) ditulis dalam tulisan Jawi."
+     ],
+     "soalan": [
+      {
+       "q": "Bahasa Melayu tergolong dalam rumpun bahasa ___.",
+       "o": [
+        "Austronesia",
+        "Dravida",
+        "Indo-Eropah",
+        "Sino-Tibet"
+       ],
+       "a": 0,
+       "e": "Bahasa Melayu ialah salah satu bahasa dalam keluarga Austronesia.",
+       "d": 1
+      },
+      {
+       "q": "Batu bersurat Kedukan Bukit ditulis dalam tulisan ___.",
+       "o": [
+        "Pallava",
+        "Jawi",
+        "Rumi",
+        "Arab"
+       ],
+       "a": 0,
+       "e": "Prasasti bahasa Melayu kuno di Sumatera menggunakan tulisan Pallava.",
+       "d": 2
+      },
+      {
+       "q": "Batu Bersurat Terengganu bertarikh ___.",
+       "o": [
+        "1303 Masihi",
+        "683 Masihi",
+        "1511 Masihi",
+        "1957 Masihi"
+       ],
+       "a": 0,
+       "e": "Batu Bersurat Terengganu bertarikh 1303 Masihi dan ditulis dalam tulisan Jawi.",
+       "d": 2
+      },
+      {
+       "q": "Perkara dalam Perlembagaan Persekutuan yang memperuntukkan bahasa Melayu sebagai bahasa kebangsaan ialah ___.",
+       "o": [
+        "Perkara 153",
+        "Perkara 152",
+        "Perkara 3",
+        "Perkara 160"
+       ],
+       "a": 1,
+       "e": "Perkara 152 menetapkan bahasa Melayu sebagai bahasa kebangsaan.",
+       "d": 2
+      },
+      {
+       "q": "Dewan Bahasa dan Pustaka ditubuhkan pada tahun ___.",
+       "o": [
+        "1956",
+        "1946",
+        "1963",
+        "1971"
+       ],
+       "a": 0,
+       "e": "Dewan Bahasa dan Pustaka ditubuhkan pada tahun 1956 di Johor Bahru.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "BM-T6-2",
+     "nama": "Fonetik dan Fonologi",
+     "dskp": "Sukatan Pelajaran STPM Bahasa Melayu (draf): Fonetik dan fonologi bahasa Melayu: vokal, konsonan, diftong dan fonem",
+     "stesen": "Muzium Kesenian Islam Malaysia",
+     "nota": [
+      "Fonem ialah unit bunyi terkecil yang dapat membezakan makna.",
+      "Bahasa Melayu mempunyai enam vokal standard: a, e pepet, e taling, i, o dan u.",
+      "Diftong bahasa Melayu ialah ai, au dan oi."
+     ],
+     "soalan": [
+      {
+       "q": "Unit bunyi terkecil yang dapat membezakan makna dinamakan ___.",
+       "o": [
+        "morfem",
+        "fonem",
+        "suku kata",
+        "frasa"
+       ],
+       "a": 1,
+       "e": "Fonem ialah unit bunyi terkecil yang membezakan makna perkataan.",
+       "d": 1
+      },
+      {
+       "q": "Berapakah bilangan vokal standard dalam bahasa Melayu?",
+       "o": [
+        "Enam",
+        "Lima",
+        "Lapan",
+        "Empat"
+       ],
+       "a": 0,
+       "e": "Vokal standard bahasa Melayu ialah a, e pepet, e taling, i, o dan u.",
+       "d": 2
+      },
+      {
+       "q": "Perkataan manakah yang mengandungi diftong?",
+       "o": [
+        "padi",
+        "buku",
+        "meja",
+        "pulau"
+       ],
+       "a": 3,
+       "e": "Perkataan 'pulau' mengandungi diftong 'au'.",
+       "d": 2
+      },
+      {
+       "q": "Pasangan perkataan manakah ialah pasangan minimal?",
+       "o": [
+        "pagi dan petang",
+        "pagi dan pagi-pagi",
+        "pagi dan bagi",
+        "pagi dan siang"
+       ],
+       "a": 2,
+       "e": "'Pagi' dan 'bagi' hanya berbeza pada satu fonem, iaitu /p/ dan /b/.",
+       "d": 2
+      },
+      {
+       "q": "Bunyi /m/ dalam bahasa Melayu ialah konsonan ___.",
+       "o": [
+        "letupan gusi",
+        "sengau dua bibir",
+        "geseran lelangit keras",
+        "getaran gusi"
+       ],
+       "a": 1,
+       "e": "Bunyi /m/ dihasilkan dengan kedua-dua bibir tertutup dan udara keluar melalui rongga hidung.",
+       "d": 3
+      }
+     ]
+    },
+    {
+     "id": "BM-T6-3",
+     "nama": "Morfologi dan Sintaksis",
+     "dskp": "Sukatan Pelajaran STPM Bahasa Melayu (draf): Morfologi dan sintaksis bahasa Melayu: morfem, proses pembentukan kata dan binaan frasa",
+     "stesen": "Istana Lama Seri Menanti",
+     "nota": [
+      "Morfem ialah unit tatabahasa terkecil yang bermakna.",
+      "Morfem bebas boleh berdiri sendiri, manakala morfem terikat seperti imbuhan tidak boleh berdiri sendiri.",
+      "Proses pembentukan kata termasuk pengimbuhan, penggandaan, pemajmukan dan pengakroniman."
+     ],
+     "soalan": [
+      {
+       "q": "Perkataan 'berlari' terdiri daripada ___.",
+       "o": [
+        "dua morfem bebas",
+        "dua morfem terikat",
+        "satu morfem bebas dan satu morfem terikat",
+        "satu morfem bebas sahaja"
+       ],
+       "a": 2,
+       "e": "'Lari' ialah morfem bebas, manakala 'ber-' ialah morfem terikat.",
+       "d": 2
+      },
+      {
+       "q": "Perkataan manakah ialah akronim?",
+       "o": [
+        "PBB",
+        "kapal terbang",
+        "rumah-rumah",
+        "tadika"
+       ],
+       "a": 3,
+       "e": "'Tadika' terbentuk daripada gabungan 'taman didikan kanak-kanak' dan disebut sebagai satu perkataan.",
+       "d": 2
+      },
+      {
+       "q": "Frasa 'sangat cantik' ialah frasa ___.",
+       "o": [
+        "adjektif",
+        "nama",
+        "kerja",
+        "sendi nama"
+       ],
+       "a": 0,
+       "e": "Inti frasa ini ialah kata adjektif 'cantik'.",
+       "d": 1
+      },
+      {
+       "q": "Kata kerja manakah ialah kata kerja tak transitif?",
+       "o": [
+        "membeli",
+        "tidur",
+        "menulis",
+        "memukul"
+       ],
+       "a": 1,
+       "e": "'Tidur' tidak memerlukan objek, manakala yang lain memerlukan objek.",
+       "d": 2
+      },
+      {
+       "q": "Perubahan bunyi apabila awalan meN- bergabung dengan kata dasar 'tulis' sehingga menjadi 'menulis' dikenali sebagai proses ___.",
+       "o": [
+        "pemajmukan",
+        "penggandaan",
+        "morfofonemik",
+        "pengakroniman"
+       ],
+       "a": 2,
+       "e": "Proses morfofonemik ialah perubahan bunyi akibat pertemuan morfem.",
+       "d": 3
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
