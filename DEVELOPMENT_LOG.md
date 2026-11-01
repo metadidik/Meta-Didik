@@ -11,6 +11,22 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.66 · Booth "akan datang" sentiasa muncul selepas guru memacak
+
+- **Laporan pemilik:** booth bertanda "akan datang" tidak muncul selepas memacak.
+- **Diuji dengan Firebase simulasi.** Logik paparan berfungsi jika simpan dan baca berjaya, tetapi gagal dalam dua keadaan:
+  1. bacaan senarai `stesen` gagal: `lmStnFetch` berhenti, jadi tiada booth;
+  2. simpan ditolak oleh Rules: mesej Inggeris "Permission denied" sahaja.
+- **Pembaikan:**
+  - selepas berjaya dihantar, dokumen disimpan dalam `gt-stn-saya`; `lmStnFetch` sentiasa menggabungkannya, jadi booth guru sendiri dilukis walaupun bacaan gagal;
+  - mesej penolakan dalam Bahasa Melayu dengan punca (peraturan Firebase perlu dikemas kini);
+  - kegagalan `stesen_em` tidak lagi menggagalkan permohonan;
+  - makluman jika booth dipaparkan dalam dunia subjek lain.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright untuk 3 senario: biasa (booth muncul), bacaan gagal (booth tetap muncul), simpan ditolak (mesej Bahasa Melayu);
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.65 · Pangkat tentera dibuang dari Meta Didik (kekal dalam Tempur)
 
 - Butang nama di paparan utama (`renderMe`), butang avatar HUD dan panel Profil dalam dunia kini memaparkan **avatar pemain** (`mdAvatarMini`, menggunakan `zvSvg`; huruf awal nama jika avatar belum dicipta) dan **peranan** (Guru, Murid · Tingkatan X, Pelawat), bukan lencana dan nama pangkat Tempur.
