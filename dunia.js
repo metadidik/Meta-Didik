@@ -3298,6 +3298,16 @@ const lmCanGo = (x, z) => lmCanStand(x, z) || lmSwimOk(x, z);
 
 /* ---------- v18.2: keraian selepas kuiz (dipilih di Gudang, slot Keraian) ---------- */
 const RAI_TXT = { rc_tp: "Yeay!", rc_sj: "Alhamdulillah", rc_ab: "Alhamdulillah!", rc_lg: "Yahoo!", rc_tr: "Seronoknya!", rc_si: "SIUUU!" };
+/* v18.75: emote animasi (Lambaian, Gembira, Tepuk Tangan, Salam): dimainkan pada avatar dan dihantar kepada pemain lain */
+const LM_EMOTE = [["em_lb", "Lambaian", "👋", "Hai!"], ["em_gb", "Gembira", "🙌", "Yeay!"], ["rc_tp", "Tepuk Tangan", "👏", "Tahniah!"], ["em_sl", "Salam", "🤝", "Assalamualaikum!"]];
+Object.assign(RAI_TXT, { em_lb: "Hai!", em_gb: "Yeay!", em_sl: "Assalamualaikum!" });
+function lmEmoteAv(k) {
+  const g = LM.g; if (!g || g.flight || g.sail || g.ride || g.p.swim || !window.AV3 || !AV3.rai || g.rai) return 0;
+  const d = AV3.rai(g.me, k); if (!d) return 0;
+  g.rai = { t: d }; lmBubble(g.me, RAI_TXT[k] || ""); g.me.bubT = d; LM.rn = (LM.rn | 0) + 1;
+  if (LM.room && !lmPelawat()) { try { const x = LM.room.presence({ rc: k, rn: LM.rn }); if (x && x.catch) x.catch(() => {}); } catch (e) { /* abaikan */ } }
+  return d;
+}
 function lmRaiKind() { try { return zvEqAll(zvState()).rc || "rc_tp"; } catch (e) { return "rc_tp"; } }
 function lmRai() {
   const g = LM.g; if (!g || g.flight || g.sail || g.ride || g.p.swim || !window.AV3 || !AV3.rai) return 0;
@@ -4995,8 +5005,8 @@ function lmIsGuru() { try { return typeof guruOk === "function" && guruOk() ? my
 function lmGuruName(n, gr) { return gr ? "🎓 " + gelName(typeof gr === "string" ? gr : "Cikgu", n) : n; }
 function lmAvatar(code, name, me, gr) {
   const av = AV3.build(code);
-  const tag = lmLabel(lmGuruName(cleanName(name) || "Pemain", gr), gr ? { fs: 32, k: 0.028, bg: "rgba(120,80,0,.92)", fg: "#fff6d8", bd: "#ffd45a", dt: false } : { fs: 32, k: 0.028, bd: me ? "#f5c542" : null, dt: false });
-  tag.position.y = 7.3; av.g.add(tag); av.tag = tag; av.code = code;
+  const tag = lmLabel(lmGuruName(cleanName(name) || "Pemain", gr), gr ? { fs: 32, k: 0.02, bg: "rgba(120,80,0,.92)", fg: "#fff6d8", bd: "#ffd45a", dt: false } : { fs: 32, k: 0.02, bd: me ? "#f5c542" : null, dt: false }); /* v18.75: label nama lebih kecil */
+  tag.position.y = 7.9; av.g.add(tag); av.tag = tag; av.code = code;
   return av;
 }
 function lmAnim(av, moving, air, dt, speed) { AV3.anim(av, moving, air, dt, speed, LM.g && LM.g.scene); }
@@ -5080,7 +5090,11 @@ function lmUpdatePlayer(g, dt) {
     if (p.y <= gy || (p.on && p.vy <= 0 && p.y - gy < 1.4)) { p.y = gy; p.vy = 0; p.on = true; }
     else if (p.y - gy > 1.4) p.on = false;
   }
-  g.me.g.position.set(p.x, p.y, p.z); g.me.g.rotation.y = p.yaw;
+  g.me.g.position.set(p.x, p.y, p.z);
+  { /* v18.75: pusingan lancar (tanpa lompat sudut) + condong sedikit ke arah pusingan */
+    let dy = p.yaw - (g.me.ry == null ? p.yaw : g.me.ry); dy = Math.atan2(Math.sin(dy), Math.cos(dy));
+    g.me.ry = (g.me.ry == null ? p.yaw : g.me.ry) + dy * Math.min(1, dt * 12); g.me.g.rotation.y = g.me.ry;
+    g.me.g.rotation.z = Math.max(-0.12, Math.min(0.12, -dy * 0.35)) * (p.moving ? 1 : 0); }
   g.me.swim = p.swim ? (p.moving ? 2 : 1) : 0;
   lmAnim(g.me, p.moving && !p.swim, !p.on && !p.swim, dt, run ? 1.4 : 1);
 }
@@ -5754,6 +5768,35 @@ body.pelawat #lmOv .lm-guide{display:none}
 #lmOv .lm-rb .lm-rci svg{width:26px;height:26px;display:block}
 #lmOv .lm-rb small,#lmOv .lm-rn small{font:800 12px Nunito,sans-serif;color:#fff}
 #lmOv .lm-rc .lm-cb{display:grid}
+#lmOv .lm-logo{display:none;position:absolute;left:0;top:0;padding:calc(max(8px,env(safe-area-inset-top)) + 2px) 14px 8px max(14px,env(safe-area-inset-left));background:linear-gradient(135deg,rgba(14,30,66,.92),rgba(14,30,66,.55));border-bottom-right-radius:22px;text-align:center;z-index:3;pointer-events:none}
+#lmOv .lm-logo b{display:block;font:700 22px/0.95 Fredoka,Nunito,sans-serif;background:linear-gradient(180deg,#7fe3ff,#4f8bf5 60%,#9474e8);-webkit-background-clip:text;background-clip:text;color:transparent}
+#lmOv .lm-logo small{display:block;font:800 7.5px Nunito,sans-serif;color:#fff;letter-spacing:.04em;max-width:96px;margin-top:3px}
+@media (min-width:760px){#lmOv .lm-logo{display:block}#lmOv .lm-tl{left:calc(max(10px,env(safe-area-inset-left)) + 132px)!important}#lmOv .lm-guide,#lmOv.touch .lm-guide{left:calc(max(10px,env(safe-area-inset-left)) + 132px)!important}}
+#lmOv .lm-lp{position:absolute;left:max(10px,env(safe-area-inset-left));top:calc(max(10px,env(safe-area-inset-top)) + 168px);display:grid;gap:4px;padding:8px 6px;border-radius:22px;background:linear-gradient(180deg,rgba(22,44,90,.9),rgba(14,30,66,.9));border:2px solid rgba(255,255,255,.7);z-index:2}
+#lmOv .lm-lpb{display:grid;justify-items:center;gap:0;width:62px;padding:5px 0;border:0;background:none;color:#fff;cursor:pointer;border-radius:14px}
+#lmOv .lm-lpb i{font-style:normal;font-size:28px;line-height:1.05}#lmOv .lm-lpb small{font:800 11px Nunito,sans-serif}
+#lmOv .lm-lpb:focus-visible,#lmOv .lm-eq button:focus-visible,#lmOv .lm-ecb:focus-visible{outline:3px solid #FFC857;outline-offset:1px}
+@media (min-width:760px){#lmOv .lm-lp{top:calc(max(10px,env(safe-area-inset-top)) + 140px)}}
+#lmOv .lm-eq{position:absolute;right:max(14px,env(safe-area-inset-right));bottom:calc(118px + env(safe-area-inset-bottom,0px));display:flex;gap:2px;padding:4px 30px 4px 8px;border-radius:999px;background:linear-gradient(180deg,rgba(22,44,90,.92),rgba(14,30,66,.92));border:2px solid rgba(255,255,255,.75);z-index:2}
+#lmOv .lm-eq button{width:40px;height:40px;border:0;background:none;font-size:24px;cursor:pointer;border-radius:50%;padding:0}
+#lmOv .lm-eqt{position:absolute;right:max(6px,env(safe-area-inset-right));bottom:calc(98px + env(safe-area-inset-bottom,0px));width:44px;height:44px;border-radius:50%;border:2px solid #fff;background:linear-gradient(180deg,#5b8ff5,#3a5fe0);font-size:22px;cursor:pointer;z-index:3;padding:0}
+#lmOv .lm-ec{display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));max-width:min(520px,calc(100vw - 440px));align-items:center;gap:6px;z-index:2}
+#lmOv.lmemo .lm-ec{display:flex}
+@media (min-width:900px) and (max-height:600px){#lmOv .lm-ec{display:flex}}
+#lmOv .lm-eci{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory}#lmOv .lm-eci::-webkit-scrollbar{display:none}
+#lmOv .lm-ecb{position:relative;flex:none;width:92px;height:98px;scroll-snap-align:start;display:grid;justify-items:center;align-content:end;padding:2px 2px 6px;border-radius:16px;border:2px solid rgba(255,255,255,.8);background:linear-gradient(180deg,rgba(40,70,130,.95),rgba(14,30,66,.95));color:#fff;cursor:pointer;overflow:hidden}
+#lmOv .lm-eci-av{position:absolute;left:50%;top:0;transform:translateX(-50%);width:62px;opacity:.95}#lmOv .lm-eci-av svg{width:62px;height:auto}
+#lmOv .lm-eci-ic{position:absolute;right:6px;top:4px;font-size:20px}
+#lmOv .lm-ecb small{position:relative;font:800 12px Nunito,sans-serif;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+#lmOv .lm-eca{flex:none;width:36px;height:36px;border-radius:50%;border:2px solid #fff;background:rgba(14,30,66,.9);color:#fff;font:900 20px/1 Nunito,sans-serif;cursor:pointer}
+#lmOv.lmnaik .lm-ec,#lmOv.lmnaik .lm-eq,#lmOv.lmnaik .lm-eqt{display:none!important}
+#lmOv .lm-js .lm-jsa{position:absolute;width:0;height:0;border:7px solid transparent;opacity:.75}
+#lmOv .lm-js .lm-jsa.u{left:50%;top:6px;margin-left:-7px;border-bottom-color:#fff;border-top:0}
+#lmOv .lm-js .lm-jsa.d{left:50%;bottom:6px;margin-left:-7px;border-top-color:#fff;border-bottom:0}
+#lmOv .lm-js .lm-jsa.l{top:50%;left:6px;margin-top:-7px;border-right-color:#fff;border-left:0}
+#lmOv .lm-js .lm-jsa.r{top:50%;right:6px;margin-top:-7px;border-left-color:#fff;border-right:0}
+@media (max-height:500px){#lmOv .lm-lp{grid-auto-flow:column;top:calc(max(10px,env(safe-area-inset-top)) + 136px)!important;padding:3px 6px}#lmOv .lm-lpb{width:50px;padding:2px 0}#lmOv .lm-lpb i{font-size:20px}#lmOv .lm-lpb small{font-size:9.5px}#lmOv .lm-eq{bottom:calc(112px + env(safe-area-inset-bottom,0px))}#lmOv .lm-eqt{bottom:calc(94px + env(safe-area-inset-bottom,0px))}#lmOv .lm-ecb{width:80px;height:84px}#lmOv .lm-eci-av,#lmOv .lm-eci-av svg{width:50px}}
+@media (max-width:759px) and (min-height:501px){#lmOv .lm-lp{top:calc(max(10px,env(safe-area-inset-top)) + 150px);padding:6px 4px}#lmOv .lm-lpb{width:54px}#lmOv .lm-lpb i{font-size:22px}#lmOv .lm-lpb small{font-size:10px}#lmOv .lm-ec{max-width:calc(100vw - 24px);bottom:calc(150px + env(safe-area-inset-bottom,0px))}#lmOv .lm-eq{bottom:calc(112px + env(safe-area-inset-bottom,0px))}}
 #lmOv .lm-rb.lm-snd.off{background:linear-gradient(180deg,#6c7f94,#3e4f63)}
 #lmOv .lm-card .lm-rasmi,#lmOv .lm-rasmi{color:#6b4500!important;background:#ffe9a8!important;border:2px solid #ffcf3a;border-radius:12px;padding:6px 10px;font-weight:800;opacity:1!important}
 #lmOv .lm-rb.lm-salam{background:linear-gradient(180deg,#4fd67a,#22a84c);animation:lmSlm 1.6s ease-in-out infinite}
@@ -7058,7 +7101,22 @@ function lmHud() {
   Object.keys(EMOTE).forEach((k, i) => emo.appendChild(lmBtn((i + 1) + " " + EMOTE[k], "", () => lmEmote(k))));
   emo.appendChild(lmBtn("5 🎉 Raikan", "", lmRai));
   r.appendChild(emo);
-  ui.js = el("div", { class: "lm-js" }, el("i")); r.appendChild(ui.js);
+  ui.js = el("div", { class: "lm-js" }, el("i"), el("b", { class: "lm-jsa u", "aria-hidden": "true" }), el("b", { class: "lm-jsa d", "aria-hidden": "true" }), el("b", { class: "lm-jsa l", "aria-hidden": "true" }), el("b", { class: "lm-jsa r", "aria-hidden": "true" })); r.appendChild(ui.js);
+  /* v18.75: HUD ikut lakaran: logo, panel kiri, bar emote dan karusel emote */
+  r.appendChild(el("div", { class: "lm-logo", "aria-hidden": "true" }, el("b", null, "META", el("br"), "DIDIK"), el("small", null, "HUB INOVASI DIGITAL PENDIDIKAN")));
+  const lp = el("div", { class: "lm-lp", role: "toolbar", "aria-label": "Pintasan" });
+  [["🎒", "Inventori", () => lmProfil()], ["👕", "Avatar", () => lmGudang()], ["🏅", "Misi", () => lmPassport("ilmu")], ["🎁", "Ganjaran", () => lmPassport("lencana")]].forEach(([ic, n, f]) => { const b = el("button", { type: "button", class: "lm-lpb" }, el("i", { "aria-hidden": "true" }, ic), el("small", null, n)); b.addEventListener("click", f); lp.appendChild(b); });
+  r.appendChild(lp);
+  const eq = el("div", { class: "lm-eq", role: "toolbar", "aria-label": "Emote" });
+  [["✋", "Lambaian", () => lmEmoteAv("em_lb")], ["👍", "Hebat", () => lmEmote("hebat")], ["🙌", "Gembira", () => lmEmoteAv("em_gb")], ["👏", "Tepuk tangan", () => lmEmoteAv("rc_tp")]].forEach(([ic, n, f]) => { const b = el("button", { type: "button", "aria-label": n, title: n }, ic); b.addEventListener("click", f); eq.appendChild(b); });
+  const eqT = el("button", { type: "button", class: "lm-eqt", "aria-label": "Tunjuk semua emote", "aria-expanded": "false" }, "😊");
+  const ec = el("div", { class: "lm-ec", role: "toolbar", "aria-label": "Emote avatar" }), ecIn = el("div", { class: "lm-eci" });
+  let mini = ""; try { mini = typeof zvSvg === "function" ? zvSvg(zvState(), 56, { noframe: true }) : ""; } catch (e) { mini = ""; }
+  LM_EMOTE.concat([["kr", "Keraian Saya", "🎉", ""]]).forEach(([k, n, ic]) => { const b = el("button", { type: "button", class: "lm-ecb" }); const im = el("span", { class: "lm-eci-av", "aria-hidden": "true" }); im.innerHTML = mini; b.append(im, el("span", { class: "lm-eci-ic", "aria-hidden": "true" }, ic), el("small", null, n)); b.addEventListener("click", () => { if (k === "kr") lmRai(); else lmEmoteAv(k); }); ecIn.appendChild(b); });
+  const ar = (d, t) => { const b = el("button", { type: "button", class: "lm-eca", "aria-label": t }, d < 0 ? "‹" : "›"); b.addEventListener("click", () => ecIn.scrollBy({ left: d * 120, behavior: "smooth" })); return b; };
+  ec.append(ar(-1, "Emote sebelumnya"), ecIn, ar(1, "Emote seterusnya"));
+  eqT.addEventListener("click", () => { const on = !r.classList.contains("lmemo"); r.classList.toggle("lmemo", on); eqT.setAttribute("aria-expanded", String(on)); });
+  r.append(eq, eqT, ec);
   if (TOUCH && lmIPad()) { /* v18.50: butang arah sandaran di iPad (hanya perlukan sentuhan mula/tamat) */
     const dp = el("div", { class: "lm-dpad", "aria-label": "Butang arah" }), tekan = new Set(), kemas = () => { let x = 0, y = 0; tekan.forEach((d) => { x += d[0]; y += d[1]; }); LM.dpad = tekan.size ? { x: Math.max(-1, Math.min(1, x)), y: Math.max(-1, Math.min(1, y)) } : null; if (LM.dpad) LM.auto = null; };
     [["▲", 0, 1, "u"], ["◀", -1, 0, "l"], ["▶", 1, 0, "r"], ["▼", 0, -1, "d"]].forEach(([t, x, y, c]) => {
@@ -7110,6 +7168,7 @@ function lmHudTick(g) {
   const np = Object.keys(LM.peers).length, op = LM.roomKind === "open"; ui.peers.hidden = !LM.room && !op;
   ui.peers.textContent = op ? (LM.room ? "🌏 " + (np + 1) + " · " + (ZONES[LM.zone] || "") : LM.openFull ? "🌏 Penuh · main solo" : "🌏 Menyambung...") : "👥 " + (np + 1) + (LM.roomKind === "privasi" ? " · 🔐 " + String(LM.roomCode).slice(1) : "");
   ui.chat.hidden = !LM.room || lmPelawat(); ui.chatB.hidden = !LM.room || lmPelawat(); /* v18.69: pelawat tiada chat */
+  { const naik = !!(g.ride || g.flight || g.sail); if (LM.root && LM.root.classList.contains("lmnaik") !== naik) LM.root.classList.toggle("lmnaik", naik); } /* v18.75: sembunyi emote semasa menaiki kenderaan */
   { const t = performance.now(); if (t - (LM.slUiT || 0) > 400) { LM.slUiT = t; lmSalamUi(false); } } if (!ui.vcB.hidden !== lmVoiceOk()) lmVoiceUi();
   if (g.wp && g.wp.pid) { const e = LM.peers[g.wp.pid]; if (!e) { g.wp = null; lmWpSet(); lmPop("Rakan sudah keluar"); } else { g.wp.x = e.x; g.wp.z = e.z; lmWpSet(); } }
   if (g.wp) { ui.wp.hidden = false; const km = lmKmAB(g.p.x, g.p.z, g.wp.x, g.wp.z), d = Math.hypot(g.wp.x - g.p.x, g.wp.z - g.p.z); ui.wp.textContent = "📍 " + g.wp.n + " · " + (km < 1 ? Math.round(km * 1000) + " m" : Math.round(km) + " km"); if (d < 12) { g.wp = null; lmWpSet(); } }
