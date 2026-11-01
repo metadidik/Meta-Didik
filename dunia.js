@@ -6782,6 +6782,13 @@ async function lmBuildScene() {
   return g;
 }
 function lmSpawn(g) {
+  /* v18.68: "Pergi ke Destinasi" dari Peta Operasi: Stesen Ilmu yang memegang tajuk itu, atau pin negeri tajuk (formula sama seperti Menara Ilmu) */
+  if (window.MD_TUJU && !LM.resume) { const tid = window.MD_TUJU; window.MD_TUJU = null;
+    try { const t = (typeof TOPIK !== "undefined" && TOPIK[tid]) || DATA.topik.find((x) => x.id === tid);
+      const si = g.items.find((x) => x.kind === "si" && x.tids && x.tids.indexOf(tid) >= 0);
+      if (si) LM.resume = { x: si.x, z: si.z, msg: "Destinasi: " + si.n + " · " + (t ? t.nama : "") };
+      else if (t && DATA.negeri[t.negeri]) { const n = DATA.negeri[t.negeri], pins = n.pins && n.pins.length ? n.pins : [[0, 0]], xy = t.xy || pins[(t.pin | 0) % pins.length] || pins[0], w = lmSnap(t.negeri, toW(t.negeri, xy[0], xy[1])); LM.resume = { x: w.x, z: w.z, msg: "Destinasi: " + n.nama + " · " + t.nama }; }
+    } catch (e) { /* abaikan: mula seperti biasa */ } }
   { const rs = LM.resume; LM.resume = null; /* v18.18: kembali dari Tempur atau Tanah Suci */
     const it = rs && (rs.at ? g.items.find((x) => x.id === rs.at) : rs.x != null ? { x: rs.x, z: rs.z, n: "Meta Didik" } : null); /* v18.28: atau kedudukan terakhir (Kolam Ikan) */
     if (it) { g.p.x = it.x; g.p.z = it.z; g.p.yaw = 0; g.cam.yaw = 0; g.camera.position.set(it.x, 30, it.z + 30); setTimeout(() => lmPop(rs.msg || "Selamat kembali ke " + (it.n || it.sn || "Meta Didik")), 600); return; } }

@@ -11,6 +11,54 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.68 · Peta Operasi & Pusat Pembelajaran (Meta Didik 2.0)
+
+- **Audit (sebelum):**
+  - peta SVG skematik (`buildMap`, `DATA.negeri` dan `DATA.topik`) bertema gelap neon;
+  - penanda heksagon dengan 3 titik bintang;
+  - panel misi di bawah peta yang menutup peta dalam landskap;
+  - label "Misi kendiri murid" yang kosong kerana disembunyikan CSS.
+- **Peta:** teknologi SVG sedia ada dikekalkan (ringan di telefon). Bentuk, susunan negeri dan koordinat tidak diubah. Gaya baharu:
+  - laut biru cerah dengan riak;
+  - darat hijau mengikut status;
+  - tebing tanah cerah dan bayang lembut;
+  - sempadan putih halus dan label negeri biru tua.
+- **Miniatur mercu tanda (ilustrasi ringkas):** Menara Berkembar Petronas dan Gunung Kinabalu. Kedudukannya **anggaran** pada peta skematik, bukan koordinat sebenar, dan belum disemak dengan sumber rasmi.
+- **Penanda:**
+  - pin bulat dengan nombor;
+  - ✓ hijau apabila selesai;
+  - 🔒 kelabu apabila terkunci;
+  - denyut lembut untuk misi seterusnya;
+  - bingkai emas untuk 3 bintang.
+  - ID tajuk, `sqLocked` dan `P.prog` tidak diubah.
+- **Mission Card:**
+  - cip bidang/tema, Tingkatan dan kod;
+  - tajuk, negeri, bintang dan bar kemajuan;
+  - objektif (nota pertama);
+  - **▶ Mula Belajar** (membuka Slaid PdPc) dan **📍 Pergi ke Destinasi**;
+  - aktiviti Slaid PdPc, Latihan AR, Misi Jentik, Misi Belon dan Next Level (butang, ID dan fungsi asal);
+  - misi lain dalam negeri;
+  - taklimat dan skop DSKP.
+  - Kad boleh dikembang, dikecil, ditutup dan dibuka semula (**📋 Kad Misi**).
+- **Pergi ke Destinasi:**
+  - masuk Meta Didik dan bermula di Stesen Ilmu yang memegang tajuk itu (`tids`);
+  - jika tiada, di pin negeri tajuk dengan formula yang sama seperti Menara Ilmu (`toW` dan `lmSnap`);
+  - menggunakan mekanisme `LM.resume` sedia ada, tanpa koordinat baharu.
+- **Susun atur:**
+  - desktop: peta besar dengan kad di sisi kanan (sticky);
+  - telefon potret: pemilih negeri, peta, kad sebagai bottom sheet yang dikecilkan dahulu;
+  - telefon landskap: peta dominan dengan kad di sisi.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright 390×844, 844×390 dan 1366×800: penanda dipilih, kad dikecil, ditutup dan dibuka semula, Mula Belajar memanggil Slaid PdPc untuk tajuk yang betul;
+  - tiada skrol mendatar dan tiada `pageerror`.
+  - Tangkapan: `docs/reka-semula/peta-operasi-2-0.jpg` dan `peta-operasi-landskap.jpg`.
+- **Belum dibuat:**
+  - zum/cubit pada peta (masih guna butang besarkan sedia ada);
+  - pengelompokan penanda (24 penanda tidak bertindih teruk);
+  - lebih banyak miniatur mercu tanda yang disahkan sumber rasmi;
+  - butang alat terapung lama (komen, dadu, Aa, anak panah) belum dikemas kini.
+
 ## 2026-11-01 · v18.67 · Reka bentuk ikut lakaran Meta Didik 2.0 (8 panel)
 
 - **Permintaan pemilik:** "tiru design macam ni sebijik" (lakaran 8 panel).

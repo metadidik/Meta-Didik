@@ -1477,3 +1477,119 @@ body:has(#v-komen:not([hidden])) .bg, body:has(#v-komen:not([hidden])) .grid-bg 
 #pjOv .pjw input.pjw-ic { background-repeat: no-repeat !important; background-position: 12px 50% !important; background-size: 24px !important; background-color: #fff !important; }
 #pjOv .pjw .pjw-sh { color: #1b2a6b !important; font: 700 21px "Fredoka", sans-serif !important; text-transform: none !important; letter-spacing: 0 !important; }
 #pjOv .pjw .pjw-pkc:not(:has(input:checked)) { border-color: #fff !important; }
+
+/* ===== v18.68: Peta Operasi & Pusat Pembelajaran (Meta Didik 2.0) ===== */
+body.gv #gvMapH { max-width: 1240px; margin: 18px auto 8px; padding: 0 14px; font: 700 clamp(22px, 5vw, 30px)/1.15 "Fredoka", var(--font-body); color: #1b2a6b; text-transform: none; letter-spacing: 0; }
+body.gv #gvMapH small { display: block; margin: 2px 0 0; font: 700 13px "Nunito", var(--font-body); color: #4f6880; }
+.po2-ng { max-width: 1240px; margin: 0 auto 10px; padding: 2px 14px 6px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.po2-ng::-webkit-scrollbar { display: none; }
+.po2-nb { flex: none; min-height: 40px; padding: 6px 14px; border-radius: 999px; border: 2px solid #d7e6f3; background: #fff; color: #17324D; font: 800 14px "Nunito", var(--font-body); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; box-shadow: 0 2px 6px rgba(23, 50, 77, .08); }
+.po2-nb small { font: 800 11px "Nunito", sans-serif; color: #4f6880; background: #F4FAFF; border-radius: 999px; padding: 1px 6px; }
+.po2-nb.on { background: linear-gradient(180deg, #45c0f5, #1f8fe0); border-color: #fff; color: #fff; }
+.po2-nb.on small { background: rgba(255, 255, 255, .25); color: #fff; }
+.po2-nb:focus-visible, .mc2-ic:focus-visible, .mc2-go:focus-visible, .mc2-sib:focus-visible, .po2-buka:focus-visible { outline: 3px solid #FFC857; outline-offset: 2px; }
+.po2 { max-width: 1240px; margin: 0 auto; padding: 0 14px; display: grid; gap: 14px; align-items: start; }
+@media (min-width: 1000px) { .po2 { grid-template-columns: minmax(0, 1fr) 370px; } .po2 .dock { position: sticky !important; top: 14px; bottom: auto !important; margin: 0 !important; } }
+/* peta: laut cerah, darat hijau, sempadan halus */
+body.gv #v-map .mapbox { background: radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, .55), transparent 60%), repeating-radial-gradient(circle at 70% 80%, rgba(255, 255, 255, .0) 0 14px, rgba(255, 255, 255, .14) 15px 16px), linear-gradient(180deg, #8fd8fb, #5fc2f0) !important; border: 3px solid #fff !important; border-radius: 24px !important; box-shadow: 0 8px 24px rgba(23, 50, 77, .14) !important; padding: 8px 8px 4px !important; }
+body.gv #v-map .mapbox h3 { color: #fff !important; font: 800 12px "Nunito", var(--font-body) !important; letter-spacing: .06em !important; text-transform: none !important; display: inline-block; background: rgba(23, 50, 77, .55); border-radius: 999px; padding: 3px 10px; margin: 2px 0 4px 2px; }
+body.gv #v-map .mapbox svg { max-height: min(68vh, 680px) !important; }
+body.gv #v-map .st { fill: #9fe08a !important; stroke: rgba(255, 255, 255, .95) !important; stroke-width: .7 !important; filter: none !important; }
+body.gv #v-map .st.part { fill: #7fd27a !important; }
+body.gv #v-map .st.cap { fill: #5cc46f !important; }
+body.gv #v-map .st.gold { fill: #FFD86B !important; stroke: #fff !important; }
+body.gv #v-map .st.sel { stroke: #FFC857 !important; stroke-width: 1.8 !important; }
+body.gv #v-map .st:hover { fill: #b7eba0 !important; }
+body.gv #v-map svg g[pointer-events="none"] path[fill^="url(#gr-"] { opacity: .35; }
+body.gv #v-map .sealbl { fill: rgba(255, 255, 255, .85) !important; font-family: "Nunito", sans-serif; font-weight: 800; letter-spacing: .25em; }
+body.gv #v-map .stlbl { font-family: "Nunito", sans-serif; font-weight: 900; font-size: 6.6px; fill: #17324D; stroke: #fff; stroke-width: 2px; letter-spacing: .04em; }
+/* penanda */
+body.gv #v-map .mapbox .pin, body.gv #v-map .mapbox .pin.sel { filter: none !important; }
+.pin .mk-body { stroke: #fff; stroke-width: 1.3; transition: transform .15s; transform-box: fill-box; transform-origin: 50% 100%; }
+.pin .mk-sh { fill: rgba(23, 50, 77, .3); }
+.pin .mk-disc { fill: #fff; pointer-events: none; }
+.pin .mk-num { font: 900 5.6px "Nunito", sans-serif; fill: #17324D; text-anchor: middle; pointer-events: none; stroke: none; }
+.pin .mk-lock { fill: none; stroke: #6c7f94; stroke-width: 1.1; stroke-linejoin: round; pointer-events: none; }
+.pin .mk-ok { fill: #2fbf5b; stroke: #fff; stroke-width: .9; pointer-events: none; }
+.pin .mk-okt { fill: none; stroke: #fff; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.pin.s3 .mk-body { stroke: #FFC857; stroke-width: 1.8; }
+.pin.lock { opacity: .85; }
+.pin:hover .mk-body, .pin:focus-visible .mk-body { transform: scale(1.15); }
+.pin.sel .mk-body { stroke: #17324D; stroke-width: 1.8; transform: scale(1.22); }
+.pin:focus-visible .mk-body { stroke: #9474E8; stroke-width: 2.2; }
+.pin .mk-pulse { fill: rgba(255, 200, 87, .55); transform-box: fill-box; transform-origin: center; animation: po2Pulse 1.8s ease-out infinite; pointer-events: none; }
+@keyframes po2Pulse { 0% { transform: scale(.7); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pin .mk-pulse { animation: none; opacity: .5; } .pin .mk-body { transition: none; } }
+.po2-mini { filter: drop-shadow(0 1px 1px rgba(23, 50, 77, .35)); }
+/* kawalan peta */
+body.gv #v-map .mapctl { position: absolute !important; right: 10px !important; bottom: 10px !important; }
+body.gv #v-map .mapctl button { background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; border-radius: 14px !important; box-shadow: 0 3px 10px rgba(23, 50, 77, .15) !important; }
+/* Mission Card */
+body.gv #v-map .dock { background: none !important; }
+body.gv #panel.mc2, body.gv #panel { background: #fff !important; color: #17324D !important; border: 0 !important; border-radius: 24px !important; box-shadow: 0 10px 30px rgba(23, 50, 77, .16) !important; padding: 14px 16px 16px !important; text-align: left !important; display: grid; gap: 8px !important; }
+body.gv #panel h3 { font: 700 19px/1.2 "Fredoka", var(--font-body) !important; color: #1b2a6b !important; letter-spacing: 0 !important; white-space: normal !important; margin: 0; }
+body.gv #panel .tagline { color: #9474E8 !important; font: 800 12px "Nunito", sans-serif !important; letter-spacing: .04em !important; }
+body.gv #panel .emp { color: #4f6880 !important; }
+.mc2-hd { display: flex; align-items: flex-start; gap: 8px; }
+.mc2-chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; min-width: 0; }
+.mc2-chip { display: inline-flex; align-items: center; min-height: 26px; padding: 2px 10px; border-radius: 999px; font: 800 12px "Nunito", sans-serif; color: #fff; background: var(--c, #9474E8); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mc2-chip.mc2-tk { background: #e8f6ff; color: #1f6fb0; }
+.mc2-chip.mc2-kod { background: #fff4d6; color: #8a5a00; }
+.mc2-ctl { display: flex; gap: 6px; flex: none; }
+.mc2-ic { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #d7e6f3; background: #F4FAFF; color: #17324D; font: 900 15px/1 "Nunito", sans-serif; cursor: pointer; display: grid; place-items: center; }
+.mc2-ng { font: 700 13px "Nunito", sans-serif; color: #4f6880; margin-top: -4px; }
+.mc2-prog { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+body.gv #panel .mc2-prog .starrow { display: inline-flex; gap: 1px; font-size: 18px; letter-spacing: 0; color: #FFC857; }
+body.gv #panel .mc2-prog .starrow .off { color: #d7e6f3; }
+.mc2-bar { flex: 1 1 80px; height: 8px; border-radius: 999px; background: #e6f0f8; overflow: hidden; }
+.mc2-bar i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #65D6A0, #2fbf5b); }
+.mc2-prog small { font: 700 12px "Nunito", sans-serif; color: #4f6880; }
+.mc2-obj { margin: 0; padding: 10px 12px; border-radius: 14px; background: #F4FAFF; font: 600 14px/1.4 "Nunito", sans-serif; color: #24364f; }
+.mc2-obj b { color: #1b2a6b; }
+.mc2-cta { display: flex; gap: 8px; flex-wrap: wrap; }
+.mc2-go { flex: 1 1 140px; min-height: 50px; border-radius: 999px; border: 3px solid #fff; font: 700 17px "Fredoka", sans-serif; cursor: pointer; box-shadow: 0 4px 0 rgba(0, 0, 0, .15), 0 8px 16px rgba(23, 50, 77, .15); }
+.mc2-mula { background: linear-gradient(180deg, #ffe45c, #f6b400); color: #17324D; }
+.mc2-tuju { background: linear-gradient(180deg, #45c0f5, #1f8fe0); color: #fff; }
+.mc2-go:active { transform: translateY(2px); }
+.mc2-sub { font: 800 12px "Nunito", sans-serif; color: #4f6880; letter-spacing: .06em; text-transform: uppercase; margin-top: 2px; }
+body.gv #panel .mc2-act { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px !important; padding: 0 !important; overflow: visible !important; justify-content: stretch !important; }
+body.gv #panel .mc2-act .btn.mode { width: 100% !important; justify-content: flex-start; min-height: 48px !important; padding: 5px 12px 5px 5px !important; border-radius: 16px !important; border: 2px solid #fff !important; color: #fff !important; font: 800 14px "Nunito", sans-serif !important; letter-spacing: 0 !important; text-transform: none !important; box-shadow: 0 3px 0 rgba(0, 0, 0, .14), 0 6px 12px rgba(23, 50, 77, .12) !important; }
+body.gv #panel .mc2-act .btn.mode .mi { width: 34px; height: 34px; border-radius: 12px; background: rgba(255, 255, 255, .9); display: grid; place-items: center; }
+body.gv #panel .mc2-act #btnSL { background: linear-gradient(180deg, #ffd45a, #f2a900) !important; color: #17324D !important; }
+body.gv #panel .mc2-act #btnAR { background: linear-gradient(180deg, #45c0f5, #1f8fe0) !important; }
+body.gv #panel .mc2-act #btnJT { background: linear-gradient(180deg, #ff9f6b, #f0703a) !important; }
+body.gv #panel .mc2-act #btnBL { background: linear-gradient(180deg, #ff86b0, #e8558a) !important; }
+body.gv #panel .mc2-act #btnNL { background: linear-gradient(180deg, #a98bf5, #7a4cf0) !important; }
+.mc2-sibs { display: flex; gap: 6px; flex-wrap: wrap; }
+.mc2-sib { min-height: 36px; padding: 4px 12px; border-radius: 999px; border: 2px solid #d7e6f3; background: #fff; color: #17324D; font: 800 13px "Nunito", sans-serif; cursor: pointer; }
+.mc2-sib.on { background: #9474E8; border-color: #fff; color: #fff; }
+body.gv #panel details.mc2-more { display: block !important; border-top: 1px solid #e6f0f8; padding-top: 6px; }
+.mc2-more summary { cursor: pointer; font: 800 13px "Nunito", sans-serif; color: #9474E8; }
+.mc2-more ul { margin: 6px 0; padding-left: 18px; font-size: 13.5px; color: #24364f; }
+.mc2-std, .mc2-bank { font-size: 12.5px; color: #4f6880; margin-top: 6px; }
+body.po2-tutup.gv #v-map .dock { display: none !important; }
+.po2-buka { position: fixed; z-index: 30; right: max(14px, env(safe-area-inset-right)); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); min-height: 48px; padding: 8px 18px; border-radius: 999px; border: 3px solid #fff; background: linear-gradient(180deg, #8f63f5, #6a3fe0); color: #fff; font: 700 17px "Fredoka", sans-serif; cursor: pointer; box-shadow: 0 6px 18px rgba(23, 50, 77, .3); }
+.po2-buka[hidden] { display: none; }
+body:not(.gv) .po2-ng, body:not(.gv) .po2-buka { display: none !important; }
+/* telefon potret: kad misi sebagai bottom sheet, peta di atasnya */
+@media (max-width: 999px) and (min-height: 501px) {
+  body.gv #v-map .po2 .dock { position: fixed !important; left: 0; right: 0; bottom: 0; top: auto !important; z-index: 40; margin: 0 !important; padding: 0 8px env(safe-area-inset-bottom, 0px) !important; max-height: 62vh !important; overflow: auto !important; border-radius: 24px 24px 0 0 !important; }
+  body.gv #panel.mc2 { border-radius: 24px 24px 0 0 !important; box-shadow: 0 -8px 30px rgba(23, 50, 77, .22) !important; }
+  body.gv #panel.mc2:before { content: ""; justify-self: center; width: 44px; height: 5px; border-radius: 999px; background: #d7e6f3; margin: -6px 0 2px; }
+  body.gv #v-map .po2 { padding-bottom: 200px; }
+  body.gv #panel .mc2-act { grid-template-columns: repeat(2, 1fr); }
+  body.gv #v-map .mapbox svg { max-height: none !important; }
+}
+/* telefon landskap: peta dominan, kad di sisi */
+@media (max-width: 999px) and (max-height: 500px) {
+  .po2 { grid-template-columns: minmax(0, 1fr) min(300px, 42vw); padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+  body.gv #v-map .po2 .dock { position: sticky !important; top: 8px; bottom: auto !important; max-height: calc(100vh - 16px) !important; overflow: auto !important; margin: 0 !important; }
+  body.gv #v-map .maps { grid-template-columns: minmax(0, 232fr) minmax(0, 385fr) !important; }
+  body.gv #v-map .mapbox svg { max-height: calc(100vh - 70px) !important; }
+  body.gv #panel .mc2-act { grid-template-columns: 1fr 1fr; }
+  body.gv #panel .mc2-act .btn.mode { font-size: 12.5px !important; min-height: 42px !important; }
+}
+body.gv #panel { grid-template-columns: minmax(0, 1fr); min-width: 0; width: auto !important; max-width: 100% !important; box-sizing: border-box; }
+body.gv #panel > * { min-width: 0; }
+body.gv #v-map .po2 .dock { min-width: 0; }
+@media (max-width: 999px) and (max-height: 500px) { body.gv #v-map .mapbox h3 { white-space: nowrap; font-size: 10px !important; } }
