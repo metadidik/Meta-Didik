@@ -7271,7 +7271,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.65";
+const APP_VER = "18.66";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -17736,8 +17736,10 @@ async function stnSubmit(f) {
   const old = STN.mine || {};
   const doc = { u: g.uid, n: stnClean(P.penuh || P.nama || g.gn, 60), sk: cleanSekolah(P.sekolah).slice(0, 80), ng: P.negeri || "", tj: tj, kat: STN_KAT.indexOf(f.kat) >= 0 ? f.kat : "Lain-lain", ds: ds, yt: yt, url: url, pn: f.pn, la: +f.la, lo: +f.lo, sj: f.sj, tp: f.tp, hg: hg, st: "tunggu", t: old.t || Date.now(), tu: Date.now() };
   Object.keys(doc).forEach((k) => { if (doc[k] === "" || doc[k] === 0) delete doc[k]; }); /* peraturan: medan kosong tidak dihantar */
-  await FB.req("PUT", "stesen/" + g.uid, doc);
-  if (g.trial && g.em) await FB.req("PUT", "stesen_em/" + g.uid, g.em); /* e-mel tidak awam: hanya pentadbir membaca */
+  try { await FB.req("PUT", "stesen/" + g.uid, doc); }
+  catch (e) { const k = e && (e.code === 401 || e.code === 403 || /permission|denied/i.test(String(e.message || ""))); throw new Error(k ? "Pelayan Meta Didik menolak permohonan (kebenaran ditolak). Peraturan Firebase perlu dikemas kini oleh pentadbir. Sila maklumkan pentadbir Meta Didik." : "Gagal dihantar (kod " + ((e && e.code) || "rangkaian") + "). Semak sambungan internet dan cuba lagi."); }
+  try { localStorage.setItem("gt-stn-saya", JSON.stringify(Object.assign({ _id: g.uid }, doc))); } catch (e) { /* abaikan */ } /* v18.66: booth sendiri dipaparkan walaupun bacaan senarai gagal */
+  if (g.trial && g.em) { try { await FB.req("PUT", "stesen_em/" + g.uid, g.em); } catch (e) { /* tidak menggagalkan permohonan */ } } /* e-mel tidak awam: hanya pentadbir membaca */
   STN.mine = doc;
 }
 function stnGuruBox(box, opt) {

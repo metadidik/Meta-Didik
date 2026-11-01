@@ -4205,13 +4205,16 @@ function lmStnBuild(g, used, placed, avoid, gnd) {
 /* muat stesen yang diluluskan dan pasang pada gerai */
 async function lmStnFetch(g) {
   if (typeof FB === "undefined" || !FB.url || !g.stn) return;
-  let v = null; try { v = await FB.req("GET", "stesen"); } catch (e) { return; }
+  let v = null; try { v = await FB.req("GET", "stesen"); } catch (e) { v = null; } /* v18.66: jika bacaan gagal, booth sendiri tetap dipaparkan */
+  v = Object.assign({}, v || {});
+  try { const s = JSON.parse(localStorage.getItem("gt-stn-saya") || "null"); if (s && s._id && s.tj && !(v[s._id] && (v[s._id].tu || 0) >= (s.tu || 0))) { const d = Object.assign({}, s); delete d._id; v[s._id] = d; } } catch (e) { /* abaikan */ }
   try { const nl = (await FB.req("GET", "stesen_nilai")) || {}; g.stnNilai = {}; for (const id in nl) { const rs = Object.values(nl[id] || {}).map((x) => x && x.r).filter((x) => x >= 1 && x <= 5); if (rs.length) g.stnNilai[id] = { n: rs.length, avg: rs.reduce((a, c) => a + c, 0) / rs.length }; } } catch (e) { /* abaikan: tanpa penilaian */ }
   if (!LM.g || LM.g !== g) return;
   /* v18.28: stesen hanya dipaparkan dalam dunia subjeknya (stesen lama tanpa subjek = Tasawwur Islam) */
   const mine = (d) => d && d.st === "lulus" && d.tj && (d.sj || "tw") === SUBJ;
   const by = {}; Object.keys(v || {}).forEach((id) => { const d = v[id]; if (mine(d) && d.sl && d.la == null) by[d.sl] = Object.assign({}, d, { id: id }); });
   lmStnGeo(g, v || {}, mine);
+  try { const s = JSON.parse(localStorage.getItem("gt-stn-saya") || "null"); if (s && s.sj && s.sj !== SUBJ && !g.stnSjMsg) { g.stnSjMsg = 1; lmPop("📌 Booth anda dipaparkan dalam dunia " + (SUBJS[s.sj] ? SUBJS[s.sj].subjek : s.sj)); } } catch (e) { /* abaikan */ }
   g.stn.forEach((it) => {
     const d = by[it.sl] || null; if ((it.d && it.d.id + it.d.tu) === (d && d.id + d.tu)) return;
     it.d = d; it.n = d ? d.tj : "Tapak kosong";
