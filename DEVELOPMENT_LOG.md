@@ -11,6 +11,57 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.76 · Uniform PKBM Darat, Laut dan Udara
+
+- **Uniform baharu:**
+  - item Avatar Studio **PKBM Darat**, **PKBM Laut** dan **PKBM Udara** (Pasukan Kadet Bersatu Malaysia), 120 MD setiap satu, untuk lelaki dan perempuan;
+  - warna dipermudah sebagai ilustrasi, bukan replika rasmi: Darat hijau zaitun dengan lencana lengan merah, Laut putih dengan seluar biru tua dan tali leher, Udara biru muda dengan biru kelabu;
+  - semua dengan lilitan bahu (lanyard) kuning.
+- **Avatar Studio:** set lengkap Set PKBM Darat/Laut/Udara dan Padanan Sesuai (Jalur Gemilang, lencana pengawas).
+- **Serasi dengan multiplayer:** klien lama yang belum dikemas kini memaparkan pakaian sekolah.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright: ketiga-tiga item dalam grid Pakaian dan pratonton;
+  - tiada `pageerror`.
+
+## 2026-11-01 · v18.75 · Evolusi avatar 3D (model, animasi, emote) dan HUD ikut lakaran
+
+- **Audit:**
+  - avatar ialah model prosedural Three.js r128 (`avatar3d.js`), dikongsi oleh pratonton Gudang, dunia Meta Didik dan multiplayer melalui satu kod konfigurasi (`AV3.code`, `g|sk|ou|...`);
+  - tiada fail GLB;
+  - animasi berasaskan pose (`POSE0`, `RAI`).
+  - Pendekatan dipilih: naik taraf model sedia ada, bukan gantikan dengan GLB. Semua item Gudang, item dimiliki dan kod multiplayer kekal serasi tanpa migrasi data.
+- **Model:**
+  - kepala lebih besar (gaya watak pengembaraan mesra kanak-kanak, skala 1.36);
+  - rambut bervolum (jambul, sisi, poni);
+  - kening (bergerak), hidung kecil, mata, senyuman dan pipi (v18.74);
+  - tapak kasut putih.
+- **Animasi (mesin keadaan dengan pengadunan):**
+  - diam: bernafas, alih berat badan, kepala bergerak, kelip mata, kening;
+  - jalan → lari diadun lancar dengan condong ke depan semasa lari;
+  - lompat: naik, udara, mendarat dengan mampatan lembut;
+  - pusingan lancar tanpa lompat sudut, dengan condong ke arah pusingan.
+- **Emote baharu:**
+  - Lambaian (`em_lb`), Gembira (`em_gb`), Salam (`em_sl`), serta Tepuk Tangan (`rc_tp`) dan Keraian Saya;
+  - dihantar kepada pemain lain melalui medan `rc` sedia ada; klien lama mengabaikan kunci baharu.
+- **HUD:**
+  - logo Meta Didik (skrin lebar);
+  - panel kiri Inventori, Avatar, Misi dan Ganjaran (mendatar dalam landskap pendek);
+  - bar emote ✋👍🙌👏 dengan butang 😊;
+  - karusel emote bergambar avatar (sentiasa kelihatan di skrin lebar, ditogol di telefon);
+  - panah pada joystick;
+  - label nama lebih kecil;
+  - emote disembunyikan semasa menaiki kenderaan.
+- **Tidak dibuat (perlukan aset atau peranti sebenar):**
+  - model GLB/rig rangka sebenar, LOD dan pemampatan tekstur;
+  - kamera anti-tembus bangunan (kamera sedia ada dikekalkan);
+  - ujian pada peranti fizikal.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright 900×414, 390×844 dan 1280×600: HUD tanpa pertindihan (panel kiri/joystick/panduan, bar emote/Lari-Lompat, karusel/joystick/butang), emote Lambaian dimainkan, dunia dimuat;
+  - tiada `pageerror`.
+  - Tangkapan: `docs/reka-semula/avatar-evolusi.jpg`.
+
 ## 2026-11-01 · v18.74 · Avatar Studio (Gudang avatar direka semula ikut lakaran)
 
 - **Audit (sebelum):**

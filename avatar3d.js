@@ -106,7 +106,8 @@ function build(c, opt) {
   const lL = pv(-0.36, 2.3), lR = pv(0.36, 2.3);
   [lL, lR].forEach((p, i) => {
     p.add(mesh(capsule(0.3, 2.05), mBot, 0, -0.05, 0));
-    p.add(mesh(rbox(0.46, 0.3, 0.82), mShoe, 0, -2.17, 0.12));
+    p.add(mesh(rbox(0.5, 0.34, 0.86), mShoe, 0, -2.15, 0.14));
+    p.add(mesh(rbox(0.54, 0.1, 0.92), mat("#f5f5f2", { roughness: 0.6 }), 0, -2.33, 0.15)); /* v18.75: tapak kasut putih */
     if (o.ou === "ou_tk") p.add(mesh(geo("strp", () => new T.BoxGeometry(0.05, 1.7, 0.08)), mat("#f4f4f0"), i ? 0.29 : -0.29, -1.0, 0));
   });
   /* badan */
@@ -137,13 +138,17 @@ function build(c, opt) {
   });
   /* leher dan kepala */
   body.add(mesh(geo("neck", () => new T.CylinderGeometry(0.21, 0.24, 0.35, 12)), mSk, 0, 4.6, 0));
-  const head = new T.Group(); head.position.y = 5.22; body.add(head);
+  const head = new T.Group(); head.position.y = 5.42; head.scale.setScalar(1.36); body.add(head); /* v18.75: kepala besar gaya watak pengembaraan mesra kanak-kanak */
   const hs = mesh(geo("head", () => new T.SphereGeometry(0.62, 24, 18)), mSk, 0, 0, 0); hs.scale.set(1, 1.12, 1.02); head.add(hs);
   /* v18.74: wajah ringkas (mata dan senyuman) untuk Avatar Studio; mata berkelip dalam anim() */
   const eyes = new T.Group(); eyes.position.set(0, 0.08, 0.6); head.add(eyes);
   const mE = mat("#1d2433", { roughness: 0.4 });
   for (const x of [-0.2, 0.2]) { const e = mesh(geo("eye", () => new T.SphereGeometry(0.075, 12, 10)), mE, x, 0, 0); e.scale.set(1, 1.35, 0.6); e.castShadow = false; eyes.add(e); const hl = mesh(geo("eyehl", () => new T.SphereGeometry(0.024, 8, 6)), mat("#ffffff", { roughness: 0.2 }), x + 0.025, 0.035, 0.04); hl.castShadow = false; eyes.add(hl); }
   { const sm = mesh(geo("smile", () => new T.TorusGeometry(0.15, 0.022, 6, 16, Math.PI * 0.8)), mat("#8a3b32", { roughness: 0.6 }), 0, -0.2, 0.585); sm.rotation.z = Math.PI + Math.PI * 0.1; sm.castShadow = false; head.add(sm); }
+  /* v18.75: kening (boleh bergerak untuk ekspresi) dan hidung kecil */
+  const brows = new T.Group(); brows.position.set(0, 0.27, 0.575); head.add(brows);
+  for (const x of [-0.2, 0.2]) { const b = mesh(geo("brow", () => new T.BoxGeometry(0.16, 0.035, 0.03)), mat("#2a2228", { roughness: 0.8 }), x, 0, 0); b.rotation.z = x < 0 ? 0.12 : -0.12; b.castShadow = false; brows.add(b); }
+  { const ns = mesh(geo("nose", () => new T.SphereGeometry(0.055, 10, 8)), mSk, 0, -0.06, 0.62); ns.scale.set(1, 0.8, 0.8); ns.castShadow = false; head.add(ns); }
   for (const x of [-0.34, 0.34]) { const ck = mesh(geo("cheek", () => new T.CircleGeometry(0.08, 14)), mat("#f29b9b", { transparent: true, opacity: 0.45, roughness: 1 }), x, -0.1, 0.56); ck.rotation.y = x > 0 ? 0.55 : -0.55; ck.castShadow = false; head.add(ck); }
   const hd = o.hd, mH = mat(hc);
   if (P) {
@@ -159,6 +164,9 @@ function build(c, opt) {
     if (hd === "hd_sw") { const vis = mesh(geo("visor", () => new T.TorusGeometry(0.62, 0.06, 6, 20, Math.PI)), mat(shade(hc, -0.2)), 0, 0.42, 0.18); vis.rotation.x = -0.5; head.add(vis); }
   } else {
     const hair = mesh(geo("hair", () => new T.SphereGeometry(0.66, 22, 14, 0, Math.PI * 2, 0, Math.PI * 0.5)), mat("#1f1f26", { roughness: 0.9 }), 0, 0.06, -0.04); hair.scale.set(1, 1.08, 1.04); head.add(hair);
+    if (hd === "hd_no") { const mHr = mat("#1f1f26", { roughness: 0.9 }); /* v18.75: rambut bervolum (jambul dan sisi) */
+      [[0, 0.62, 0.22, 0.26], [-0.24, 0.58, 0.18, 0.22], [0.24, 0.6, 0.16, 0.22], [0.08, 0.66, -0.08, 0.24], [-0.5, 0.18, 0.05, 0.2], [0.5, 0.18, 0.05, 0.2]].forEach(([x, y, z, r]) => { const t = mesh(geo("tuft" + r, () => new T.SphereGeometry(r, 12, 10)), mHr, x, y, z); t.scale.set(1.15, 0.75, 1); t.castShadow = false; head.add(t); });
+      const fr = mesh(geo("fringe", () => new T.SphereGeometry(0.62, 18, 8, -Math.PI * 0.35, Math.PI * 0.7, Math.PI * 0.18, Math.PI * 0.16)), mHr, 0, 0.12, 0.04); fr.castShadow = false; head.add(fr); }
     if (hd === "hd_sk") head.add(mesh(geo("songkok", () => new T.CylinderGeometry(0.6, 0.64, 0.5, 26)), mat("#15151a", { roughness: 0.95 }), 0, 0.6, -0.02));
     else if (hd === "hd_kp") { const kp = mesh(geo("kopiah", () => new T.SphereGeometry(0.66, 22, 10, 0, Math.PI * 2, 0, Math.PI * 0.35)), mH, 0, 0.18, -0.02); kp.scale.y = 1.2; head.add(kp); }
     else if (hd === "hd_sb") { for (let i = 0; i < 3; i++) { const t = mesh(geo("serb" + i, () => new T.TorusGeometry(0.6 - i * 0.12, 0.17, 10, 24)), mat("#f4f4f0"), 0, 0.42 + i * 0.17, -0.03); t.rotation.x = Math.PI / 2 + (i - 1) * 0.12; head.add(t); } head.add(mesh(geo("serbt", () => new T.SphereGeometry(0.3, 12, 8)), mat("#f4f4f0"), 0, 0.82, -0.04)); }
@@ -216,20 +224,34 @@ function build(c, opt) {
     [-0.32, 0.32].forEach((x) => { fx.add(mesh(geo("jpt", () => new T.CylinderGeometry(0.24, 0.24, 1.2, 12)), mat("#c9d2dc", { metalness: 0.7, roughness: 0.3 }), x, 3.5, -0.85)); const fl = new T.Mesh(geo("jpf", () => new T.ConeGeometry(0.2, 0.9, 10)), new T.MeshBasicMaterial({ color: 0xff8a1f, transparent: true, opacity: 0.85 })); fl.rotation.x = Math.PI; fl.position.set(x, 2.5, -0.85); fl.visible = false; fx.add(fl); });
     body.add(fx);
   } else if (o.ef === "ef_pl") { fx = { userData: { kind: "pl" } }; }
-  return { g: root, body: body, lL: lL, lR: lR, aL: aL, aR: aR, head: head, eyes: eyes, hand: hand, pet: pet, aura: aura, fx: fx, o: o, ph: Math.random() * 6, t: 0, trail: [], blink: 2 + Math.random() * 3 };
+  return { g: root, body: body, lL: lL, lR: lR, aL: aL, aR: aR, head: head, eyes: eyes, brows: brows, mv: 0, rn: 0, airT: 0, land: 0, hand: hand, pet: pet, aura: aura, fx: fx, o: o, ph: Math.random() * 6, t: 0, trail: [], blink: 2 + Math.random() * 3 };
 }
 /* ---------- animasi ---------- */
 function anim(av, moving, air, dt, speed, scene) {
   animBase(av, moving, air, dt, speed, scene); poseTick(av, dt);
   if (av.eyes) { av.blink -= dt; const k = av.blink < 0.12 ? Math.max(0.1, Math.abs(av.blink - 0.06) / 0.06) : 1; av.eyes.scale.y = k; if (av.blink <= 0) av.blink = 2.5 + Math.random() * 3; } /* v18.74: kelip mata */
 }
+/* v18.75: mesin keadaan animasi ringkas dengan pengadunan: diam -> jalan -> lari, lompat (naik/udara/mendarat), diam bernafas */
 function animBase(av, moving, air, dt, speed, scene) {
-  av.t += dt; av.ph += dt * (moving ? 8.5 * (speed || 1) : 2);
-  const s = air ? 0.9 : moving ? Math.sin(av.ph) * 0.7 : 0;
-  av.lL.rotation.x = air ? -0.55 : s; av.lR.rotation.x = air ? 0.35 : -s;
-  av.aL.rotation.x = air ? -2.3 : -s * 0.85; av.aR.rotation.x = air ? -2.3 : (av.hand.children.length ? Math.min(-0.25, s * 0.5 - 0.25) : s * 0.85);
-  av.body.position.y = moving && !air ? Math.abs(Math.cos(av.ph)) * 0.12 : Math.sin(av.t * 1.6) * 0.015;
-  av.head.rotation.y = moving ? 0 : Math.sin(av.t * 0.5) * 0.18;
+  av.t += dt;
+  const run = moving && (speed || 1) > 1.2, tgt = moving ? (run ? 1 : 0.62) : 0, k = Math.min(1, dt * 7);
+  av.mv = (av.mv || 0) + (tgt - (av.mv || 0)) * k; av.rn = (av.rn || 0) + ((run ? 1 : 0) - (av.rn || 0)) * k;
+  av.ph += dt * (2 + av.mv * 8.5 * (speed || 1));
+  if (air) av.airT = (av.airT || 0) + dt; else { if ((av.airT || 0) > 0.25) av.land = 0.22; av.airT = 0; }
+  av.land = Math.max(0, (av.land || 0) - dt);
+  const amp = av.mv * (0.75 + av.rn * 0.35), s = Math.sin(av.ph) * amp;
+  if (air) { const up = Math.min(1, av.airT / 0.18); av.lL.rotation.x = -0.75 * up; av.lR.rotation.x = 0.45 * up; av.aL.rotation.x = -2.1 * up; av.aR.rotation.x = -1.6 * up; }
+  else {
+    av.lL.rotation.x = s; av.lR.rotation.x = -s;
+    av.aL.rotation.x = -s * (0.85 + av.rn * 0.3); av.aR.rotation.x = av.hand.children.length ? Math.min(-0.25, s * 0.5 - 0.25) : s * (0.85 + av.rn * 0.3);
+  }
+  const breathe = Math.sin(av.t * 1.7) * 0.5 + 0.5, idle = 1 - av.mv;
+  av.body.position.y = air ? 0 : Math.abs(Math.cos(av.ph)) * 0.12 * av.mv * (1 + av.rn * 0.6) + idle * breathe * 0.025 - av.land * 0.9;
+  av.body.rotation.x = av.mv * (0.05 + av.rn * 0.12); /* condong ke depan semasa berlari */
+  av.body.rotation.z = idle * Math.sin(av.t * 0.45) * 0.025; /* alih berat badan semasa diam */
+  av.body.scale.y = 1 - av.land * 0.25 + idle * breathe * 0.008; /* mendarat: mampat sedikit */
+  av.head.rotation.y = idle * Math.sin(av.t * 0.5) * 0.22; av.head.rotation.x = idle * Math.sin(av.t * 0.37) * 0.05 - (air ? 0.08 : 0);
+  if (av.brows) av.brows.position.y = 0.27 + (air ? 0.04 : 0) + Math.max(0, Math.sin(av.t * 0.9) - 0.94) * 0.4;
   if (av.hand.userData.flag) av.hand.userData.flag.rotation.y = Math.sin(av.t * 4) * 0.25;
   if (av.hand.userData.ball) av.hand.userData.ball.rotation.x += dt * (moving ? 6 : 1);
   if (av.pet) {
@@ -267,6 +289,10 @@ const ez = (x) => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x);
 const mixP = (a, b, k) => { const o = {}; for (const key in POSE0) o[key] = (a[key] != null ? a[key] : POSE0[key]) + ((b[key] != null ? b[key] : POSE0[key]) - (a[key] != null ? a[key] : POSE0[key])) * k; return o; };
 /* keraian: tempoh (s) dan fungsi pose mengikut masa */
 const RAI = {
+  /* v18.75: emote murid (Lambaian, Gembira, Salam); Tepuk Tangan guna rc_tp */
+  em_lb: { d: 2.2, f: (t) => { const k = ez(t / 0.25) * ez((2.2 - t) / 0.3); return mixP(POSE0, { bx: -2.75, bz: -0.25 - Math.sin(t * 11) * 0.35, ax: 0.05, yaw: 0, sw: Math.sin(t * 5.5) * 0.03 }, k); } },
+  em_gb: { d: 2.4, f: (t) => { const k = ez(t / 0.2) * ez((2.4 - t) / 0.25), up = Math.max(0, Math.sin(t * 7.8)); return mixP(POSE0, { ax: -2.85, bx: -2.85, az: -0.45, bz: 0.45, lift: up * 0.7, lx: -0.25 * up, rx: -0.25 * up }, k); } },
+  em_sl: { d: 2.6, f: (t) => { const k = ez(t / 0.35) * ez((2.6 - t) / 0.35), bow = ez((t - 0.3) / 0.5) * ez((2.1 - t) / 0.5); return mixP(POSE0, { ax: -1.25, bx: -1.25, az: 0.42, bz: -0.42, th: 0.16 * bow }, k); } },
   rc_tp: { d: 2.4, f: (t) => { const k = ez(t / 0.3) * ez((2.4 - t) / 0.3), s = (Math.sin(t * 19) + 1) / 2; return mixP(POSE0, { ax: -1.35, bx: -1.35, az: 0.12 + 0.34 * s, bz: -0.12 - 0.34 * s, lift: Math.abs(Math.sin(t * 9.5)) * 0.12 }, k); } },
   rc_sj: { d: 3.6, f: (t) => { const U = { th: 1.45, hip: 1.05, zo: -0.7, lx: 1.15, rx: 1.15, ax: -2.05, bx: -2.05, az: 0.12, bz: -0.12 }; return mixP(POSE0, U, ez(t / 0.8) * ez((3.6 - t) / 0.8)); } },
   rc_ab: { d: 2.6, f: (t) => { const k = ez(t / 0.4) * ez((2.6 - t) / 0.4); return mixP(POSE0, { ax: -2.75, bx: -2.75, az: -0.35, bz: 0.35, lift: Math.max(0, Math.sin(t * 5)) * 0.25, th: -0.08 }, k); } },
