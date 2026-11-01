@@ -7271,7 +7271,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.66";
+const APP_VER = "18.67";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -14736,7 +14736,7 @@ async function guruReportPdf(rows) {
 }
 
 /* ---------- Ruangan Komen (v17.59): dibaca semua, moderator boleh padam ---------- */
-const KM = { list: [], rep: {}, loading: false, err: "", at: 0, msg: "", armed: "", role: "Murid", last: 0 };
+const KM = { list: [], rep: {}, loading: false, err: "", at: 0, msg: "", armed: "", role: "Murid", last: 0, f: "semua", tulis: false, mn: "" };
 const KM_BAD = ["bodoh", "babi", "sial", "pukimak", "puki", "pantat", "kontol", "bangsat", "celaka", "anjing", "keparat", "lancau", "cibai", "fuck", "shit", "bitch", "asshole", "tolol", "sundal", "jalang", "haram jadah"];
 function kmAdm() { try { return localStorage.getItem("gt-km-adm") || ""; } catch (e) { return ""; } }
 function kmNorm(s) { return String(s).toLowerCase().replace(/[01345@$]/g, (c) => ({ "0": "o", "1": "i", "3": "e", "4": "a", "5": "s", "@": "a", "$": "s" })[c]).replace(/[^a-z ]/g, ""); }
@@ -14799,7 +14799,11 @@ function renderKomen() {
   box.textContent = "";
   if (KM.err === "off") { box.appendChild(el("div", { class: "notice warn" }, "Ruangan komen memerlukan sambungan Firebase (versi GitHub Pages). Ia tidak tersedia pada sesi ini.")); return; }
   const adm = !!kmAdm();
-  const form = el("div", { class: "hcard km-form" });
+  /* v18.67: Suara Komuniti ikut lakaran: butang Tulis Komen, cip tapisan, kad padat */
+  const tb = el("button", { type: "button", class: "km2-tulis", "aria-expanded": String(KM.tulis), "aria-controls": "km2Form" }, el("span", { "aria-hidden": "true" }, "✏️"), "Tulis Komen");
+  tb.addEventListener("click", () => { KM.tulis = !KM.tulis; renderKomen(); if (KM.tulis) setTimeout(() => { const t = document.querySelector("#km2Form textarea"); if (t) t.focus(); }, 30); });
+  box.appendChild(tb);
+  const form = el("div", { class: "hcard km-form", id: "km2Form" }); form.hidden = !KM.tulis;
   form.appendChild(el("div", { class: "tagline" }, "Tulis komen"));
   const nm = el("input", { type: "text", maxlength: "16", placeholder: "Nama (cth: Aisyah, Cikgu Ali)", "aria-label": "Nama", class: "km-in" }); nm.value = (P.nama || "").slice(0, 16);
   const rl = el("select", { "aria-label": "Peranan", class: "km-in" }); ["Murid", "Guru", "Ibu bapa", "Lain-lain"].forEach((r) => { const o = el("option", { value: r }, r); if (r === KM.role) o.selected = true; rl.appendChild(o); });
@@ -14819,25 +14823,33 @@ function renderKomen() {
     el("p", { class: "muted", style: "font-size:12px;margin:4px 0 0" }, "Komen boleh dibaca oleh semua pengguna. Jangan kongsi nombor telefon, alamat atau maklumat peribadi. Komen tidak sesuai akan dipadam oleh moderator."));
   box.appendChild(form);
   if (KM.msg) { box.appendChild(el("div", { class: "notice" }, KM.msg)); KM.msg = ""; }
-  const bar = el("div", { class: "row", style: "justify-content:space-between;align-items:center;margin:14px 0 8px;gap:8px" });
-  bar.appendChild(el("h3", { class: "sec", style: "font-size:22px;margin:0" }, "Komen terkini" + (KM.list.length ? " (" + KM.list.length + ")" : "")));
-  const rf = el("button", { type: "button", class: "btn alt sm" }, KM.loading ? "Memuatkan..." : "Muat semula"); rf.disabled = KM.loading; rf.addEventListener("click", kmLoad); bar.appendChild(rf);
+  const kmPer = (x) => { const r = String(x.r || "Murid"); return r === "Guru" ? "guru" : r === "Murid" ? "murid" : "lain"; };
+  const bar = el("div", { class: "km2-chips", role: "group", "aria-label": "Tapis komen" });
+  [["semua", "Semua (" + KM.list.length + ")"], ["murid", "Murid"], ["guru", "Guru"]].forEach(([k, n]) => { const c = el("button", { type: "button", class: "km2-chip" + (KM.f === k ? " on" : ""), "aria-pressed": String(KM.f === k) }, n); c.addEventListener("click", () => { KM.f = k; renderKomen(); }); bar.appendChild(c); });
+  const rf = el("button", { type: "button", class: "km2-rf", "aria-label": "Muat semula komen", title: "Muat semula" }, KM.loading ? "…" : "⟳"); rf.disabled = KM.loading; rf.addEventListener("click", kmLoad); bar.appendChild(rf);
   box.appendChild(bar);
   if (KM.err) box.appendChild(el("div", { class: "notice warn" }, KM.err));
   else if (!KM.list.length && !KM.loading) box.appendChild(el("p", { class: "muted" }, KM.at ? "Belum ada komen. Jadilah yang pertama!" : "Memuatkan komen..."));
   const ls = el("div", { class: "km-list" });
-  KM.list.forEach((x) => {
-    const c = el("div", { class: "km-c" + (adm && KM.rep[x.id] ? " flag" : "") }), top = el("div", { class: "km-t" });
-    const role = String(x.r || "").slice(0, 12);
-    top.append(el("b", null, String(x.n || "Pengguna").slice(0, 30)), el("span", { class: "km-role km-" + (role === "Guru" ? "g" : role === "Ibu bapa" ? "i" : "m") }, role || "Murid"), el("span", { class: "muted" }, kmAgo(x.t)));
-    c.append(top, el("div", { class: "km-m" }, String(x.m).slice(0, 300)));
+  const papar = KM.list.filter((x) => KM.f === "semua" || kmPer(x) === KM.f);
+  if (KM.list.length && !papar.length) ls.appendChild(el("p", { class: "muted" }, "Tiada komen " + KM.f + " lagi."));
+  papar.forEach((x) => {
+    const c = el("div", { class: "km-c km2-c" + (adm && KM.rep[x.id] ? " flag" : "") }), top = el("div", { class: "km-t" });
+    const role = String(x.r || "").slice(0, 12), nm = String(x.n || "Pengguna").slice(0, 30);
+    const hue = [...nm].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) % 360, 7);
+    const av = el("span", { class: "km2-av", "aria-hidden": "true", style: "--h:" + hue }, nm.charAt(0).toUpperCase());
+    top.append(el("span", { class: "km2-nm" }, el("b", null, nm), el("span", { class: "km-role km-" + (role === "Guru" ? "g" : role === "Ibu bapa" ? "i" : "m") }, role || "Murid")), el("span", { class: "km2-t" }, kmAgo(x.t)));
+    c.append(av, top, el("div", { class: "km-m" }, String(x.m).slice(0, 300)));
     const act = el("div", { class: "km-a" });
     let did = false; try { did = localStorage.getItem("gt-km-rep-" + x.id) === "1"; } catch (e) { /* abaikan */ }
     if (adm) {
       if (KM.rep[x.id]) act.appendChild(el("span", { class: "km-fl" }, KM.rep[x.id] + " laporan"));
       const d = el("button", { type: "button", class: "btn sm", style: KM.armed === x.id ? "background:var(--danger)" : "" }, KM.armed === x.id ? "Klik lagi untuk padam" : "Padam"); d.addEventListener("click", () => kmDel(x.id)); act.appendChild(d);
-    } else if (x.u !== FB.getUid()) {
-      const l = el("button", { type: "button", class: "btn alt sm" }, did ? "Dilaporkan" : "Laporkan"); l.disabled = did; l.addEventListener("click", () => kmReport(x.id)); act.appendChild(l);
+    } else if (x.u !== FB.getUid()) { /* v18.67: Laporkan dalam menu ⋮ */
+      const mb = el("button", { type: "button", class: "km2-more", "aria-label": "Pilihan komen " + nm, "aria-expanded": String(KM.mn === x.id) }, "⋮");
+      mb.addEventListener("click", () => { KM.mn = KM.mn === x.id ? "" : x.id; renderKomen(); });
+      c.appendChild(mb);
+      if (KM.mn === x.id) { const l = el("button", { type: "button", class: "km2-lapor" }, did ? "✓ Dilaporkan" : "🚩 Laporkan komen"); l.disabled = did; l.addEventListener("click", () => { KM.mn = ""; kmReport(x.id); }); act.appendChild(l); }
     }
     c.appendChild(act); ls.appendChild(c);
   });
@@ -18881,7 +18893,8 @@ $("regOk").addEventListener("click", () => {
 const RG = { s: 1, first: false };
 function rgPsk() { const c = $("inPsk"), f = $("pskField"); if (!c || !f) return; const r = gtRolePilih(); f.hidden = r === "pelawat"; c.checked = P.psk == null ? r === "guru" : P.psk === 1; }
 function rgGo(n) {
-  RG.s = n;
+  RG.s = n; $("reg").dataset.s = String(n);
+  { const h = $("rgH2"); if (h) h.textContent = "Daftar Anggota (" + ({ murid: "Murid", guru: "Guru", pelawat: "Pelawat" }[gtRolePilih()] || "Murid") + ")"; }
   document.querySelectorAll("#reg .rg-s").forEach((x) => { x.hidden = +x.dataset.s !== n; });
   document.querySelectorAll("#reg .rg-prog i").forEach((x) => { const p = +x.dataset.p; x.className = p < n ? "ok" : p === n ? "on" : ""; });
   $("rgNo").textContent = "Langkah " + n + " daripada 3";
@@ -18892,7 +18905,7 @@ function rgGo(n) {
   const c = document.querySelector("#reg .mcard"); if (c && c.parentElement) c.parentElement.scrollTop = 0;
   setTimeout(() => { try { const f = n === 1 ? document.querySelector('#reg input[name="inRole"]:checked') : n === 2 ? $("inName") : $("regOk"); if (f && !TOUCH) f.focus(); } catch (e) { /* abaikan */ } }, 30);
 }
-function rgMula(first) { RG.first = first; rgPsk(); $("regH").textContent = first ? "Jom Daftar!" : "Kemas kini profil"; const l = document.querySelector("#reg .rg-lead"); if (l) l.textContent = first ? "Pilih siapa anda untuk mula meneroka dunia pembelajaran." : "Tukar peranan, tahap atau sekolah anda."; rgGo(first ? 1 : 2); }
+function rgMula(first) { RG.first = first; rgPsk(); $("regH").textContent = first ? "Daftar Anggota" : "Kemas kini profil"; const l = document.querySelector("#reg .rg-lead"); if (l) l.textContent = first ? "Pilih siapa anda untuk mula menggunakan Meta Didik." : "Tukar peranan, tahap atau sekolah anda."; rgGo(first ? 1 : 2); }
 function rgSalah2() {
   const pl = gtRolePilih() === "pelawat", murid = gtRolePilih() === "murid";
   const n = cleanName($("inName").value), sk = cleanSekolah($("inSekolah").value), tk = parseInt(($("inTahap") || {}).value || "", 10) || 0;
@@ -18905,12 +18918,15 @@ function rgSalah2() {
   $(x[0]).setAttribute("aria-invalid", "true"); return x;
 }
 function rgCariSalah() { const x = rgSalah2(); if (x) { rgGo(2); toast(x[2], "warn"); try { (x[0] === "inSekolah" && !$("sekPick").hidden ? $("cariSek") : $(x[0])).focus(); } catch (e) { /* abaikan */ } } }
+/* v18.67: ikon SVG biru ringkasan pendaftaran (ikut lakaran) */
+const RG_IK = (() => { const w = (d) => '<svg viewBox="0 0 24 24" fill="currentColor" focusable="false">' + d + "</svg>";
+  return { "👤": w('<circle cx="12" cy="7.5" r="4.5"/><path d="M3 21.5c.7-5 4.3-7.8 9-7.8s8.3 2.8 9 7.8z"/>'), "🏷": w('<circle cx="12" cy="7.5" r="4.5"/><path d="M3 21.5c.7-5 4.3-7.8 9-7.8s8.3 2.8 9 7.8z"/>'), "🎓": w('<path d="M12 3 1 8.5 12 14l9-4.5V16h2V8.5z"/><path d="M5.5 12.6V17c0 1.7 2.9 3.5 6.5 3.5s6.5-1.8 6.5-3.5v-4.4L12 15.9z"/>'), "📍": w('<path d="M12 1.8a7.3 7.3 0 0 0-7.3 7.3c0 5.4 7.3 13.1 7.3 13.1s7.3-7.7 7.3-13.1A7.3 7.3 0 0 0 12 1.8zm0 10a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4z"/>'), "🏫": w('<path d="M12 2 4 6.5V9h16V6.5zM3 21h18v-2H3zM5 10h2.5v8H5zm5.75 0h2.5v8h-2.5zM16.5 10H19v8h-2.5z"/>'), "👥": w('<circle cx="8" cy="8" r="3.6"/><circle cx="16.5" cy="8.5" r="3"/><path d="M1 20c.5-4 3.3-6.2 7-6.2s6.5 2.2 7 6.2z"/><path d="M16 13.5c3.4 0 6.3 2.1 6.8 5.8H16.8c-.3-2.3-1.3-4.2-2.8-5.5.6-.2 1.3-.3 2-.3z"/>'), "✉": w('<path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.6L4 7.5v1.9l8 5 8-5V7.5z"/>'), "📚": w('<path d="M4 3h7v18H4zm9 0h7v18h-7z" opacity=".9"/>'), "🔒": w('<path d="M6 10V7.5a6 6 0 0 1 12 0V10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1zm2.5 0h7V7.5a3.5 3.5 0 0 0-7 0z"/>'), ubah: w('<path d="M3 17.2V21h3.8L17.9 9.9l-3.8-3.8zM20.7 7a1 1 0 0 0 0-1.4l-2.3-2.3a1 1 0 0 0-1.4 0l-1.8 1.8 3.8 3.8z"/>') }; })();
 function rgRingkas() {
   const r = gtRolePilih(), d = $("rgSum"); d.textContent = "";
   const neg = $("inNegeri"), ng = neg.options[neg.selectedIndex] ? neg.options[neg.selectedIndex].textContent : "";
   const ts = $("inTahap"), tk = r === "murid" && ts && ts.value ? ts.options[ts.selectedIndex].textContent.replace(/ \(.*\)$/, "") : "";
   const baris = [["👤", "Peranan", { murid: "Murid", guru: "Guru (DELIMa)", pelawat: "Pelawat" }[r], 1], ["🏷", "Nama panggilan", cleanName($("inName").value), 2], tk ? ["🎓", "Tahap", tk, 2] : null, ["📍", "Negeri", ng, 2], r !== "pelawat" ? ["🏫", "Sekolah", cleanSekolah($("inSekolah").value), 2] : null, r !== "pelawat" && $("inKelas").value ? ["👥", "Kelas", kelasNorm($("inKelas").value), 2] : null, r === "guru" ? ["✉", "E-mel DELIMa", String(($("inGuruEm") || {}).value || "").trim().toLowerCase(), 2] : null, r === "guru" && $("inSubj").value ? ["📚", "Subjek", $("inSubj").value.trim(), 2] : null, r !== "pelawat" ? ["🔒", "Sekolah kepada pemain lain", $("inPsk") && $("inPsk").checked ? "Dipaparkan" : "Disembunyikan", 2] : null].filter(Boolean);
-  baris.forEach(([ic, k, v, st]) => { const b = el("button", { type: "button", class: "rg-ed", "aria-label": "Ubah " + k }, "✎"); b.addEventListener("click", () => rgGo(st)); d.append(el("div", null, el("dt", null, el("i", { "aria-hidden": "true" }, ic), k), el("dd", null, v || "-"), b)); });
+  baris.forEach(([ic, k, v, st]) => { const b = el("button", { type: "button", class: "rg-ed", "aria-label": "Ubah " + k }); b.innerHTML = RG_IK.ubah; b.addEventListener("click", () => rgGo(st)); const i = el("i", { "aria-hidden": "true" }); if (RG_IK[ic]) i.innerHTML = RG_IK[ic]; else i.textContent = ic; d.append(el("div", null, el("dt", null, i, k), el("dd", null, v || "-"), b)); });
 }
 $("rgNext").addEventListener("click", () => { if (RG.s === 1) rgGo(2); else if (RG.s === 2) { const x = rgSalah2(); if (x) { toast(x[2], "warn"); try { (x[0] === "inSekolah" && !$("sekPick").hidden ? $("cariSek") : $(x[0])).focus(); } catch (e) { /* abaikan */ } return; } rgGo(3); } });
 $("rgPrev").addEventListener("click", () => rgGo(Math.max(1, RG.s - 1)));
@@ -20300,4 +20316,17 @@ document.addEventListener("click", (ev) => { const b = ev.target && ev.target.cl
   const g = document.getElementById("mdGuru"); if (g) g.addEventListener("click", () => setView("guru"));
   setTimeout(() => { try { guruUi(); } catch (e) { /* abaikan */ } }, 0);
   const c = document.getElementById("mdCara"); if (c) c.addEventListener("click", () => { const s = document.getElementById("mdCaraSec"); if (s) s.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); });
+  /* v18.67: reka bentuk lakaran 2.0: Daftar Anggota, Ruang Penaja dan menu hamburger */
+  const d = document.getElementById("mdDaftar"); if (d) d.addEventListener("click", () => openReg(!P.nama || !P.sekolah));
+  const pj = document.getElementById("mdPenaja"); if (pj) pj.addEventListener("click", () => pjBuka());
+  const mb = document.getElementById("mdMenuBtn"), mp = document.getElementById("mdMenuPop");
+  if (mb && mp) {
+    const tutup = () => { mp.hidden = true; mb.setAttribute("aria-expanded", "false"); };
+    mb.addEventListener("click", (e) => { e.stopPropagation(); mp.hidden = !mp.hidden; mb.setAttribute("aria-expanded", String(!mp.hidden)); if (!mp.hidden) { const f = mp.querySelector("button,a"); if (f) f.focus(); } });
+    mp.addEventListener("click", (e) => { const t = e.target.closest("[data-m]"); if (!t) return; const m = t.dataset.m; tutup();
+      if (m === "komen") setView("komen");
+      else if (m === "fs") { const f = document.getElementById("mdFsBtn"); if (f) f.click(); } });
+    document.addEventListener("click", (e) => { if (!mp.hidden && !mp.contains(e.target) && e.target !== mb) tutup(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !mp.hidden) { tutup(); mb.focus(); } });
+  }
 })();

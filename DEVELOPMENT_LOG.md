@@ -11,6 +11,54 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.67 · Reka bentuk ikut lakaran Meta Didik 2.0 (8 panel)
+
+- **Permintaan pemilik:** "tiru design macam ni sebijik" (lakaran 8 panel).
+- **Paparan utama:**
+  - bendera Malaysia di penjuru dan logo Meta Didik bertopi graduasi;
+  - tajuk ungu "Jom Jelajah & Belajar!" dan ilustrasi kanak-kanak dengan mercu tanda;
+  - butang kuning "▶ Mula Jelajah";
+  - tiga butang: Ruang Guru, Daftar Anggota dan Ruang Penaja;
+  - menu hamburger: Cara Bermain, Suara Komuniti, Paparan penuh, Hubungi kami.
+  - Header gelap disembunyikan pada paparan utama.
+- **Daftar Anggota:**
+  - kad peranan bergambar;
+  - titik "Langkah 1 daripada 3";
+  - tajuk "Daftar Anggota (Murid/Guru/Pelawat)";
+  - ikon di dalam medan, termasuk bendera bagi negeri;
+  - Kelas di bawah Sekolah;
+  - "Sahkan Maklumat" dengan ikon biru dan butang hijau.
+- **HUD:**
+  - avatar dengan pil nama dan kawasan;
+  - cip ⚡ tenaga dan syiling MD;
+  - peta mini bulat yang berpusat pada pemain;
+  - lajur kanan Menu, Kawan dan Chat;
+  - Lari dan Lompat bulat;
+  - kad destinasi biru tua.
+  - Raikan dipindah ke Menu Utama.
+- **Suara Komuniti:**
+  - butang Tulis Komen (borang dilipat);
+  - cip Semua/Murid/Guru;
+  - kad padat dengan avatar huruf dan lencana peranan;
+  - Laporkan dalam menu ⋮.
+- **Ruang Penaja:**
+  - halaman pakej dahulu (gambar pingat, "Mohon Tajaan →");
+  - "Permohonan Tajaan" 4 langkah (Butiran, Pakej, Lokasi, Bayar) dengan ikon medan.
+  - Bayar dahulu kekal wajib.
+- **Aset:** `img/ui/*.webp` dipotong daripada lakaran pemilik projek (ilustrasi kanak-kanak, kad peranan, pingat penaja) dan dimasukkan ke dalam cache `sw.js`. Ia resolusi rendah: ganti dengan fail asal resolusi tinggi jika ada.
+- **Dikekalkan dengan sengaja (berbeza dengan lakaran):**
+  - Ruang Guru hanya untuk guru (peraturan v18.64);
+  - tiada "Lv." atau 💎 permata, kerana tiada data sebenar dan pangkat dibuang dalam v18.65;
+  - tiada ❤ suka atau Balas pada komen, kerana memerlukan nod dan Rules Firebase baharu;
+  - tiada loceng notifikasi, kerana tiada sistem notifikasi;
+  - avatar dalam permainan kekal tanpa wajah;
+  - gelembung "Jawab Kuiz" dan papan maklumat mercu tanda kekal seperti sedia ada.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright 390×844 dan 1280×800 untuk paparan utama (murid/guru/pelawat), menu hamburger (buka/Escape), wizard 3 langkah sehingga dunia dibuka, HUD, Suara Komuniti (tapisan dan ⋮), dan Ruang Penaja (pakej → langkah 1 → pakej disegerakkan);
+  - tiada `pageerror`.
+  - Tangkapan: `docs/reka-semula/lakaran-2-0.jpg`.
+
 ## 2026-11-01 · v18.66 · Booth "akan datang" sentiasa muncul selepas guru memacak
 
 - **Laporan pemilik:** booth bertanda "akan datang" tidak muncul selepas memacak.
