@@ -368,6 +368,23 @@ if (SUBJ === "bi") { DATA.tema = DATA_BI.tema; DATA.topik = DATA_BI.topik; DATA.
 const DATA_PENUH = { tema: DATA.tema, topik: DATA.topik }, TK_MURID = tahapMurid();
 function temaTk(id) { const m = DATA_PENUH.tema.find((x) => x.id === id); return !m ? 0 : m.darjah ? +m.darjah : m.tingkatan ? 6 + (+m.tingkatan) : 0; }
 function tkTopikOk(id) { if (!TK_MURID) return true; const t = DATA_PENUH.topik.find((x) => x.id === id); return !t || temaTk(t.tema) <= TK_MURID; }
+/* v18.73: peta memaparkan SATU tahap pada satu masa (Tahun 1-6, Tingkatan 1-3, Tingkatan 4 & 5 bersama, Tingkatan 6).
+   Lalai: tahap murid (atau tahap tertinggi yang ada); murid boleh memilih tahap lebih rendah. Guru/pentadbir boleh memilih semua tahap. */
+const TK_LIHAT = (() => {
+  const grp = (t) => (t === 10 || t === 11 ? 10 : t);
+  const ada = [...new Set(DATA_PENUH.tema.map((m) => temaTk(m.id)).filter(Boolean).map(grp))].sort((a, b) => a - b);
+  const ok = ada.filter((t) => !TK_MURID || t <= TK_MURID);
+  let v = 0; try { v = parseInt(localStorage.getItem("gt-tk-lihat-" + SUBJ) || "", 10) || 0; } catch (e) { v = 0; }
+  if (ok.indexOf(v) < 0) v = ok.length ? ok[ok.length - 1] : 0;
+  return { list: ok, v: v, grp: grp };
+})();
+function tkLihatNama(v) { return v === 10 ? "Tingkatan 4 & 5" : (tahapNama(v) || "").replace(/^Darjah /, "Tahun "); }
+function tkLihatSet(v) { try { localStorage.setItem("gt-tk-lihat-" + SUBJ, String(v)); } catch (e) { /* abaikan */ } location.reload(); }
+(() => { /* tapis tajuk ikut tahap yang dilihat */
+  if (TK_LIHAT.list.length < 2 || !TK_LIHAT.v) return;
+  const ok = DATA.topik.filter((t) => TK_LIHAT.grp(temaTk(t.tema)) === TK_LIHAT.v);
+  if (!ok.length) return; DATA.topik = ok; DATA.tema = DATA.tema.filter((m) => ok.some((t) => t.tema === m.id));
+})();
 const TK_TERSOROK = (() => {
   if (!TK_MURID) return 0;
   const ok = DATA.topik.filter((t) => temaTk(t.tema) <= TK_MURID);
@@ -446,7 +463,7 @@ function qbankApply(j, src) {
   const list = j.soalan.map((x) => ({ i: Number(x && (x.id != null ? x.id : x.i)), t: String((x && x.t) || ""), d: Number(x && x.d) || 0, q: String((x && x.q) || "").trim(), o: Array.isArray(x && x.o) ? x.o.map((o) => String(o == null ? "" : o).trim()) : [], a: Number(x && x.a), e: String((x && x.e) || "").trim(), s: String((x && x.s) || "").trim(), x: x && x.status === "gantung" ? 1 : 0 }));
   const saved = DATA.soalan;
   DATA.soalan = list; qbankBuild();
-  if (QB.n < 50) { DATA.soalan = saved; qbankBuild(); return false; } /* fail rosak: kekalkan bank terdahulu */
+  if (Object.keys(QBYID).length < 50) { DATA.soalan = saved; qbankBuild(); return false; } /* fail rosak: kekalkan bank terdahulu (v18.73: kira semua tahap) */
   QB.src = src; QB.ver = String(j.versi || "");
   try { if (window.SQ_UBL) sqbApply(window.SQ_UBL); } catch (e) { /* abaikan */ } /* v18.29: cadangan guru yang diluluskan */
   return true;
@@ -1998,6 +2015,7 @@ function buildMap(svgId, view, ids) {
   try { zvPlaceOnMap(svg, gP); } catch (e) { /* abaikan */ }
 }
 function renderMaps() {
+  try { if (TK_LIHAT.v && TK_LIHAT.v !== 10) { const h = document.querySelectorAll("#v-map .mapbox h3"); if (h[0]) h[0].textContent = "Semenanjung · " + tkLihatNama(TK_LIHAT.v); if (h[1]) h[1].textContent = "Borneo · " + tkLihatNama(TK_LIHAT.v); } } catch (e) { /* abaikan */ } /* v18.73 */
   buildMap("svgPen", DATA.views.pen, ["perlis", "kedah", "penang", "perak", "kelantan", "terengganu", "pahang", "selangor", "wp", "nsembilan", "melaka", "johor"]);
   buildMap("svgBor", DATA.views.bor, ["sarawak", "sabah"]);
 }
@@ -2016,6 +2034,7 @@ function po2Negeri() {
   const ada = susun.filter((k) => DATA.negeri[k] && DATA.topik.some((t) => t.negeri === k));
   const kunci = ada.join(",") + "|" + sel + "|" + SUBJ;
   if (ng.dataset.k === kunci) return; ng.dataset.k = kunci; ng.textContent = "";
+  if (TK_LIHAT.list.length > 1) { /* v18.73: pemilih tahap */ const sl = el("select", { class: "po2-tk", "aria-label": "Tahap" }); TK_LIHAT.list.forEach((v) => sl.appendChild(el("option", { value: String(v) }, tkLihatNama(v)))); sl.value = String(TK_LIHAT.v); sl.addEventListener("change", () => tkLihatSet(+sl.value)); ng.appendChild(sl); }
   ada.forEach((k) => { const ms = DATA.topik.filter((t) => t.negeri === k), siap = ms.filter((t) => progOf(t.id).b > 0).length;
     const b = el("button", { type: "button", class: "po2-nb" + (k === sel ? " on" : ""), "aria-pressed": String(k === sel) }, DATA.negeri[k].pendek, el("small", null, siap + "/" + ms.length));
     b.addEventListener("click", () => { const t = ms.find((x) => !sqLocked(x.id) && progOf(x.id).b === 0) || ms[0]; UI.pmin = false; selectMission(t.id); });

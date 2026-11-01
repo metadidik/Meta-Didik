@@ -1596,3 +1596,4 @@ body.gv #v-map .po2 .dock { min-width: 0; }
 /* v18.69: medan gelaran */
 #reg #inGel, #reg #inGelLain { --ic: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232b4fb8'%3E%3Cpath d='M12 3 1 8.5 12 14l9-4.5V16h2V8.5z'/%3E%3Cpath d='M5.5 12.6V17c0 1.7 2.9 3.5 6.5 3.5s6.5-1.8 6.5-3.5v-4.4L12 15.9z'/%3E%3C/svg%3E"); }
 #reg #inGelLain { margin-top: 6px; }
+.po2-tk { flex: none; min-height: 40px; padding: 6px 12px; border-radius: 999px; border: 2px solid #9474E8; background: #fff; color: #4a2bb0; font: 800 14px "Nunito", var(--font-body); }

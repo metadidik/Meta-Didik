@@ -3406,6 +3406,22 @@ const SILMU_TOPIK = { tw: {
   "T4-2.1": "si-terapung", "T4-2.2": "si-kuantan", "T4-2.3": "si-ikim", "T4-3.1": "si-abubakar", "T4-3.2": "si-alwi",
   "T4-3.3": "si-kk", "T4-3.4": "si-istbudaya", "T4-3.5": "si-mkim", "T5-1.1": "si-bursa", "T5-1.2": "si-th",
   "T5-2.1": "si-ik", "T5-2.2": "si-mskb", "T5-3.1": "si-jakim", "T5-3.2": "si-parlimen" } };
+/* v18.73: tajuk Tahun 1-6 / Tingkatan 1-6 dipadankan dengan bangunan sedia ada (dijana oleh tools/kuiz-gabung.py) */
+/* KUIZ-STESEN:MULA */
+const KUIZ_STESEN = {};
+/* KUIZ-STESEN:TAMAT */
+/* senarai stesen bagi subjek semasa: SILMU + stesen tambahan di mercu tanda (PLACES) yang memegang tajuk subjek ini */
+function lmSilmuList() {
+  if (LM.silmu && LM.silmu.sj === SUBJ) return LM.silmu.l;
+  const m = KUIZ_STESEN[SUBJ] || {}, ada = new Set(DATA.topik.map((t) => t.id)), out = SILMU.slice(), byN = {};
+  SILMU.forEach((r) => { byN[r[2]] = r[0]; });
+  const map = Object.assign({}, SILMU_TOPIK[SUBJ] || {});
+  Object.keys(m).forEach((tid) => { if (!ada.has(tid)) return; const nm = m[tid];
+    if (byN[nm]) { map[tid] = byN[nm]; return; }
+    const p = PLACES.find((x) => x[2] === nm); if (!p) return;
+    const id = "sx-" + p[0]; if (!out.some((r) => r[0] === id)) out.push([id, p[1], nm, p[4], p[5], "#2f6fb0"]); byN[nm] = id; map[tid] = id; });
+  LM.silmu = { sj: SUBJ, l: out, map: map }; return out;
+}
 /* pavilion Stesen Ilmu: lantai bulat, empat tiang, bumbung berkubah, rehal dengan kitab terbuka */
 function lmIlmuModel(col) {
   const g = new T.Group();
@@ -3506,7 +3522,7 @@ function lmIstanaBudaya() {
   return g;
 }
 function lmIlmuBuild(g, used, placed, avoid, gnd) {
-  SILMU.forEach(([id, k, nama, la, lo, col]) => {
+  lmSilmuList().forEach(([id, k, nama, la, lo, col]) => {
     if (!DATA.negeri[k]) return;
     const okK = (q) => q === k || (k === "wp" && q === "selangor") || (k === "selangor" && q === "wp"), rr = id === "si-parlimen" || id === "si-istbudaya" ? 20 : 11;
     const free = (x, z) => !lmZonKB(x, z) && okK(lmAt(x, z)) && lmLandW(x + rr, z) && lmLandW(x - rr, z) && lmLandW(x, z + rr) && lmLandW(x, z - rr)
@@ -3529,7 +3545,7 @@ function lmIlmuBuild(g, used, placed, avoid, gnd) {
   });
 }
 function lmIlmuAssign(g) {
-  const sts = SILMU.map(([id]) => g.items.find((x) => x.kind === "si" && x.id === id)).filter(Boolean), map = SILMU_TOPIK[SUBJ], ts = DATA.topik.slice();
+  const sts = lmSilmuList().map(([id]) => g.items.find((x) => x.kind === "si" && x.id === id)).filter(Boolean), map = (LM.silmu && LM.silmu.map && Object.keys(LM.silmu.map).length) ? LM.silmu.map : SILMU_TOPIK[SUBJ], ts = DATA.topik.slice();
   if (map) {
     const left = [];
     ts.forEach((t) => { const it = sts.find((x) => x.id === map[t.id]); if (it) it.tids.push(t.id); else left.push(t.id); });
@@ -5796,6 +5812,15 @@ const LM_MK = {
   kawan: ["🧑‍🤝‍🧑", "Kawan", "Main bersama & raikan", "#9474E8"],
   profil: ["👤", "Profil", "Avatar, pencapaian & tetapan", "#FFC857"]
 };
+/* v18.73: pilih tahap tajuk yang dipaparkan (Tahun 1-6, Tingkatan 1-6); murid hanya tahap sendiri atau lebih rendah */
+function lmTahapPilih() {
+  lmCard((b) => {
+    b.append(el("div", { class: "lm-kick" }, "🎚 " + ((SUBJS[SUBJ] || {}).subjek || "")), el("h2", null, "Pilih tahap"), el("p", { class: "lm-ex" }, "Stesen Ilmu dan tajuk di peta mengikut tahap yang dipilih. Dunia akan dimuat semula."));
+    const g = el("div", { class: "lm-tiles" });
+    TK_LIHAT.list.forEach((v) => g.appendChild(lmTile(v === TK_LIHAT.v ? "✅" : v <= 6 ? "🎒" : "🎓", tkLihatNama(v), () => { if (v === TK_LIHAT.v) { lmCardClose(); return; } lmSave(); tkLihatSet(v); }, v === TK_LIHAT.v ? "pri" : "")));
+    b.append(g, el("div", { class: "lm-row" }, lmBtn("Tutup", "", lmCardClose)));
+  });
+}
 function lmMenu(sub) {
   const go = (fn) => () => { lmCardClose(); fn(); };
   const keluar = () => { if (confirm("Keluar dari Meta Didik? Kemajuan anda sudah disimpan.")) { lmCardClose(); lmClose(); } };
@@ -5834,6 +5859,7 @@ function lmMenu(sub) {
       grid.append(...[
         lmTile(SJ_ICO && SJ_ICO[SUBJ] || "📚", "Subjek", go(() => { if (typeof mdPick === "function") mdPick(); }), "pri"),
         lmTile("📖", "Tajuk", go(() => lmPassport("tajuk"))),
+        typeof TK_LIHAT !== "undefined" && TK_LIHAT.list.length > 1 ? lmTile("🎚", "Tahap: " + tkLihatNama(TK_LIHAT.v), go(lmTahapPilih)) : null,
         lmPelawat() ? null : lmTile("❓", "Kuiz", go(() => lmPassport("ilmu"))),
         lmTile("🏛", "Inovasi Guru", go(lmBigMap))].filter(Boolean));
       if (lmIsGuru()) grid.append(lmTile("📌", "Tambah Inovasi", go(lmPacak)));
