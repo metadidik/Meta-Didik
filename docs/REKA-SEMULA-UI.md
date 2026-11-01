@@ -106,3 +106,102 @@ Tiada bangunan kuiz baharu dan tiada penanda gergasi.
 - `docs/reka-semula/menu-landskap.jpg`
 - `docs/reka-semula/potret.jpg`
 - `docs/reka-semula/landskap-*.jpg` (panel status, butang ⋯, submenu, kad mercu tanda)
+
+---
+
+# Fasa 2 (v18.60): Meta Didik 2.0, pendaftaran dan modal iPhone
+
+Turutan ikut cadangan pemilik: pendaftaran dan modal iPhone dahulu, kemudian ruangan komen, kemudian borang penaja.
+
+## Audit (kod sebenar)
+
+| Isu yang dilaporkan | Punca dalam kod |
+|---|---|
+| Modal bertindih dengan jam dan Dynamic Island | `.overlay` (`app.css`) hanya `padding:16px`, tanpa `env(safe-area-inset-*)`. Ini ditambah pula dengan `viewport-fit=cover` dan `black-translucent`. |
+| Modal panjang melimpah atau bahagian atas tidak boleh dicapai | `.overlay` menggunakan `display:grid; place-items:center` dengan `overflow-y:auto`. Item yang lebih tinggi daripada skrin terkeluar di atas dan tidak boleh diskrol. |
+| Jurang dan kandungan kelihatan di atas header | Gaya sebaris `:root{padding-top:env(...)}` bersama `.top{position:sticky; top:env(...)}`: kandungan yang diskrol kelihatan di celah status bar |
+| Borang daftar panjang | Semua medan (peranan, tahap, nama, negeri, kelas, sekolah, pindah akaun, 4 butang) dalam satu skrin dengan 3 perenggan penerangan |
+| Hierarki butang lemah | "Sahkan", "Batal", "Meta Didik ID" dan "Padam kemajuan" bersebelahan dalam satu baris |
+
+## Pembaikan
+- **Kawasan selamat:**
+  - `.overlay` diberi padding `env()` di empat sisi;
+  - item bermula di atas dengan `margin-block:auto` (berpusat jika muat, boleh diskrol dari atas jika tinggi);
+  - satu kawasan skrol sahaja (`overscroll-behavior:contain`);
+  - skrol latar dikunci (`body:has(.overlay:not([hidden]))`).
+- **Header:** `.top{top:0; padding-top:env(safe-area-inset-top)}`. Padding atas sebaris pada `:root` dibuang.
+- **Kad dunia** (`#lmOv .lm-card`) turut diberi padding `env()`.
+- **Wizard pendaftaran 3 langkah** (`RG`, `rgGo`, `rgMula`, `rgSalah2`, `rgRingkas`):
+  1. **Peranan:** kad besar Murid, Guru (DELIMa) atau Pelawat. Pengguna baharu terus ke langkah 2. "Sudah ada akaun?" (pindah antara peranti) dilipat.
+  2. **Maklumat:** nama panggilan, tahap (murid), subjek (guru), negeri, sekolah (carian senarai sedia ada) dan kelas. Pengesahan berlaku di langkah ini dengan mesej yang jelas.
+  3. **Sahkan:** ringkasan dengan butang ✎ untuk kembali ke langkah berkaitan, serta **Kembali** dan **✔ Sahkan & Mula Jelajah**. Pengguna baharu terus masuk dunia; mod ubah profil menggunakan butang "Simpan".
+  - Semua id medan dan `confirmReg()` asal dikekalkan, jadi rekod sekolah, kelas, tahap, peranan dan Firebase tidak berubah. Tiada akaun baharu dicipta.
+  - Mod ubah profil (`openReg(false)`) bermula di langkah 2 dengan tajuk "Kemas kini profil".
+  - **Padam kemajuan** dipindah ke "Tetapan lanjut" (dilipat, berwarna merah) dengan penerangan kesan. Pengesahan dua ketikan sedia ada kekal.
+- Butang paparan penuh disembunyikan semasa modal dibuka. Teks modal lama yang gelap dipulihkan supaya mudah dibaca.
+
+## Ujian (Playwright, 390×844 sentuh)
+- **Pengguna baharu:** pilih Murid → langkah 2 → pengesahan medan kosong (nama ditanda) → isi → langkah 3 → ringkasan betul → ✎ kembali → Sahkan. Rekod `P` dan `gt-tk` betul, dan dunia dibuka.
+- **Guru:** medan subjek dan nota DELIMa dipaparkan. **Pelawat:** medan sekolah dan tahap disembunyikan.
+- **Mod ubah:** bermula di langkah 2, nama diisi, dan "Tetapan lanjut" muncul.
+- **Modal tinggi pada skrin 390×640:** bahagian atas kad berada pada 12 px dari atas dan boleh diskrol. Modal pendek (kod subjek) berpusat. Skrol latar dikunci.
+- Node 59/59. Tiada `pageerror`.
+- **Belum diuji:** Safari iOS sebenar (Dynamic Island). Inset kawasan selamat tidak boleh disimulasikan dalam Chromium. **Perlu disahkan pada iPhone.**
+
+## Imej
+- `docs/reka-semula/daftar.jpg` (sebelum dan 3 langkah)
+- `docs/reka-semula/daftar-ubah.jpg` (mod ubah dengan Tetapan lanjut)
+
+## Seterusnya
+1. Ruangan komen "Suara Komuniti" (kad padat, Laporkan dalam menu ⋮).
+2. Borang penaja: wizard 4 langkah dalam Ruang Penaja; butiran akaun bank hanya selepas diluluskan.
+3. **Privasi murid (keputusan pemilik):** nama sekolah kini dipaparkan kepada pemain lain (papan kedudukan, bilik). Cadangan: sembunyikan sekolah secara lalai bagi murid, dengan tetapan untuk membukanya.
+
+---
+
+# Fasa 3 (v18.61): privasi sekolah murid dan Ruang Penaja (bayar dahulu)
+
+Keputusan pemilik (2026-11-01):
+- **setuju** nama sekolah murid disembunyikan secara lalai;
+- **penaja mesti membuat bayaran sebelum disahkan.**
+
+## Privasi sekolah murid
+- **Tetapan:** `P.psk`.
+  - Murid: **tertutup secara lalai**. Guru: dipaparkan secara lalai.
+  - Pilihan dalam langkah 2 pendaftaran: "Paparkan nama sekolah saya kepada pemain lain". Ringkasan langkah 3 menunjukkan "Dipaparkan" atau "Disembunyikan".
+- **Rekod:** setiap rekod pemain membawa `ps` (1 = dipaparkan). Rekod lama tanpa `ps` **dianggap tersembunyi**.
+- **Paparan** (`skPapar`): nama sekolah pemain lain disembunyikan dalam:
+  - papan kedudukan pemain;
+  - senarai pangkat;
+  - senarai rakan dalam bilik;
+  - senarai Battle;
+  - papan Top 5 dalam dunia 3D.
+- **Kehadiran masa nyata** (bilik dan Battle) tidak lagi menghantar nama sekolah apabila tetapan ditutup.
+- Papan kedudukan **sekolah** (agregat) tidak terjejas, dan markah murid tetap dikira untuk sekolahnya.
+- **Had yang diakui:** rekod `pemain/` dan `rkm_*` masih menyimpan `sk` dan `sid` kerana diperlukan untuk agregat sekolah, dan kedua-dua nod itu boleh dibaca umum. Ini privasi peringkat paparan, bukan perlindungan data penuh. Perlindungan data penuh memerlukan perubahan skema, iaitu memisahkan rekod peribadi daripada agregat sekolah yang dikira oleh fungsi pelayan. Ia dicadangkan sebagai fasa berasingan.
+
+## Ruang Penaja: wizard 4 langkah, bayar dahulu
+Butiran aliran dalam `docs/PENAJA.md`. Ringkasan:
+- Butiran → Pakej → Lokasi & organisasi → **Bayar & hantar**.
+- Rujukan transaksi bayaran **wajib di borang dan dalam Firebase Rules**; resit pilihan.
+- Pentadbir: **Bayaran disahkan → Luluskan**, dengan pengesahan jumlah dan rujukan.
+- Butiran akaun bank hanya dalam Ruang Penaja (langkah 4), bukan dalam dunia murid.
+- `ov()` tidak lagi menggunakan skrol bersarang (`max-height`/`overflow` dibuang; overlay sahaja yang diskrol).
+
+**Pemasangan:** peraturan Firebase baharu (`docs/firebase-rules-*.json`) perlu dipasang oleh pemilik di Firebase Console. Penjana peraturan ialah `tools/ujian/penaja-rules.py`.
+
+## Ujian
+- **Node:** 59/59, termasuk 2 semakan baharu bagi `rb` dalam Rules.
+- **Playwright 390×844, penaja** (Firebase disimulasikan):
+  - langkah 1 menolak jumlah kosong;
+  - hantar tanpa rujukan ditolak;
+  - hantar tanpa tanda bayaran ditolak;
+  - hantar lengkap menulis `penaja_mohon/…` dengan `rb`;
+  - skrin "Permohonan diterima" dipaparkan.
+- **Playwright, privasi:**
+  - lalai murid tutup, guru buka, pelawat tiada medan;
+  - ringkasan "Disembunyikan";
+  - `P.psk = 0`;
+  - `skPapar` menyembunyikan pemain `ps:0` dan rekod lama, memaparkan `ps:1` dan diri sendiri;
+  - kehadiran tidak menghantar `sk`.
+- Tiada `pageerror`.

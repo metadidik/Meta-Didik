@@ -735,6 +735,10 @@ function sekolahSid(negeri, nama) {
   return negeri && slug ? negeri.toLowerCase() + "_" + slug : "";
 }
 function mySid() { return P.pelawat ? "" : sekolahSid(P.negeri, P.sekolah); } /* v18.41: pelawat tiada sekolah */
+/* v18.61: privasi murid. Nama sekolah seseorang pemain hanya dipaparkan kepada pemain lain jika dia memilih untuk memaparkannya (ps = 1).
+   Lalai: murid TIDAK dipaparkan, guru dipaparkan. Rekod lama tanpa ps dianggap tidak dipaparkan. Papan kedudukan SEKOLAH (agregat) tidak terjejas. */
+function skPaparSaya() { let r = "murid"; try { r = localStorage.getItem("gt-role") || "murid"; } catch (e) { r = "murid"; } return r === "guru" ? P.psk !== 0 : P.psk === 1; }
+function skPapar(r) { return r && (r.me || r.ps === 1) ? String(r.sk || "") : ""; }
 const SCHOOL_TOP = 10; // jumlah mata 10 pemain teratas sekolah
 
 /* ---------- Susutan mata dan kuota pangkat ---------- */
@@ -921,7 +925,7 @@ const Net = {
     for (const k in P.prog) mis[k.replace(/\./g, "_")] = [P.prog[k].b || 0, P.prog[k].hs || 0, P.prog[k].n || 0, P.prog[k].ok | 0, P.prog[k].tot | 0];
     if (!srNo() && srTotal().hs > 0) { const q = srTotal(); mis.SL_ALL = [q.b, q.hs, q.n, q.ok, q.tot]; }
     try {
-      await srPemainSet(this, { n: P.nama, k: P.kelas || "", sk: cleanSekolah(P.sekolah), ng: P.negeri || "", sid: sid, xp: Math.round(P.xp), la: P.la || 0, ad: P.ad | 0, p: myRank(), st: tt.st, m: tt.m, t: Date.now(), mis: mis, inv: invPack(), bd: Object.keys(P.bd).join(","), fl: streakNow(), mg: mgPack(), wk: P.wk || "", wp: P.wp | 0, mk: P.mk || "", mp: P.mp | 0, pt: P.sq ? P.sq.id : "", ptn: P.sq ? P.sq.n : "", kz: khasZStr() });
+      await srPemainSet(this, { ps: skPaparSaya() ? 1 : 0, n: P.nama, k: P.kelas || "", sk: cleanSekolah(P.sekolah), ng: P.negeri || "", sid: sid, xp: Math.round(P.xp), la: P.la || 0, ad: P.ad | 0, p: myRank(), st: tt.st, m: tt.m, t: Date.now(), mis: mis, inv: invPack(), bd: Object.keys(P.bd).join(","), fl: streakNow(), mg: mgPack(), wk: P.wk || "", wp: P.wp | 0, mk: P.mk || "", mp: P.mp | 0, pt: P.sq ? P.sq.id : "", ptn: P.sq ? P.sq.n : "", kz: khasZStr() });
       this.canWrite = true;
       try {
         const rg = { x: Math.round(P.xp), l: P.la || 0, a: P.ad | 0, s: sid, w: P.wk || "", p: P.wp | 0, mk: P.mk || "", mp: P.mp | 0 }; if (P.sq && P.sq.id) rg.t = P.sq.id; khasRg(rg); if ((P.lz | 0) > 0 && !lgNoZl()) rg.zl = Math.min(2000, P.lz | 0); if (rg.t || rg.zs || rg.z4 || rg.z5 || rg.zl) rg.n = cleanName(P.nama).slice(0, 12);
@@ -7267,7 +7271,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.59";
+const APP_VER = "18.61";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -7862,7 +7866,7 @@ const BS_AD = {
 };
 function bsGen() { return sqGen(); }
 function bsPres(p) { if (!BS.room) return; try { const x = BS.room.presence(p); if (x && x.catch) x.catch(() => {}); } catch (e) { /* abaikan */ } }
-function bsMeInfo() { return { n: cleanName(P.nama) || "Pemain", k: kelasNorm(P.kelas), sid: mySid() || "", sk: cleanSekolah(P.sekolah).slice(0, 40), ng: P.negeri || "", gn: BS.gn }; }
+function bsMeInfo() { return { ps: skPaparSaya() ? 1 : 0, n: cleanName(P.nama) || "Pemain", k: kelasNorm(P.kelas), sid: mySid() || "", sk: skPaparSaya() ? cleanSekolah(P.sekolah).slice(0, 40) : "", ng: P.negeri || "", gn: BS.gn }; }
 /* kumpulan seorang peserta mengikut jenis sesi */
 function bsGrp(r, cf) {
   if (!cf || cf.tip !== "battle") return { key: "P", label: cf && cf.tn ? cf.tn : "Pasukan" };
@@ -7874,7 +7878,7 @@ function bsGrp(r, cf) {
 }
 function bsRows() {
   const cf = BS.cf;
-  const a = BS.peers.filter((p) => p.presence && p.presence.n).map((p) => { const r = p.presence, g = bsGrp(r, cf); return { id: p.peer, me: !!p.isMe, n: cleanName(r.n) || "Pemain", sc: r.sc | 0, st: r.st || "lobi", pr: r.pr == null ? -1 : r.pr | 0, gk: g.key, gl: g.label, ok: r.ok | 0, tot: r.tot | 0, ft: r.ft | 0, h: r.h ? 1 : 0, sk: r.sk || "", k: r.k || "" }; });
+  const a = BS.peers.filter((p) => p.presence && p.presence.n).map((p) => { const r = p.presence, g = bsGrp(r, cf); return { id: p.peer, me: !!p.isMe, n: cleanName(r.n) || "Pemain", sc: r.sc | 0, st: r.st || "lobi", pr: r.pr == null ? -1 : r.pr | 0, gk: g.key, gl: g.label, ok: r.ok | 0, tot: r.tot | 0, ft: r.ft | 0, h: r.h ? 1 : 0, sk: skPapar(Object.assign({ me: !!p.isMe }, r)), k: r.k || "" }; });
   a.sort((x, y) => y.sc - x.sc || (x.ft || 9e9) - (y.ft || 9e9) || (x.id < y.id ? -1 : 1));
   return a;
 }
@@ -8154,7 +8158,7 @@ function rkAdd(mod, score, tid) {
 }
 async function rkPush() {
   if (!Net.db || !Net.uid || !P.nama) return;
-  const r = rkLoad(), doc = { n: cleanName(P.nama), k: kelasNorm(P.kelas), sk: cleanSekolah(P.sekolah).slice(0, 40), sid: mySid() || "", ng: P.negeri || "", t: (P.sq && P.sq.id) || "", tn: (P.sq && P.sq.n) || "", u: Date.now(), m: r.m };
+  const r = rkLoad(), doc = { ps: skPaparSaya() ? 1 : 0, n: cleanName(P.nama), k: kelasNorm(P.kelas), sk: cleanSekolah(P.sekolah).slice(0, 40), sid: mySid() || "", ng: P.negeri || "", t: (P.sq && P.sq.id) || "", tn: (P.sq && P.sq.n) || "", u: Date.now(), m: r.m };
   try { await Net.db.doc("rkm_" + SUBJ + "/" + Net.uid).set(doc); } catch (e) { /* abaikan: akan cuba semula pada markah seterusnya */ }
 }
 async function rkPull() {
@@ -8174,7 +8178,7 @@ function rkVal(m, mod, per, met, mis) {
   return one(m[mod]);
 }
 function rkAllRows() {
-  const rows = RK.rows.filter((r) => r.id !== Net.uid).map((r) => ({ id: r.id, n: cleanName(r.n) || "Pemain", k: kelasNorm(r.k), sk: r.sk || "", sid: r.sid || "", ng: r.ng || "", t: r.t || "", tn: r.tn || "", m: r.m || {}, me: false }));
+  const rows = RK.rows.filter((r) => r.id !== Net.uid).map((r) => ({ id: r.id, ps: r.ps | 0, n: cleanName(r.n) || "Pemain", k: kelasNorm(r.k), sk: r.sk || "", sid: r.sid || "", ng: r.ng || "", t: r.t || "", tn: r.tn || "", m: r.m || {}, me: false }));
   if (P.nama) rows.push({ id: Net.uid || "me", n: cleanName(P.nama), k: kelasNorm(P.kelas), sk: cleanSekolah(P.sekolah), sid: mySid() || "", ng: P.negeri || "", t: (P.sq && P.sq.id) || "", tn: (P.sq && P.sq.n) || "", m: rkLoad().m, me: true });
   return rows;
 }
@@ -8209,7 +8213,7 @@ function renderRk(box) {
   const rows = rkAllRows().filter(rkSkopOk).map((r) => Object.assign(r, { v: rkVal(r.m, RK.mod, per, met, mis) })).filter((r) => r.v > 0 || r.me);
   const list = el("div", { class: "board" }); let out = [];
   const unit = mis ? "skor terbaik misi" : met === "terbaik" ? "skor terbaik" : "mata";
-  if (RK.sub === "pemain") { rows.sort((a, b) => b.v - a.v || (a.id < b.id ? -1 : 1)); out = rows.map((r) => ({ t: r.n, s: [r.sk, r.k].filter(Boolean).join(" | "), v: r.v, mine: r.me, x: r.tn ? r.tn : "" })); }
+  if (RK.sub === "pemain") { rows.sort((a, b) => b.v - a.v || (a.id < b.id ? -1 : 1)); out = rows.map((r) => ({ t: r.n, s: [skPapar(r), r.k].filter(Boolean).join(" | "), v: r.v, mine: r.me, x: r.tn ? r.tn : "" })); }
   else {
     const g = {}, key = RK.sub === "pasukan" ? (r) => r.t : RK.sub === "sekolah" ? (r) => r.sid : (r) => r.ng, lab = RK.sub === "pasukan" ? (r) => r.tn || r.t : RK.sub === "sekolah" ? (r) => r.sk || r.sid : (r) => negeriNama(r.ng) || r.ng;
     rows.forEach((r) => { const k = key(r); if (!k || r.v <= 0) return; const o = g[k] || (g[k] = { l: lab(r), a: [], mine: false, sk: {} }); o.a.push(r.v); if (r.me) o.mine = true; if (RK.sub === "negeri") { const sc = o.sk[r.sid || "?"] || (o.sk[r.sid || "?"] = []); sc.push(r.v); } });
@@ -8723,7 +8727,7 @@ function renderBoard() {
   if (Net.stand) box.appendChild(el("p", { class: "muted", style: "margin:8px 0" }, "Kedudukan anda: #" + Net.stand.pos + " daripada " + Net.stand.n + " pemain di seluruh Malaysia."));
   rows.slice(0, 100).forEach((r, i) => {
     const mine = r.id === Net.uid || r.id === "me";
-    const sub = RANKS[clamp(r.p | 0, 0, RANKS.length - 1)].n + (r.sk ? " | " + String(r.sk).slice(0, 40) : "") + (r.k ? " | " + String(r.k).slice(0, 12) : "");
+    const sub = RANKS[clamp(r.p | 0, 0, RANKS.length - 1)].n + (skPapar(Object.assign({ me: r.id === "me" || r.id === Net.uid }, r)) ? " | " + String(r.sk).slice(0, 40) : "") + (r.k ? " | " + String(r.k).slice(0, 12) : "");
     list.appendChild(boardRow(i + 1, insignia(clamp(r.p | 0, 0, RANKS.length - 1), 32), cleanName(r.n) || "Anggota", sub, String(Math.round(r.xp || 0)), (r.m || 0) + " misi | " + (r.st || 0) + " bintang", mine, r.bd ? badgeChips(r.bd, 4) : (mine ? badgeChips(Object.keys(P.bd).join(","), 4) : null)));
   });
   box.appendChild(list);
@@ -9002,7 +9006,7 @@ function renderTeam() {
     const r = el("div", { class: "prow" });
     const ic = el("span"); ic.innerHTML = insignia(clamp(pr.r | 0, 0, RANKS.length - 1), 30);
     const m = el("div", { style: "min-width:0" });
-    m.append(el("div", { class: "nm" }, peerLabel(p) + (p.isMe && p.sameTab ? " (anda)" : "")), el("div", { class: "muted", style: "font-size:13px" }, RANKS[clamp(pr.r | 0, 0, RANKS.length - 1)].n + (pr.sk ? " | " + String(pr.sk).slice(0, 40) : "")));
+    m.append(el("div", { class: "nm" }, peerLabel(p) + (p.isMe && p.sameTab ? " (anda)" : "")), el("div", { class: "muted", style: "font-size:13px" }, RANKS[clamp(pr.r | 0, 0, RANKS.length - 1)].n + (skPapar(Object.assign({ me: !!p.isMe }, pr)) ? " | " + String(pr.sk).slice(0, 40) : "")));
     const tags = el("div", { class: "row", style: "gap:4px" });
     if (host && p.peer === host.peer) tags.appendChild(el("span", { class: "pill" }, "Ketua"));
     if (!inSqRoom() && pr.bg) tags.appendChild(el("span", { class: "pill" }, "Kump. " + pr.bg));
@@ -18586,7 +18590,7 @@ async function joinTeam(raw) {
     const r = await Net.joinRoom(code);
     if (Net.unsubPeers) Net.unsubPeers();
     Net.unsubPeers = r.onPeers(onTeamPeers, () => { TEAM.err = "Sambungan bilik terputus."; Net.nroom = null; renderAny(); });
-    TEAM.side = ""; Net.setPres({ t0: Net.t0, sk: cleanSekolah(P.sekolah), sid: mySid(), n: P.nama, r: myRank(), k: P.kelas || "", st: "lobi", bg: "", bt: P.sq ? P.sq.n : "", ng: P.negeri || "" });
+    TEAM.side = ""; Net.setPres({ t0: Net.t0, ps: skPaparSaya() ? 1 : 0, sk: skPaparSaya() ? cleanSekolah(P.sekolah) : "", sid: mySid(), n: P.nama, r: myRank(), k: P.kelas || "", st: "lobi", bg: "", bt: P.sq ? P.sq.n : "", ng: P.negeri || "" });
     await new Promise((res) => setTimeout(res, 1800));
     if (Net.nroom) {
       autoSide();
@@ -18749,15 +18753,16 @@ function openReg(first) {
   $("inSekolah").value = P.sekolah || "";
   pickedName = cleanSekolah(P.sekolah || ""); $("cariSek").value = P.sekolah ? pickedName : "";
   fillSchoolList(); kelasLoad();
-  { const lb = $("linkBox"); lb.hidden = !fbConfigured(); lb.open = !!first && !P.nama; try { $("myCode").value = FB.getUid(); } catch (e) { $("myCode").value = ""; } $("linkMsg").textContent = ""; }
+  { const lb = $("linkBox"); lb.hidden = !fbConfigured(); lb.open = false; try { $("myCode").value = FB.getUid(); } catch (e) { $("myCode").value = ""; } $("linkMsg").textContent = ""; }
   { const qi = $("qbInfo"); if (qi) qi.textContent = qbankInfo(); }
   $("regCancel").hidden = !!first;
   $("regReset").hidden = !!first;
   { const lb = $("lidBtn"); if (lb) lb.hidden = !!first; }
   $("regReset").textContent = "Padam kemajuan";
+  { const ad = $("rgAdv"); if (ad) { ad.hidden = !!first; ad.open = false; } }
   resetArmed = 0;
   $("reg").hidden = false;
-  $("inName").focus();
+  rgMula(!!first);
 }
 function confirmReg() {
   const pl = gtRolePilih() === "pelawat", n = cleanName($("inName").value), sk = pl ? "Pelawat" : cleanSekolah($("inSekolah").value), ng = $("inNegeri").value;
@@ -18787,11 +18792,56 @@ function confirmReg() {
     if (k) { toast("Subjek ditukar ke " + SUBJS[k].subjek + " mengikut tahap " + tahapNama(tk) + ".", "ok"); setTimeout(() => setSubject(k), 600); }
     else toast("Kandungan " + tahapNama(tk) + " akan datang. Buat masa ini anda boleh meneroka Meta Didik dengan subjek sedia ada.", "warn");
   }
-  if (Net.nroom) Net.setPres({ n: P.nama, k: P.kelas, sk: P.sekolah, sid: mySid() });
+  if (Net.nroom) Net.setPres({ n: P.nama, k: P.kelas, ps: skPaparSaya() ? 1 : 0, sk: skPaparSaya() ? cleanSekolah(P.sekolah) : "", sid: mySid() });
   computeStand();
   renderAll();
 }
-$("regOk").addEventListener("click", confirmReg);
+$("regOk").addEventListener("click", () => {
+  const baru = RG.first, tkLama = typeof tahapMurid === "function" ? tahapMurid() : 0;
+  { const c = $("inPsk"), r = gtRolePilih(); if (c && r !== "pelawat") P.psk = c.checked ? 1 : 0; } /* v18.61: privasi sekolah */
+  confirmReg();
+  if (!$("reg").hidden) { rgCariSalah(); return; } /* pengesahan gagal: kembali ke langkah yang perlu dibetulkan */
+  /* v18.60: murid baharu terus masuk dunia, kecuali subjek ditukar ikut tahap (halaman dimuat semula) */
+  const tk = typeof tahapMurid === "function" ? tahapMurid() : 0;
+  if (baru && (!tk || tk === tkLama || sjTahapOk(SUBJ, tk))) setTimeout(() => { try { mdGo(); } catch (e) { /* abaikan */ } }, 250);
+});
+/* ---------- v18.60: wizard pendaftaran 3 langkah (Peranan, Maklumat, Sahkan); medan dan pengesahan asal dikekalkan ---------- */
+const RG = { s: 1, first: false };
+function rgPsk() { const c = $("inPsk"), f = $("pskField"); if (!c || !f) return; const r = gtRolePilih(); f.hidden = r === "pelawat"; c.checked = P.psk == null ? r === "guru" : P.psk === 1; }
+function rgGo(n) {
+  RG.s = n;
+  document.querySelectorAll("#reg .rg-s").forEach((x) => { x.hidden = +x.dataset.s !== n; });
+  document.querySelectorAll("#reg .rg-prog i").forEach((x) => { const p = +x.dataset.p; x.className = p < n ? "ok" : p === n ? "on" : ""; });
+  $("rgNo").textContent = "Langkah " + n + " daripada 3";
+  $("rgPrev").hidden = n === 1; $("rgBack").style.visibility = n === 1 ? "hidden" : "";
+  $("rgNext").hidden = n === 3; $("regOk").hidden = n !== 3;
+  $("regOk").textContent = RG.first ? "✔ Sahkan & Mula Jelajah" : "✔ Simpan";
+  if (n === 3) rgRingkas();
+  const c = document.querySelector("#reg .mcard"); if (c && c.parentElement) c.parentElement.scrollTop = 0;
+  setTimeout(() => { try { const f = n === 1 ? document.querySelector('#reg input[name="inRole"]:checked') : n === 2 ? $("inName") : $("regOk"); if (f && !TOUCH) f.focus(); } catch (e) { /* abaikan */ } }, 30);
+}
+function rgMula(first) { RG.first = first; rgPsk(); $("regH").textContent = first ? "Jom Daftar!" : "Kemas kini profil"; const l = document.querySelector("#reg .rg-lead"); if (l) l.textContent = first ? "Pilih siapa anda untuk mula meneroka dunia pembelajaran." : "Tukar peranan, tahap atau sekolah anda."; rgGo(first ? 1 : 2); }
+function rgSalah2() {
+  const pl = gtRolePilih() === "pelawat", murid = gtRolePilih() === "murid";
+  const n = cleanName($("inName").value), sk = cleanSekolah($("inSekolah").value), tk = parseInt(($("inTahap") || {}).value || "", 10) || 0;
+  const salah = [["inName", n.length < 2, "Isi nama panggilan (sekurang-kurangnya 2 huruf)."], ["inTahap", murid && !tk, "Pilih darjah atau tingkatan."], ["inNegeri", !$("inNegeri").value, "Pilih negeri."], ["inSekolah", !pl && sk.length < 4, "Pilih atau taip nama sekolah."]];
+  salah.forEach(([id]) => $(id).removeAttribute("aria-invalid"));
+  const x = salah.find((q) => q[1]); if (!x) return "";
+  $(x[0]).setAttribute("aria-invalid", "true"); return x;
+}
+function rgCariSalah() { const x = rgSalah2(); if (x) { rgGo(2); toast(x[2], "warn"); try { (x[0] === "inSekolah" && !$("sekPick").hidden ? $("cariSek") : $(x[0])).focus(); } catch (e) { /* abaikan */ } } }
+function rgRingkas() {
+  const r = gtRolePilih(), d = $("rgSum"); d.textContent = "";
+  const neg = $("inNegeri"), ng = neg.options[neg.selectedIndex] ? neg.options[neg.selectedIndex].textContent : "";
+  const ts = $("inTahap"), tk = r === "murid" && ts && ts.value ? ts.options[ts.selectedIndex].textContent.replace(/ \(.*\)$/, "") : "";
+  const baris = [["👤", "Peranan", { murid: "Murid", guru: "Guru (DELIMa)", pelawat: "Pelawat" }[r], 1], ["🏷", "Nama panggilan", cleanName($("inName").value), 2], tk ? ["🎓", "Tahap", tk, 2] : null, ["📍", "Negeri", ng, 2], r !== "pelawat" ? ["🏫", "Sekolah", cleanSekolah($("inSekolah").value), 2] : null, r !== "pelawat" && $("inKelas").value ? ["👥", "Kelas", kelasNorm($("inKelas").value), 2] : null, r === "guru" && $("inSubj").value ? ["📚", "Subjek", $("inSubj").value.trim(), 2] : null, r !== "pelawat" ? ["🔒", "Sekolah kepada pemain lain", $("inPsk") && $("inPsk").checked ? "Dipaparkan" : "Disembunyikan", 2] : null].filter(Boolean);
+  baris.forEach(([ic, k, v, st]) => { const b = el("button", { type: "button", class: "rg-ed", "aria-label": "Ubah " + k }, "✎"); b.addEventListener("click", () => rgGo(st)); d.append(el("div", null, el("dt", null, el("i", { "aria-hidden": "true" }, ic), k), el("dd", null, v || "-"), b)); });
+}
+$("rgNext").addEventListener("click", () => { if (RG.s === 1) rgGo(2); else if (RG.s === 2) { const x = rgSalah2(); if (x) { toast(x[2], "warn"); try { (x[0] === "inSekolah" && !$("sekPick").hidden ? $("cariSek") : $(x[0])).focus(); } catch (e) { /* abaikan */ } return; } rgGo(3); } });
+$("rgPrev").addEventListener("click", () => rgGo(Math.max(1, RG.s - 1)));
+$("rgBack").addEventListener("click", () => rgGo(Math.max(1, RG.s - 1)));
+document.querySelectorAll('#reg input[name="inRole"]').forEach((x) => x.addEventListener("change", () => { if (P.psk == null) rgPsk(); else { const f = $("pskField"); if (f) f.hidden = gtRolePilih() === "pelawat"; } }));
+document.querySelectorAll("#reg .rg-role").forEach((x) => x.addEventListener("click", (e) => { if (e.target && e.target.tagName === "INPUT") return; if (RG.s === 1 && RG.first) setTimeout(() => rgGo(2), 200); })); /* pengguna baharu: pilih kad terus ke langkah 2 */
 $("copyCode").addEventListener("click", () => { const v = $("myCode").value; try { navigator.clipboard.writeText(v); $("linkMsg").textContent = "Kod disalin."; } catch (e) { $("myCode").select(); $("linkMsg").textContent = "Tekan lama pada kod untuk salin."; } });
 async function linkAccount() {
   const code = String($("inLink").value || "").trim().toLowerCase(), msg = $("linkMsg");

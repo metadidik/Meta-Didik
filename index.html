@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0b100b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Meta Didik"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><title>Meta Didik</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.lrn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:6px}
+<!doctype html><html><head><meta charset="utf-8"><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0b100b"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Meta Didik"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" href="icon-192.png"><title>Meta Didik</title><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.lrn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:6px}
 .lrn-card{padding:16px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .lrn-card h3{margin:0;font-family:var(--font-display);font-size:24px}
 .lrn-card p{margin:0}
@@ -187,11 +187,11 @@ html,body{touch-action:manipulation}body.ar-lock,body.ar-lock *{-webkit-user-sel
 </style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Cinzel:wght@600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap">
 </head><body>
 <title>Meta Didik</title>
-<link rel="stylesheet" href="app.css?v=18.59">
+<link rel="stylesheet" href="app.css?v=18.61">
 <div id="rkBanner" role="status" hidden></div>
 <div id="app">
   <header class="top"><div class="top-in">
-    <div class="brand" role="link" tabindex="0" aria-label="Meta Didik, kembali ke peta">Meta Didik<small id="verTap">Hub Inovasi Digital Pendidikan &middot; v18.59</small></div>
+    <div class="brand" role="link" tabindex="0" aria-label="Meta Didik, kembali ke peta">Meta Didik<small id="verTap">Hub Inovasi Digital Pendidikan &middot; v18.61</small></div>
     <div class="sjm" id="sjm"><button type="button" aria-haspopup="menu" aria-expanded="false"><span class="sjm-l">Subjek</span><b id="sjmName"></b></button><div class="sjm-pop" role="menu" hidden></div></div>
     <button class="wallet" id="walletBtn" type="button" aria-label="MD. Belanja di Gudang sekolah dalam Meta Didik"><span class="wc"></span><b class="walnum">0</b><span class="walpop" aria-hidden="true"></span></button>
     <button class="gbtn" id="guruBtn" type="button" hidden>🎓 Ruang Guru</button>
@@ -342,23 +342,21 @@ html,body{touch-action:manipulation}body.ar-lock,body.ar-lock *{-webkit-user-sel
   </div>
 </div>
 <div class="overlay" id="reg" hidden>
-  <div class="mcard">
-    <h1>Daftar anggota</h1>
-    <p>Pilih nama panggilan. Nama panggilan dan sekolah dipaparkan kepada pemain lain dalam papan kedudukan dan bilik multiplayer. Nama penuh hanya diminta apabila anda memuat turun sijil.</p>
-    <div class="field" id="roleField"><label>Anda ialah</label><div class="row" style="gap:18px"><label style="display:flex;gap:6px;align-items:center"><input type="radio" name="inRole" value="murid" checked> Murid</label><label style="display:flex;gap:6px;align-items:center"><input type="radio" name="inRole" value="pelawat"> Pelawat</label><label style="display:flex;gap:6px;align-items:center"><input type="radio" name="inRole" value="guru"> Guru (DELIMa)</label></div><p class="muted" id="roleNote" style="font-size:13px;margin:4px 0 0"></p></div>
-    <div class="field" id="inSubjField" hidden><label for="inSubj">Subjek yang diajar (pilihan)</label><input id="inSubj" maxlength="40" autocomplete="off" placeholder="Contoh: Tasawwur Islam"><p class="muted" style="font-size:13px;margin:4px 0 0">Nama panggilan, sekolah, negeri dan subjek guru dicatat untuk statistik penggunaan Meta Didik dan tidak dipaparkan kepada murid.</p></div>
-    <div class="field" id="tahapField"><label for="inTahap">Darjah / Tingkatan</label><select id="inTahap"></select><p class="muted" style="font-size:13px;margin:4px 0 0">Subjek dalam Meta Didik dibuka mengikut tahap anda. Murid tahap lebih tinggi boleh memilih subjek tahap yang lebih rendah.</p></div>
-    <div class="field"><label for="inName">Nama panggilan (dipaparkan dalam permainan, maksimum 16 huruf)</label><input id="inName" maxlength="16" autocomplete="off" placeholder="Contoh: Harimau5"></div>
-    <div class="two">
-      <div class="field"><label for="inNegeri">Negeri sekolah</label><select id="inNegeri"></select></div>
-      <div class="field"><label for="inKelas">Kelas (pilihan)</label><input id="inKelas" maxlength="16" autocomplete="off" placeholder="Contoh: 5 ALFA"></div>
-    </div>
-    <div class="field" id="sekHint" hidden style="color:var(--muted);font-size:14px"></div>
-    <div class="field" id="sekPick" hidden><label for="selSekolah">Sekolah anda (skrol dan pilih, atau taip untuk cari)</label><input id="cariSek" maxlength="90" autocomplete="off" placeholder="Cari nama sekolah..." aria-label="Cari nama sekolah"><select id="selSekolah" size="7" aria-label="Senarai sekolah"></select></div>
-    <div class="field" id="sekText"><label for="inSekolah">Nama sekolah</label><input id="inSekolah" maxlength="60" autocomplete="off" list="dlSekolah" placeholder="Contoh: SMK Taman Universiti"><datalist id="dlSekolah"></datalist></div>
-    <p class="muted" id="qbInfo" style="font-size:13px;margin:4px 0"></p>
-    <p class="muted" id="regHint" style="font-size:14px;margin:0">Sekolah anda akan bersaing dengan sekolah lain di seluruh Malaysia. Pilih nama daripada senarai jika ada supaya markah murid sekolah anda digabungkan.</p>
-    <details id="linkBox" hidden>
+  <div class="mcard rgw" role="dialog" aria-modal="true" aria-labelledby="regH">
+    <div class="rg-hd"><button type="button" class="rg-ic" id="rgBack" aria-label="Kembali ke langkah sebelumnya">&lsaquo;</button><b class="rg-logo">Meta Didik</b><span class="rg-ic" aria-hidden="true"></span></div>
+    <div class="rg-prog" aria-hidden="true"><i data-p="1"><b>1</b><span>Peranan</span></i><i data-p="2"><b>2</b><span>Maklumat</span></i><i data-p="3"><b>3</b><span>Sahkan</span></i></div>
+    <p class="rg-no" id="rgNo" aria-live="polite">Langkah 1 daripada 3</p>
+    <section class="rg-s" data-s="1">
+      <h1 id="regH">Jom Daftar!</h1>
+      <p class="rg-lead">Pilih siapa anda untuk mula meneroka dunia pembelajaran.</p>
+      <div class="field" id="roleField" role="radiogroup" aria-label="Anda ialah">
+        <div class="rg-roles">
+          <label class="rg-role"><input type="radio" name="inRole" value="murid" checked><i aria-hidden="true">🎒</i><b>Murid</b><span>Jelajah, belajar dan jawab kuiz</span></label>
+          <label class="rg-role"><input type="radio" name="inRole" value="guru"><i aria-hidden="true">🎓</i><b>Guru</b><span>DELIMa · kelas, kuiz dan inovasi</span></label>
+          <label class="rg-role"><input type="radio" name="inRole" value="pelawat"><i aria-hidden="true">🧭</i><b>Pelawat</b><span>Terokai tanpa sekolah</span></label>
+        </div>
+      </div>
+      <details id="linkBox" hidden>
       <summary class="tagline" style="cursor:pointer;color:var(--khaki)">Sudah ada akaun? Pindah atau sambung antara peranti</summary>
       <div style="display:grid;gap:10px;margin-top:10px">
         <div class="field"><label for="myCode">Kod akaun peranti ini (untuk disambung ke peranti lain)</label><div class="row" style="flex-wrap:nowrap"><input id="myCode" readonly style="min-width:0"><button class="btn alt sm" id="copyCode" type="button">Salin</button></div></div>
@@ -368,7 +366,39 @@ html,body{touch-action:manipulation}body.ar-lock,body.ar-lock *{-webkit-user-sel
         <p class="muted" style="font-size:13px;margin:0">Kod ini ibarat kata laluan: jangan kongsi dengan orang lain. Selepas disambung, nama, pangkat, kemajuan, MD dan avatar akan dipindahkan. Kemajuan pada peranti ini akan diganti.</p>
       </div>
     </details>
-    <div class="row"><button class="btn" id="regOk" type="button">Sahkan</button><button class="btn alt" id="regCancel" type="button" hidden>Batal</button><button class="btn alt sm" id="lidBtn" type="button" hidden>🪪 Meta Didik ID</button><button class="btn alt sm" id="regReset" type="button" hidden>Padam kemajuan</button></div>
+    </section>
+    <section class="rg-s" data-s="2" hidden>
+      <h2>Maklumat anda</h2>
+      <div class="field"><label for="inName">Nama panggilan <em>*</em></label><input id="inName" maxlength="16" autocomplete="off" placeholder="Contoh: Abu"><small class="rg-help">Maksimum 16 huruf. Dipaparkan dalam permainan.</small></div>
+      <div class="field" id="tahapField"><label for="inTahap">Darjah / Tingkatan <em>*</em></label><select id="inTahap"></select><small class="rg-help">Subjek dan tajuk dibuka mengikut tahap anda.</small></div>
+      <div class="field" id="inSubjField" hidden><label for="inSubj">Subjek yang diajar</label><input id="inSubj" maxlength="40" autocomplete="off" placeholder="Contoh: Tasawwur Islam"></div>
+      <div class="two">
+        <div class="field"><label for="inNegeri">Negeri sekolah <em>*</em></label><select id="inNegeri"></select></div>
+        <div class="field"><label for="inKelas">Kelas (pilihan)</label><input id="inKelas" maxlength="16" autocomplete="off" placeholder="Contoh: 5 Bakti"></div>
+      </div>
+      <div class="field" id="sekHint" hidden></div>
+      <div class="field" id="sekPick" hidden><label for="selSekolah">Sekolah <em>*</em></label><input id="cariSek" maxlength="90" autocomplete="off" placeholder="🔍 Cari nama sekolah..." aria-label="Cari nama sekolah"><select id="selSekolah" size="5" aria-label="Senarai sekolah"></select></div>
+      <div class="field" id="sekText"><label for="inSekolah">Nama sekolah <em>*</em></label><input id="inSekolah" maxlength="60" autocomplete="off" list="dlSekolah" placeholder="Contoh: SMK Taman Universiti"><datalist id="dlSekolah"></datalist></div>
+      <label class="rg-chk" id="pskField"><input type="checkbox" id="inPsk"><span><b>Paparkan nama sekolah saya kepada pemain lain</b><small>Murid: tertutup secara lalai. Markah anda tetap dikira untuk sekolah.</small></span></label>
+      <p class="rg-help" id="roleNote"></p>
+      <p class="rg-help" id="regHint">Pilih sekolah daripada senarai supaya markah digabungkan dengan rakan sekolah.</p>
+      <p class="rg-help" id="qbInfo" hidden></p>
+    </section>
+    <section class="rg-s" data-s="3" hidden>
+      <h2>Sahkan maklumat</h2>
+      <dl class="rg-sum" id="rgSum"></dl>
+      <p class="rg-help">Hanya nama panggilan dan sekolah dipaparkan kepada pemain lain. Nama penuh hanya diminta semasa memuat turun sijil.</p>
+    </section>
+    <div class="rg-ft">
+      <button class="btn alt" id="rgPrev" type="button" hidden>Kembali</button>
+      <button class="btn" id="rgNext" type="button">Seterusnya &rarr;</button>
+      <button class="btn rg-go" id="regOk" type="button" hidden>✔ Sahkan &amp; Mula Jelajah</button>
+    </div>
+    <div class="rg-more">
+      <button class="btn alt sm" id="regCancel" type="button" hidden>Batal</button>
+      <button class="btn alt sm" id="lidBtn" type="button" hidden>🪪 Meta Didik ID</button>
+      <details class="rg-danger" id="rgAdv" hidden><summary>Tetapan lanjut</summary><p>Padam kemajuan akan memadam pangkat, misi, MD dan avatar pada peranti ini. Tindakan ini tidak boleh dibatalkan.</p><button class="btn alt sm" id="regReset" type="button">Padam kemajuan</button></details>
+    </div>
   </div>
 </div>
 
@@ -458,7 +488,7 @@ html,body{touch-action:manipulation}body.ar-lock,body.ar-lock *{-webkit-user-sel
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>window.THREE||document.write('<script src="three.min.js"><\/script>');/* v17.87: salinan tempatan jika CDN gagal */</script>
-<script src="app.js?v=18.59"></script>
+<script src="app.js?v=18.61"></script>
 
 <script>/* v18.4: semak versi baharu setiap kali dibuka/kembali ke aplikasi; muat semula sekali apabila pekerja baharu aktif (bukan semasa bermain META DIDIK) */
 if("serviceWorker"in navigator&&location.protocol.startsWith("http"))addEventListener("load",()=>{

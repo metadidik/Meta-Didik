@@ -1099,3 +1099,142 @@ body.vmap #mdFsBtn { background: #17324D; }
 @media (prefers-reduced-motion: reduce) { body.vmap .mdgo, .mdh-2 button { transition: none; } }
 body.vmap .top .meb { background: #FFC857 !important; border: 2px solid #fff !important; box-shadow: none !important; }
 body.vmap .top .meb .me-n { color: #17324D; -webkit-text-fill-color: #17324D; }
+/* ---------- v18.60: kawasan selamat iPhone dan modal ----------
+   Punca: .overlay tiada padding safe-area dan place-items:center memotong bahagian atas modal yang tinggi (tidak boleh diskrol).
+   Penyelesaian: padding env(), item bermula di atas dengan margin auto (berpusat jika muat), satu kawasan skrol sahaja. */
+.top { top: 0; padding-top: env(safe-area-inset-top, 0px); }
+.overlay { place-items: start center; padding: calc(12px + env(safe-area-inset-top, 0px)) calc(12px + env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px)); overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.overlay > * { margin-block: auto; }
+body:has(.overlay:not([hidden])) { overflow: hidden; }
+#lmOv .lm-card { padding: calc(14px + env(safe-area-inset-top, 0px)) calc(14px + env(safe-area-inset-right, 0px)) calc(14px + env(safe-area-inset-bottom, 0px)) calc(14px + env(safe-area-inset-left, 0px)); overscroll-behavior: contain; }
+/* ---------- v18.60: wizard pendaftaran (tema cerah, mesra murid) ---------- */
+#reg { background: rgba(23, 50, 77, .55); backdrop-filter: blur(4px); }
+#reg .rgw { width: min(520px, 100%); background: #F4FAFF; color: #17324D; border: 0; border-radius: 24px; padding: 14px 18px 16px; gap: 12px; box-shadow: 0 20px 50px rgba(0, 0, 0, .3); font-family: "Nunito", var(--font-body); }
+#reg .rg-hd { display: flex; align-items: center; justify-content: space-between; }
+#reg .rg-ic { width: 44px; height: 44px; border-radius: 50%; border: 0; background: #fff; color: #17324D; font: 800 26px/1 "Nunito", sans-serif; cursor: pointer; box-shadow: 0 2px 6px rgba(23, 50, 77, .12); display: grid; place-items: center; }
+#reg span.rg-ic { background: none; box-shadow: none; }
+#reg .rg-logo { font: 700 20px "Fredoka", sans-serif; color: #39BCEB; }
+#reg .rg-prog { display: flex; justify-content: space-between; position: relative; margin: 2px 8px 0; }
+#reg .rg-prog:before { content: ""; position: absolute; left: 18px; right: 18px; top: 15px; height: 4px; border-radius: 4px; background: #d7e6f3; }
+#reg .rg-prog i { position: relative; display: grid; justify-items: center; gap: 2px; font-style: normal; }
+#reg .rg-prog b { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #d7e6f3; color: #4f6880; font: 800 15px "Nunito", sans-serif; border: 3px solid #F4FAFF; }
+#reg .rg-prog span { font: 700 12px "Nunito", sans-serif; color: #4f6880; }
+#reg .rg-prog i.on b { background: #9474E8; color: #fff; }
+#reg .rg-prog i.on span { color: #17324D; font-weight: 800; }
+#reg .rg-prog i.ok b { background: #65D6A0; color: #fff; font-size: 0; }
+#reg .rg-prog i.ok b:after { content: "✓"; font-size: 16px; }
+#reg .rg-no { margin: -4px 0 0; text-align: center; font-size: 12px; color: #4f6880; }
+#reg .rg-s { display: grid; gap: 12px; }
+#reg .rg-s[hidden] { display: none; }
+#reg h1, #reg h2 { font: 700 clamp(26px, 6vw, 34px)/1.1 "Fredoka", sans-serif; color: #17324D; margin: 0; text-align: center; }
+#reg h2 { font-size: clamp(22px, 5vw, 28px); }
+#reg .rg-lead { text-align: center; color: #3d5670; margin: -4px auto 0; font-size: 15px; }
+#reg .rg-roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+#reg .rg-role { position: relative; display: grid; justify-items: center; align-content: start; gap: 4px; padding: 16px 8px 14px; border-radius: 18px; background: #fff; border: 3px solid #d7e6f3; cursor: pointer; text-align: center; min-height: 150px; transition: border-color .15s, transform .15s; }
+#reg .rg-role input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+#reg .rg-role i { font-style: normal; font-size: 40px; line-height: 1.1; }
+#reg .rg-role b { font: 700 18px "Fredoka", sans-serif; color: #17324D; }
+#reg .rg-role span { font-size: 12.5px; line-height: 1.3; color: #4f6880; }
+#reg .rg-role:has(input:checked) { border-color: #39BCEB; background: #eaf8ff; transform: translateY(-2px); }
+#reg .rg-role:has(input:checked):after { content: "✓"; position: absolute; top: -8px; right: -8px; width: 26px; height: 26px; border-radius: 50%; background: #39BCEB; color: #fff; font: 800 15px/26px "Nunito", sans-serif; }
+#reg .rg-role:has(input:focus-visible) { outline: 3px solid #9474E8; outline-offset: 2px; }
+#reg .field { display: grid; gap: 4px; }
+#reg .field label { font: 800 14px "Nunito", sans-serif; color: #17324D; text-transform: none; letter-spacing: 0; }
+#reg .field label em { color: #e0584d; font-style: normal; }
+#reg input:not([type=radio]), #reg select { min-height: 46px; padding: 10px 12px; border-radius: 14px; border: 2px solid #d7e6f3; background: #fff; color: #17324D; font: 700 16px "Nunito", sans-serif; width: 100%; box-sizing: border-box; }
+#reg select[size] { min-height: 0; padding: 4px; }
+#reg input:focus, #reg select:focus { outline: none; border-color: #39BCEB; box-shadow: 0 0 0 3px rgba(57, 188, 235, .25); }
+#reg [aria-invalid=true] { border-color: #e0584d !important; }
+#reg .rg-help, #reg #sekHint { font-size: 13px; color: #4f6880; margin: 0; }
+#reg #roleNote:empty { display: none; }
+#reg .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#reg .rg-sum { margin: 0; background: #fff; border-radius: 18px; padding: 4px 12px; display: grid; }
+#reg .rg-sum div { display: grid; grid-template-columns: 130px 1fr 36px; align-items: center; gap: 8px; padding: 10px 0; border-bottom: 1px solid #e6f0f8; }
+#reg .rg-sum div:last-child { border-bottom: 0; }
+#reg .rg-sum dt { font-size: 13px; color: #4f6880; display: flex; gap: 8px; align-items: center; }
+#reg .rg-sum dt i { font-style: normal; }
+#reg .rg-sum dd { margin: 0; font-weight: 800; overflow-wrap: anywhere; }
+#reg .rg-ed { width: 36px; height: 36px; border-radius: 50%; border: 0; background: #F4FAFF; color: #9474E8; font-size: 16px; cursor: pointer; }
+#reg .rg-ft { position: sticky; bottom: calc(-16px - env(safe-area-inset-bottom, 0px)); display: flex; gap: 10px; padding: 10px 0 2px; background: linear-gradient(rgba(244, 250, 255, 0), #F4FAFF 30%); }
+#reg .rg-ft .btn { flex: 1; min-height: 50px; border-radius: 999px; font: 800 17px "Nunito", sans-serif; text-transform: none; letter-spacing: 0; }
+#reg .rg-ft #rgNext { background: #9474E8; color: #fff; border: 0; }
+#reg .rg-ft .rg-go { background: #65D6A0; color: #0f3a28; border: 0; }
+#reg .rg-ft #rgPrev { flex: 0 0 auto; background: #fff; color: #17324D; border: 2px solid #d7e6f3; padding-inline: 18px; }
+#reg .rg-more { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; }
+#reg .rg-more .btn { min-height: 44px; background: #fff; color: #17324D; border: 2px solid #d7e6f3; border-radius: 999px; text-transform: none; letter-spacing: 0; }
+#reg .rg-danger { flex-basis: 100%; margin-top: 4px; padding: 8px 12px; border-radius: 14px; background: #fff4f3; color: #7a2a24; font-size: 13px; }
+#reg .rg-danger summary { cursor: pointer; font-weight: 800; color: #9a3a33; }
+#reg .rg-danger p { margin: 6px 0; }
+#reg .rg-danger .btn { border-color: #e0584d !important; color: #b3342b !important; }
+#reg #linkBox { background: #fff; border-radius: 16px; padding: 10px 12px; }
+#reg #linkBox summary { color: #17324D !important; font: 800 14px "Nunito", sans-serif; letter-spacing: 0; text-transform: none; }
+#reg #linkBox .muted { color: #4f6880; }
+#reg #linkBox .btn { text-transform: none; }
+@media (max-width: 420px) { #reg .rg-roles { gap: 8px; } #reg .rg-role { min-height: 136px; padding: 12px 4px; } #reg .rg-role i { font-size: 34px; } #reg .rg-role span { font-size: 11.5px; } #reg .two { grid-template-columns: 1fr; } #reg .rg-sum div { grid-template-columns: 112px 1fr 36px; } }
+@media (prefers-reduced-motion: reduce) { #reg .rg-role { transition: none; } }
+body:has(.overlay:not([hidden])) #mdFsBtn { display: none; }
+#reg #regHint { display: none; }
+#reg .rg-ft .btn, #reg .rg-more .btn, #reg #linkBox .btn { background-image: none !important; box-shadow: none !important; text-shadow: none !important; -webkit-text-fill-color: currentColor; }
+#reg .rg-ft #rgNext { background: #9474E8 !important; color: #fff !important; border: 0 !important; }
+#reg .rg-ft .rg-go { background: #65D6A0 !important; color: #0f3a28 !important; border: 0 !important; }
+#reg .rg-ft #rgPrev { background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; }
+#reg .rg-more .btn { background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; }
+#reg #linkBox .btn { background: #39BCEB !important; color: #fff !important; border: 0 !important; }
+#reg .rg-more .rg-danger .btn { border-color: #e0584d !important; color: #b3342b !important; background: #fff !important; }
+body.vmap .mcard:not(.rgw) { color: var(--ink); }
+/* v18.61: pilihan privasi sekolah */
+#reg .rg-chk { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 14px; background: #fff; border: 2px solid #d7e6f3; cursor: pointer; }
+#reg .rg-chk[hidden] { display: none; }
+#reg .rg-chk input { width: 24px; height: 24px; min-height: 0; margin: 0; flex: none; accent-color: #9474E8; }
+#reg .rg-chk b { display: block; font-size: 14px; color: #17324D; }
+#reg .rg-chk small { display: block; font-size: 12.5px; color: #4f6880; }
+/* ---------- v18.61: Ruang Penaja: wizard 4 langkah (bayar dahulu) ---------- */
+#pjOv { background: rgba(23, 50, 77, .55); backdrop-filter: blur(4px); }
+#pjOv .mcard.pjw { background: #F4FAFF; color: #17324D; border: 0; border-radius: 24px; padding: 16px 18px; gap: 12px; font-family: "Nunito", var(--font-body); box-shadow: 0 20px 50px rgba(0, 0, 0, .3); max-width: 600px !important; }
+#pjOv .pjw h1 { font: 700 clamp(22px, 5vw, 30px)/1.15 "Fredoka", sans-serif; color: #17324D; margin: 2px 0; }
+#pjOv .pjw .tagline { color: #9474E8; letter-spacing: .14em; font: 800 12px "Nunito", sans-serif; }
+#pjOv .pjw .muted, #pjOv .pjw small { color: #4f6880; }
+#pjOv .pjw > .btn.alt.sm { float: none !important; justify-self: end; background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; border-radius: 999px; text-transform: none; letter-spacing: 0; min-height: 40px; }
+.pjw-hd p { margin: 0; }
+.pjw-prog { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
+.pjw-prog:before { content: ""; position: absolute; left: 12%; right: 12%; top: 15px; height: 4px; border-radius: 4px; background: #d7e6f3; }
+.pjw-prog li { position: relative; display: grid; justify-items: center; gap: 2px; text-align: center; }
+.pjw-prog b { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: #d7e6f3; color: #4f6880; font: 800 15px "Nunito", sans-serif; border: 3px solid #F4FAFF; }
+.pjw-prog span { font: 700 12px "Nunito", sans-serif; color: #4f6880; }
+.pjw-prog li.on b { background: #9474E8; color: #fff; }
+.pjw-prog li.on span { color: #17324D; font-weight: 800; }
+.pjw-prog li.ok b { background: #65D6A0; color: #fff; }
+.pjw-no { margin: -4px 0 0; text-align: center; font-size: 12px; color: #4f6880; }
+.pjw-s { display: grid; gap: 10px; }
+.pjw-s[hidden] { display: none !important; }
+#pjOv .pjw .field { display: grid; gap: 4px; }
+#pjOv .pjw .field label { font: 800 14px "Nunito", sans-serif; color: #17324D; text-transform: none; letter-spacing: 0; }
+#pjOv .pjw input:not([type=radio]):not([type=checkbox]):not([type=color]), #pjOv .pjw select, #pjOv .pjw textarea { min-height: 46px; padding: 10px 12px; border-radius: 14px; border: 2px solid #d7e6f3; background: #fff; color: #17324D; font: 700 16px "Nunito", sans-serif; width: 100%; box-sizing: border-box; }
+#pjOv .pjw input:focus, #pjOv .pjw select:focus, #pjOv .pjw textarea:focus { outline: none; border-color: #39BCEB; box-shadow: 0 0 0 3px rgba(57, 188, 235, .25); }
+.pjw-pk { display: grid; gap: 10px; }
+.pjw-pkc { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center; padding: 12px 14px; border-radius: 18px; background: #fff; border: 3px solid #d7e6f3; cursor: pointer; position: relative; }
+.pjw-pkc input { position: absolute; opacity: 0; }
+.pjw-pkc i { grid-row: span 2; font-style: normal; font-size: 34px; }
+.pjw-pkc b { font: 700 18px "Fredoka", sans-serif; color: #17324D; }
+.pjw-pkc details summary { cursor: pointer; font-size: 13px; color: #9474E8; font-weight: 800; }
+.pjw-pkc details small { display: block; margin-top: 4px; font-size: 13px; line-height: 1.4; }
+.pjw-pkc:has(input:checked) { border-color: #FFC857; background: #fffaeb; }
+.pjw-pkc:has(input:checked):after { content: "✓"; position: absolute; top: -8px; right: -8px; width: 26px; height: 26px; border-radius: 50%; background: #65D6A0; color: #fff; font: 800 15px/26px "Nunito", sans-serif; text-align: center; }
+.pjw-pkc:has(input:focus-visible) { outline: 3px solid #9474E8; outline-offset: 2px; }
+.pjw-bayar { display: grid; gap: 6px; padding: 12px; border-radius: 16px; background: #fff; border: 2px dashed #FFC857; }
+.pjw-bayar p { margin: 0; font-size: 14px; }
+.pjw-bayar .notice { background: #F4FAFF; color: #17324D; border-color: #d7e6f3; }
+.pjw-chk { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; padding: 10px 12px; border-radius: 14px; background: #fff; border: 2px solid #d7e6f3; cursor: pointer; }
+.pjw-chk input { width: 22px; height: 22px; flex: none; margin: 0; accent-color: #9474E8; }
+.pjw-err { margin: 0; color: #b3342b; font-weight: 800; font-size: 14px; min-height: 0; }
+.pjw-err:empty { display: none; }
+.pjw-ft { position: sticky; bottom: calc(-16px - env(safe-area-inset-bottom, 0px)); display: flex; gap: 10px; padding: 10px 0 2px; background: linear-gradient(rgba(244, 250, 255, 0), #F4FAFF 30%); }
+.pjw-ft .btn { flex: 1; min-height: 50px; border-radius: 999px !important; font: 800 17px "Nunito", sans-serif !important; text-transform: none !important; letter-spacing: 0 !important; background-image: none !important; box-shadow: none !important; }
+.pjw-ft .btn:not(.alt) { background: #9474E8 !important; color: #fff !important; border: 0 !important; }
+.pjw-ft .btn.pjw-go { background: #65D6A0 !important; color: #0f3a28 !important; }
+.pjw-ft .btn.alt { flex: 0 0 auto; background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; padding-inline: 18px; }
+.pjw-ft .btn[hidden] { display: none; }
+.pjw-ok { display: grid; gap: 8px; justify-items: center; text-align: center; padding: 10px 0; }
+.pjw-ok i { font-style: normal; font-size: 48px; }
+.pjw-ok p { margin: 0; }
+#pjOv .pjw > .btn:not(.alt) { background: #9474E8 !important; background-image: none !important; color: #fff !important; border-radius: 999px; text-transform: none; }

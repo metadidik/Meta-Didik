@@ -10,7 +10,7 @@
     let o = document.getElementById(id);
     if (!o) { o = el("div", { class: "overlay", id: id, role: "dialog", "aria-modal": "true", "aria-label": label }); document.body.appendChild(o); o.addEventListener("click", (e) => { if (e.target === o) o.hidden = true; }); }
     o.textContent = ""; o.hidden = false;
-    const c = el("div", { class: "mcard", style: "max-width:760px;width:100%;max-height:92vh;overflow:auto" }); o.appendChild(c);
+    const c = el("div", { class: "mcard", style: "max-width:760px;width:100%" }); o.appendChild(c); /* v18.61: satu kawasan skrol (overlay), tiada skrol bersarang */
     const x = el("button", { type: "button", class: "btn alt sm", style: "float:right" }, "Tutup"); x.addEventListener("click", () => { o.hidden = true; }); c.appendChild(x);
     return c;
   }
@@ -45,67 +45,92 @@
     });
   }
 
-  /* ---------- borang permohonan penaja ---------- */
+  /* ---------- v18.61: borang permohonan penaja: wizard 4 langkah, BAYAR DAHULU sebelum disahkan ----------
+     1 Butiran (jumlah, tempoh, jenis) · 2 Pakej · 3 Lokasi & organisasi · 4 Pegawai, bayaran & hantar.
+     Rujukan transaksi bayaran wajib (juga dikuatkuasakan dalam Firebase Rules); pentadbir mengesahkan penerimaan bayaran sebelum meluluskan. */
   function pjBuka() {
-    const c = ov("pjOv", "Jadi Penaja Meta Didik");
-    c.append(el("div", { class: "tagline" }, "TAJA PENDIDIKAN DIGITAL MALAYSIA"), el("h1", { style: "margin:4px 0" }, "🤝 Jadi Penaja Meta Didik"),
-      el("p", { class: "muted", style: "margin:0 0 8px" }, "Logo anda dipaparkan di paparan utama dan pada kedai, bangunan atau papan iklan di lokasi pilihan anda dalam dunia 3D Meta Didik, yang dijelajah murid dan guru seluruh Malaysia."));
-    const f = el("div", { class: "pjform" }); c.appendChild(f);
-    const fld = (lab, node, nota) => { const d = el("div", { class: "field" }); d.append(el("label", null, lab), node); if (nota) d.appendChild(el("small", { class: "muted" }, nota)); f.appendChild(d); return node; };
-    /* jumlah tajaan: penaja menentukan sendiri (tiada kadar tetap) */
-    f.appendChild(el("b", null, "1. Jumlah tajaan"));
-    const rm = fld("Jumlah tajaan yang ingin diberikan (RM)", el("input", { type: "number", min: "1", step: "1", inputmode: "numeric", placeholder: "Contoh: 500", style: "max-width:200px" }), "Meta Didik menerima sebarang jumlah tajaan. Semua sumbangan digunakan untuk pembangunan Meta Didik.");
+    const c = ov("pjOv", "Jadi Penaja Meta Didik"); c.classList.add("pjw");
+    const S = { s: 1, logo: "", bukti: "" };
+    const hd = el("div", { class: "pjw-hd" }, el("div", { class: "tagline" }, "RUANG PENAJA"), el("h1", null, "🤝 Jadi Penaja Meta Didik"), el("p", { class: "muted" }, "Sokong pembangunan pendidikan digital Malaysia."));
+    const prog = el("ol", { class: "pjw-prog", "aria-hidden": "true" }); ["Butiran", "Pakej", "Lokasi", "Bayar & hantar"].forEach((t, i) => prog.appendChild(el("li", { "data-p": String(i + 1) }, el("b", null, String(i + 1)), el("span", null, t))));
+    const no = el("p", { class: "pjw-no", "aria-live": "polite" });
+    c.append(hd, prog, no);
+    const st = [1, 2, 3, 4].map((n) => { const x = el("section", { class: "pjw-s pjform", "data-s": String(n) }); c.appendChild(x); return x; });
+    const fld = (box, lab, node, nota) => { const d = el("div", { class: "field" }); d.append(el("label", null, lab), node); if (nota) d.appendChild(el("small", { class: "muted" }, nota)); box.appendChild(d); return node; };
+    /* 1. butiran */
+    const rm = fld(st[0], "Jumlah tajaan (RM) *", el("input", { type: "number", min: "1", step: "1", inputmode: "numeric", placeholder: "Contoh: 500" }), "Meta Didik menerima sebarang jumlah. Semua sumbangan digunakan untuk pembangunan Meta Didik.");
     const bln = el("select", { "aria-label": "Tempoh paparan logo" }); PJ_TEMPOH.forEach((v) => bln.appendChild(el("option", { value: String(v) }, v + " bulan")));
     const jenis = el("select", { "aria-label": "Jenis organisasi" }); [["syarikat", "Syarikat / perniagaan"], ["pendidikan", "Sekolah, PIBG, NGO atau badan pendidikan"], ["individu", "Individu"]].forEach(([v, t]) => jenis.appendChild(el("option", { value: v }, t)));
-    fld("Tempoh paparan logo", bln); fld("Jenis penaja", jenis);
-    f.appendChild(el("b", null, "2. Paparan yang diingini"));
-    const pkBox = el("div", { class: "pjpk", role: "radiogroup", "aria-label": "Paparan yang diingini" }); f.appendChild(pkBox);
-    Object.keys(PJ_PAKEJ).forEach((k, i) => { const p = PJ_PAKEJ[k], r = el("input", { type: "radio", name: "pjpk", value: k }); if (i === 1) r.checked = true; pkBox.appendChild(el("label", null, el("span", null, r, " ", el("b", null, p.ic + " " + p.n)), el("small", null, p.d))); });
-    f.appendChild(el("small", { class: "muted" }, "Pilihan ini cadangan anda; pentadbir akan mengesahkan paparan selepas menyemak permohonan."));
-    /* lokasi */
-    f.appendChild(el("b", null, "3. Pilih lokasi dalam Meta Didik"));
+    fld(st[0], "Tempoh paparan logo *", bln); fld(st[0], "Jenis penaja *", jenis);
+    /* 2. pakej */
+    const pkBox = el("div", { class: "pjpk pjw-pk", role: "radiogroup", "aria-label": "Paparan yang diingini" }); st[1].appendChild(pkBox);
+    Object.keys(PJ_PAKEJ).forEach((k, i) => { const p = PJ_PAKEJ[k], r = el("input", { type: "radio", name: "pjpk", value: k }); if (i === 1) r.checked = true;
+      const more = el("details", null, el("summary", null, "Lihat butiran"), el("small", null, p.d));
+      pkBox.appendChild(el("label", { class: "pjw-pkc" }, r, el("i", { "aria-hidden": "true" }, p.ic), el("b", null, p.n), more)); });
+    st[1].appendChild(el("small", { class: "muted" }, "Pilihan ini cadangan anda. Paparan sebenar disahkan oleh pentadbir."));
+    /* 3. lokasi & organisasi */
     const lok = el("select", { "aria-label": "Lokasi tajaan" }); lok.appendChild(el("option", { value: "" }, "Pilih kedai/bangunan di lokasi sebenar..."));
     const ambil = {}; PJ.list.forEach((d) => { ambil[d.lk] = d.n; });
     PJ_LOK.forEach(([id, n]) => { const o = el("option", { value: id }, n + (ambil[id] ? " (sudah ditaja)" : "")); if (ambil[id]) o.disabled = true; lok.appendChild(o); });
-    fld("Lokasi", lok, "Satu penaja bagi setiap lokasi. Rakan Pendidikan: papan iklan. Emas dan Platinum: kedai/bangunan berjenama.");
-    /* maklumat syarikat */
-    f.appendChild(el("b", null, "4. Maklumat penaja"));
-    const sy = fld("Nama syarikat / organisasi", el("input", { maxlength: "60", autocomplete: "organization" }));
-    const ssm = fld("No. pendaftaran (SSM / ROS / kod sekolah)", el("input", { maxlength: "30" }));
-    const tl = fld("Slogan ringkas (dipaparkan dalam Meta Didik)", el("input", { maxlength: "80", placeholder: "Contoh: Bersama membina generasi celik digital" }));
-    const web = fld("Laman web (pilihan)", el("input", { maxlength: "120", type: "url", placeholder: "https://" }));
-    const wk = fld("Warna jenama", el("input", { type: "color", value: "#1f6feb", style: "width:80px;height:40px" }));
-    const lg = fld("Logo (PNG, JPG, SVG atau WebP; latar lutsinar digalakkan)", el("input", { type: "file", accept: "image/*" }));
-    const prev = el("div", { class: "pjprev", "aria-live": "polite" }, el("span", { class: "muted", style: "font-size:12px" }, "Pratonton logo")); f.appendChild(prev);
-    let logo = "";
-    lg.addEventListener("change", async () => { try { logo = await logoProses(lg.files[0]); prev.textContent = ""; prev.appendChild(el("img", { src: logo, alt: "Pratonton logo" })); } catch (e) { logo = ""; prev.textContent = e.message; } });
-    f.appendChild(el("b", null, "5. Pegawai untuk dihubungi"));
-    const pic = fld("Nama pegawai", el("input", { maxlength: "60", autocomplete: "name" }));
-    const hp = fld("No. telefon", el("input", { maxlength: "20", type: "tel", autocomplete: "tel" }));
-    const em = fld("E-mel", el("input", { maxlength: "80", type: "email", autocomplete: "email" }));
-    const nota = fld("Nota (pilihan)", el("textarea", { maxlength: "300", rows: "2" }));
-    f.appendChild(el("b", null, "6. Cara sumbangan"));
-    f.appendChild(el("p", { class: "muted", style: "margin:0;font-size:13px" }, "Hantar borang dahulu. Selepas pentadbir mengesahkan lokasi, salurkan sumbangan ke akaun rasmi di bawah dan kongsi bukti pindahan dengan pentadbir."));
-    f.appendChild(mdBayarBox());
-    const ck = el("input", { type: "checkbox", id: "pjCk" });
-    f.appendChild(el("label", { for: "pjCk", class: "row", style: "gap:8px;align-items:flex-start;font-size:13px" }, ck, el("span", null, "Saya mengesahkan logo dan maklumat ini milik organisasi saya, dan produk/perkhidmatan kami tidak melibatkan " + PANTANG + ". Saya faham permohonan akan disemak, dan pentadbir akan menghubungi saya untuk urusan sumbangan.")));
-    const out = el("span", { class: "muted", style: "font-size:13px" }), sb = el("button", { type: "button", class: "btn" }, "Hantar permohonan");
-    f.appendChild(el("div", { class: "row", style: "gap:10px;align-items:center;flex-wrap:wrap" }, sb, out));
+    fld(st[2], "Lokasi dalam Meta Didik *", lok, "Satu penaja bagi setiap lokasi. Rakan Pendidikan: papan iklan. Emas dan Platinum: kedai/bangunan berjenama.");
+    const sy = fld(st[2], "Nama syarikat / organisasi *", el("input", { maxlength: "60", autocomplete: "organization" }));
+    const ssm = fld(st[2], "No. pendaftaran (SSM / ROS / kod sekolah)", el("input", { maxlength: "30" }));
+    const tl = fld(st[2], "Slogan ringkas", el("input", { maxlength: "80", placeholder: "Contoh: Bersama membina generasi celik digital" }));
+    const web = fld(st[2], "Laman web (pilihan)", el("input", { maxlength: "120", type: "url", placeholder: "https://" }));
+    const wk = fld(st[2], "Warna jenama", el("input", { type: "color", value: "#1f6feb", style: "width:80px;height:44px" }));
+    const lg = fld(st[2], "Logo * (PNG, JPG, SVG atau WebP)", el("input", { type: "file", accept: "image/*" }));
+    const prev = el("div", { class: "pjprev", "aria-live": "polite" }, el("span", { class: "muted", style: "font-size:12px" }, "Pratonton logo")); st[2].appendChild(prev);
+    st[2].appendChild(el("small", { class: "muted" }, "Pratonton sahaja; penempatan sebenar dalam dunia 3D disahkan oleh pentadbir."));
+    lg.addEventListener("change", async () => { try { S.logo = await logoProses(lg.files[0]); prev.textContent = ""; prev.appendChild(el("img", { src: S.logo, alt: "Pratonton logo" })); } catch (e) { S.logo = ""; prev.textContent = e.message; } });
+    /* 4. pegawai, bayaran, pengesahan */
+    const pic = fld(st[3], "Nama pegawai *", el("input", { maxlength: "60", autocomplete: "name" }));
+    const hp = fld(st[3], "No. telefon *", el("input", { maxlength: "20", type: "tel", autocomplete: "tel" }));
+    const em = fld(st[3], "E-mel *", el("input", { maxlength: "80", type: "email", autocomplete: "email" }));
+    const nota = fld(st[3], "Nota (pilihan)", el("textarea", { maxlength: "300", rows: "2" }));
+    const bayar = el("div", { class: "pjw-bayar" }); st[3].appendChild(bayar);
+    const rb = fld(st[3], "No. rujukan transaksi bayaran *", el("input", { maxlength: "40", autocomplete: "off", placeholder: "Contoh: rujukan dalam resit perbankan" }), "Wajib. Permohonan disahkan hanya selepas pentadbir menyemak penerimaan bayaran.");
+    const bk = fld(st[3], "Resit / bukti bayaran (pilihan, gambar)", el("input", { type: "file", accept: "image/*" }));
+    const bkp = el("div", { class: "pjprev", style: "height:90px" }); st[3].appendChild(bkp);
+    bk.addEventListener("change", async () => { try { S.bukti = await logoProses(bk.files[0]); bkp.textContent = ""; bkp.appendChild(el("img", { src: S.bukti, alt: "Bukti bayaran" })); } catch (e) { S.bukti = ""; bkp.textContent = e.message; } });
+    const ck = el("input", { type: "checkbox", id: "pjCk" }), ck2 = el("input", { type: "checkbox", id: "pjCk2" });
+    st[3].append(el("label", { for: "pjCk2", class: "pjw-chk" }, ck2, el("span", null, "Saya telah membuat bayaran ke akaun rasmi Meta Didik di atas.")),
+      el("label", { for: "pjCk", class: "pjw-chk" }, ck, el("span", null, "Saya mengesahkan logo dan maklumat ini milik organisasi saya, dan produk/perkhidmatan kami tidak melibatkan " + PANTANG + ".")));
+    /* navigasi */
+    const out = el("p", { class: "pjw-err", role: "alert" }), prevB = el("button", { type: "button", class: "btn alt" }, "Kembali"), next = el("button", { type: "button", class: "btn" }, "Seterusnya →"), sb = el("button", { type: "button", class: "btn pjw-go" }, "Hantar permohonan");
+    c.append(out, el("div", { class: "pjw-ft" }, prevB, next, sb));
+    const v = (n, m) => String(n.value || "").replace(/[<>]/g, "").trim().slice(0, m);
     const pk = () => (pkBox.querySelector("input:checked") || {}).value || "emas";
+    const salah = (n) => n === 1 ? (!(Math.round(+rm.value || 0) >= 1 && +rm.value <= 10000000) ? [rm, "Isi jumlah tajaan (RM)."] : null)
+      : n === 3 ? (!lok.value ? [lok, "Pilih lokasi dalam Meta Didik."] : v(sy, 60).length < 3 ? [sy, "Isi nama penaja."] : !S.logo ? [lg, "Muat naik logo."] : v(web, 120) && !webOk(v(web, 120)) ? [web, "Laman web mesti bermula dengan https://"] : null)
+      : n === 4 ? (v(pic, 60).length < 3 ? [pic, "Isi nama pegawai."] : !/^\+?6?0[\d\s-]{8,13}$/.test(v(hp, 20)) ? [hp, "Isi nombor telefon yang sah."] : !/^[\w.+-]+@[\w-]+\.[\w.]+$/.test(v(em, 80)) ? [em, "Isi e-mel yang sah."] : v(rb, 40).length < 4 ? [rb, "Isi no. rujukan transaksi bayaran."] : !ck2.checked ? [ck2, "Sahkan bahawa bayaran telah dibuat."] : !ck.checked ? [ck, "Tandakan pengesahan."] : null) : null;
+    const go = (n) => {
+      S.s = n; st.forEach((x, i) => { x.hidden = i + 1 !== n; });
+      prog.querySelectorAll("li").forEach((x) => { const p = +x.dataset.p; x.className = p < n ? "ok" : p === n ? "on" : ""; });
+      no.textContent = "Langkah " + n + " daripada 4"; out.textContent = "";
+      prevB.hidden = n === 1; next.hidden = n === 4; sb.hidden = n !== 4;
+      if (n === 4) { bayar.textContent = ""; const jum = Math.round(+rm.value || 0); bayar.append(el("b", null, "💳 Langkah bayaran"), el("p", null, "Sila buat bayaran RM" + jum.toLocaleString("ms-MY") + " (" + PJ_PAKEJ[pk()].n + ", " + bln.value + " bulan) ke akaun rasmi di bawah, kemudian masukkan no. rujukan transaksi."), mdBayarBox(v(sy, 60) || "nama organisasi")); }
+      const o = document.getElementById("pjOv"); if (o) o.scrollTop = 0;
+    };
+    next.addEventListener("click", () => { const x = salah(S.s); if (x) { out.textContent = x[1]; try { x[0].focus(); } catch (e) { /* abaikan */ } return; } go(S.s + 1); });
+    prevB.addEventListener("click", () => go(Math.max(1, S.s - 1)));
     sb.addEventListener("click", async () => {
-      const v = (n, m) => String(n.value || "").replace(/[<>]/g, "").trim().slice(0, m);
-      const d = { sy: v(sy, 60), ssm: v(ssm, 30), tl: v(tl, 80), web: v(web, 120), wk: /^#[0-9a-f]{6}$/i.test(wk.value) ? wk.value : "#1f6feb", pic: v(pic, 60), hp: v(hp, 20), em: v(em, 80), nota: v(nota, 300), pk: pk(), lk: lok.value, bln: +bln.value, jn: jenis.value, rm: Math.round(+rm.value || 0), logo: logo, t: { ".sv": "timestamp" } };
-      const err = !(d.rm >= 1 && d.rm <= 10000000) ? "Isi jumlah tajaan (RM)." : d.sy.length < 3 ? "Isi nama penaja." : !d.lk ? "Pilih lokasi dalam Meta Didik." : !d.logo ? "Muat naik logo syarikat." : d.pic.length < 3 ? "Isi nama pegawai." : !/^\+?6?0[\d\s-]{8,13}$/.test(d.hp) ? "Isi nombor telefon yang sah." : !/^[\w.+-]+@[\w-]+\.[\w.]+$/.test(d.em) ? "Isi e-mel yang sah." : d.web && !webOk(d.web) ? "Laman web mesti bermula dengan https://" : !ck.checked ? "Tandakan pengesahan." : "";
-      if (err) { out.textContent = err; return; }
+      for (const n of [1, 3, 4]) { const x = salah(n); if (x) { go(n); out.textContent = x[1]; try { x[0].focus(); } catch (e) { /* abaikan */ } return; } }
+      const d = { sy: v(sy, 60), ssm: v(ssm, 30), tl: v(tl, 80), web: v(web, 120), wk: /^#[0-9a-f]{6}$/i.test(wk.value) ? wk.value : "#1f6feb", pic: v(pic, 60), hp: v(hp, 20), em: v(em, 80), nota: v(nota, 300), pk: pk(), lk: lok.value, bln: +bln.value, jn: jenis.value, rm: Math.round(+rm.value || 0), logo: S.logo, rb: v(rb, 40), t: { ".sv": "timestamp" } };
+      if (S.bukti) d.bukti = S.bukti;
       if (!d.web) delete d.web; if (!d.ssm) delete d.ssm; if (!d.tl) delete d.tl; if (!d.nota) delete d.nota;
       if (!FB.url) { out.textContent = "Permohonan memerlukan sambungan pelayan Meta Didik."; return; }
       sb.disabled = true; out.textContent = "Menghantar...";
       try {
         if (typeof AUTH !== "undefined" && AUTH.on()) await AUTH.ensure();
         await FB.req("PUT", "penaja_mohon/pj" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), d);
-        f.textContent = ""; f.append(el("div", { class: "notice" }, "✔ Terima kasih! Permohonan " + d.sy + " diterima. Pentadbir Meta Didik akan menghubungi " + d.em + " untuk urusan sumbangan RM" + d.rm.toLocaleString("ms-MY") + ". E-mel rasmi kami: " + (typeof MD_EMEL !== "undefined" ? MD_EMEL : "admin@metadidik.com") + ". Sila salurkan sumbangan ke akaun rasmi di bawah; logo dipaparkan selepas sumbangan diterima."), mdBayarBox(d.sy));
+        c.textContent = ""; c.classList.add("pjw");
+        c.append(el("div", { class: "pjw-ok" }, el("i", { "aria-hidden": "true" }, "✅"), el("h1", null, "Permohonan diterima"),
+          el("p", null, "Terima kasih, " + d.sy + ". Permohonan dan maklumat bayaran RM" + d.rm.toLocaleString("ms-MY") + " (rujukan " + d.rb + ") telah dihantar."),
+          el("p", null, "Pentadbir akan menyemak penerimaan bayaran. Logo dipaparkan selepas bayaran disahkan. Kami akan menghubungi " + d.em + (typeof MD_EMEL !== "undefined" ? " dari " + MD_EMEL : "") + ".")));
+        const t = el("button", { type: "button", class: "btn" }, "Tutup"); t.addEventListener("click", () => { document.getElementById("pjOv").hidden = true; }); c.appendChild(t);
       } catch (e) { sb.disabled = false; out.textContent = "Gagal dihantar (kod " + (e.code || "rangkaian") + "). Cuba lagi."; }
     });
+    go(1);
   }
 
   /* ---------- pentadbir: semak permohonan, luluskan, urus penaja aktif ---------- */
@@ -135,11 +160,14 @@
       d.append(el("div", { class: "row", style: "gap:10px;align-items:center;flex-wrap:wrap" }, el("div", { class: "pjprev", style: "width:120px;height:60px" }, x.logo ? el("img", { src: x.logo, alt: x.sy }) : null), el("div", null, el("b", null, x.sy + " · RM" + (x.rm | 0).toLocaleString("ms-MY") + " · " + x.bln + " bulan · cadangan: " + p.ic + " " + p.n), el("div", { style: "font-size:13px" }, "Lokasi: " + (lk ? lk.n : x.lk) + (aktifLk[x.lk] && !x.st ? " ⚠ sudah ditaja " + aktifLk[x.lk] : "")), el("div", { style: "font-size:13px" }, "Tajaan: RM" + (x.rm | 0).toLocaleString("ms-MY") + (x.jn === "pendidikan" ? " (badan pendidikan)" : x.jn === "individu" ? " (individu)" : "") + " · " + tarikh(x.t) + (x.st ? " · " + x.st : " · baharu")))));
       d.appendChild(el("div", { style: "font-size:13px" }, "Pegawai: " + x.pic + " · " + x.hp + " · " + x.em + (x.ssm ? " · No. daftar: " + x.ssm : "") + (x.web ? " · " + x.web : "")));
       if (x.tl) d.appendChild(el("div", { style: "font-size:13px" }, "Slogan: " + x.tl)); if (x.nota) d.appendChild(el("div", { style: "font-size:13px;color:#ffe9a8" }, "Nota: " + x.nota));
+      d.appendChild(x.rb ? el("div", { style: "font-size:13px;color:#9fe8b0" }, "💳 Rujukan bayaran: " + x.rb + " · RM" + (x.rm | 0).toLocaleString("ms-MY")) : el("div", { style: "font-size:13px;color:#ffb3a8" }, "⚠ Tiada maklumat bayaran (permohonan lama)."));
+      if (x.bukti) { const im = el("img", { src: x.bukti, alt: "Bukti bayaran " + x.sy, style: "max-height:120px;max-width:100%;border-radius:8px;background:#fff" }); d.appendChild(el("details", null, el("summary", { style: "cursor:pointer;font-size:13px" }, "Lihat bukti bayaran"), im)); }
       if (x.st) return;
       const tanda = (st) => { const o = Object.assign({}, x, { st: st }); delete o.id; return kmAdmPut("penaja_mohon/" + x.id, o); };
       const pkSel = el("select", { "aria-label": "Paparan diluluskan" }); Object.keys(PJ_PAKEJ).forEach((k) => pkSel.appendChild(el("option", { value: k }, PJ_PAKEJ[k].ic + " " + PJ_PAKEJ[k].n))); pkSel.value = PJ_PAKEJ[x.pk] ? x.pk : "rakan";
-      const ok = el("button", { type: "button", class: "btn sm" }, "Luluskan (sumbangan diterima)"), no = el("button", { type: "button", class: "btn alt sm" }, "Tolak");
+      const ok = el("button", { type: "button", class: "btn sm" }, "Bayaran disahkan → Luluskan"), no = el("button", { type: "button", class: "btn alt sm" }, "Tolak");
       ok.addEventListener("click", async () => {
+        if (!confirm("Sahkan bahawa bayaran RM" + (x.rm | 0).toLocaleString("ms-MY") + (x.rb ? " (rujukan " + x.rb + ")" : " (TIADA rujukan)") + " daripada " + x.sy + " telah diterima dalam akaun Meta Didik?")) return; /* v18.61: bayar dahulu */
         if (aktifLk[x.lk] && !confirm("Lokasi ini sudah ditaja " + aktifLk[x.lk] + ". Teruskan juga?")) return;
         const mula = Date.now(), d2 = { n: x.sy, logo: x.logo, pk: pkSel.value, lk: x.lk, wk: x.wk || "#1f6feb", mula: mula, tamat: mula + (x.bln || 3) * 30.44 * 864e5, mohon: x.id };
         if (x.tl) d2.tl = x.tl; if (x.web && webOk(x.web)) d2.web = x.web;

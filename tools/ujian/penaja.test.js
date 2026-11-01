@@ -34,6 +34,8 @@ for (const f of ["firebase-rules-lengkap-percubaan.json", "firebase-rules-lengka
     assert.match(r.penaja_mohon.$id[".validate"], /!newData\.child\('st'\)\.exists\(\)/, "pemohon tidak boleh meluluskan sendiri");
     assert.match(r.penaja_mohon.$id[".validate"], /length <= 120000/);
     assert.match(r.penaja_mohon.$id[".validate"], /child\('rm'\)\.val\(\) >= 1/, "jumlah tajaan wajib");
+    assert.match(r.penaja_mohon.$id[".validate"], /'rb'\]\)/, "rujukan bayaran wajib (bayar dahulu)");
+    assert.match(r.penaja_mohon.$id[".validate"], /child\('rb'\)\.val\(\)\.length >= 4/, "rujukan bayaran sekurang-kurangnya 4 aksara");
   });
 }
 

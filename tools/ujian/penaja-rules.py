@@ -1,6 +1,6 @@
 """Tambah/kemas kini peraturan penaja (penaja, penaja_mohon) dalam 4 fail Rules (idempoten)."""
 import json, collections
-V = ("newData.hasChildren(['sy','pk','lk','logo','pic','hp','em','bln','rm','t']) && newData.child('rm').isNumber() && newData.child('rm').val() >= 1 && newData.child('rm').val() <= 10000000 && newData.child('t').val() === now && !newData.child('st').exists()"
+V = ("newData.hasChildren(['sy','pk','lk','logo','pic','hp','em','bln','rm','t','rb']) && newData.child('rm').isNumber() && newData.child('rm').val() >= 1 && newData.child('rm').val() <= 10000000 && newData.child('t').val() === now && !newData.child('st').exists()"
      " && newData.child('sy').isString() && newData.child('sy').val().length >= 3 && newData.child('sy').val().length <= 60"
      " && newData.child('pk').val().matches(/^(rakan|emas|platinum)$/) && newData.child('lk').isString() && newData.child('lk').val().length <= 20"
      " && newData.child('logo').isString() && newData.child('logo').val().matches(/^data:image\\/(png|jpeg);base64,/) && newData.child('logo').val().length <= 120000"
@@ -9,7 +9,10 @@ V = ("newData.hasChildren(['sy','pk','lk','logo','pic','hp','em','bln','rm','t']
      " && (!newData.child('web').exists() || (newData.child('web').isString() && newData.child('web').val().length <= 120))"
      " && (!newData.child('tl').exists() || (newData.child('tl').isString() && newData.child('tl').val().length <= 80))"
      " && (!newData.child('nota').exists() || (newData.child('nota').isString() && newData.child('nota').val().length <= 300))"
-     " && (!newData.child('ssm').exists() || (newData.child('ssm').isString() && newData.child('ssm').val().length <= 30))")
+     " && (!newData.child('ssm').exists() || (newData.child('ssm').isString() && newData.child('ssm').val().length <= 30))"
+     # v18.61: bayar dahulu. Rujukan transaksi bayaran wajib; bukti (resit) pilihan
+     " && newData.child('rb').isString() && newData.child('rb').val().length >= 4 && newData.child('rb').val().length <= 40"
+     " && (!newData.child('bukti').exists() || (newData.child('bukti').isString() && newData.child('bukti').val().matches(/^data:image\\/(png|jpeg);base64,/) && newData.child('bukti').val().length <= 160000))")
 def mohon(write): return {".read": False, "$id": {".write": write, ".validate": "$id.length <= 40 && " + V}}
 SET = {"percubaan": {"penaja": {".read": True, ".write": False}, "penaja_mohon": mohon("!data.exists()")},
        "ketat": {"penaja": {".read": True, ".write": False}, "penaja_mohon": mohon("auth != null && !data.exists()")}}
