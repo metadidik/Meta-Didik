@@ -1652,7 +1652,7 @@ function lmFlightHud(on) {
     h = el("div", { class: "lm-fl" }); LM.ui.fl = h; r.appendChild(h);
     const f = LM.g.flight;
     h.append(el("b", null, "✈ " + f.code + " · " + f.ap.n.replace("Lapangan Terbang ", "") + " → " + f.dst.n.replace("Lapangan Terbang ", "")), el("span", { class: "lm-fl-st" }, "Menaiki pesawat..."), el("div", { class: "lm-bar" }, el("i")));
-    const sk = lmBtn("Langkau ke pendaratan", "", () => { const g = LM.g; if (g && g.flight && g.flight.ph === "air") g.flight.t = g.flight.air * 0.86; else if (g && g.flight && (g.flight.ph === "roll" || g.flight.ph === "board")) { g.flight.ph = "air"; g.flight.t = g.flight.air * 0.86; } });
+    const sk = lmBtn("Langkau ⏭", "", () => { const g = LM.g; if (g && g.flight && g.flight.ph === "air") g.flight.t = g.flight.air * 0.86; else if (g && g.flight && (g.flight.ph === "roll" || g.flight.ph === "board")) { g.flight.ph = "air"; g.flight.t = g.flight.air * 0.86; } });
     h.appendChild(sk);
   }
 }
@@ -5559,6 +5559,14 @@ const LM_CSS = `
 #lmOv .lm-big-dr[hidden]{display:none}
 #lmOv .lm-fl{position:absolute;left:50%;top:calc(max(10px,env(safe-area-inset-top)) + 56px);transform:translateX(-50%);width:min(480px,92vw);background:rgba(8,24,40,.82);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:10px 14px;display:grid;gap:6px;z-index:2;text-align:center}
 #lmOv .lm-fl b{font:900 16px Fredoka,Nunito,sans-serif;color:#ffd45a}#lmOv .lm-fl .lm-fl-st{font-size:14px;color:#d4e2ee}#lmOv .lm-fl button{justify-self:center;font-size:13px;padding:6px 12px}
+/* v18.71: pil perjalanan kecil di bawah tengah (tidak menghalang pemandangan) */
+#lmOv .lm-fl{top:auto!important;bottom:calc(14px + env(safe-area-inset-bottom,0px));width:auto;max-width:min(440px,calc(100vw - 420px));min-width:220px;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;column-gap:10px;row-gap:1px;align-items:center;padding:7px 8px 11px 14px;border-radius:999px;background:rgba(14,30,66,.62);border:2px solid rgba(255,255,255,.55);box-shadow:0 4px 14px rgba(0,0,0,.25);text-align:left;overflow:hidden;pointer-events:auto;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+#lmOv .lm-fl b{grid-column:1;font:700 13.5px/1.2 Fredoka,Nunito,sans-serif;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#lmOv .lm-fl .lm-fl-st{grid-column:1;font:700 11.5px/1.2 Nunito,sans-serif;color:#FFC857;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#lmOv .lm-fl .lm-bar{position:absolute;left:14px;right:14px;bottom:4px;height:4px;margin:0;background:rgba(255,255,255,.18)}
+#lmOv .lm-fl button{grid-column:2;grid-row:1/3;justify-self:end;min-height:34px;padding:4px 12px!important;border-radius:999px!important;font:800 12.5px Nunito,sans-serif!important;background:rgba(255,255,255,.92)!important;color:#17324D!important;border:0!important;white-space:nowrap}
+@media (max-width:700px) and (min-height:501px){#lmOv .lm-fl{bottom:calc(150px + env(safe-area-inset-bottom,0px));max-width:calc(100vw - 24px);min-width:0;left:12px;right:12px;transform:none}}
+@media (max-height:500px){#lmOv .lm-fl{bottom:calc(10px + env(safe-area-inset-bottom,0px));max-width:min(400px,calc(100vw - 400px));min-width:180px}}
 #lmOv .lm-tabs button[aria-pressed="false"]{opacity:.8}
 #lmOv .lm-tema{margin-top:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05);border-left:5px solid var(--c)}
 #lmOv .lm-tema.on{background:rgba(255,212,90,.1)}
