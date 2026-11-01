@@ -51,22 +51,36 @@
   function pjBuka() {
     const c = ov("pjOv", "Jadi Penaja Meta Didik"); c.classList.add("pjw");
     const S = { s: 1, logo: "", bukti: "" };
-    const hd = el("div", { class: "pjw-hd" }, el("div", { class: "tagline" }, "RUANG PENAJA"), el("h1", null, "🤝 Jadi Penaja Meta Didik"), el("p", { class: "muted" }, "Sokong pembangunan pendidikan digital Malaysia."));
-    const prog = el("ol", { class: "pjw-prog", "aria-hidden": "true" }); ["Butiran", "Pakej", "Lokasi", "Bayar & hantar"].forEach((t, i) => prog.appendChild(el("li", { "data-p": String(i + 1) }, el("b", null, String(i + 1)), el("span", null, t))));
+    const h1 = el("h1", null, "🤝 Jadi Penaja Meta Didik"), lead = el("p", { class: "muted" }, "Sokong pembangunan pendidikan digital Malaysia.");
+    const hd = el("div", { class: "pjw-hd" }, el("div", { class: "tagline" }, "RUANG PENAJA"), h1, lead);
+    const PK_IMG = { rakan: "img/ui/pj-rakan.webp", emas: "img/ui/pj-emas.webp", platinum: "img/ui/pj-platinum.webp" };
+    const PK_RINGKAS = { rakan: "Logo di paparan utama + papan iklan.", emas: "Logo lebih besar + kedai/bangunan berjenama di lokasi pilihan.", platinum: "Barisan pertama + bangunan bercahaya LED + logo pada peta." };
+    const prog = el("ol", { class: "pjw-prog", "aria-hidden": "true" }); ["Butiran", "Pakej", "Lokasi", "Bayar"].forEach((t, i) => prog.appendChild(el("li", { "data-p": String(i + 1) }, el("b", null, String(i + 1)), el("span", null, t))));
     const no = el("p", { class: "pjw-no", "aria-live": "polite" });
     c.append(hd, prog, no);
+    /* v18.67: halaman pakej dahulu (ikut lakaran), kemudian borang 4 langkah */
+    const st0 = el("section", { class: "pjw-s pjw-intro", "data-s": "0" }); c.appendChild(st0);
+    const pkIntro = el("div", { class: "pjw-pk", role: "radiogroup", "aria-label": "Pilih pakej tajaan" }); st0.appendChild(pkIntro);
     const st = [1, 2, 3, 4].map((n) => { const x = el("section", { class: "pjw-s pjform", "data-s": String(n) }); c.appendChild(x); return x; });
     const fld = (box, lab, node, nota) => { const d = el("div", { class: "field" }); d.append(el("label", null, lab), node); if (nota) d.appendChild(el("small", { class: "muted" }, nota)); box.appendChild(d); return node; };
     /* 1. butiran */
-    const rm = fld(st[0], "Jumlah tajaan (RM) *", el("input", { type: "number", min: "1", step: "1", inputmode: "numeric", placeholder: "Contoh: 500" }), "Meta Didik menerima sebarang jumlah. Semua sumbangan digunakan untuk pembangunan Meta Didik.");
-    const bln = el("select", { "aria-label": "Tempoh paparan logo" }); PJ_TEMPOH.forEach((v) => bln.appendChild(el("option", { value: String(v) }, v + " bulan")));
-    const jenis = el("select", { "aria-label": "Jenis organisasi" }); [["syarikat", "Syarikat / perniagaan"], ["pendidikan", "Sekolah, PIBG, NGO atau badan pendidikan"], ["individu", "Individu"]].forEach(([v, t]) => jenis.appendChild(el("option", { value: v }, t)));
+    st[0].appendChild(el("h2", { class: "pjw-sh" }, "Butiran Tajaan"));
+    const rm = fld(st[0], "Jumlah tajaan (RM) *", el("input", { class: "pjw-ic pjw-ic-rm", type: "number", min: "1", step: "1", inputmode: "numeric", placeholder: "Contoh: 500" }), "Meta Didik menerima sebarang jumlah. Semua sumbangan digunakan untuk pembangunan Meta Didik.");
+    const bln = el("select", { class: "pjw-ic pjw-ic-bln", "aria-label": "Tempoh paparan logo" }); PJ_TEMPOH.forEach((v) => bln.appendChild(el("option", { value: String(v) }, v + " bulan")));
+    const jenis = el("select", { class: "pjw-ic pjw-ic-jn", "aria-label": "Jenis organisasi" }); [["syarikat", "Syarikat / perniagaan"], ["pendidikan", "Sekolah, PIBG, NGO atau badan pendidikan"], ["individu", "Individu"]].forEach(([v, t]) => jenis.appendChild(el("option", { value: v }, t)));
     fld(st[0], "Tempoh paparan logo *", bln); fld(st[0], "Jenis penaja *", jenis);
     /* 2. pakej */
     const pkBox = el("div", { class: "pjpk pjw-pk", role: "radiogroup", "aria-label": "Paparan yang diingini" }); st[1].appendChild(pkBox);
+    const pkIk = (k, p) => PK_IMG[k] ? el("img", { class: "pjw-pki", src: PK_IMG[k], alt: "", width: "54", height: "58" }) : el("i", { "aria-hidden": "true" }, p.ic);
     Object.keys(PJ_PAKEJ).forEach((k, i) => { const p = PJ_PAKEJ[k], r = el("input", { type: "radio", name: "pjpk", value: k }); if (i === 1) r.checked = true;
       const more = el("details", null, el("summary", null, "Lihat butiran"), el("small", null, p.d));
-      pkBox.appendChild(el("label", { class: "pjw-pkc" }, r, el("i", { "aria-hidden": "true" }, p.ic), el("b", null, p.n), more)); });
+      pkBox.appendChild(el("label", { class: "pjw-pkc" }, r, pkIk(k, p), el("b", null, p.n), more));
+      const r0 = el("input", { type: "radio", name: "pjpk0", value: k }); if (i === 1) r0.checked = true;
+      r0.addEventListener("change", () => { const t = pkBox.querySelector('input[value="' + k + '"]'); if (t) t.checked = true; });
+      r.addEventListener("change", () => { r0.checked = true; });
+      pkIntro.appendChild(el("label", { class: "pjw-pkc pjw-pk0 pjw-" + k }, r0, pkIk(k, p), el("b", null, p.n), el("small", null, PK_RINGKAS[k] || p.d))); });
+    const mohon = el("button", { type: "button", class: "btn pjw-mohon" }, "Mohon Tajaan →"); st0.appendChild(mohon);
+    st0.appendChild(el("small", { class: "muted pjw-n0" }, "Tiada kadar tetap: anda tentukan jumlah tajaan. Logo dipaparkan selepas bayaran disahkan pentadbir."));
     st[1].appendChild(el("small", { class: "muted" }, "Pilihan ini cadangan anda. Paparan sebenar disahkan oleh pentadbir."));
     /* 3. lokasi & organisasi */
     const lok = el("select", { "aria-label": "Lokasi tajaan" }); lok.appendChild(el("option", { value: "" }, "Pilih kedai/bangunan di lokasi sebenar..."));
@@ -104,15 +118,17 @@
       : n === 3 ? (!lok.value ? [lok, "Pilih lokasi dalam Meta Didik."] : v(sy, 60).length < 3 ? [sy, "Isi nama penaja."] : !S.logo ? [lg, "Muat naik logo."] : v(web, 120) && !webOk(v(web, 120)) ? [web, "Laman web mesti bermula dengan https://"] : null)
       : n === 4 ? (v(pic, 60).length < 3 ? [pic, "Isi nama pegawai."] : !/^\+?6?0[\d\s-]{8,13}$/.test(v(hp, 20)) ? [hp, "Isi nombor telefon yang sah."] : !/^[\w.+-]+@[\w-]+\.[\w.]+$/.test(v(em, 80)) ? [em, "Isi e-mel yang sah."] : v(rb, 40).length < 4 ? [rb, "Isi no. rujukan transaksi bayaran."] : !ck2.checked ? [ck2, "Sahkan bahawa bayaran telah dibuat."] : !ck.checked ? [ck, "Tandakan pengesahan."] : null) : null;
     const go = (n) => {
-      S.s = n; st.forEach((x, i) => { x.hidden = i + 1 !== n; });
+      S.s = n; st.forEach((x, i) => { x.hidden = i + 1 !== n; }); st0.hidden = n !== 0; c.classList.toggle("pjw-0", n === 0);
+      h1.textContent = n === 0 ? "🤝 Jadi Penaja Meta Didik" : "Permohonan Tajaan"; lead.hidden = n !== 0;
       prog.querySelectorAll("li").forEach((x) => { const p = +x.dataset.p; x.className = p < n ? "ok" : p === n ? "on" : ""; });
       no.textContent = "Langkah " + n + " daripada 4"; out.textContent = "";
-      prevB.hidden = n === 1; next.hidden = n === 4; sb.hidden = n !== 4;
+      prevB.hidden = n === 0; next.hidden = n === 4 || n === 0; sb.hidden = n !== 4;
       if (n === 4) { bayar.textContent = ""; const jum = Math.round(+rm.value || 0); bayar.append(el("b", null, "💳 Langkah bayaran"), el("p", null, "Sila buat bayaran RM" + jum.toLocaleString("ms-MY") + " (" + PJ_PAKEJ[pk()].n + ", " + bln.value + " bulan) ke akaun rasmi di bawah, kemudian masukkan no. rujukan transaksi."), mdBayarBox(v(sy, 60) || "nama organisasi")); }
       const o = document.getElementById("pjOv"); if (o) o.scrollTop = 0;
     };
     next.addEventListener("click", () => { const x = salah(S.s); if (x) { out.textContent = x[1]; try { x[0].focus(); } catch (e) { /* abaikan */ } return; } go(S.s + 1); });
-    prevB.addEventListener("click", () => go(Math.max(1, S.s - 1)));
+    prevB.addEventListener("click", () => go(Math.max(0, S.s - 1)));
+    mohon.addEventListener("click", () => go(1));
     sb.addEventListener("click", async () => {
       for (const n of [1, 3, 4]) { const x = salah(n); if (x) { go(n); out.textContent = x[1]; try { x[0].focus(); } catch (e) { /* abaikan */ } return; } }
       const d = { sy: v(sy, 60), ssm: v(ssm, 30), tl: v(tl, 80), web: v(web, 120), wk: /^#[0-9a-f]{6}$/i.test(wk.value) ? wk.value : "#1f6feb", pic: v(pic, 60), hp: v(hp, 20), em: v(em, 80), nota: v(nota, 300), pk: pk(), lk: lok.value, bln: +bln.value, jn: jenis.value, rm: Math.round(+rm.value || 0), logo: S.logo, rb: v(rb, 40), t: { ".sv": "timestamp" } };
@@ -130,7 +146,7 @@
         const t = el("button", { type: "button", class: "btn" }, "Tutup"); t.addEventListener("click", () => { document.getElementById("pjOv").hidden = true; }); c.appendChild(t);
       } catch (e) { sb.disabled = false; out.textContent = "Gagal dihantar (kod " + (e.code || "rangkaian") + "). Cuba lagi."; }
     });
-    go(1);
+    go(0);
   }
 
   /* ---------- pentadbir: semak permohonan, luluskan, urus penaja aktif ---------- */

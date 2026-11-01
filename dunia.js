@@ -5602,6 +5602,38 @@ body.pelawat #lmOv .lm-guide{display:none}
 @media (max-width:560px),(max-height:430px){#lmOv .lm-mk{min-height:96px;padding:8px 4px;border-radius:16px}#lmOv .lm-mk i{font-size:28px}#lmOv .lm-mk b{font-size:15px}#lmOv .lm-mk span{display:none}}
 @media (max-width:560px){#lmOv .lm-mk4{grid-template-columns:repeat(2,1fr)}#lmOv .lm-ut{display:grid;grid-template-columns:repeat(4,1fr)}#lmOv .lm-tl{max-width:calc(100% - 132px)}#lmOv .lm-tl .lm-state{max-width:calc(100vw - 250px)}#lmOv .lm-guide,#lmOv.touch .lm-guide{top:calc(max(10px,env(safe-area-inset-top)) + 112px)!important;width:min(340px,calc(100vw - 24px))}#lmOv .lm-hud{max-width:calc(100% - 24px)}#lmOv .lm-prompt{max-width:calc(100vw - 150px);font-size:15px}#lmOv .lm-top{top:calc(max(10px,env(safe-area-inset-top)) + 72px)!important}#lmOv .lm-mm,#lmOv.touch .lm-mm{width:110px;height:56px}}
 @media (max-height:500px){#lmOv .lm-guide,#lmOv.touch .lm-guide{width:min(260px,calc(100vw - 440px));min-width:180px}#lmOv .lm-mm,#lmOv.touch .lm-mm{width:128px;height:65px}#lmOv .lm-top{top:calc(max(10px,env(safe-area-inset-top)) + 72px)!important}#lmOv .lm-av{width:38px;height:38px}}
+/* v18.67: HUD ikut lakaran Meta Didik 2.0 */
+#lmOv .lm-tl{gap:0;flex-wrap:nowrap;align-items:center;max-width:calc(100% - 196px)!important}
+#lmOv .lm-tl .lm-av,#lmOv .lm-av{width:58px!important;height:58px!important;border:3px solid #fff;background:linear-gradient(#bfe6ff,#7cc8f5);position:relative;z-index:2;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+#lmOv .lm-av svg{width:44px;height:44px}
+#lmOv .lm-nmp{margin-left:-14px;padding:5px 14px 6px 20px;min-width:0;border-radius:0 16px 16px 0;background:linear-gradient(180deg,rgba(22,44,90,.95),rgba(14,30,66,.95));border:2px solid rgba(255,255,255,.85);border-left:0;box-shadow:0 3px 10px rgba(0,0,0,.3);display:grid;line-height:1.1}
+#lmOv .lm-nmp .lm-nm{font:700 18px Fredoka,Nunito,sans-serif;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#lmOv .lm-nmp .lm-state{all:unset;display:block;font:800 11px Nunito,sans-serif;color:#FFC857;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:min(150px,30vw)}
+#lmOv .lm-tl .lm-sb{width:28px;height:28px;margin-left:4px;font-size:12px;border:2px solid rgba(255,255,255,.8)}
+#lmOv .lm-tl .lm-enw{display:none!important}
+#lmOv .lm-chips{position:absolute;right:max(10px,env(safe-area-inset-right));top:calc(max(10px,env(safe-area-inset-top)) + 12px);display:flex;gap:6px;z-index:2;pointer-events:none}
+#lmOv .lm-chip{display:flex;align-items:center;gap:5px;height:32px;padding:0 12px 0 4px;border-radius:999px;background:linear-gradient(180deg,rgba(22,44,90,.95),rgba(14,30,66,.95));border:2px solid rgba(255,255,255,.85);color:#fff;font:700 15px Fredoka,Nunito,sans-serif;box-shadow:0 3px 8px rgba(0,0,0,.3)}
+#lmOv .lm-chip:before{content:"";width:24px;height:24px;flex:none;background:center/contain no-repeat}
+#lmOv .lm-chip-en:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M14 1 4 14h7l-2 9 11-14h-7z' fill='%23FFC21A' stroke='%23b37400' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E")}
+#lmOv .lm-chip-md:before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10.5' fill='%23F6B800' stroke='%23a86d00' stroke-width='1.5'/%3E%3Ccircle cx='12' cy='12' r='7' fill='%23FFD84A' stroke='%23d99400' stroke-width='1.2'/%3E%3C/svg%3E")}
+#lmOv .lm-chip.warn{border-color:#ff8a7a;color:#ffd0c8}
+#lmOv .lm-mm,#lmOv.touch .lm-mm{top:calc(max(10px,env(safe-area-inset-top)) + 54px)!important;right:max(10px,env(safe-area-inset-right))!important;width:104px!important;height:104px!important;border-radius:50%!important;border:3px solid #fff!important;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,.35)!important}
+#lmOv .lm-rc{position:absolute;right:max(14px,calc(env(safe-area-inset-right) + 4px));top:calc(max(10px,env(safe-area-inset-top)) + 168px);display:grid;gap:8px;z-index:2}
+#lmOv .lm-rb{width:60px;height:60px;padding:0;border-radius:14px;display:grid;place-items:center;align-content:center;gap:1px;background:linear-gradient(180deg,rgba(28,54,104,.95),rgba(14,30,66,.95));border:2px solid rgba(255,255,255,.85);color:#fff;cursor:pointer;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+#lmOv .lm-rb[hidden]{display:none!important}
+#lmOv .lm-rb .lm-rci svg{width:26px;height:26px;display:block}
+#lmOv .lm-rb small,#lmOv .lm-rn small{font:800 12px Nunito,sans-serif;color:#fff}
+#lmOv .lm-rc .lm-cb{display:grid}
+#lmOv .lm-top .lm-mb{display:none!important}
+#lmOv .lm-guide,#lmOv.touch .lm-guide{left:max(10px,env(safe-area-inset-left))!important;transform:none!important;top:calc(max(10px,env(safe-area-inset-top)) + 72px)!important;width:min(300px,calc(100vw - 150px))!important;min-width:0!important;background:linear-gradient(180deg,rgba(22,44,90,.92),rgba(14,30,66,.92))!important;border:2px solid rgba(255,255,255,.85)!important;border-radius:16px!important;padding:7px 12px!important}
+#lmOv .lm-guide .gh b{color:#fff!important}
+#lmOv .lm-tc,#lmOv.touch .lm-tc{gap:12px;align-items:flex-end}
+#lmOv .lm-tc .lm-rn,#lmOv.touch .lm-tc .lm-rn{width:70px;height:70px;border-radius:50%;padding:0;display:grid;place-items:center;align-content:center;gap:0;background:radial-gradient(circle at 50% 35%,rgba(70,90,130,.95),rgba(20,32,60,.95));border:3px solid rgba(255,255,255,.9);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+#lmOv .lm-tc .lm-rn.big,#lmOv.touch .lm-tc .lm-rn.big{width:84px;height:84px;background:radial-gradient(circle at 50% 35%,rgba(70,90,130,.95),rgba(20,32,60,.95));color:#fff}
+#lmOv .lm-tc .lm-rn .lm-rci svg{width:30px;height:30px;display:block}
+#lmOv .lm-tc .lm-rn.big .lm-rci svg{width:36px;height:36px}
+#lmOv .lm-tc .lm-rn.ok{background:radial-gradient(circle at 50% 35%,#4fd67a,#1f8f45)}
+@media (max-height:500px){#lmOv .lm-mm,#lmOv.touch .lm-mm{width:84px!important;height:84px!important}#lmOv .lm-rc{top:calc(max(10px,env(safe-area-inset-top)) + 144px);grid-auto-flow:column}#lmOv .lm-rb{width:52px;height:52px}}
 `;
 function lmRoot() {
   if (!document.getElementById("lmCss")) { const s = document.createElement("style"); s.id = "lmCss"; s.textContent = LM_CSS; document.head.appendChild(s); }
@@ -5664,6 +5696,7 @@ function lmMenu(sub) {
       u(LM.mute ? "🔇" : "🔊", "Bunyi", () => { LM.mute = !LM.mute; if (!LM.mute) lmAudUnlock(); lmMenu(); }, !LM.mute);
       u(sm[0], sm[1], () => { const o = ["", "siang", "malam"], n = o[(o.indexOf(LM.st.sm || "") + 1) % 3]; if (n) LM.st.sm = n; else delete LM.st.sm; lmSave(); const gg = LM.g; if (gg && gg.wx) { gg.wx.hp = null; lmDayNight(gg); } lmMenu(); }, true);
       u("🏆", "Top 5", () => { const gg = LM.g; if (!gg || !gg.sky5) return; const on = !gg.sky5.sp.visible; gg.sky5.sp.visible = on; LM.st.sky = on ? 1 : 0; lmSave(); lmMenu(); }, sky);
+      u("🎉", "Raikan", go(lmRai));
       u("⚙️", "Tetapan", go(lmTetapan));
       u("🚪", "Keluar", keluar);
       b.append(ut);
@@ -6414,6 +6447,8 @@ function lmMapBase(w, h) {
   return { c: c, s: s, ox: ox, oy: oy };
 }
 function lmMapPt(m, wx, wz) { return [m.ox + wx * m.s, m.oy + wz * m.s]; }
+/* v18.67: peta mini bulat (object-fit: cover) sentiasa berpusat pada pemain secara mendatar */
+function lmMmFokus(g) { const cv = LM.ui.mm; if (!cv || !LM.mmBase) return; try { const [px] = lmMapPt(LM.mmBase, g.p.x, g.p.z), v = cv.height / cv.width, f = Math.max(0, Math.min(1, (px / cv.width - v / 2) / (1 - v))), t = (f * 100).toFixed(1) + "% 50%"; if (cv.style.objectPosition !== t) cv.style.objectPosition = t; } catch (e) { /* abaikan */ } }
 function lmMapDraw(cv, m, big) {
   const g = LM.g; if (!g) return;
   if (g.jl && !m.jl) { /* v18.31: jaringan jalan dilukis sekali pada peta asas */
@@ -6814,7 +6849,13 @@ function lmHud() {
   ui.statB = lmBtn("▾", "lm-sb", () => { if (ui.quest && ui.quest.parentNode !== ui.hud) ui.hud.appendChild(ui.quest); const on = !r.classList.contains("lmstat"); r.classList.toggle("lmstat", on); ui.statB.textContent = on ? "▴" : "▾"; ui.statB.setAttribute("aria-expanded", String(on)); });
   ui.statB.title = "Status: masa, mata, MD, tenaga, cop"; ui.statB.setAttribute("aria-label", "Tunjuk status"); ui.statB.setAttribute("aria-expanded", "false");
   ui.enW = el("div", { class: "lm-pill lm-enw", hidden: "" });
-  ui.tl.append(ui.avB, ui.state, ui.statB, ui.enW); r.appendChild(ui.tl);
+  /* v18.67: lakaran 2.0: avatar + pil nama (nama di atas, kawasan di bawah) */
+  ui.nmB = el("b", { class: "lm-nm" }, String(P.nama || "Pemain"));
+  const nmP = el("div", { class: "lm-nmp" }, ui.nmB, ui.state);
+  ui.tl.append(ui.avB, nmP, ui.statB, ui.enW); r.appendChild(ui.tl);
+  /* v18.67: cip tenaga dan MD di kanan atas (tiada permata atau tahap: tiada data sebenar) */
+  ui.enC = el("div", { class: "lm-chip lm-chip-en", title: "Tenaga", "aria-label": "Tenaga" }); ui.coinC = el("div", { class: "lm-chip lm-chip-md", title: "Syiling MD", "aria-label": "Syiling MD" });
+  r.appendChild(el("div", { class: "lm-chips" }, ui.enC, ui.coinC));
   ui.guide = el("div", { class: "lm-guide", role: "status", title: "Ketik untuk melihat pasport Stesen Ilmu" }); ui.guide.addEventListener("click", () => lmPassport(lmCertOk() ? "lencana" : "ilmu")); r.appendChild(ui.guide);
   ui.quest = el("div", { class: "lm-quest" }); r.appendChild(ui.quest); lmQuestRender();
   ui.mm = el("canvas", { class: "lm-mm", width: 380, height: 192, title: "Buka peta (M)", "aria-label": "Peta mini" }); ui.mm.addEventListener("click", lmBigMap); r.appendChild(ui.mm);
@@ -6822,8 +6863,11 @@ function lmHud() {
   const top = el("div", { class: "lm-top" }); r.classList.add("mini");
   /* v18.30: semua peranti: butang dan statistik di bawah satu butang menu */
   /* v18.57: ☰ Menu membuka panel grid ikon yang ringkas (lmMenu). Butang lama kekal sebagai objek (dikemas kini oleh fungsi lain). */
-  ui.menuB = lmBtn("☰ Menu", "lm-mb", () => lmMenu());
-  top.append(ui.menuB);
+  /* v18.67: lajur kanan ikut lakaran: Menu, Kawan, Chat */
+  const ik = (svg, n) => { const x = el("span", { class: "lm-rci" }); x.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">' + svg + "</svg>"; return [x, el("small", null, n)]; };
+  ui.menuB = el("button", { type: "button", class: "lm-rb lm-rb-menu", "aria-label": "Menu" }, ...ik('<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>', "Menu")); ui.menuB.addEventListener("click", () => lmMenu());
+  ui.kawanB = el("button", { type: "button", class: "lm-rb", "aria-label": "Kawan" }, ...ik('<circle cx="8.5" cy="8" r="3.8"/><circle cx="16.8" cy="8.6" r="3.1"/><path d="M1.5 20.5c.5-4.2 3.4-6.5 7-6.5s6.5 2.3 7 6.5z"/><path d="M16.4 13.6c3.4 0 6.1 2.2 6.6 5.9h-6c-.3-2.4-1.3-4.3-2.8-5.6.7-.2 1.4-.3 2.2-.3z"/>', "Kawan")); ui.kawanB.addEventListener("click", () => lmMenu("kawan")); if (lmPelawat()) ui.kawanB.hidden = true;
+  const rc = el("div", { class: "lm-rc" }, ui.menuB, ui.kawanB); r.appendChild(rc);
   if (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen) {
     ui.fs = lmBtn("Skrin penuh", "lm-fs", lmFsToggle);
     top.appendChild(ui.fs); lmFsSync();
@@ -6865,15 +6909,13 @@ function lmHud() {
     r.appendChild(dp); LM.ui.dpad = dp;
   }
   const tc = el("div", { class: "lm-tc" });
-  ui.run = lmBtn("Lari", "", () => { LM.run = !LM.run; ui.run.classList.toggle("ok", LM.run); });
-  ui.chatB = lmBtn("💬", "lm-cb", () => { r.classList.add("chat"); ui.chatIn.focus(); }); ui.chatB.title = "Chat";
+  ui.run = lmBtn("Lari", "", () => { LM.run = !LM.run; ui.run.classList.toggle("ok", LM.run); ui.run.setAttribute("aria-pressed", String(LM.run)); }); ui.run.setAttribute("aria-pressed", "false");
+  ui.chatB = el("button", { type: "button", class: "lm-rb lm-cb", "aria-label": "Chat" }, ...ik('<path d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6L4.5 21l4.4-2.4c1 .3 2 .4 3.1.4 5.5 0 10-3.6 10-8s-4.5-8-10-8zM7.5 12.4a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8zm4.5 0a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8zm4.5 0a1.4 1.4 0 1 1 0-2.8 1.4 1.4 0 0 1 0 2.8z"/>', "Chat")); ui.chatB.title = "Chat"; ui.chatB.addEventListener("click", () => { r.classList.add("chat"); ui.chatIn.focus(); }); rc.appendChild(ui.chatB);
   ui.chatIn.addEventListener("blur", () => setTimeout(() => { if (document.activeElement !== ui.chatIn) r.classList.remove("chat"); }, 200));
-  /* v18.59: Lompat sentiasa kelihatan; Lari, Raikan dan Chat dalam butang lagi (⋯) */
-  ui.more = el("div", { class: "lm-more" }); ui.more.append(ui.chatB, lmBtn("🎉 Raikan", "", () => { tc.classList.remove("open"); lmRai(); }), ui.run);
-  ui.moreB = lmBtn("⋯", "lm-mo", () => { const on = !tc.classList.contains("open"); tc.classList.toggle("open", on); ui.moreB.setAttribute("aria-expanded", String(on)); });
-  ui.moreB.setAttribute("aria-label", "Lagi: Lari, Raikan, Chat"); ui.moreB.setAttribute("aria-expanded", "false");
-  ui.run.textContent = "🏃 Lari";
-  tc.append(ui.more, ui.moreB, lmBtn("Lompat", "big pri", () => { LM.jump = true; }));
+  /* v18.67: Lari dan Lompat bulat ikut lakaran; Raikan dipindah ke Menu Utama */
+  ui.run.textContent = ""; ui.run.classList.add("lm-rn"); ui.run.setAttribute("aria-label", "Lari"); ui.run.append(...ik('<circle cx="14.5" cy="3.8" r="2.3"/><path d="M10.2 7.4 6 9.3l-1.4 4 1.9.6 1.1-3 2-.9-2.2 9.6-4.2 1 .4 2 5.7-1.3 1.4-4.3 2.4 2.2V23h2v-5.8l-2.6-2.6.8-3.6c1 1.6 2.8 2.8 5 2.8v-2c-1.8 0-3.2-1-4-2.4l-1.1-1.8c-.5-.8-1.3-1.2-2.2-1.2z"/>', "Lari"));
+  const jB = el("button", { type: "button", class: "lm-rn big pri", "aria-label": "Lompat" }, ...ik('<path d="M12 2.5 3.5 11.5h5.3V21h6.4v-9.5h5.3z"/>', "Lompat")); jB.addEventListener("click", () => { LM.jump = true; });
+  tc.append(ui.run, jB);
   r.appendChild(tc);
   ui.fade = el("div", { class: "lm-fade" }); r.appendChild(ui.fade);
 }
@@ -6883,6 +6925,8 @@ function lmHudTick(g) {
   if (ui.state.textContent !== nm) { ui.state.textContent = nm; if ((DATA.negeri[k] || ISL_BY[k]) && g.lastK && g.lastK !== k) lmPop(lmPlaceShort(k)); }
   if (DATA.negeri[k] || ISL_BY[k]) g.lastK = k;
   ui.coin.innerHTML = ""; ui.coin.append("🪙 ", el("b", null, String(P.coin | 0)));
+  { const t = (P.coin | 0).toLocaleString("en-US"); if (ui.coinC && ui.coinC.textContent !== t) ui.coinC.textContent = t; }
+  if (ui.nmB) { const n = String(P.nama || "Pemain"); if (ui.nmB.textContent !== n) ui.nmB.textContent = n; }
   if (g.wx && g.wx.h != null) { const W = g.wx, h = W.h, ic = W.kind === "ribut" ? "⛈" : W.kind === "hujan" ? "🌧" : W.kind === "berawan" ? "⛅" : h < 6.2 || h > 19.4 ? "🌙" : h < 7.6 ? "🌅" : h > 18.4 ? "🌇" : W.terik ? "🥵" : "☀️", t = ic + " " + lmClockTxt(h) + " · " + (W.terik ? "Panas terik" : WXN[W.kind]); if (ui.wx.textContent !== t) ui.wx.textContent = t; }
   lmGuideTick(g);
   { const t = performance.now(); if (t - (g.lcT || 0) > 1000) { g.lcT = t; lmLcCheck(g); } }
@@ -6890,7 +6934,8 @@ function lmHudTick(g) {
     const t1 = ui.hud.offsetTop + ui.hud.offsetHeight + 6; if (ui.guide && ui.guide._tp !== t1) { ui.guide._tp = t1; ui.guide.style.top = t1 + "px"; }
     const t2 = ui.guide ? ui.guide.offsetTop + ui.guide.offsetHeight + 6 : t1; if (ui.quest && ui.quest._tp !== t2) { ui.quest._tp = t2; ui.quest.style.top = t2 + "px"; }
   }
-  { const e = Math.round(lmEnergy()), t = (e <= 15 ? "😫" : e <= 35 ? "🍛" : "🍛") + " Tenaga " + e + "%"; if (ui.en.textContent !== t) { ui.en.textContent = t; ui.en.style.color = e <= 15 ? "#ff6b6b" : e <= 35 ? "#ffd166" : ""; ui.en.classList.toggle("warn", e <= 35); }
+  { const e = Math.round(lmEnergy()), t = (e <= 15 ? "😫" : e <= 35 ? "🍛" : "🍛") + " Tenaga " + e + "%"; if (ui.enC) { const c = e + "%"; if (ui.enC.textContent !== c) ui.enC.textContent = c; ui.enC.classList.toggle("warn", e <= 35); }
+    if (ui.en.textContent !== t) { ui.en.textContent = t; ui.en.style.color = e <= 15 ? "#ff6b6b" : e <= 35 ? "#ffd166" : ""; ui.en.classList.toggle("warn", e <= 35); }
     if (ui.enW) { ui.enW.hidden = e > 35; if (e <= 35 && ui.enW.textContent !== t + (e <= 15 ? " · makan dahulu" : "")) { ui.enW.textContent = t + (e <= 15 ? " · makan dahulu" : ""); ui.enW.style.color = e <= 15 ? "#ffb3b3" : "#ffe08a"; } } }
   { /* mata hari ini (sama seperti papan Top 5) dan kedudukan */
     let pts = 0; try { pts = rkVal(rkLoad().m, "all", "hari", "jumlah", ""); } catch (e) { pts = 0; }
@@ -7152,7 +7197,7 @@ function lmLoop(ts) {
     if (g.me.bub && (g.me.bubT -= dt) <= 0) lmBubble(g.me, "");
     if ((g.nearT -= dt) <= 0) { g.nearT = 0.15; lmNearTick(g); }
     if ((g.hudT -= dt) <= 0) { g.hudT = 0.25; lmHudTick(g); }
-    if ((g.mmT -= dt) <= 0) { g.mmT = 0.12; lmMapDraw(LM.ui.mm, LM.mmBase, false); }
+    if ((g.mmT -= dt) <= 0) { g.mmT = 0.12; lmMapDraw(LM.ui.mm, LM.mmBase, false); lmMmFokus(g); }
     if ((g.cullT -= dt) <= 0) {
       g.cullT = 0.5; lmDayNight(g);
       for (const it of g.items) { const d = Math.hypot(it.x - g.p.x, it.z - g.p.z); if (it.lb) it.lb.visible = d < (it.kind === "pl" || it.kind === "si" ? 170 : 95); /* v18.59: label muncul bila menghampiri */ if (it.m && it.m.isObject3D) it.m.visible = d < lmQv([450, 650, 800]); }

@@ -1,7 +1,8 @@
-const V="gt-v18-66";
+const V="gt-v18-67";
 const SHELL=["./","./index.html","./app.js","./app.css","./mod/prak.js","./mod/slaid.js","./mod/nelayan.js","./mod/tanahsuci.js","./mod/lid-teras.js","./mod/lid.js","./mod/penaja.js","./manifest.json","./icon-192.png","./icon-512.png","./three.min.js","./dunia.js","./avatar3d.js","./meta-geo.json","./meta-jalan.json","./meta-dem.bin","./meta-sekolah.json",
   "./soalan.json","./soalan_pi.json","./soalan_ba.json","./soalan_p3.json","./soalan_sj.json","./soalan_sc.json","./soalan_mt.json","./soalan_bm.json","./soalan_bi.json",
-  "./img/lg-pg.jpg","./img/lg-pb.jpg","./img/lg-ps.jpg","./img/lg-pk.jpg","./img/lg-pd.jpg"];
+  "./img/lg-pg.jpg","./img/lg-pb.jpg","./img/lg-ps.jpg","./img/lg-pk.jpg","./img/lg-pd.jpg",
+  "./img/ui/hero.webp","./img/ui/peranan-murid.webp","./img/ui/peranan-guru.webp","./img/ui/peranan-pelawat.webp","./img/ui/pj-rakan.webp","./img/ui/pj-emas.webp","./img/ui/pj-platinum.webp"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()));});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()));});
 self.addEventListener("fetch",e=>{
