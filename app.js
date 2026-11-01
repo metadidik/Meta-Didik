@@ -7267,7 +7267,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.59";
+const APP_VER = "18.60";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -18749,15 +18749,16 @@ function openReg(first) {
   $("inSekolah").value = P.sekolah || "";
   pickedName = cleanSekolah(P.sekolah || ""); $("cariSek").value = P.sekolah ? pickedName : "";
   fillSchoolList(); kelasLoad();
-  { const lb = $("linkBox"); lb.hidden = !fbConfigured(); lb.open = !!first && !P.nama; try { $("myCode").value = FB.getUid(); } catch (e) { $("myCode").value = ""; } $("linkMsg").textContent = ""; }
+  { const lb = $("linkBox"); lb.hidden = !fbConfigured(); lb.open = false; try { $("myCode").value = FB.getUid(); } catch (e) { $("myCode").value = ""; } $("linkMsg").textContent = ""; }
   { const qi = $("qbInfo"); if (qi) qi.textContent = qbankInfo(); }
   $("regCancel").hidden = !!first;
   $("regReset").hidden = !!first;
   { const lb = $("lidBtn"); if (lb) lb.hidden = !!first; }
   $("regReset").textContent = "Padam kemajuan";
+  { const ad = $("rgAdv"); if (ad) { ad.hidden = !!first; ad.open = false; } }
   resetArmed = 0;
   $("reg").hidden = false;
-  $("inName").focus();
+  rgMula(!!first);
 }
 function confirmReg() {
   const pl = gtRolePilih() === "pelawat", n = cleanName($("inName").value), sk = pl ? "Pelawat" : cleanSekolah($("inSekolah").value), ng = $("inNegeri").value;
@@ -18791,7 +18792,49 @@ function confirmReg() {
   computeStand();
   renderAll();
 }
-$("regOk").addEventListener("click", confirmReg);
+$("regOk").addEventListener("click", () => {
+  const baru = RG.first, tkLama = typeof tahapMurid === "function" ? tahapMurid() : 0;
+  confirmReg();
+  if (!$("reg").hidden) { rgCariSalah(); return; } /* pengesahan gagal: kembali ke langkah yang perlu dibetulkan */
+  /* v18.60: murid baharu terus masuk dunia, kecuali subjek ditukar ikut tahap (halaman dimuat semula) */
+  const tk = typeof tahapMurid === "function" ? tahapMurid() : 0;
+  if (baru && (!tk || tk === tkLama || sjTahapOk(SUBJ, tk))) setTimeout(() => { try { mdGo(); } catch (e) { /* abaikan */ } }, 250);
+});
+/* ---------- v18.60: wizard pendaftaran 3 langkah (Peranan, Maklumat, Sahkan); medan dan pengesahan asal dikekalkan ---------- */
+const RG = { s: 1, first: false };
+function rgGo(n) {
+  RG.s = n;
+  document.querySelectorAll("#reg .rg-s").forEach((x) => { x.hidden = +x.dataset.s !== n; });
+  document.querySelectorAll("#reg .rg-prog i").forEach((x) => { const p = +x.dataset.p; x.className = p < n ? "ok" : p === n ? "on" : ""; });
+  $("rgNo").textContent = "Langkah " + n + " daripada 3";
+  $("rgPrev").hidden = n === 1; $("rgBack").style.visibility = n === 1 ? "hidden" : "";
+  $("rgNext").hidden = n === 3; $("regOk").hidden = n !== 3;
+  $("regOk").textContent = RG.first ? "✔ Sahkan & Mula Jelajah" : "✔ Simpan";
+  if (n === 3) rgRingkas();
+  const c = document.querySelector("#reg .mcard"); if (c && c.parentElement) c.parentElement.scrollTop = 0;
+  setTimeout(() => { try { const f = n === 1 ? document.querySelector('#reg input[name="inRole"]:checked') : n === 2 ? $("inName") : $("regOk"); if (f && !TOUCH) f.focus(); } catch (e) { /* abaikan */ } }, 30);
+}
+function rgMula(first) { RG.first = first; $("regH").textContent = first ? "Jom Daftar!" : "Kemas kini profil"; const l = document.querySelector("#reg .rg-lead"); if (l) l.textContent = first ? "Pilih siapa anda untuk mula meneroka dunia pembelajaran." : "Tukar peranan, tahap atau sekolah anda."; rgGo(first ? 1 : 2); }
+function rgSalah2() {
+  const pl = gtRolePilih() === "pelawat", murid = gtRolePilih() === "murid";
+  const n = cleanName($("inName").value), sk = cleanSekolah($("inSekolah").value), tk = parseInt(($("inTahap") || {}).value || "", 10) || 0;
+  const salah = [["inName", n.length < 2, "Isi nama panggilan (sekurang-kurangnya 2 huruf)."], ["inTahap", murid && !tk, "Pilih darjah atau tingkatan."], ["inNegeri", !$("inNegeri").value, "Pilih negeri."], ["inSekolah", !pl && sk.length < 4, "Pilih atau taip nama sekolah."]];
+  salah.forEach(([id]) => $(id).removeAttribute("aria-invalid"));
+  const x = salah.find((q) => q[1]); if (!x) return "";
+  $(x[0]).setAttribute("aria-invalid", "true"); return x;
+}
+function rgCariSalah() { const x = rgSalah2(); if (x) { rgGo(2); toast(x[2], "warn"); try { (x[0] === "inSekolah" && !$("sekPick").hidden ? $("cariSek") : $(x[0])).focus(); } catch (e) { /* abaikan */ } } }
+function rgRingkas() {
+  const r = gtRolePilih(), d = $("rgSum"); d.textContent = "";
+  const neg = $("inNegeri"), ng = neg.options[neg.selectedIndex] ? neg.options[neg.selectedIndex].textContent : "";
+  const ts = $("inTahap"), tk = r === "murid" && ts && ts.value ? ts.options[ts.selectedIndex].textContent.replace(/ \(.*\)$/, "") : "";
+  const baris = [["👤", "Peranan", { murid: "Murid", guru: "Guru (DELIMa)", pelawat: "Pelawat" }[r], 1], ["🏷", "Nama panggilan", cleanName($("inName").value), 2], tk ? ["🎓", "Tahap", tk, 2] : null, ["📍", "Negeri", ng, 2], r !== "pelawat" ? ["🏫", "Sekolah", cleanSekolah($("inSekolah").value), 2] : null, r !== "pelawat" && $("inKelas").value ? ["👥", "Kelas", kelasNorm($("inKelas").value), 2] : null, r === "guru" && $("inSubj").value ? ["📚", "Subjek", $("inSubj").value.trim(), 2] : null].filter(Boolean);
+  baris.forEach(([ic, k, v, st]) => { const b = el("button", { type: "button", class: "rg-ed", "aria-label": "Ubah " + k }, "✎"); b.addEventListener("click", () => rgGo(st)); d.append(el("div", null, el("dt", null, el("i", { "aria-hidden": "true" }, ic), k), el("dd", null, v || "-"), b)); });
+}
+$("rgNext").addEventListener("click", () => { if (RG.s === 1) rgGo(2); else if (RG.s === 2) { const x = rgSalah2(); if (x) { toast(x[2], "warn"); try { (x[0] === "inSekolah" && !$("sekPick").hidden ? $("cariSek") : $(x[0])).focus(); } catch (e) { /* abaikan */ } return; } rgGo(3); } });
+$("rgPrev").addEventListener("click", () => rgGo(Math.max(1, RG.s - 1)));
+$("rgBack").addEventListener("click", () => rgGo(Math.max(1, RG.s - 1)));
+document.querySelectorAll("#reg .rg-role").forEach((x) => x.addEventListener("click", (e) => { if (e.target && e.target.tagName === "INPUT") return; if (RG.s === 1 && RG.first) setTimeout(() => rgGo(2), 200); })); /* pengguna baharu: pilih kad terus ke langkah 2 */
 $("copyCode").addEventListener("click", () => { const v = $("myCode").value; try { navigator.clipboard.writeText(v); $("linkMsg").textContent = "Kod disalin."; } catch (e) { $("myCode").select(); $("linkMsg").textContent = "Tekan lama pada kod untuk salin."; } });
 async function linkAccount() {
   const code = String($("inLink").value || "").trim().toLowerCase(), msg = $("linkMsg");

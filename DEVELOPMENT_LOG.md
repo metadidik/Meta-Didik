@@ -11,6 +11,25 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.60 · Meta Didik 2.0 fasa 2: wizard pendaftaran dan pembaikan modal iPhone
+
+- **Punca pertindihan dengan status bar:**
+  - `.overlay` tanpa padding `env()`;
+  - `place-items:center` memotong modal yang tinggi;
+  - `:root` sebaris diberi padding atas.
+- **Diperbaiki:** padding `env()`, item bermula di atas dengan `margin-block:auto`, kunci skrol latar, `.top` dengan padding safe-area.
+- **Borang daftar** menjadi wizard 3 langkah (Peranan, Maklumat, Sahkan):
+  - kad peranan besar, pengesahan per langkah, ringkasan boleh diubah;
+  - pengguna baharu terus masuk dunia;
+  - Padam kemajuan dipindah ke "Tetapan lanjut".
+  - Semua id medan dan `confirmReg` dikekalkan.
+- Butiran dalam `docs/REKA-SEMULA-UI.md` (Fasa 2).
+- **Ujian:**
+  - Node 59/59;
+  - Playwright 390×844 dan 390×640 (aliran murid/guru/pelawat, mod ubah, modal tinggi dan pendek);
+  - tiada `pageerror`.
+  - Safari iOS sebenar belum diuji.
+
 ## 2026-11-01 · v18.59 · Reka semula UI/UX fasa 1: halaman utama, HUD, menu dan kad mercu tanda
 
 - Spesifikasi: `docs/REKA-SEMULA-UI.md`. Imej sebelum/selepas: `docs/reka-semula/`.
