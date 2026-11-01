@@ -1238,3 +1238,71 @@ body.vmap .mcard:not(.rgw) { color: var(--ink); }
 .pjw-ok i { font-style: normal; font-size: 48px; }
 .pjw-ok p { margin: 0; }
 #pjOv .pjw > .btn:not(.alt) { background: #9474E8 !important; background-image: none !important; color: #fff !important; border-radius: 999px; text-transform: none; }
+/* ---------- v18.62: borang Pacak Inovasi (wizard 4 langkah, tema cerah). :is(#lmOv, body) supaya mengatasi gaya butang dunia 3D ---------- */
+:is(#lmOv, body) .stw { background: #F4FAFF; color: #17324D; border: 0; border-radius: 20px; padding: 12px 14px; display: grid; gap: 10px; font-family: "Nunito", var(--font-body); }
+:is(#lmOv, body) .stw > summary { font: 700 18px "Fredoka", sans-serif !important; color: #17324D; }
+:is(#lmOv, body) .stw > p.muted, :is(#lmOv, body) .stw .muted { color: #4f6880 !important; }
+#lmOv .lm-pc .lm-stnform .stw > summary, #lmOv .lm-pc .lm-stnform .stw > p.muted { display: none; }
+#lmOv .lm-pc .lm-box { width: min(560px, 100%); }
+#lmOv .lm-pc .lm-stnform .stw { padding: 0; background: none; }
+:is(#lmOv, body) .stw .notice { background: #fff; color: #17324D; border: 2px solid #d7e6f3; border-radius: 14px; padding: 10px 12px; font-size: 13.5px; }
+:is(#lmOv, body) .stw .notice.warn { border-color: #f3b4ad; background: #fff4f3; }
+:is(#lmOv, body) .stw .gstats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+:is(#lmOv, body) .stw .gstat { background: #fff; border-radius: 12px; padding: 8px; text-align: center; color: #17324D; border: 0; }
+:is(#lmOv, body) .stw .gstat span { color: #4f6880; }
+:is(#lmOv, body) .stw .field { display: grid; gap: 4px; }
+:is(#lmOv, body) .stw .field label { font: 800 14px "Nunito", sans-serif; color: #17324D; text-transform: none; letter-spacing: 0; }
+:is(#lmOv, body) .stw input:not([type=checkbox]), :is(#lmOv, body) .stw select, :is(#lmOv, body) .stw textarea { min-height: 46px; padding: 10px 12px; border-radius: 14px; border: 2px solid #d7e6f3; background: #fff; color: #17324D; font: 700 15px "Nunito", sans-serif; width: 100%; box-sizing: border-box; }
+:is(#lmOv, body) .stw textarea { min-height: 96px; resize: vertical; }
+:is(#lmOv, body) .stw input:focus, :is(#lmOv, body) .stw select:focus, :is(#lmOv, body) .stw textarea:focus { outline: none; border-color: #39BCEB; box-shadow: 0 0 0 3px rgba(57, 188, 235, .25); }
+:is(#lmOv, body) .stw .stw-help { font-size: 12.5px; color: #4f6880; }
+:is(#lmOv, body) .stw .stw-loc { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 16px; background: #eaf8ff; border: 2px solid #bfe7f8; }
+:is(#lmOv, body) .stw .stw-loc i { font-style: normal; font-size: 26px; }
+:is(#lmOv, body) .stw .stw-loc b { display: block; font-size: 15px; }
+:is(#lmOv, body) .stw .stw-loc small { display: block; font-size: 12px; color: #4f6880; }
+:is(#lmOv, body) .stw .stw-prog { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
+:is(#lmOv, body) .stw .stw-prog:before { content: ""; position: absolute; left: 12%; right: 12%; top: 14px; height: 4px; border-radius: 4px; background: #d7e6f3; }
+:is(#lmOv, body) .stw .stw-prog li { position: relative; display: grid; justify-items: center; gap: 2px; text-align: center; }
+:is(#lmOv, body) .stw .stw-prog b { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: #d7e6f3; color: #4f6880; font: 800 14px "Nunito", sans-serif; border: 3px solid #F4FAFF; }
+:is(#lmOv, body) .stw .stw-prog span { font: 700 11.5px "Nunito", sans-serif; color: #4f6880; }
+:is(#lmOv, body) .stw .stw-prog li.on b { background: #9474E8; color: #fff; }
+:is(#lmOv, body) .stw .stw-prog li.on span { color: #17324D; font-weight: 800; }
+:is(#lmOv, body) .stw .stw-prog li.ok b { background: #65D6A0; color: #fff; }
+:is(#lmOv, body) .stw .stw-no { margin: -4px 0 0; text-align: center; font-size: 12px; color: #4f6880; }
+:is(#lmOv, body) .stw .stw-s { display: grid; gap: 10px; }
+:is(#lmOv, body) .stw .stw-s[hidden] { display: none; }
+:is(#lmOv, body) .stw .stw-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+:is(#lmOv, body) .stw .stw-chips button { min-height: 40px; padding: 8px 12px; border-radius: 999px; background: #fff; color: #17324D; border: 2px solid #d7e6f3; font: 800 13px "Nunito", sans-serif; text-transform: none; letter-spacing: 0; box-shadow: none; cursor: pointer; }
+:is(#lmOv, body) .stw .stw-chips button.on { background: #9474E8; border-color: #9474E8; color: #fff; }
+:is(#lmOv, body) .stw .stw-chips button:focus-visible { outline: 3px solid #39BCEB; outline-offset: 2px; }
+:is(#lmOv, body) .stw .stw-booth { background: #fff; border-radius: 18px; border: 3px solid #FFC857; box-shadow: 0 4px 0 #FFC857; padding: 12px 14px; display: grid; gap: 8px; }
+:is(#lmOv, body) .stw .stw-bh { display: flex; gap: 10px; align-items: center; }
+:is(#lmOv, body) .stw .stw-bh i { font-style: normal; font-size: 30px; width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: #fff6dd; }
+:is(#lmOv, body) .stw .stw-bh small { display: block; font-size: 12px; color: #4f6880; }
+:is(#lmOv, body) .stw .stw-bh b { display: block; font: 700 18px "Fredoka", sans-serif; }
+:is(#lmOv, body) .stw .stw-booth p { margin: 0; color: #3d5670; font-size: 14px; line-height: 1.45; }
+:is(#lmOv, body) .stw .stw-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+:is(#lmOv, body) .stw .stw-tags span { padding: 4px 10px; border-radius: 999px; background: #F4FAFF; font: 800 12px "Nunito", sans-serif; color: #17324D; }
+:is(#lmOv, body) .stw .stw-tl { font-size: 13px; color: #4f6880; }
+:is(#lmOv, body) .stw .stw-err { margin: 0; color: #b3342b; font-weight: 800; font-size: 14px; }
+:is(#lmOv, body) .stw .stw-err:empty { display: none; }
+:is(#lmOv, body) .stw .stw-ft { display: flex; gap: 10px; }
+:is(#lmOv, body) .stw .btn, :is(#lmOv, body) .stw .stw-ft button { flex: 1; min-height: 48px; border-radius: 999px; font: 800 16px "Nunito", sans-serif; text-transform: none; letter-spacing: 0; background: #9474E8; background-image: none; color: #fff; border: 0; box-shadow: none; text-shadow: none; -webkit-text-fill-color: currentColor; cursor: pointer; }
+:is(#lmOv, body) .stw .stw-ft .stw-go { background: #65D6A0; color: #0f3a28; }
+:is(#lmOv, body) .stw .stw-ft .btn.alt { flex: 0 0 auto; padding-inline: 18px; background: #fff; color: #17324D; border: 2px solid #d7e6f3; }
+:is(#lmOv, body) .stw .stw-ft button[hidden] { display: none; }
+:is(#lmOv, body) .stw .stw-cara { margin: 0; padding-left: 22px; display: grid; gap: 4px; font-size: 14px; }
+:is(#lmOv, body) .stw ol:not([class]) { font-size: 13.5px; color: #3d5670; }
+:is(#lmOv, body) .stw label.row { color: #17324D; font-size: 14px; }
+/* v18.62: atasi gaya lama (.card/.btn !important, input gelap dunia 3D, skrol bersarang .lm-stnform) */
+:is(#lmOv, body) .stw.card { background: #F4FAFF !important; border: 0 !important; box-shadow: none !important; }
+#lmOv .lm-pc .lm-stnform { max-height: none; overflow: visible; }
+#lmOv .lm-pc .lm-stnform .stw.card { background: transparent !important; padding: 0; }
+:is(#lmOv, body) .stw input:not([type=checkbox]), :is(#lmOv, body) .stw select, :is(#lmOv, body) .stw textarea { background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; border-radius: 14px !important; }
+:is(#lmOv, body) .stw input:focus, :is(#lmOv, body) .stw select:focus, :is(#lmOv, body) .stw textarea:focus { border-color: #39BCEB !important; }
+:is(#lmOv, body) .stw .btn:not(.alt), :is(#lmOv, body) .stw .stw-ft button:not(.alt) { background: #9474E8 !important; color: #fff !important; border: 0 !important; box-shadow: none !important; }
+:is(#lmOv, body) .stw .stw-ft .stw-go { background: #65D6A0 !important; color: #0f3a28 !important; }
+:is(#lmOv, body) .stw .btn.alt, :is(#lmOv, body) .stw .stw-ft button.alt { background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; }
+:is(#lmOv, body) .stw .stw-chips button { background: #fff !important; color: #17324D !important; border: 2px solid #d7e6f3 !important; }
+:is(#lmOv, body) .stw .stw-chips button.on { background: #9474E8 !important; border-color: #9474E8 !important; color: #fff !important; }
+:is(#lmOv, body) .stw .field label { color: #17324D !important; }

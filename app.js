@@ -7271,7 +7271,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.61";
+const APP_VER = "18.62";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -17718,7 +17718,7 @@ async function stnSubmit(f) {
 function stnGuruBox(box, opt) {
   /* v18.39: lokasi stesen dipilih dalam Meta Didik (☰ Menu → Pacak inovasi di sini); opt.loc = { la, lo, pn }, opt.rr = lukis semula */
   opt = opt || {}; const rr = opt.rr || renderGuru, dalam = !!opt.loc;
-  const c = el("details", { class: "card", style: "margin:8px 0" }); c.open = dalam || !(STN.mine && STN.mine.st === "lulus") || !!STN.msg;
+  const c = el("details", { class: "card stw", style: "margin:8px 0" }); c.open = dalam || !(STN.mine && STN.mine.st === "lulus") || !!STN.msg;
   c.appendChild(el("summary", { style: "cursor:pointer;font-weight:700" }, "🏛 Stesen Inovasi saya"));
   c.appendChild(el("p", { class: "muted", style: "font-size:13px;margin:4px 0" }, "Pamerkan inovasi pengajaran anda di mana-mana lokasi pilihan dalam peta Meta Didik, dalam dunia subjek inovasi itu. Guru dan murid seluruh Malaysia boleh melawat, menonton video dan membuka pautan produk anda. Setiap stesen disemak oleh pentadbir sebelum dipaparkan. Peringatan: penjawat awam yang menjana pendapatan sampingan perlu mendapatkan kebenaran ketua jabatan."));
   box.appendChild(c);
@@ -17740,36 +17740,71 @@ function stnGuruBox(box, opt) {
     c.appendChild(el("div", { class: "notice" + (m.st === "tolak" ? " warn" : "") }, "Status: " + stt));
     if (STN.stat) c.appendChild(el("div", { class: "gstats" }, el("div", { class: "gstat" }, el("b", null, String(STN.stat.lawat)), el("span", null, "Pelawat")), el("div", { class: "gstat" }, el("b", null, String(STN.stat.suka)), el("span", null, "Suka")), el("div", { class: "gstat" }, el("b", null, String(STN.stat.klik)), el("span", null, "Klik pautan"))));
   }
-  const fld = (id, lab, node) => { const f = el("div", { class: "field" }); f.append(el("label", { for: id }, lab), node); return f; };
-  const iTj = el("input", { id: "stTj", maxlength: "60", value: m ? m.tj : "", placeholder: "Contoh: Kad Imbas Tajwid AR" });
-  const iKat = el("select", { id: "stKat" }); STN_KAT.forEach((k) => iKat.appendChild(el("option", { value: k }, k))); iKat.value = m ? m.kat : STN_KAT[0];
-  const iDs = el("textarea", { id: "stDs", maxlength: "600", rows: "4", style: "background:#0b100b;color:var(--ink);border:1px solid var(--line2);padding:10px 12px;font:inherit;width:100%" }); iDs.value = m ? m.ds : "";
-  const iYt = el("input", { id: "stYt", maxlength: "200", value: m && m.yt ? "https://youtu.be/" + m.yt : "", placeholder: "Pautan video YouTube (pilihan)" });
-  const iUrl = el("input", { id: "stUrl", maxlength: "300", value: m ? m.url || "" : "", placeholder: "https://... kedai, borang tempahan atau laman inovasi (pilihan)" });
-  const iHg = el("select", { id: "stHg" }); MD_HARGA.forEach((h) => iHg.appendChild(el("option", { value: String(h) }, h ? h + " MD sehari bagi setiap murid" : "Percuma"))); iHg.value = String(m ? m.hg | 0 : 10);
-  /* v18.28: inovasi mesti berkaitan subjek dan tajuk; lokasi dipilih guru pada peta (dipaparkan hanya dalam dunia subjek itu) */
-  const iSj = el("select", { id: "stSj" }); Object.keys(SUBJS).filter((k) => !sjLocked(k)).forEach((k) => iSj.appendChild(el("option", { value: k }, SUBJS[k].subjek))); iSj.value = m && m.sj && !sjLocked(m.sj) ? m.sj : SUBJ;
-  const iTp = el("select", { id: "stTp" }), fillTp = () => { iTp.textContent = ""; iTp.appendChild(el("option", { value: "" }, "Pilih tajuk berkaitan...")); sjTopik(iSj.value).forEach((t) => iTp.appendChild(el("option", { value: t.id }, (t.kod || t.id) + " " + t.nama))); };
-  fillTp(); if (m && m.tp && m.sj === iSj.value) iTp.value = m.tp; iSj.addEventListener("change", fillTp);
+  /* v18.62: borang wizard 4 langkah (Inovasi, Subjek, Media & harga, Semak), tema cerah; pengesahan akhir kekal dalam stnSubmit */
+  c.classList.add("stw");
   const loc = dalam ? { la: opt.loc.la, lo: opt.loc.lo, pn: opt.loc.pn } : { la: m && m.la != null ? m.la : null, lo: m && m.lo != null ? m.lo : null, pn: m ? m.pn : "" };
   if (!dalam && loc.la == null) { /* stesen baharu: lokasi mesti dipilih dalam Meta Didik */
     const go = el("button", { type: "button", class: "btn" }, "🌏 Masuk Meta Didik untuk pilih lokasi");
     go.addEventListener("click", () => mdGo());
-    c.append(el("div", { class: "notice" }, "📍 Cara memacak inovasi: 1) Masuk Meta Didik. 2) Berjalan ke tempat yang anda mahu (contohnya sekolah, masjid atau bandar). 3) Tekan ☰ Menu → 🏛 Pacak inovasi di sini. 4) Isi borang inovasi."), go);
+    const ol = el("ol", { class: "stw-cara" }); ["Masuk Meta Didik", "Berjalan ke tempat pilihan anda", "☰ Menu → Belajar → 📌 Pacak inovasi", "Isi borang 4 langkah"].forEach((t) => ol.appendChild(el("li", null, t)));
+    c.append(el("b", null, "📍 Cara memacak inovasi"), ol, go);
     return;
   }
-  const iLoc = el("div", { class: "notice" }, "📍 Lokasi: " + (DATA.negeri[loc.pn] ? DATA.negeri[loc.pn].nama : "Malaysia") + " (" + (+loc.la).toFixed(4) + ", " + (+loc.lo).toFixed(4) + ")" + (dalam ? " · kedudukan anda sekarang dalam Meta Didik" : " · untuk tukar lokasi, masuk Meta Didik dan pilih ☰ Menu → 🏛 Pacak inovasi di sini"));
+  const fld = (id, lab, node, help) => { const f = el("div", { class: "field" }); f.append(el("label", { for: id }, lab), node); if (help) f.appendChild(el("small", { class: "stw-help" }, help)); return f; };
+  const iTj = el("input", { id: "stTj", maxlength: "60", value: m ? m.tj : "", placeholder: "Contoh: Kad Imbas Tajwid AR" });
+  const kat = { v: m && STN_KAT.indexOf(m.kat) >= 0 ? m.kat : "" }, iKat = el("div", { id: "stKat", class: "stw-chips", role: "radiogroup", "aria-label": "Kategori" });
+  STN_KAT.forEach((k) => { const b = el("button", { type: "button", role: "radio", "aria-checked": String(kat.v === k), class: kat.v === k ? "on" : "" }, k); b.addEventListener("click", () => { kat.v = k; iKat.querySelectorAll("button").forEach((x) => { const on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-checked", String(on)); }); }); iKat.appendChild(b); });
+  const iDs = el("textarea", { id: "stDs", maxlength: "600", rows: "4", placeholder: "Apa inovasi ini, untuk siapa, dan apa kesannya kepada murid?" }); iDs.value = m ? m.ds : "";
+  const dsN = el("small", { class: "stw-help", "aria-live": "polite" }), dsKira = () => { const n = iDs.value.trim().length; dsN.textContent = n + "/600 aksara" + (n < 20 ? " · sekurang-kurangnya 20" : " ✓"); }; iDs.addEventListener("input", dsKira); dsKira();
+  const iYt = el("input", { id: "stYt", maxlength: "200", value: m && m.yt ? "https://youtu.be/" + m.yt : "", placeholder: "https://youtu.be/..." });
+  const iUrl = el("input", { id: "stUrl", maxlength: "300", value: m ? m.url || "" : "", placeholder: "https://..." });
+  const hg = { v: m ? m.hg | 0 : 10 }, iHg = el("div", { id: "stHg", class: "stw-chips", role: "radiogroup", "aria-label": "Harga guna inovasi" });
+  MD_HARGA.forEach((h) => { const b = el("button", { type: "button", role: "radio", "aria-checked": String(hg.v === h), class: hg.v === h ? "on" : "" }, h ? "🪙 " + h + " MD" : "Percuma"); b.addEventListener("click", () => { hg.v = h; iHg.querySelectorAll("button").forEach((x) => { const on = x === b; x.classList.toggle("on", on); x.setAttribute("aria-checked", String(on)); }); }); iHg.appendChild(b); });
+  /* v18.28: inovasi mesti berkaitan subjek dan tajuk; lokasi dipilih guru pada peta (dipaparkan hanya dalam dunia subjek itu) */
+  const iSj = el("select", { id: "stSj" }); Object.keys(SUBJS).filter((k) => !sjLocked(k)).forEach((k) => iSj.appendChild(el("option", { value: k }, (typeof SJ_ICO !== "undefined" && SJ_ICO[k] ? SJ_ICO[k] + " " : "") + SUBJS[k].subjek))); iSj.value = m && m.sj && !sjLocked(m.sj) ? m.sj : SUBJ;
+  const iTp = el("select", { id: "stTp" }), fillTp = () => { iTp.textContent = ""; iTp.appendChild(el("option", { value: "" }, "Pilih tajuk berkaitan...")); sjTopik(iSj.value).forEach((t) => iTp.appendChild(el("option", { value: t.id }, (t.kod || t.id) + " " + t.nama))); };
+  fillTp(); if (m && m.tp && m.sj === iSj.value) iTp.value = m.tp; iSj.addEventListener("change", fillTp);
   const iEm = el("input", { id: "stEm", type: "email", maxlength: "80", value: g.em || "", placeholder: "nama@moe-dl.edu.my" });
-  if (g.trial) c.appendChild(fld("stEm", "E-mel DELIMa (pilihan)", iEm));
-  c.append(fld("stTj", "Tajuk inovasi", iTj), fld("stKat", "Kategori", iKat), fld("stDs", "Huraian (apa, untuk siapa, kesan)", iDs), fld("stYt", "Video YouTube", iYt), fld("stUrl", "Pautan produk / maklumat", iUrl), fld("stHg", "Harga guna inovasi (MD)", iHg), fld("stSj", "Subjek inovasi", iSj), fld("stTp", "Tajuk berkaitan (wajib)", iTp), fld("stLoc", "Lokasi stesen dalam peta Meta Didik", iLoc));
-  const out = el("p", { class: "muted", style: "font-size:13px;margin:4px 0" }, STN.msg || "");
-  const sb = el("button", { type: "button", class: "btn" }, m ? "Kemas kini dan hantar semula untuk semakan" : "Hantar permohonan stesen");
+  const ngNama = DATA.negeri[loc.pn] ? DATA.negeri[loc.pn].nama : "Malaysia";
+  c.appendChild(el("div", { class: "stw-loc" }, el("i", { "aria-hidden": "true" }, "📍"), el("span", null, el("b", null, ngNama), el("small", null, (dalam ? "Kedudukan anda sekarang dalam Meta Didik" : "Untuk tukar lokasi: masuk Meta Didik, ☰ Menu → Belajar → 📌 Pacak inovasi") + " · " + (+loc.la).toFixed(4) + ", " + (+loc.lo).toFixed(4)))));
+  const prog = el("ol", { class: "stw-prog", "aria-hidden": "true" }); ["Inovasi", "Subjek", "Media & harga", "Semak"].forEach((t, i) => prog.appendChild(el("li", { "data-p": String(i + 1) }, el("b", null, String(i + 1)), el("span", null, t))));
+  const no = el("p", { class: "stw-no", "aria-live": "polite" });
+  c.append(prog, no);
+  const st = [1, 2, 3, 4].map((n) => { const x = el("section", { class: "stw-s", "data-s": String(n) }); c.appendChild(x); return x; });
+  st[0].append(fld("stTj", "Tajuk inovasi *", iTj), fld("stKat", "Kategori *", iKat), fld("stDs", "Huraian *", iDs), dsN);
+  st[1].append(fld("stSj", "Subjek *", iSj, "Booth dipaparkan dalam dunia subjek ini sahaja."), fld("stTp", "Tajuk berkaitan *", iTp, "Murid yang belajar tajuk ini akan menemui booth anda."));
+  st[2].append(fld("stYt", "Video YouTube (pilihan)", iYt), fld("stUrl", "Pautan produk / maklumat", iUrl, "Wajib jika inovasi berbayar MD (dibuka selepas murid membayar)."), fld("stHg", "Harga guna (sehari bagi setiap murid)", iHg));
+  if (g.trial) st[2].appendChild(fld("stEm", "E-mel DELIMa (pilihan)", iEm, "Disemak pentadbir; tidak dipaparkan kepada umum."));
+  const out = el("p", { class: "stw-err", role: "alert" }, STN.msg || "");
+  const prevB = el("button", { type: "button", class: "btn alt" }, "Kembali"), next = el("button", { type: "button", class: "btn" }, "Seterusnya →"), sb = el("button", { type: "button", class: "btn stw-go" }, m ? "Kemas kini & hantar semula" : "📌 Pacak & hantar");
+  c.append(out, el("div", { class: "stw-ft" }, prevB, next, sb));
+  const S = { s: 1 };
+  const salah = (n) => {
+    if (n === 1) { const tj = stnClean(iTj.value, 60), ds = stnClean(iDs.value, 600); if (tj.length < 4) return [iTj, "Tajuk inovasi sekurang-kurangnya 4 aksara."]; if (!kat.v) return [iKat.querySelector("button"), "Pilih kategori."]; if (ds.length < 20) return [iDs, "Huraian sekurang-kurangnya 20 aksara."]; if (kmBad(tj) || kmBad(ds)) return [iDs, "Tajuk atau huraian mengandungi perkataan tidak sesuai, pautan atau nombor telefon. Letakkan pautan dalam langkah 3."]; }
+    if (n === 2) { if (!SUBJS[iSj.value]) return [iSj, "Pilih subjek."]; if (!iTp.value) return [iTp, "Pilih tajuk berkaitan."]; }
+    if (n === 3) { const u = stnClean(iUrl.value, 300); if (u && !stnUrlOk(u)) return [iUrl, "Pautan mesti bermula dengan https://"]; if (iYt.value.trim() && !rlId(iYt.value)) return [iYt, "Pautan YouTube tidak sah."]; if (hg.v && !u) return [iUrl, "Inovasi berbayar MD perlukan pautan produk / maklumat."]; }
+    return null;
+  };
+  const semak = () => {
+    st[3].textContent = "";
+    const tp = sjTopik(iSj.value).find((t) => t.id === iTp.value), yt = rlId(iYt.value || "");
+    const kad = el("div", { class: "stw-booth" }, el("div", { class: "stw-bh" }, el("i", { "aria-hidden": "true" }, "🏛"), el("div", null, el("small", null, "Booth inovasi · " + (P.nama || g.gn || "Guru")), el("b", null, stnClean(iTj.value, 60) || "-"))),
+      el("p", null, stnClean(iDs.value, 600)),
+      el("div", { class: "stw-tags" }, el("span", null, kat.v), el("span", null, SUBJS[iSj.value] ? SUBJS[iSj.value].subjek : "-"), tp ? el("span", null, (tp.kod || tp.id) + " " + tp.nama) : null, el("span", null, hg.v ? "🪙 " + hg.v + " MD" : "Percuma"), yt ? el("span", null, "▶ Video") : null, iUrl.value.trim() ? el("span", null, "🔗 Pautan") : null),
+      el("div", { class: "stw-tl" }, "📍 " + ngNama));
+    st[3].append(el("b", null, "Pratonton booth anda"), kad, el("small", { class: "stw-help" }, "Booth dipaparkan selepas disemak pentadbir. Pratonton sahaja; rupa 3D sebenar mengikut reka bentuk booth Meta Didik."));
+  };
+  const go = (n) => { S.s = n; st.forEach((x, i) => { x.hidden = i + 1 !== n; }); prog.querySelectorAll("li").forEach((x) => { const p = +x.dataset.p; x.className = p < n ? "ok" : p === n ? "on" : ""; }); no.textContent = "Langkah " + n + " daripada 4"; if (n !== 4 || !STN.msg) out.textContent = ""; prevB.hidden = n === 1; next.hidden = n === 4; sb.hidden = n !== 4; if (n === 4) semak(); };
+  c.addEventListener("input", () => { if (out.textContent && out.textContent !== STN.msg) out.textContent = ""; });
+  next.addEventListener("click", () => { const x = salah(S.s); if (x) { out.textContent = x[1]; try { x[0].focus(); } catch (e) { /* abaikan */ } return; } go(S.s + 1); });
+  prevB.addEventListener("click", () => go(Math.max(1, S.s - 1)));
   sb.addEventListener("click", async () => {
+    for (const n of [1, 2, 3]) { const x = salah(n); if (x) { go(n); out.textContent = x[1]; return; } }
     sb.disabled = true; out.textContent = "Menghantar...";
-    try { await stnSubmit({ tj: iTj.value, kat: iKat.value, ds: iDs.value, yt: iYt.value, url: iUrl.value, pn: loc.pn, la: loc.la, lo: loc.lo, sj: iSj.value, tp: iTp.value, hg: iHg.value, em: iEm.value }); STN.msg = "Permohonan dihantar. Pentadbir akan menyemak inovasi anda sebelum stesen dipaparkan di lokasi pilihan."; rr(); }
+    try { await stnSubmit({ tj: iTj.value, kat: kat.v, ds: iDs.value, yt: iYt.value, url: iUrl.value, pn: loc.pn, la: loc.la, lo: loc.lo, sj: iSj.value, tp: iTp.value, hg: hg.v, em: iEm.value }); STN.msg = "✅ Permohonan dihantar. Pentadbir akan menyemak inovasi anda sebelum booth dipaparkan di lokasi pilihan."; rr(); }
     catch (e) { out.textContent = e.message || "Gagal dihantar. Cuba lagi."; sb.disabled = false; }
   });
-  c.append(sb, out);
+  go(STN.msg && m ? 4 : 1);
 }
 /* kod negeri profil (JHR, KUL...) -> kunci peta META DIDIK */
 function lmNegeriKey(kod) { return ({ JHR: "johor", KDH: "kedah", KTN: "kelantan", MLK: "melaka", NSN: "nsembilan", PHG: "pahang", PRK: "perak", PLS: "perlis", PNG: "penang", SBH: "sabah", SWK: "sarawak", SGR: "selangor", TRG: "terengganu", KUL: "wp", PJY: "wp", LBN: "sabah" })[kod] || ""; }
