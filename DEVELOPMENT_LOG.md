@@ -11,6 +11,23 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.56 · Tajuk dikunci ikut tahap murid
+
+- Selepas data subjek dipilih, `DATA.topik` dan `DATA.tema` ditapis kepada tema dengan tahap ≤ tahap murid. Tahap tema: medan `tingkatan` (n → 6+n), atau `darjah` untuk kandungan sekolah rendah kelak.
+- Ini menyembunyikan tajuk tahap lebih tinggi daripada:
+  - peta misi;
+  - Stesen Ilmu dan Pusat Ulangkaji dalam Meta Didik;
+  - kuiz rawak (`QLIST`);
+  - pilihan skop soalan permainan.
+- `TOPIK`, `TEMA`, `QBYID` dan `BYTOPIK` kekal penuh (`DATA_PENUH`), supaya rekod lama, bilik multiplayer dan rujukan id tidak rosak.
+- `sqLocked(id)` kini mengunci tajuk melebihi tahap. `openBrief` memaparkan makluman "dibuka apabila anda berada di Tingkatan 5".
+- Guru, pelawat dan pentadbir tidak dihadkan.
+- Ujian (Playwright):
+  - T4 dalam Tasawwur Islam: 13/19 tajuk (tema 4 sahaja); dunia Meta Didik dibuka dengan "0/13", tanpa `pageerror`;
+  - T5 dan guru: 19/19;
+  - T3 dalam PI T3: 27/27.
+- Node 59/59.
+
 ## 2026-11-01 · v18.55 · Paparan penuh automatik dan subjek ikut tahap murid
 
 **Paparan penuh**
