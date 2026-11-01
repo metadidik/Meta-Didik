@@ -1,0 +1,48 @@
+{
+ "meta": {
+  "keterangan": "Rekod rujukan visual dan status semakan bagi model mercu tanda (prinsip Landmark-Accurate, Environment-Simplified).",
+  "skema": {
+   "id": "id PLACES dalam dunia.js",
+   "lokasi_sebenar": "lat/lon sumber (disimpan berasingan daripada koordinat permainan)",
+   "sumber_koordinat": "asal koordinat dan status pengesahan",
+   "sumber_rasmi": "URL portal kerajaan/pengendali yang mempromosikan destinasi (null jika belum disemak)",
+   "rujukan_visual": "senarai rujukan visual yang digunakan untuk memodelkan; imej berhak cipta TIDAK disimpan dalam repo",
+   "ciri_dimodelkan": "ciri seni bina yang dipadankan",
+   "nisbah": "ukuran/nisbah dan statusnya",
+   "status_model": "prototaip | disemak | disahkan",
+   "tarikh_semakan": "YYYY-MM-DD"
+  }
+ },
+ "mercu_tanda": [
+  {
+   "id": "wp-sas",
+   "nama": "Bangunan Sultan Abdul Samad",
+   "negeri": "wp",
+   "bandar": "Kuala Lumpur",
+   "lokasi_sebenar": { "lat": 3.1486, "lon": 101.6940 },
+   "sumber_koordinat": "data sedia ada Meta Didik (PLACES); BELUM disahkan dengan sumber rasmi",
+   "sumber_rasmi": null,
+   "sumber_rasmi_nota": "Portal rasmi (motac.gov.my, malaysia.travel, visitkl.gov.my) disekat oleh rangkaian persekitaran pembangunan pada 2026-11-01; perlu disemak semula.",
+   "rujukan_visual": [
+    { "jenis": "gambar fasad hadapan, siang", "dari": "pemilik projek (dikongsi dalam sesi pembangunan 2026-11-01)", "disimpan_dalam_repo": false, "sebab": "status hak cipta gambar tidak diketahui" }
+   ],
+   "ciri_dimodelkan": [
+    "fasad putih krim dua tingkat dengan arked gerbang di kedua-dua tingkat",
+    "serambi tengah menonjol dengan tiga gerbang besar dan tiga gerbang tingkat atas",
+    "menara jam segi empat di tengah, jam empat muka, tingkat loceng bergerbang",
+    "kubah tembaga (warna merah jambu keperangan) pada menara jam dengan tanglung gelap di puncak",
+    "dua menara bulat di hujung sayap berkubah tembaga",
+    "kubah kecil putih (chhatri) di bumbung dan penjuru serambi",
+    "bendera Malaysia di bumbung; Dataran Merdeka dan tiang bendera di hadapan"
+   ],
+   "nisbah": {
+    "tinggi_menara_jam_m": 41,
+    "status": "tinggi menara daripada teks fakta PLACES sedia ada; panjang fasad dan nisbah lain ialah ANGGARAN daripada gambar, belum disahkan dengan ukuran rasmi",
+    "nota_skala": "Tapak model dikekalkan (jejari 18 unit) supaya susun atur sekitar tidak berubah; ketinggian dibesarkan sedikit untuk kebolehcaman di skrin telefon."
+   },
+   "perbandingan": "docs/mercu-tanda/sultan-abdul-samad-banding.jpg (tangkapan permainan sebelum/selepas; gambar rujukan tidak disertakan)",
+   "status_model": "prototaip",
+   "tarikh_semakan": "2026-11-01"
+  }
+ ]
+}

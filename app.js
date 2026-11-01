@@ -7267,7 +7267,7 @@ function lgRoot() {
    Dibuka daripada butang di peta utama; dunia.js dimuat hanya apabila diperlukan. */
 /* v17.91: avatar 3D dikongsi Gudang dan META DIDIK; dimuat apabila perlu */
 /* v18.4: versi aplikasi untuk memecah cache skrip (Safari/ikon skrin utama iPhone menyimpan salinan lama) */
-const APP_VER = "18.57";
+const APP_VER = "18.59";
 function av3Load(cb) {
   if (window.AV3) { cb(); return; }
   if (typeof THREE === "undefined") return;
@@ -20163,4 +20163,15 @@ document.addEventListener("click", (ev) => { const b = ev.target && ev.target.cl
   const lepas = () => { ["click", "touchend", "keydown"].forEach((t) => document.removeEventListener(t, pertama, true)); };
   ["click", "touchend", "keydown"].forEach((t) => document.addEventListener(t, pertama, true));
   document.body.appendChild(btn); sync();
+})();
+
+/* ---------- v18.59: halaman utama: avatar dalam hero, Ruang Guru dan Cara Bermain ---------- */
+(function mdHome() {
+  const av = document.getElementById("mdhAv");
+  const lukis = () => { if (!av || typeof zvSvg !== "function") return; let mine = null; try { const z = zvState(); if (z && (z.g === "L" || z.g === "P")) mine = z; } catch (e) { mine = null; }
+    const a = [{ g: "L", sk: 1, own: [], eq: {} }, mine || { g: "P", sk: 2, own: [], eq: {} }, { g: mine && mine.g === "P" ? "L" : "P", sk: 3, own: [], eq: {} }];
+    try { av.innerHTML = a.map((z) => zvSvg(z, 120, { noframe: true })).join(""); } catch (e) { av.textContent = ""; } };
+  setTimeout(lukis, 0);
+  const g = document.getElementById("mdGuru"); if (g) g.addEventListener("click", () => setView("guru"));
+  const c = document.getElementById("mdCara"); if (c) c.addEventListener("click", () => { const s = document.getElementById("mdCaraSec"); if (s) s.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); });
 })();

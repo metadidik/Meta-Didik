@@ -1053,3 +1053,49 @@ body.ar-lock #mdFsBtn { display: none; }
 /* v18.57: Gudang dibuka dari Profil dalam Meta Didik: sembunyi butang paparan penuh */
 body.lm-gd #mdFsBtn { display: none; }
 body.lm-gd #backBar { display: none !important; }
+/* ---------- v18.59: halaman utama mesra murid (palet: langit #39BCEB, kuning #FFC857, hijau #65D6A0, ungu #9474E8, latar #F4FAFF, navy #17324D) ---------- */
+body.vmap { background: #F4FAFF !important; color: #17324D; }
+body.vmap .top { background: #17324D; border-bottom: 0; }
+body.vmap .mdhero { position: relative; overflow: hidden; max-width: 1100px; margin: 6px auto 18px; padding: 30px 18px 0; border-radius: 28px; display: grid; align-content: start; justify-items: center; gap: 12px; text-align: center; background: linear-gradient(#7fd3f7, #d9f2ff 70%); border: 0; box-shadow: 0 10px 30px rgba(23, 50, 77, .12); }
+body.vmap .mdhero:before, body.vmap .mdhero:after { display: none; }
+.mdh-band { position: relative; justify-self: stretch; margin: 6px -18px 0; height: clamp(210px, 26vw, 320px); }
+.mdh-scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+body.vmap .mdh-t { position: relative; z-index: 1; max-width: 640px; gap: 8px; }
+body.vmap .mdh-t b { font: 700 clamp(34px, 7vw, 60px)/1.05 "Fredoka", var(--font-body); color: #17324D; background: none; -webkit-text-fill-color: #17324D; text-shadow: 0 3px 0 #fff; }
+body.vmap .mdh-s { font: 700 clamp(15px, 2.4vw, 19px)/1.4 "Nunito", var(--font-body); color: #17324D; }
+.mdh-av { position: absolute; z-index: 1; left: 50%; bottom: 4px; transform: translateX(-50%); display: flex; justify-content: center; align-items: flex-end; gap: 2px; }
+.mdh-av svg { width: clamp(56px, 8vw, 92px); height: auto; filter: drop-shadow(0 5px 5px rgba(23, 50, 77, .25)); }
+.mdh-av svg:nth-child(2) { width: clamp(64px, 9.5vw, 106px); }
+body.vmap .mdgo { position: relative; z-index: 1; min-height: 64px; padding: 14px 42px; border-radius: 999px; background: #FFC857; color: #17324D; border: 4px solid #fff; box-shadow: 0 6px 0 #d9a23a, 0 12px 24px rgba(23, 50, 77, .2); font: 700 clamp(20px, 3.4vw, 26px) "Fredoka", var(--font-body); animation: none; }
+body.vmap .mdgo:hover { transform: translateY(-2px); }
+body.vmap .mdgo:active { transform: translateY(4px); box-shadow: 0 2px 0 #d9a23a; }
+body.vmap .mdgo:focus-visible { outline: 3px solid #17324D; outline-offset: 4px; }
+body.vmap .mdgo .mdgo-l { color: #17324D; -webkit-text-fill-color: #17324D; background: none; }
+.mdh-2 { position: relative; z-index: 1; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.mdh-2 button { min-height: 46px; padding: 10px 20px; border-radius: 999px; border: 3px solid #fff; background: #17324D; color: #fff; font: 800 16px "Nunito", var(--font-body); cursor: pointer; }
+.mdh-2 button:hover { background: #24496d; }
+.mdh-2 button:focus-visible { outline: 3px solid #FFC857; outline-offset: 3px; }
+.mdx { max-width: 1100px; margin: 0 auto 18px; padding: 18px; border-radius: 24px; background: #fff; box-shadow: 0 6px 20px rgba(23, 50, 77, .08); color: #17324D; }
+.mdx h2 { margin: 0 0 12px; font: 700 24px "Fredoka", var(--font-body); color: #17324D; }
+.mdx-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; counter-reset: md; }
+.mdx-steps li { counter-increment: md; position: relative; display: grid; gap: 4px; justify-items: center; text-align: center; padding: 16px 10px 14px; border-radius: 18px; background: #F4FAFF; }
+.mdx-steps li:before { content: counter(md); position: absolute; top: 8px; left: 10px; width: 26px; height: 26px; border-radius: 50%; background: #39BCEB; color: #fff; font: 800 14px/26px "Nunito", sans-serif; }
+.mdx-steps i, .mdx-c i { font-style: normal; font-size: 34px; }
+.mdx-steps b, .mdx-c b { font: 800 16px "Nunito", var(--font-body); }
+.mdx-steps span, .mdx-c span { font: 600 14px/1.4 "Nunito", var(--font-body); color: #4f6880; }
+.mdx-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.mdx-c { display: grid; gap: 4px; justify-items: center; text-align: center; padding: 16px 10px; border-radius: 18px; background: #fff; border: 3px solid var(--c); box-shadow: 0 4px 0 var(--c); }
+@media (max-width: 600px) { .mdx-steps, .mdx-cards { grid-template-columns: 1fr; } .mdx-steps li, .mdx-c { grid-template-columns: auto 1fr; justify-items: start; text-align: left; column-gap: 12px; padding-left: 44px; } .mdx-steps li i, .mdx-c i { grid-row: span 2; align-self: center; } .mdx-c { padding-left: 14px; } }
+body.vmap .testi { background: #fff; border-radius: 24px; padding: 18px; box-shadow: 0 6px 20px rgba(23, 50, 77, .08); }
+body.vmap .testi-h b { color: #17324D; }
+body.vmap .testi-h span, body.vmap .testi-w small { color: #4f6880; }
+body.vmap .testi-c { background: #F4FAFF; color: #17324D; border-color: #d7e6f3; }
+body.vmap .pjbar { background: #fff; border: 0; box-shadow: 0 6px 20px rgba(23, 50, 77, .08); color: #17324D; }
+body.vmap .pjbar-k { color: #17324D; }
+body.vmap .pjbar-kos { color: #4f6880; opacity: 1; }
+body.vmap #cpFoot { color: #4f6880; }
+body.vmap #cpFoot b, body.vmap #cpFoot a { color: #17324D; }
+body.vmap #mdFsBtn { background: #17324D; }
+@media (prefers-reduced-motion: reduce) { body.vmap .mdgo, .mdh-2 button { transition: none; } }
+body.vmap .top .meb { background: #FFC857 !important; border: 2px solid #fff !important; box-shadow: none !important; }
+body.vmap .top .meb .me-n { color: #17324D; -webkit-text-fill-color: #17324D; }
