@@ -139,6 +139,12 @@ function build(c, opt) {
   body.add(mesh(geo("neck", () => new T.CylinderGeometry(0.21, 0.24, 0.35, 12)), mSk, 0, 4.6, 0));
   const head = new T.Group(); head.position.y = 5.22; body.add(head);
   const hs = mesh(geo("head", () => new T.SphereGeometry(0.62, 24, 18)), mSk, 0, 0, 0); hs.scale.set(1, 1.12, 1.02); head.add(hs);
+  /* v18.74: wajah ringkas (mata dan senyuman) untuk Avatar Studio; mata berkelip dalam anim() */
+  const eyes = new T.Group(); eyes.position.set(0, 0.08, 0.6); head.add(eyes);
+  const mE = mat("#1d2433", { roughness: 0.4 });
+  for (const x of [-0.2, 0.2]) { const e = mesh(geo("eye", () => new T.SphereGeometry(0.075, 12, 10)), mE, x, 0, 0); e.scale.set(1, 1.35, 0.6); e.castShadow = false; eyes.add(e); const hl = mesh(geo("eyehl", () => new T.SphereGeometry(0.024, 8, 6)), mat("#ffffff", { roughness: 0.2 }), x + 0.025, 0.035, 0.04); hl.castShadow = false; eyes.add(hl); }
+  { const sm = mesh(geo("smile", () => new T.TorusGeometry(0.15, 0.022, 6, 16, Math.PI * 0.8)), mat("#8a3b32", { roughness: 0.6 }), 0, -0.2, 0.585); sm.rotation.z = Math.PI + Math.PI * 0.1; sm.castShadow = false; head.add(sm); }
+  for (const x of [-0.34, 0.34]) { const ck = mesh(geo("cheek", () => new T.CircleGeometry(0.08, 14)), mat("#f29b9b", { transparent: true, opacity: 0.45, roughness: 1 }), x, -0.1, 0.56); ck.rotation.y = x > 0 ? 0.55 : -0.55; ck.castShadow = false; head.add(ck); }
   const hd = o.hd, mH = mat(hc);
   if (P) {
     /* tudung: tempurung dengan bukaan wajah + labuhan menutup leher dan dada */
@@ -210,11 +216,12 @@ function build(c, opt) {
     [-0.32, 0.32].forEach((x) => { fx.add(mesh(geo("jpt", () => new T.CylinderGeometry(0.24, 0.24, 1.2, 12)), mat("#c9d2dc", { metalness: 0.7, roughness: 0.3 }), x, 3.5, -0.85)); const fl = new T.Mesh(geo("jpf", () => new T.ConeGeometry(0.2, 0.9, 10)), new T.MeshBasicMaterial({ color: 0xff8a1f, transparent: true, opacity: 0.85 })); fl.rotation.x = Math.PI; fl.position.set(x, 2.5, -0.85); fl.visible = false; fx.add(fl); });
     body.add(fx);
   } else if (o.ef === "ef_pl") { fx = { userData: { kind: "pl" } }; }
-  return { g: root, body: body, lL: lL, lR: lR, aL: aL, aR: aR, head: head, hand: hand, pet: pet, aura: aura, fx: fx, o: o, ph: Math.random() * 6, t: 0, trail: [] };
+  return { g: root, body: body, lL: lL, lR: lR, aL: aL, aR: aR, head: head, eyes: eyes, hand: hand, pet: pet, aura: aura, fx: fx, o: o, ph: Math.random() * 6, t: 0, trail: [], blink: 2 + Math.random() * 3 };
 }
 /* ---------- animasi ---------- */
 function anim(av, moving, air, dt, speed, scene) {
   animBase(av, moving, air, dt, speed, scene); poseTick(av, dt);
+  if (av.eyes) { av.blink -= dt; const k = av.blink < 0.12 ? Math.max(0.1, Math.abs(av.blink - 0.06) / 0.06) : 1; av.eyes.scale.y = k; if (av.blink <= 0) av.blink = 2.5 + Math.random() * 3; } /* v18.74: kelip mata */
 }
 function animBase(av, moving, air, dt, speed, scene) {
   av.t += dt; av.ph += dt * (moving ? 8.5 * (speed || 1) : 2);
@@ -321,7 +328,8 @@ function preview(box, c) {
     PV.scene.add(new T.HemisphereLight(0xeaf4ff, 0x40506a, 0.85));
     const key = new T.DirectionalLight(0xffffff, 0.95); key.position.set(4, 9, 7); key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.bias = -0.0015; key.shadow.normalBias = 0.03; PV.scene.add(key);
     const rim = new T.DirectionalLight(0x9fd8ff, 0.5); rim.position.set(-6, 5, -6); PV.scene.add(rim);
-    const fl = new T.Mesh(new T.CircleGeometry(3.2, 40), new T.MeshStandardMaterial({ color: 0x1b3550, roughness: 0.9 })); fl.rotation.x = -Math.PI / 2; fl.receiveShadow = true; PV.scene.add(fl);
+    const fl = new T.Mesh(new T.CircleGeometry(3.2, 40), new T.MeshStandardMaterial({ color: 0xd6efff, roughness: 0.9 })); fl.rotation.x = -Math.PI / 2; fl.receiveShadow = true; PV.scene.add(fl); /* v18.74: pentas cerah + gelang bercahaya */
+    const rg = new T.Mesh(new T.TorusGeometry(3.15, 0.07, 8, 60), new T.MeshBasicMaterial({ color: 0x5fd4ff })); rg.rotation.x = -Math.PI / 2; rg.position.y = 0.03; PV.scene.add(rg);
     const cv = PV.r.domElement; cv.className = "zv3d"; cv.setAttribute("aria-label", "Pratonton avatar 3D. Seret untuk memusing.");
     cv.addEventListener("pointerdown", (e) => { PV.drag = e.clientX; try { cv.setPointerCapture(e.pointerId); } catch (x) { /* abaikan */ } });
     cv.addEventListener("pointermove", (e) => { if (PV.drag == null) return; PV.yaw += (e.clientX - PV.drag) * 0.012; PV.drag = e.clientX; PV.hold = 2; });
@@ -342,7 +350,10 @@ function pvLoop(ts) {
   PV.av.g.rotation.y = PV.yaw; anim(PV.av, false, false, dt, 1, null);
   PV.r.render(PV.scene, PV.cam);
 }
+/* v18.74: Avatar Studio: pandangan depan/sisi dan zum lembut */
+function pvView(yaw) { PV.yaw = yaw; PV.hold = 4; }
+function pvZoom(d) { if (!PV.cam) return; PV.z = Math.max(10.5, Math.min(19, (PV.z || 15.5) + d)); const k = (PV.z - 10.5) / 8.5; PV.cam.position.set(0, 3.6 + k * 0.6, PV.z); PV.cam.lookAt(0, 3.4 - k * 0.3, 0); }
 /* mainkan keraian pada avatar pratonton Gudang */
 function previewRai(k) { if (!PV.av) return 0; const d = rai(PV.av, k); if (d) { PV.yaw = 0; PV.hold = d + 1; } return d; }
-window.AV3 = { pose: pose, build: build, anim: anim, code: code, parse: parse, preview: preview, dispose: dispose, rai: rai, previewRai: previewRai, RAI: Object.keys(RAI) };
+window.AV3 = { pvView: pvView, pvZoom: pvZoom, pose: pose, build: build, anim: anim, code: code, parse: parse, preview: preview, dispose: dispose, rai: rai, previewRai: previewRai, RAI: Object.keys(RAI) };
 })();

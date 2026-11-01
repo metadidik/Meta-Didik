@@ -19878,6 +19878,9 @@ function zvInner(z, e, o) {
     else if (hd === "hd_tp") s += '<path d="M32 23Q32 6 50 6Q68 6 68 23Z" fill="' + hc + '"/><path d="M29 23Q50 33 71 23Q50 27 29 23Z" fill="' + hcd + '"/>';
   }
   const fy = g === "P" ? 36 : 34;
+  /* v18.74: wajah ringkas (mata, senyuman, pipi) */
+  s += '<ellipse cx="43" cy="' + fy + '" rx="2" ry="2.6" fill="#1d2433"/><ellipse cx="57" cy="' + fy + '" rx="2" ry="2.6" fill="#1d2433"/><circle cx="43.7" cy="' + (fy - 0.9) + '" r=".7" fill="#fff"/><circle cx="57.7" cy="' + (fy - 0.9) + '" r=".7" fill="#fff"/>'
+    + '<path d="M45.5 ' + (fy + 6) + 'Q50 ' + (fy + 9.5) + ' 54.5 ' + (fy + 6) + '" fill="none" stroke="#8a3b32" stroke-width="1.5" stroke-linecap="round"/><circle cx="39" cy="' + (fy + 4.5) + '" r="2.4" fill="#f29b9b" opacity=".45"/><circle cx="61" cy="' + (fy + 4.5) + '" r="2.4" fill="#f29b9b" opacity=".45"/>';
   if (e.fc === "fc_cm") s += '<circle cx="43" cy="' + fy + '" r="5.4" fill="rgba(190,230,255,.3)" stroke="#2a2a33" stroke-width="1.4"/><circle cx="57" cy="' + fy + '" r="5.4" fill="rgba(190,230,255,.3)" stroke="#2a2a33" stroke-width="1.4"/><path d="M48.4 ' + fy + 'H51.6" stroke="#2a2a33" stroke-width="1.4"/>';
   else if (e.fc === "fc_cs") s += '<rect x="37.5" y="' + (fy - 4.5) + '" width="10.5" height="9" rx="2" fill="rgba(190,230,255,.3)" stroke="#2a2a33" stroke-width="1.4"/><rect x="52" y="' + (fy - 4.5) + '" width="10.5" height="9" rx="2" fill="rgba(190,230,255,.3)" stroke="#2a2a33" stroke-width="1.4"/><path d="M48 ' + fy + 'H52" stroke="#2a2a33" stroke-width="1.4"/>';
   else if (e.fc === "fc_sg") s += '<rect x="37" y="' + (fy - 4.5) + '" width="11.5" height="9" rx="3.5" fill="#15151b"/><rect x="51.5" y="' + (fy - 4.5) + '" width="11.5" height="9" rx="3.5" fill="#15151b"/><path d="M48 ' + (fy - 1) + 'H52" stroke="#15151b" stroke-width="1.6"/>';
@@ -19930,80 +19933,211 @@ function zvPlaceOnMap(svg, gP) {
   const n = zvMapNode(cx, top - 1.5); if (n) svg.appendChild(n);
 }
 /* ---------- skrin Gudang ---------- */
-const ZVUI = { slot: "ou" };
+/* ---------- v18.74: Avatar Studio (Gudang avatar dinaik taraf) ----------
+   Data kekal: P.zv = { g, sk, own[], eq{}, sb } + sets[] baharu (gaya tersimpan, maksimum 4). Item, harga dan slot tidak berubah. */
+const ZVUI = { slot: "ou", try: "", det: "", info: false, dlg: null };
+const ZV_TAB = [["ou", "Pakaian", "👕"], ["hd", "Penutup Kepala", "🧢"], ["bk", "Beg", "🎒"], ["bd", "Lencana", "⭐"], ["pt", "Haiwan", "🐾"], ["ef", "Kesan 3D", "🧊"], ["rc", "Keraian", "🎉"], ["fc", "Cermin Mata", "👓"], ["hn", "Pegangan", "📚"], ["fr", "Bingkai", "🖼"], ["set", "Set Lengkap", "👔"], ["free", "Percuma", "🎁"]];
+const ZV_TAB_SUB = { ou: "Pilih pakaian untuk avatar anda.", hd: "Songkok, kopiah, tudung dan topi yang sopan.", bk: "Beg untuk ke sekolah.", bd: "Lencana pencapaian dan lencana sekolah anda.", pt: "Haiwan comel yang menemani anda.", ef: "Kesan khas pada avatar 3D di Meta Didik.", rc: "Cara avatar meraikan selepas kuiz.", fc: "Cermin mata yang kemas.", hn: "Barang yang dipegang avatar.", fr: "Bingkai profil avatar.", set: "Lengkapkan satu gaya sekali gus.", free: "Item percuma untuk semua murid." };
+const ZV_DESC = { ou_sc: "Pakaian seragam sekolah yang kemas.", ou_my: "Set tradisional yang kemas dan sopan.", ou_sm: "Baju Melayu lengkap bersampin untuk hari istimewa.", ou_kr: "Baju Kurung tradisional yang sopan.", ou_jb: "Jubah labuh yang selesa dan sopan.", ou_tk: "Pakaian sukan untuk Hari Sukan dan PJ.", ou_sb: "Pakaian sekolah agama.", ou_bs: "Uniform Persatuan Bulan Sabit Merah.", ou_pk: "Uniform Pengakap / Pandu Puteri.", ou_kp: "Uniform Kadet Polis.", ou_pw: "Seragam pengawas sekolah." };
+const ZV_PADAN = { ou_my: ["hd_sk", "hd_kp", "bd_sk"], ou_sm: ["hd_sk", "hn_ts", "bd_st"], ou_kr: ["hd_tl", "hd_sw", "bd_sk"], ou_sc: ["bk_bg", "bd_sk", "hn_bk"], ou_tk: ["hd_tp", "hd_ts", "hn_bl", "bd_st"], ou_sb: ["hd_kp", "hd_tl", "hn_qr", "hn_ts"], ou_bs: ["bd_md", "bk_bg", "hn_bk"], ou_pk: ["hd_tp", "bd_st", "hn_jg"], ou_kp: ["bd_pf", "hn_jg", "bk_bg"], ou_pw: ["bd_pf", "hn_bk", "fc_cm"], ou_jb: ["hd_sb", "hd_tl", "hn_ts", "hn_qr"] };
+const ZV_SET = [
+  ["set_sk", "Set Sekolah", "🏫", ["ou_sc", "bk_bg", "bd_sk", "hn_bk"]],
+  ["set_ag", "Set Sekolah Agama", "🕌", ["ou_sb", "hd_kp", "hd_tl", "hn_qr"]],
+  ["set_sp", "Set Sukan", "🏅", ["ou_tk", "hd_tp", "hd_ts", "hn_bl"]],
+  ["set_ry", "Set Hari Raya", "🌙", ["ou_sm", "hd_sk", "ou_kr", "hd_sw", "hn_ts"]],
+  ["set_bs", "Set PBSM", "⛑", ["ou_bs", "bd_md", "bk_bg"]],
+  ["set_pk", "Set Pengakap", "⚜", ["ou_pk", "hd_tp", "hn_jg"]],
+  ["set_kp", "Set Kadet Polis", "🛡", ["ou_kp", "bd_pf", "hn_jg"]]
+];
+const ZV_FX_IC = { ef_no: "—", ef_bt: "✨", ef_pl: "🌈", ef_jp: "🚀", rc_tp: "👏", rc_sj: "🤲", rc_ab: "🙌", rc_lg: "🤸", rc_tr: "💃", rc_si: "⚽" };
+function zvRare(it) { return it.p === 0 ? ["Percuma", "fr"] : it.p < 100 ? ["Biasa", "bs"] : it.p < 250 ? ["Rare", "rr"] : ["Istimewa", "is"]; }
+function zvMilik(z, it) { return it.p === 0 || z.own.indexOf(it.id) >= 0; }
+function zvJantinaOk(z, it) { return it && (it.g === "*" || it.g === z.g); }
+function zvSetItem(z, set) { const seen = {}; return set[3].map(zvItem).filter((it) => zvJantinaOk(z, it) && !seen[it.s] && (seen[it.s] = 1)); }
 function zvEquip(id) { const z = zvState(), it = zvItem(id); if (!zvOk(z, it)) return; z.eq[it.s] = it.id; saveP(); }
-function zvBuy(id) {
-  const z = zvState(), it = zvItem(id); if (!it || z.own.indexOf(id) >= 0 || (it.g !== "*" && it.g !== z.g)) return;
-  if ((P.coin | 0) < it.p) { toast("MD belum cukup. Kumpul lagi dalam misi dan peti bekalan.", "warn"); return; }
+function zvBuy(id, senyap) {
+  const z = zvState(), it = zvItem(id); if (!it || z.own.indexOf(id) >= 0 || (it.g !== "*" && it.g !== z.g)) return false;
+  if ((P.coin | 0) < it.p) { toast("MD belum cukup. Kumpul lagi dalam misi dan peti bekalan.", "warn"); return false; }
   P.coin -= it.p; z.own.push(id); z.eq[it.s] = id; saveP();
-  try { toast(it.n + " kini milik anda dan sedang dipakai.", "good"); } catch (e) { /* abaikan */ }
-  renderGudangZv();
+  if (!senyap) { try { toast(it.n + " kini milik anda dan sedang dipakai.", "good"); } catch (e) { /* abaikan */ } renderGudangZv(); }
+  return true;
+}
+/* animasi ringkas apabila item dipakai: avatar bertepuk + percikan bintang */
+function zvRai() { ZVUI.rai = Date.now(); try { if (window.AV3 && AV3.previewRai) setTimeout(() => AV3.previewRai("rc_tp"), 250); } catch (e) { /* abaikan */ } }
+function zvPakai(id) { zvEquip(id); ZVUI.try = ""; zvRai(); renderGudangZv(); try { renderMaps(); } catch (e) { /* abaikan */ } }
+/* dialog pengesahan beli (satu item atau satu set) */
+function zvBeliDlg(items, label) {
+  const z = zvState(), list = items.filter((it) => !zvMilik(z, it)), jum = list.reduce((a, it) => a + it.p, 0), baki = (P.coin | 0) - jum;
+  const o = el("div", { class: "overlay avs-dlg", role: "dialog", "aria-modal": "true", "aria-label": "Sahkan pembelian" }), c = el("div", { class: "mcard" });
+  const tutup = () => { o.remove(); }; o.addEventListener("click", (e) => { if (e.target === o) tutup(); });
+  c.append(el("div", { class: "avs-dlg-ic", "aria-hidden": "true" }, baki < 0 ? "🪙" : "🛍"), el("h3", null, baki < 0 ? "MD belum cukup" : "Beli " + label + "?"));
+  if (baki < 0) {
+    c.append(el("p", null, "Anda perlukan " + jum + " MD. Kurang " + (-baki) + " MD lagi."), el("ul", { class: "avs-tips" }, el("li", null, "📖 Jawab kuiz di Stesen Ilmu"), el("li", null, "🎯 Selesaikan misi dan permainan kendiri"), el("li", null, "📦 Buka peti bekalan dalam Meta Didik")));
+    const ok = el("button", { type: "button", class: "avs-btn avs-ungu" }, "Faham"); ok.addEventListener("click", tutup); c.append(el("div", { class: "avs-dlg-ft" }, ok));
+  } else {
+    c.append(el("div", { class: "avs-dlg-harga" }, el("span", { class: "avs-coin", "aria-hidden": "true" }), el("b", null, jum + " MD")), el("p", { class: "avs-muted" }, "Baki selepas beli: " + baki + " MD"));
+    const no = el("button", { type: "button", class: "avs-btn avs-putih" }, "Batal"), ya = el("button", { type: "button", class: "avs-btn avs-ungu" }, "Beli");
+    no.addEventListener("click", tutup);
+    ya.addEventListener("click", () => { let n = 0; list.forEach((it) => { if (zvBuy(it.id, true)) n++; }); items.forEach((it) => { if (zvMilik(z, it)) z.eq[it.s] = it.id; }); saveP(); tutup(); ZVUI.try = ""; ZVUI.det = ""; ZVUI.setTry = ""; if (n) toast(label + " kini milik anda dan sedang dipakai.", "good"); zvRai(); renderGudangZv(); try { renderMaps(); } catch (e) { /* abaikan */ } });
+    c.append(el("div", { class: "avs-dlg-ft" }, no, ya));
+  }
+  o.appendChild(c); document.body.appendChild(o); setTimeout(() => { const b = c.querySelector("button:last-child"); if (b) b.focus(); }, 30);
+}
+function zvGayaDlg() { /* gaya tersimpan: simpan, pakai, padam */
+  const z = zvState(); z.sets = Array.isArray(z.sets) ? z.sets.slice(0, 4) : [];
+  const o = el("div", { class: "overlay avs-dlg", role: "dialog", "aria-modal": "true", "aria-label": "Set saya" }), c = el("div", { class: "mcard" }); const tutup = () => o.remove(); o.addEventListener("click", (e) => { if (e.target === o) tutup(); });
+  c.append(el("h3", null, "👗 Set Saya"), el("p", { class: "avs-muted" }, "Simpan sehingga 4 gaya dan tukar dengan satu ketikan."));
+  const g = el("div", { class: "avs-gaya" });
+  z.sets.forEach((st, i) => { const k = el("div", { class: "avs-gk" }), pv = el("div", { class: "avs-gpv" }); pv.innerHTML = zvSvg(z, 70, { eq: Object.assign({}, zvEqAll(z), st.eq), noframe: true });
+    const p = el("button", { type: "button", class: "avs-btn avs-hijau sm" }, "Pakai"), d = el("button", { type: "button", class: "avs-btn avs-putih sm", "aria-label": "Padam " + st.n }, "🗑");
+    p.addEventListener("click", () => { Object.keys(st.eq || {}).forEach((s) => { const it = zvItem(st.eq[s]); if (zvOk(z, it)) z.eq[s] = it.id; }); saveP(); tutup(); zvRai(); renderGudangZv(); try { renderMaps(); } catch (e) { /* abaikan */ } });
+    d.addEventListener("click", () => { z.sets.splice(i, 1); saveP(); tutup(); zvGayaDlg(); });
+    k.append(pv, el("b", null, st.n), el("div", { class: "avs-row" }, p, d)); g.appendChild(k); });
+  if (!z.sets.length) g.appendChild(el("p", { class: "avs-muted" }, "Belum ada gaya disimpan. Tekan \"Simpan Gaya\"."));
+  const cls = el("button", { type: "button", class: "avs-btn avs-ungu" }, "Tutup"); cls.addEventListener("click", tutup);
+  c.append(g, el("div", { class: "avs-dlg-ft" }, cls)); o.appendChild(c); document.body.appendChild(o);
+}
+function zvSimpanGaya() {
+  const z = zvState(); z.sets = Array.isArray(z.sets) ? z.sets : [];
+  if (z.sets.length >= 4) { toast("Maksimum 4 gaya. Padam satu dalam Set Saya dahulu.", "warn"); zvGayaDlg(); return; }
+  const cadang = { ou_sc: "Uniform Sekolah", ou_tk: "Uniform Sukan", ou_my: "Baju Melayu", ou_sm: "Baju Melayu", ou_kr: "Baju Kurung", ou_sb: "Sekolah Agama" }[zvEqAll(z).ou] || "Gaya " + (z.sets.length + 1);
+  const n = prompt("Nama gaya:", cadang); if (n === null) return;
+  z.sets.push({ n: String(n || cadang).replace(/[<>]/g, "").trim().slice(0, 20) || cadang, eq: zvEqAll(z) }); saveP(); toast("Gaya disimpan dalam Set Saya.", "good");
+}
+function zvRawak() {
+  const z = zvState(); ZV_SLOTS.forEach(([s]) => { if (s === "rc") return; const ok = ZV_IT.filter((it) => it.s === s && zvOk(z, it)); if (ok.length) z.eq[s] = ok[Math.floor(Math.random() * ok.length)].id; });
+  saveP(); ZVUI.try = ""; zvRai(); renderGudangZv(); try { renderMaps(); } catch (e) { /* abaikan */ }
+}
+function zvKad(z, e, it, onClick) { /* kad item dalam grid */
+  const own = zvMilik(z, it), on = e[it.s] === it.id, [rl, rc] = zvRare(it), kurang = !own && (P.coin | 0) < it.p;
+  const c = el("div", { class: "avs-card" + (on ? " on" : "") + " avs-" + it.s });
+  if (on) c.appendChild(el("span", { class: "avs-tick", "aria-hidden": "true" }, "✓"));
+  else if (rc === "rr" || rc === "is") c.appendChild(el("span", { class: "avs-rare avs-" + rc }, (rc === "is" ? "💎 " : "★ ") + rl));
+  const pv = el("button", { type: "button", class: "avs-img", "aria-label": "Butiran " + it.n });
+  if (ZV_FX_IC[it.id]) pv.append(el("span", { class: "avs-fx" }, ZV_FX_IC[it.id]));
+  else { const ev = Object.assign({}, e); ev[it.s] = it.id; pv.innerHTML = zvSvg(z, 92, { eq: ev, noframe: it.s !== "fr" }); }
+  pv.addEventListener("click", () => onClick(it));
+  const st = on ? "Sedang dipakai" : own ? (it.p === 0 ? "Percuma" : "Dimiliki") : it.p + " MD";
+  const b = el("button", { type: "button", class: "avs-btn sm " + (on ? "avs-hijau" : own ? "avs-mint" : kurang ? "avs-kelabu" : "avs-ungu") }, on ? "✓ Dipakai" : own ? "Pakai" : kurang ? "Kurang " + (it.p - (P.coin | 0)) + " MD" : "");
+  if (!on && !own && !kurang) { b.append(el("span", { class: "avs-coin", "aria-hidden": "true" }), "Beli " + it.p); }
+  if (on) b.disabled = true;
+  b.addEventListener("click", () => { if (own) zvPakai(it.id); else if (kurang) zvBeliDlg([it], it.n); else zvBeliDlg([it], it.n); });
+  const cuba = el("button", { type: "button", class: "avs-cuba", "aria-label": "Cuba " + it.n }, "👕 Cuba"); cuba.addEventListener("click", () => { ZVUI.try = it.id; renderGudangZv(); const h = document.querySelector(".avs-hero"); if (h) h.scrollIntoView({ behavior: "smooth", block: "center" }); });
+  c.append(pv, el("b", { class: "avs-nm" }, it.n), el("span", { class: "avs-st" }, st), el("div", { class: "avs-row" }, b, on || own ? null : cuba));
+  return c;
+}
+function zvButiran(box, z, e, it) { /* halaman butiran item (lakaran panel 3) */
+  const own = zvMilik(z, it), on = e[it.s] === it.id, [rl, rc] = zvRare(it), tab = (ZV_TAB.find((t) => t[0] === it.s) || ZV_SLOTS.find((t) => t[0] === it.s) || ["", "Item"])[1];
+  const hd = el("div", { class: "avs-dhd" }), bk = el("button", { type: "button", class: "avs-back", "aria-label": "Kembali" }, "←"); bk.addEventListener("click", () => { ZVUI.det = ""; renderGudangZv(); });
+  hd.append(bk, el("h2", null, "Butiran " + tab));
+  const top = el("div", { class: "avs-dtop" }), pv = el("div", { class: "avs-dpv" });
+  if (ZV_FX_IC[it.id]) pv.append(el("span", { class: "avs-fx big" }, ZV_FX_IC[it.id])); else { const ev = Object.assign({}, e); ev[it.s] = it.id; pv.innerHTML = zvSvg(z, 170, { eq: ev, noframe: it.s !== "fr" }); }
+  const info = el("div", { class: "avs-dinfo" }, el("h3", null, it.n), el("p", null, ZV_DESC[it.id] || ZV_TAB_SUB[it.s] || ""), el("div", { class: "avs-dharga" }, el("span", { class: "avs-coin", "aria-hidden": "true" }), el("b", null, it.p ? it.p + " MD" : "Percuma")), el("span", { class: "avs-own " + (on ? "on" : own ? "ok" : "") }, on ? "✓ Sedang dipakai" : own ? "✓ Dimiliki" : "🔒 Belum dimiliki"), el("span", { class: "avs-rare avs-" + rc + " inline" }, rl));
+  top.append(pv, info);
+  const cuba = el("button", { type: "button", class: "avs-act avs-putih" }, el("i", { "aria-hidden": "true" }, "👕"), "Cuba Dulu"); cuba.addEventListener("click", () => { ZVUI.try = it.id; ZVUI.det = ""; renderGudangZv(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+  const beli = el("button", { type: "button", class: "avs-act avs-ungu" }, el("i", { "aria-hidden": "true" }, "🛒"), own ? "Sudah dimiliki" : "Beli Sekarang (" + it.p + " MD)"); beli.disabled = own; beli.addEventListener("click", () => zvBeliDlg([it], it.n));
+  const pakai = el("button", { type: "button", class: "avs-act avs-hijau" }, el("i", { "aria-hidden": "true" }, "✓"), on ? "Dipakai" : "Pakai"); pakai.disabled = !own || on; pakai.addEventListener("click", () => { ZVUI.det = ""; zvPakai(it.id); });
+  const pd = (ZV_PADAN[it.id] || []).map(zvItem).filter((x) => zvJantinaOk(z, x) && x.s !== it.s).slice(0, 3);
+  const alt = pd.length ? pd : ZV_IT.filter((x) => zvJantinaOk(z, x) && x.s !== it.s && x.p > 0 && !zvMilik(z, x) && ["hd", "bd", "hn", "bk", "fc"].indexOf(x.s) >= 0).sort((a, b) => a.p - b.p).slice(0, 3);
+  const ps = el("div", { class: "avs-padan" }, el("h3", null, "✨ Padanan Sesuai"), el("p", { class: "avs-muted" }, "Lengkapkan gaya dengan aksesori berikut."));
+  const pg = el("div", { class: "avs-pg" }); alt.forEach((x) => { const b = el("button", { type: "button", class: "avs-pk" }); const p2 = el("span", { class: "avs-pkimg" }); const ev = Object.assign({}, e); ev[x.s] = x.id; p2.innerHTML = zvSvg(z, 58, { eq: ev, noframe: true }); b.append(p2, el("b", null, x.n), el("span", null, zvMilik(z, x) ? "Dimiliki" : x.p + " MD")); b.addEventListener("click", () => { ZVUI.det = x.id; renderGudangZv(); window.scrollTo({ top: 0 }); }); pg.appendChild(b); });
+  ps.appendChild(pg);
+  box.append(hd, top, el("div", { class: "avs-acts" }, cuba, beli, pakai), alt.length ? ps : "");
 }
 function renderGudangZv() {
   const box = $("gudangBody"); if (!box) return;
-  box.textContent = "";
+  box.textContent = ""; box.classList.add("avs");
   const z = zvState();
   if (z.g !== "L" && z.g !== "P") {
-    const c = el("div", { class: "zvfirst" });
+    const c = el("div", { class: "zvfirst avs-first" });
     const mk = (g, t) => { const b = el("button", { type: "button", class: "zvpick" }); b.innerHTML = zvSvg({ g: g, sk: 1, own: [], eq: {} }, 120, { noframe: true }); b.append(el("b", null, t)); b.addEventListener("click", () => { z.g = g; saveP(); renderGudangZv(); setTimeout(() => { try { renderMaps(); } catch (e) { /* abaikan */ } }, 0); }); return b; };
-    c.append(el("div", { class: "tagline" }, "Cipta avatar"), el("h3", null, "Pilih gaya avatar anda"), el("p", { class: "muted" }, "Pakaian dan penutup kepala sentiasa menutup aurat. Wajah avatar sengaja tidak dilukis."), el("div", { class: "zvpicks" }, mk("L", "Lelaki"), mk("P", "Perempuan")));
+    c.append(el("h2", null, "Avatar Studio"), el("h3", null, "Pilih gaya avatar anda"), el("p", { class: "avs-muted" }, "Pakaian dan penutup kepala sentiasa menutup aurat."), el("div", { class: "zvpicks" }, mk("L", "Lelaki"), mk("P", "Perempuan")));
     box.appendChild(c); return;
   }
-  const e = zvEqAll(z), tryIt = ZVUI.try ? zvItem(ZVUI.try) : null, ev3 = Object.assign({}, e);
-  if (tryIt && (tryIt.g === "*" || tryIt.g === z.g)) ev3[tryIt.s] = tryIt.id; else ZVUI.try = "";
-  const hero = el("div", { class: "zvhero" }), pv = el("div", { class: "zvpv" });
-  pv.innerHTML = zvSvg(z, 190, ZVUI.try ? { eq: ev3 } : undefined);
+  const e = zvEqAll(z);
+  if (ZVUI.det && zvItem(ZVUI.det) && zvJantinaOk(z, zvItem(ZVUI.det))) { zvButiran(box, z, e, zvItem(ZVUI.det)); return; }
+  ZVUI.det = "";
+  const tryIt = ZVUI.try ? zvItem(ZVUI.try) : null, ev3 = Object.assign({}, e);
+  if (tryIt && zvJantinaOk(z, tryIt)) ev3[tryIt.s] = tryIt.id; else ZVUI.try = "";
+  if (ZVUI.setTry) { const st = ZV_SET.find((x) => x[0] === ZVUI.setTry); if (st) zvSetItem(z, st).forEach((it) => { ev3[it.s] = it.id; }); }
+  const cuba = ZVUI.try || ZVUI.setTry;
+  /* A. kepala halaman */
+  const ib = el("button", { type: "button", class: "avs-info", "aria-label": "Bantuan", "aria-expanded": String(!!ZVUI.info) }, "?"); ib.addEventListener("click", () => { ZVUI.info = !ZVUI.info; renderGudangZv(); });
+  const md = el("div", { class: "avs-md", "aria-label": (P.coin | 0) + " MD" }, el("span", { class: "avs-coin", "aria-hidden": "true" }), el("b", null, walFmt(P.coin | 0)), el("small", null, "MD"));
+  box.appendChild(el("div", { class: "avs-hd" }, el("span", { class: "avs-hic", "aria-hidden": "true" }, "👤"), el("div", { class: "avs-ht" }, el("h2", null, "Avatar Studio"), el("p", null, "Cipta gaya avatar anda.")), md, ib));
+  if (ZVUI.info) box.appendChild(el("div", { class: "avs-help" }, el("b", null, "Cara bermain"), el("ul", null, el("li", null, "Tekan 👕 Cuba untuk melihat item pada avatar sebelum membeli."), el("li", null, "Kumpul MD dengan menjawab kuiz di Stesen Ilmu, misi dan peti bekalan."), el("li", null, "Simpan Gaya untuk menukar pakaian dengan cepat."), el("li", null, "Semua pakaian menutup aurat dan sesuai untuk sekolah."))));
+  /* B. pratonton avatar */
+  const hero = el("div", { class: "avs-hero" + (ZVUI.rai && Date.now() - ZVUI.rai < 1500 ? " pop" : "") }), pv = el("div", { class: "avs-pv" });
+  pv.innerHTML = zvSvg(z, 190, cuba ? { eq: ev3, noframe: true } : { noframe: true });
   av3Load(() => { if (pv.isConnected) { AV3.preview(pv, AV3.code(z, ev3)); if (tryIt && tryIt.s === "rc" && AV3.previewRai) AV3.previewRai(tryIt.id); } });
-  const ctl = el("div", { class: "zvctl" });
-  ctl.append(el("div", { class: "tagline" }, "Avatar anda"),
-    segBtns([["L", "Lelaki"], ["P", "Perempuan"]], z.g, (v) => { z.g = v; saveP(); renderGudangZv(); renderMaps(); }, "Gaya avatar"),
-    el("div", { class: "zvlbl" }, "Warna kulit"));
-  const sw = el("div", { class: "zvsw", role: "group", "aria-label": "Warna kulit" });
-  ZV_SKIN.forEach((c, i) => { const b = el("button", { type: "button", "aria-label": "Warna kulit " + (i + 1), "aria-pressed": (z.sk | 0) === i ? "true" : "false" }); b.style.background = c; b.addEventListener("click", () => { z.sk = i; saveP(); renderGudangZv(); renderMaps(); }); sw.appendChild(b); });
-  const wal = el("div", { class: "zvcoin" }); const ci = el("span", { class: "wc" }); ci.innerHTML = coinSvg(); wal.append(ci, el("b", { class: "walnum" }, walFmt(P.coin | 0)), el("span", { class: "muted" }, "MD"));
-  ctl.append(sw, wal, el("p", { class: "muted", style: "font-size:13px;margin:6px 0 0" }, "Avatar 3D anda dipakai di META DIDIK dan dilihat oleh rakan. Seret avatar untuk memusing. Pilih Keraian untuk cara avatar meraikan setiap kali selesai kuiz. Kumpul MD daripada semua permainan."));
-  if (tryIt && ZVUI.try) {
-    const own = tryIt.p === 0 || z.own.indexOf(tryIt.id) >= 0, nt = el("div", { class: "notice", style: "margin-top:8px" });
-    nt.append(el("b", null, "Mencuba: " + tryIt.n + " "));
-    const go = el("button", { type: "button", class: "btn sm" }, own ? "Pakai" : "Beli " + tryIt.p); if (!own && (P.coin | 0) < tryIt.p) go.disabled = true;
-    go.addEventListener("click", () => { ZVUI.try = ""; if (own) { zvEquip(tryIt.id); renderGudangZv(); } else zvBuy(tryIt.id); renderMaps(); });
-    const no = el("button", { type: "button", class: "btn alt sm" }, "Batal cuba"); no.addEventListener("click", () => { ZVUI.try = ""; renderGudangZv(); });
-    nt.append(go, no); ctl.appendChild(nt);
+  const vw = (t, f) => { const b = el("button", { type: "button", class: "avs-vw" }, t); b.addEventListener("click", f); return b; };
+  hero.append(pv, el("span", { class: "avs-3d", "aria-hidden": "true" }, "3D"), el("div", { class: "avs-vws" }, vw("Depan", () => AV3.pvView && AV3.pvView(0)), vw("Sisi", () => AV3.pvView && AV3.pvView(Math.PI / 2)), vw("＋", () => AV3.pvZoom && AV3.pvZoom(-1.5)), vw("－", () => AV3.pvZoom && AV3.pvZoom(1.5))), el("span", { class: "avs-hint" }, "⟲ Seret untuk pusing"), el("span", { class: "avs-spark", "aria-hidden": "true" }, "✨"));
+  box.appendChild(hero);
+  if (cuba) {
+    const nt = el("div", { class: "avs-try" }), lbl = tryIt ? tryIt.n : (ZV_SET.find((x) => x[0] === ZVUI.setTry) || ["", "Set"])[1];
+    nt.append(el("span", null, "👕 Mencuba: ", el("b", null, lbl)));
+    const items = tryIt ? [tryIt] : zvSetItem(z, ZV_SET.find((x) => x[0] === ZVUI.setTry)), semua = items.every((it) => zvMilik(z, it)), harga = items.filter((it) => !zvMilik(z, it)).reduce((a, it) => a + it.p, 0);
+    const go = el("button", { type: "button", class: "avs-btn sm " + (semua ? "avs-hijau" : "avs-ungu") }, semua ? "Pakai" : "Beli " + harga + " MD"); go.addEventListener("click", () => { if (semua) { items.forEach((it) => { z.eq[it.s] = it.id; }); saveP(); ZVUI.try = ""; ZVUI.setTry = ""; zvRai(); renderGudangZv(); try { renderMaps(); } catch (x) { /* abaikan */ } } else zvBeliDlg(items, lbl); });
+    const no = el("button", { type: "button", class: "avs-btn sm avs-putih" }, "Batal"); no.addEventListener("click", () => { ZVUI.try = ""; ZVUI.setTry = ""; renderGudangZv(); });
+    nt.append(el("div", { class: "avs-row" }, go, no)); box.appendChild(nt);
   }
-  hero.append(pv, ctl);
-  const shop = el("div", { class: "zvshop" });
-  shop.appendChild(segBtns(ZV_SLOTS, ZVUI.slot, (v) => { ZVUI.slot = v; renderGudangZv(); }, "Jenis barang"));
-  if (ZVUI.slot === "bd") {
-    /* v18.3: reka lencana sekolah sendiri */
-    const sb = zvSb(z), pan = el("div", { class: "notice zvsb" }), put = (o) => { z.sb = Object.assign({}, zvSb(z), o); z.sb = zvSb(z); saveP(); renderGudangZv(); renderMaps(); };
+  const gen = el("div", { class: "avs-gen", role: "group", "aria-label": "Jantina avatar" });
+  [["L", "♂", "Lelaki"], ["P", "♀", "Perempuan"]].forEach(([g, ic, t]) => { const b = el("button", { type: "button", class: "avs-g" + (z.g === g ? " on" : "") + " avs-g" + g, "aria-pressed": String(z.g === g) }, el("i", { "aria-hidden": "true" }, ic), t); b.addEventListener("click", () => { if (z.g === g) return; z.g = g; ZVUI.try = ""; ZVUI.setTry = ""; saveP(); renderGudangZv(); try { renderMaps(); } catch (x) { /* abaikan */ } }); gen.appendChild(b); });
+  const sw = el("div", { class: "avs-sw", role: "group", "aria-label": "Warna kulit" });
+  ZV_SKIN.forEach((c, i) => { const b = el("button", { type: "button", "aria-label": "Warna kulit " + (i + 1), "aria-pressed": (z.sk | 0) === i ? "true" : "false" }); b.style.background = c; b.addEventListener("click", () => { z.sk = i; saveP(); renderGudangZv(); try { renderMaps(); } catch (x) { /* abaikan */ } }); sw.appendChild(b); });
+  const sv = el("button", { type: "button", class: "avs-btn avs-ungu avs-big" }, "💾 Simpan Gaya"); sv.addEventListener("click", zvSimpanGaya);
+  const rw = el("button", { type: "button", class: "avs-btn avs-mint" }, "🔀 Rawak"); rw.addEventListener("click", zvRawak);
+  const tg = el("button", { type: "button", class: "avs-btn avs-merah" }, "🗑 Tanggalkan Semua"); tg.addEventListener("click", () => { if (!confirm("Tanggalkan semua item dan kembali ke pakaian asas?")) return; z.eq = {}; ZVUI.try = ""; saveP(); renderGudangZv(); try { renderMaps(); } catch (x) { /* abaikan */ } });
+  const ss = el("button", { type: "button", class: "avs-btn avs-biru" }, "👗 Set Saya" + (Array.isArray(z.sets) && z.sets.length ? " (" + z.sets.length + ")" : "")); ss.addEventListener("click", zvGayaDlg);
+  box.append(el("div", { class: "avs-ctl" }, gen, el("div", { class: "avs-lbl" }, "Warna kulit"), sw, el("div", { class: "avs-mdrow" }, el("span", { class: "avs-coin lg", "aria-hidden": "true" }), el("b", null, walFmt(P.coin | 0) + " MD")), sv, el("div", { class: "avs-row3" }, rw, tg, ss)));
+  /* C. kedai / koleksi */
+  const tab = ZV_TAB.find((t) => t[0] === ZVUI.slot) || ZV_TAB[0];
+  const shop = el("div", { class: "avs-shop" });
+  shop.appendChild(el("div", { class: "avs-sh" }, el("span", { class: "avs-hic sm", "aria-hidden": "true" }, tab[2]), el("div", null, el("h2", null, tab[1]), el("p", null, ZV_TAB_SUB[tab[0]] || ""))));
+  const chips = el("div", { class: "avs-chips", role: "tablist", "aria-label": "Kategori item" });
+  ZV_TAB.forEach(([k, n, ic]) => { const b = el("button", { type: "button", role: "tab", class: "avs-chip" + (k === tab[0] ? " on" : ""), "aria-selected": String(k === tab[0]) }, el("i", { "aria-hidden": "true" }, ic), n); b.addEventListener("click", () => { ZVUI.slot = k; renderGudangZv(); }); chips.appendChild(b); });
+  shop.appendChild(chips);
+  const kadKlik = (it) => { ZVUI.det = it.id; renderGudangZv(); window.scrollTo({ top: 0 }); };
+  /* warna baju / warna penutup dalam tab yang sama */
+  const warna = tab[0] === "ou" ? ["oc", "Warna baju"] : tab[0] === "hd" ? ["hc", "Warna penutup"] : null;
+  if (warna) {
+    const wr = el("div", { class: "avs-warna" }, el("span", { class: "avs-lbl" }, warna[1]));
+    const arr = warna[0] === "oc" ? ZV_OCOL : ZV_HCOL;
+    ZV_IT.filter((it) => it.s === warna[0]).forEach((it) => { const own = zvMilik(z, it), on = e[it.s] === it.id, b = el("button", { type: "button", class: "avs-wc" + (on ? " on" : ""), "aria-label": it.n + (own ? "" : ", " + it.p + " MD"), title: it.n + (own ? "" : " · " + it.p + " MD") }); b.style.background = zvCol(arr, it.id); if (!own) b.appendChild(el("span", null, it.p)); b.addEventListener("click", () => { if (own) zvPakai(it.id); else { ZVUI.try = it.id; renderGudangZv(); } }); wr.appendChild(b); });
+    shop.appendChild(wr);
+  }
+  if (tab[0] === "bd") {
+    /* v18.3: reka lencana sekolah sendiri (dikekalkan) */
+    const sb = zvSb(z), pan = el("div", { class: "avs-sb" }), put = (o) => { z.sb = Object.assign({}, zvSb(z), o); z.sb = zvSb(z); saveP(); renderGudangZv(); try { renderMaps(); } catch (x) { /* abaikan */ } };
     const pv2 = el("span", { class: "zvsbpv" }); pv2.innerHTML = '<svg viewBox="-9 -9 18 18" width="54" height="54">' + zvSbSvg(sb, 0, 0, 1) + "</svg>";
     const inp = el("input", { maxlength: "7", value: sb.t, "aria-label": "Singkatan sekolah", autocomplete: "off" }); inp.addEventListener("change", () => put({ t: inp.value }));
-    const sw2 = el("div", { class: "zvsw", role: "group", "aria-label": "Warna lencana" });
+    const sw2 = el("div", { class: "avs-sw sm", role: "group", "aria-label": "Warna lencana" });
     ZV_SBC.forEach((c, i) => { const b = el("button", { type: "button", "aria-label": "Warna lencana " + (i + 1), "aria-pressed": sb.c === i ? "true" : "false" }); b.style.background = c; b.addEventListener("click", () => put({ c: i })); sw2.appendChild(b); });
-    const on = e.bd === "bd_sk", use = el("button", { type: "button", class: "btn sm" + (on ? " alt" : "") }, on ? "Sedang dipakai" : "Pakai lencana sekolah"); use.disabled = on; use.addEventListener("click", () => { zvEquip("bd_sk"); renderGudangZv(); renderMaps(); });
-    pan.append(el("div", { class: "zvsbh" }, pv2, el("div", null, el("b", null, "Lencana sekolah anda"), el("div", { class: "muted", style: "font-size:13px" }, (cleanSekolah(P.sekolah) || "Sekolah anda") + " · dipaparkan di dada avatar 3D dan dilihat rakan"))),
-      el("div", { class: "zvsbr" }, el("span", { class: "zvlbl" }, "Singkatan"), inp), el("div", { class: "zvsbr" }, el("span", { class: "zvlbl" }, "Warna"), sw2),
-      segBtns([["0", "Perisai"], ["1", "Bulat"], ["2", "Segi enam"]], String(sb.s), (v) => put({ s: +v }), "Bentuk lencana"), use);
+    const on = e.bd === "bd_sk", use = el("button", { type: "button", class: "avs-btn sm " + (on ? "avs-hijau" : "avs-ungu") }, on ? "✓ Dipakai" : "Pakai lencana sekolah"); use.disabled = on; use.addEventListener("click", () => zvPakai("bd_sk"));
+    const bentuk = el("div", { class: "avs-row" }); [["0", "Perisai"], ["1", "Bulat"], ["2", "Segi enam"]].forEach(([v, t]) => { const b = el("button", { type: "button", class: "avs-chip sm" + (String(sb.s) === v ? " on" : "") }, t); b.addEventListener("click", () => put({ s: +v })); bentuk.appendChild(b); });
+    pan.append(el("div", { class: "avs-sbh" }, pv2, el("div", null, el("b", null, "Lencana sekolah anda"), el("div", { class: "avs-muted" }, cleanSekolah(P.sekolah) || "Sekolah anda"))), el("div", { class: "avs-sbr" }, el("span", { class: "avs-lbl" }, "Singkatan"), inp), el("div", { class: "avs-sbr" }, el("span", { class: "avs-lbl" }, "Warna"), sw2), bentuk, use);
     shop.appendChild(pan);
   }
-  const grid = el("div", { class: "zvgrid" });
-  ZV_IT.filter((it) => it.s === ZVUI.slot && (it.g === "*" || it.g === z.g)).sort((a, b) => a.p - b.p).forEach((it) => {
-    const own = it.p === 0 || z.own.indexOf(it.id) >= 0, on = e[it.s] === it.id;
-    const c = el("div", { class: "zvit" + (on ? " on" : "") });
-    const ev = Object.assign({}, e); ev[it.s] = it.id;
-    const p = el("button", { type: "button", class: "zvmini", title: "Cuba pada avatar 3D", "aria-label": "Cuba " + it.n + " pada avatar 3D" });
-    if (it.s === "ef") p.append(el("span", { class: "zvfx" }, { ef_no: "—", ef_bt: "✨", ef_pl: "🌈", ef_jp: "🚀" }[it.id] || "✨"));
-    else if (it.s === "rc") p.append(el("span", { class: "zvfx" }, { rc_tp: "👏", rc_sj: "🤲", rc_ab: "🙌", rc_lg: "🤸", rc_tr: "💃", rc_si: "⚽" }[it.id] || "🎉"));
-    else p.innerHTML = zvSvg(z, 78, { eq: ev, noframe: it.s !== "fr" });
-    p.addEventListener("click", () => { ZVUI.try = on ? "" : it.id; renderGudangZv(); window.scrollTo({ top: 0, behavior: "smooth" }); });
-    const b = el("button", { type: "button", class: "btn sm" + (own ? " alt" : "") }, on ? "Dipakai" : own ? "Pakai" : "Beli " + it.p);
-    if (on || (!own && (P.coin | 0) < it.p)) b.disabled = true;
-    b.addEventListener("click", () => { if (own) { zvEquip(it.id); renderGudangZv(); renderMaps(); } else { zvBuy(it.id); renderMaps(); } });
-    c.append(p, el("b", null, it.n), el("span", { class: "muted", style: "font-size:13px" }, own ? (on ? "Sedang dipakai" : "Dimiliki") : it.p + " MD" + ((P.coin | 0) < it.p ? " (kurang " + (it.p - (P.coin | 0)) + ")" : "")), b);
-    grid.appendChild(c);
-  });
+  const grid = el("div", { class: "avs-grid" });
+  if (tab[0] === "set") {
+    ZV_SET.forEach((set) => {
+      const items = zvSetItem(z, set); if (items.length < 2) return;
+      const ev = Object.assign({}, e); items.forEach((it) => { ev[it.s] = it.id; });
+      const semua = items.every((it) => zvMilik(z, it) && e[it.s] === it.id), milik = items.every((it) => zvMilik(z, it)), harga = items.filter((it) => !zvMilik(z, it)).reduce((a, it) => a + it.p, 0);
+      const c = el("div", { class: "avs-card avs-setk" + (semua ? " on" : "") }); if (semua) c.appendChild(el("span", { class: "avs-tick", "aria-hidden": "true" }, "✓"));
+      const pv2 = el("button", { type: "button", class: "avs-img", "aria-label": "Cuba " + set[1] }); pv2.innerHTML = zvSvg(z, 92, { eq: ev, noframe: true }); pv2.addEventListener("click", () => { ZVUI.setTry = set[0]; ZVUI.try = ""; renderGudangZv(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      const b = el("button", { type: "button", class: "avs-btn sm " + (semua ? "avs-hijau" : milik ? "avs-mint" : "avs-ungu") }, semua ? "✓ Dipakai" : milik ? "Pakai set" : "Beli " + harga + " MD"); b.disabled = semua;
+      b.addEventListener("click", () => { if (milik) { items.forEach((it) => { z.eq[it.s] = it.id; }); saveP(); zvRai(); renderGudangZv(); try { renderMaps(); } catch (x) { /* abaikan */ } } else zvBeliDlg(items, set[1]); });
+      const cb = el("button", { type: "button", class: "avs-cuba" }, "👕 Cuba"); cb.addEventListener("click", () => { ZVUI.setTry = set[0]; ZVUI.try = ""; renderGudangZv(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      c.append(pv2, el("b", { class: "avs-nm" }, set[2] + " " + set[1]), el("span", { class: "avs-st" }, items.map((it) => it.n).join(" · ")), el("div", { class: "avs-row" }, b, semua ? null : cb));
+      grid.appendChild(c);
+    });
+  } else {
+    const list = tab[0] === "free" ? ZV_IT.filter((it) => it.p === 0 && zvJantinaOk(z, it) && !/_no$/.test(it.id) && it.s !== "oc" && it.s !== "hc") : ZV_IT.filter((it) => it.s === tab[0] && zvJantinaOk(z, it));
+    list.sort((a, b) => a.p - b.p).forEach((it) => grid.appendChild(zvKad(z, e, it, kadKlik)));
+  }
   shop.appendChild(grid);
-  box.append(hero, shop);
+  box.appendChild(shop);
 }
 
 
