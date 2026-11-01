@@ -11,6 +11,50 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.74 · Avatar Studio (Gudang avatar direka semula ikut lakaran)
+
+- **Audit (sebelum):**
+  - halaman gelap;
+  - 12 butang kategori bertimbun;
+  - kad item ringkas;
+  - avatar 3D tanpa wajah;
+  - beli terus tanpa pengesahan.
+- **Avatar Studio:**
+  - kepala halaman: ikon, tajuk, MD dan bantuan ❓;
+  - pratonton 3D di atas pentas cerah dengan gelang bercahaya, butang Depan/Sisi dan zum ＋/－, serta "Seret untuk pusing";
+  - butang jantina Lelaki/Perempuan dan warna kulit;
+  - butang **Simpan Gaya**, **Rawak**, **Tanggalkan Semua** dan **Set Saya** (maksimum 4 gaya, `P.zv.sets`).
+- **Kedai:**
+  - cip kategori berikon;
+  - Warna baju dan Warna penutup digabung ke dalam tab Pakaian dan Penutup Kepala;
+  - tab **Set Lengkap** (Sekolah, Sekolah Agama, Sukan, Hari Raya, PBSM, Pengakap, Kadet Polis) dan tab **Percuma**.
+- **Kad item:**
+  - tahap Percuma, Biasa, ★ Rare atau 💎 Istimewa (ikut harga);
+  - ✓ Dipakai, Dimiliki → Pakai, Beli N, atau "Kurang N MD";
+  - butang 👕 Cuba.
+- **Halaman butiran:**
+  - pratonton besar, keterangan, harga dan status milikan;
+  - butang Cuba Dulu, Beli Sekarang dan Pakai;
+  - **Padanan Sesuai**: 3 aksesori yang sepadan.
+- **Pembelian:**
+  - dialog pengesahan ringkas dengan baki selepas beli;
+  - jika MD tidak cukup, cara mendapatkan MD dipaparkan.
+- **Interaksi:**
+  - selepas memakai item, avatar bertepuk dan percikan ✨;
+  - wajah ringkas (mata, senyuman, pipi) pada avatar 3D dan 2D;
+  - mata berkelip.
+- **Data kekal:**
+  - `P.zv` (g, sk, own, eq, sb), harga, slot, MD, lencana sekolah dan integrasi dengan Meta Didik dan peta tidak berubah;
+  - medan baharu `sets` adalah pilihan.
+- **Tidak dibuat:**
+  - "Popular minggu ini" dan "Murid lain juga suka", kerana tiada data penggunaan sebenar dan saya tidak mahu memaparkan populariti palsu;
+  - item ganjaran kuiz dan koleksi mingguan (fasa seterusnya).
+- **Ujian:**
+  - Node 59/59;
+  - Playwright 390×844: beli Baju Melayu melalui dialog (160 → 40 MD), set lengkap, simpan gaya, rawak, "Kurang N MD", wajah 3D lelaki/perempuan, dunia Meta Didik masih dimuat;
+  - tiada `pageerror`.
+  - Tangkapan: `docs/reka-semula/avatar-studio.jpg`.
+
 ## 2026-11-01 · v18.73 · Kuiz Tahun 1–6 dan Tingkatan 1–6 (draf) untuk BM, Matematik, Sains dan Pendidikan Islam
 
 - **Kandungan:** 585 soalan dan 117 tajuk baharu, ditanda **draf, perlu semakan guru**. DSKP rasmi tidak dapat dicapai; lihat `docs/KUIZ-DRAF.md`.
