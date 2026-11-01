@@ -11,6 +11,31 @@ Status fasa ada dalam `ROADMAP.md`.
 
 ---
 
+## 2026-11-01 · v18.70 · Butang bunyi, tenaga 3 kali makan sehari, permainan kendiri sebagai Stesen Inovasi
+
+- **Butang bunyi (jimat bateri):**
+  - butang 🔊/🔇 di lajur kanan HUD dan dalam Menu Utama;
+  - pilihan disimpan (`gt-lm-senyap`);
+  - apabila senyap, AudioContext digantung supaya tidak menggunakan CPU.
+- **Tenaga:**
+  - kadar susut dikurangkan: berjalan 0.5 → 0.2, lari 0.8 → 0.28, renang 0.9 → 0.32 % sesaat;
+  - tenaga penuh tahan kira-kira 8 minit pergerakan berterusan, iaitu 8 jam permainan;
+  - setiap kali makan (kedai makan atau kantin) tenaga menjadi penuh, jadi 3 kali makan sehari (permainan) mencukupi.
+- **Permainan kendiri sebagai Stesen Inovasi Meta Didik:**
+  - lokasi terlibat: Tempur dan Misi Lagenda (kem), Amali (masjid), Dunia Ilmu (perpustakaan), Busana (butik) dan Nelayan (jeti), iaitu 42 lokasi;
+  - setiap lokasi kini ada lampu emas, nota "⭐ Stesen Inovasi Meta Didik · soalan <subjek semasa> · harga", dan tanda emas pada peta mini dan peta besar;
+  - murid membayar MD sekali sehari bagi setiap permainan dan subjek melalui `stesen_guna/md-<permainan>-<subjek>` (Rules sedia ada, tidak berubah).
+- **Pentadbir (Dashboard → tabung dan tuntutan MD):**
+  - bahagian baharu "Permainan kendiri murid";
+  - butang **Pasang stesen rasmi** (54 rekod: 6 permainan × 9 subjek, harga 5 hingga 50 MD);
+  - jumlah MD diterima daripada murid setiap bulan mengikut permainan dan subjek.
+  - MD ini **tidak** diagih kepada guru dalam tabung.
+  - Sebelum dipasang, permainan kendiri kekal percuma.
+- **Ujian:**
+  - Node 59/59;
+  - Playwright: 42 lokasi berlampu emas, butang bunyi tersimpan, kad kem memaparkan nota stesen, bayaran 40 → 35 MD direkod di `stesen_guna/md-tp-tw/...`, papan pentadbir mengasingkan MD guru (10) dan MD permainan (15), pasang 54 stesen;
+  - tiada `pageerror`.
+
 ## 2026-11-01 · v18.69 · Gelaran guru/pelawat dan pintasan Salam
 
 - **Pendaftaran:** guru dan pelawat memilih gelaran pada langkah 2.
