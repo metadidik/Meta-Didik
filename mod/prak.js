@@ -281,7 +281,7 @@ function hjOpen(k, opt) {
 function hjClose() {
   const only = HJ.only; HJ.only = null; if (only && only.done && !only.fired) { only.fired = true; setTimeout(() => only.done(0, 0, false), 0); }
   HJ.open = false; cancelAnimationFrame(HJ.raf); hj3Close(); HJ.raf = 0; HJ.g = null; window.removeEventListener("keydown", hjKey, true); window.removeEventListener("keyup", hjKey, true);
-  try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) { /* abaikan */ }
+  try { if (document.fullscreenElement && !window.MD_APPFS) document.exitFullscreen(); } catch (e) { /* abaikan */ }
   if (HJ.root) { HJ.root.remove(); HJ.root = null; } HJ.cv = null; HJ.ui = {}; document.body.classList.remove("ar-lock"); if (typeof renderPrak === "function") renderPrak();
 }
 function hjMenu() {

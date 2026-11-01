@@ -134,7 +134,7 @@ function slClose() {
   clearInterval(SL.tmr); SL.open = false;
   if (SL.root) { SL.root.hidden = true; SL.root.textContent = ""; }
   document.body.classList.remove("ar-lock");
-  try { if (arFsOn()) (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) { /* abaikan */ }
+  try { if (arFsOn() && !window.MD_APPFS) (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) { /* abaikan */ }
   window.removeEventListener("keydown", slKey, true);
 }
 function slRender() {
